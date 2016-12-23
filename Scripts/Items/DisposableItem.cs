@@ -11,13 +11,18 @@ public class DisposableItem : Item{
 
     Buff buff;
     int usingNumber = 1;
-    
 
+    /*@SetUsingNumber
+     *@设置一次性道具的使用次数
+     *@number  将次数设置为number
+     */
     void SetUsingNumber(int number)
     {
         usingNumber = number;
     }
-
+    /*@GetUsingNumber
+     *@获得一次性道具的使用次数
+     */
     int GetUsingNumber()
     {
 
@@ -26,9 +31,9 @@ public class DisposableItem : Item{
 
 
     //need Buff,Skill
-    /*Use
-     *一次性道具的使用
-     *返回：Buff 道具增加的buff，如果道具是使用skill，则返回null
+    /*@Use
+     *@一次性道具的使用
+     *@返回：Buff 道具增加的buff，如果道具是使用skill，则返回null
      */
     public void Use()
     {
@@ -41,9 +46,9 @@ public class DisposableItem : Item{
     }
 
     //need Buff,Skill
-    /*Create
-     *设置该道具的一些相关属性
-     *ID 该道具的ID
+    /*@Create
+     *@设置该道具的一些相关属性
+     *@ID 该道具的ID
      */
     public void Create(int ID)
     {
@@ -55,8 +60,8 @@ public class DisposableItem : Item{
 
     }
 
-    /*Destroy
-     *销毁该实例
+    /*@Destroy
+     *@销毁该实例
      */
     public void Destroy()
     {
