@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour {
             return instance;
         else
         {
-            Debug.Log("SoundManager is null !")
+            Debug.Log("SoundManager is null !");
             return null;
         }
          

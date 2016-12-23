@@ -1,0 +1,19 @@
+12.22 CEJ Item增加接口：void Create(int ID)。//设置Item的ID
+12.22 YYF SoundManager增加接口:1.void PauseSoundEffect();//暂停音效播放
+			       2.void ResumeBackGroundMusic();//恢复背景音乐播放
+			       3.void ResumeSoundEffect();//恢复音效播放
+		      修改接口:4.void PlayBackGroundMusic(AudioClip clip)
+			       5.void PlaySoundEffect(AudioClip clip)
+			    注:将musicID和effectID改为AudioClip clip,更符合Unity规范。
+12.22 LKS Box
+　　修改接口：void OpenBox()//打开宝箱
+			删除变量：Sprite openedSprites, int state, int itemID
+			删除接口：void ChangeState(),int AddItems()
+
+			添加变量：AudioClip appearTrap//陷阱出现时的音效
+					AudioClip touchTrap//触发陷阱的音效
+			删除变量：trapSound
+			添加接口：void GetDamage()//获取陷阱伤害
+					void PlaySoundOfTouchTrap()//播放触发陷阱音效
+			删除接口：void AttackPlayer()
+					Void OnTriggerEnter2D()//碰撞检测由Player完成
