@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*SoundManager
+ *@Brief  负责管理游戏的音频
+ *@Author YYF
+ *@Time   16.12.23
+ */
 public class SoundManager : MonoBehaviour {
 
     /*GetInstance
@@ -21,8 +26,8 @@ public class SoundManager : MonoBehaviour {
 
     /*PlayBackGroundMusic
      *@Brief 播放背景音乐 
-     *@Param clip 该播放的clip音频
-     *@Param loop 是否循环,默认循环 
+     *@Param1 clip 该播放的clip音频
+     *@Param2 loop 是否循环,默认循环 
      */
     public void PlayBackGroundMusic(AudioClip clip,bool loop=true)
     {
@@ -33,8 +38,8 @@ public class SoundManager : MonoBehaviour {
 
     /*PlaySoundEffect
     *@Brief 播放音效 
-    *@Param clip 该播放的clip音频
-    *@Param loop 是否循环,默认不循环 
+    *@Param1 clip 该播放的clip音频
+    *@Param2 loop 是否循环,默认不循环 
     */
     public void PlaySoundEffect(AudioClip clip,bool loop=false)
     {
@@ -51,7 +56,7 @@ public class SoundManager : MonoBehaviour {
         musicSource.Stop();
     }
 
-    /*StopBackGroundMusic
+    /*StopSoundEffect
      *@Brief 停止播放音效 
      */
     public void StopSoundEffect()
