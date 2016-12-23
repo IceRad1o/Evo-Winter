@@ -1,0 +1,357 @@
+fileFormatVersion: 2
+guid: 0cabdff2a7a7a1541a85012d038555dd
+timeCreated: 1481455815
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Sloth_0
+    21300002: Sloth_1
+    21300004: Sloth_2
+    21300006: Sloth_3
+    21300008: Sloth_4
+    21300010: Sloth_5
+    21300012: Sloth_6
+    21300014: Sloth_7
+    21300016: Sloth_8
+    21300018: Sloth_9
+    21300020: Sloth_10
+    21300022: Sloth_11
+    21300024: Sloth_12
+    21300026: Sloth_13
+    21300028: Sloth_14
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Sloth_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 428
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37, y: 40}
+        - {x: -40, y: 34}
+        - {x: -40, y: -33}
+        - {x: -21, y: -40}
+        - {x: 23, y: -40}
+        - {x: 40, y: -24}
+        - {x: 40, y: 39}
+        - {x: 35, y: 40}
+    - name: Sloth_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 428
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37, y: 40}
+        - {x: -40, y: 34}
+        - {x: -40, y: -33}
+        - {x: -21, y: -40}
+        - {x: 23, y: -40}
+        - {x: 40, y: -24}
+        - {x: 40, y: 39}
+        - {x: 35, y: 40}
+    - name: Sloth_2
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 428
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37, y: 40}
+        - {x: -40, y: 34}
+        - {x: -40, y: -33}
+        - {x: -21, y: -40}
+        - {x: 23, y: -40}
+        - {x: 40, y: -24}
+        - {x: 40, y: 39}
+        - {x: 35, y: 40}
+    - name: Sloth_3
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 342
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37, y: 40}
+        - {x: -40, y: 34}
+        - {x: -40, y: -33}
+        - {x: -21, y: -40}
+        - {x: 23, y: -40}
+        - {x: 40, y: -24}
+        - {x: 40, y: 39}
+        - {x: 35, y: 40}
+    - name: Sloth_4
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 342
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37, y: 40}
+        - {x: -40, y: 34}
+        - {x: -40, y: -33}
+        - {x: -21, y: -40}
+        - {x: 23, y: -40}
+        - {x: 40, y: -24}
+        - {x: 40, y: 39}
+        - {x: 35, y: 40}
+    - name: Sloth_5
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 343
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 40}
+        - {x: -40, y: 28}
+        - {x: -40, y: -24}
+        - {x: -21, y: -40}
+        - {x: 35, y: -40}
+        - {x: 40, y: -22}
+        - {x: 40, y: 28}
+        - {x: 30, y: 40}
+    - name: Sloth_6
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 256
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37, y: 40}
+        - {x: -40, y: 34}
+        - {x: -40, y: -33}
+        - {x: -21, y: -40}
+        - {x: 23, y: -40}
+        - {x: 40, y: -24}
+        - {x: 40, y: 39}
+        - {x: 35, y: 40}
+    - name: Sloth_7
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 257
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 40}
+        - {x: -40, y: 28}
+        - {x: -40, y: -24}
+        - {x: -21, y: -40}
+        - {x: 35, y: -40}
+        - {x: 40, y: -22}
+        - {x: 40, y: 28}
+        - {x: 30, y: 40}
+    - name: Sloth_8
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 258
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37, y: 40}
+        - {x: -40, y: 34}
+        - {x: -40, y: -33}
+        - {x: -21, y: -40}
+        - {x: 23, y: -40}
+        - {x: 40, y: -24}
+        - {x: 40, y: 39}
+        - {x: 35, y: 40}
+    - name: Sloth_9
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 171
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 40}
+        - {x: -40, y: 28}
+        - {x: -40, y: -24}
+        - {x: -21, y: -40}
+        - {x: 35, y: -40}
+        - {x: 40, y: -22}
+        - {x: 40, y: 28}
+        - {x: 30, y: 40}
+    - name: Sloth_10
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 172
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37, y: 40}
+        - {x: -40, y: 34}
+        - {x: -40, y: -33}
+        - {x: -21, y: -40}
+        - {x: 23, y: -40}
+        - {x: 40, y: -24}
+        - {x: 40, y: 39}
+        - {x: 35, y: 40}
+    - name: Sloth_11
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 87
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 40}
+        - {x: -40, y: 28}
+        - {x: -40, y: -24}
+        - {x: -21, y: -40}
+        - {x: 35, y: -40}
+        - {x: 40, y: -22}
+        - {x: 40, y: 28}
+        - {x: 30, y: 40}
+    - name: Sloth_12
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 87
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 40}
+        - {x: -40, y: 28}
+        - {x: -40, y: -24}
+        - {x: -21, y: -40}
+        - {x: 35, y: -40}
+        - {x: 40, y: -22}
+        - {x: 40, y: 28}
+        - {x: 30, y: 40}
+    - name: Sloth_13
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 3
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 40}
+        - {x: -40, y: 28}
+        - {x: -40, y: -24}
+        - {x: -21, y: -40}
+        - {x: 35, y: -40}
+        - {x: 40, y: -22}
+        - {x: 40, y: 28}
+        - {x: 30, y: 40}
+    - name: Sloth_14
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 3
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 40}
+        - {x: -40, y: 28}
+        - {x: -40, y: -24}
+        - {x: -21, y: -40}
+        - {x: 35, y: -40}
+        - {x: 40, y: -22}
+        - {x: 40, y: 28}
+        - {x: 30, y: 40}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
