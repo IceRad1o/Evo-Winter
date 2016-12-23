@@ -33,7 +33,7 @@ public class Missile : MonoBehaviour {
         flySpeed += speed;
     }
     //发射物数量
-    void SetNumber(float num)
+    void SetNumber(int num)
     {
         number = num;
     }
@@ -41,7 +41,7 @@ public class Missile : MonoBehaviour {
     {
         return number;
     }
-    void ChangeNumber(float num)
+    void ChangeNumber(int num)
     {
         number+=num;
     }
