@@ -24,6 +24,9 @@ public class UIManager : MonoBehaviour {
 
         Button lBtn = LButton.GetComponent<Button>();
         jBtn.onClick.AddListener(OnNormalAttack);
+
+        Button photeBtn = PhoteButton.GetComponent<Button>();
+        //photeBtn.onClick.AddListener(OnPhote)
 	}
 	
 
