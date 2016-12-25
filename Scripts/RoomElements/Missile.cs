@@ -58,4 +58,9 @@ public class Missile : MonoBehaviour {
     {
         damage+=dam;
     }
+    //穿透性
+    void SetPenetrating(bool boo)
+    {
+        penetrating = boo;
+    }
 }
