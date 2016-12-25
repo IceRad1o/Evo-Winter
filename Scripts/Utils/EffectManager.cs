@@ -45,6 +45,7 @@ public class EffectManager : MonoBehaviour {
 
     void Awake()
     {
+        
         if (instance == null)
             instance = this;
         else if (instance != this)
