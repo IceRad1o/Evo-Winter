@@ -3,6 +3,10 @@ using System.Collections;
 
 public class EffectManager : MonoBehaviour {
 
+
+    private GameObject[] effects;
+
+
     /*GetInstance
     *@Brief 获取一个UtilManager实例 
     *@Return UtilManager
@@ -19,13 +23,10 @@ public class EffectManager : MonoBehaviour {
     }
 
 
-    void PlayEffect(int effectID)
+    GameObject InstantiateEffect(int effectID)
     {
-        //DisposableItem itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
-
-        //itemInstance.Create(1001);
-
-        //StartCoroutine(Test1(itemInstance));
+        GameObject effect = Instantiate(effects[effectID]);
+        return effect;
     }
 
 
