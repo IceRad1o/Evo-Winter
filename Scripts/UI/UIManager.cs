@@ -8,6 +8,11 @@ using System.Collections;
  *@Time 17.1.25 
  *@Update at 17.1.26
  */
+/// <summary>
+/// <para>Brief 负责管理游戏UI交互</para>
+/// <para>Author YYF</para>
+/// <para>Time 17.1.26</para>
+/// </summary>
 public class UIManager : UnitySingleton<UIManager>
 {
     //8个子构件
@@ -72,5 +77,18 @@ public class UIManager : UnitySingleton<UIManager>
         moveBall = MoveBall.Instance;
         attackButtonManager = AttackButtonManager.Instance;
         itemButtonManager = ItemButtonManager.Instance;
+
+        Player.Instance.AddObserver(playerObserver);
+    }
+
+    PlayerObserver playerObserver=new PlayerObserver();
+    class PlayerObserver:Observer
+    {
+       public override void OnNotify(string msg)
+       {
+           if (msg == "HealthChanged")
+               UIManager.Instance.playerHealth.Health = (int)Player.Instance.Health;
+
+       }
     }
 }

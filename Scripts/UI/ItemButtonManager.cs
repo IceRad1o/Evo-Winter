@@ -44,7 +44,7 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
     /*OnInitiativeItem
      *@Brief 触发使用主动道具
      */
-    void OnInitiativeItem()
+    public void OnInitiativeItem()
     {
         Debug.Log("s使用主动道具");
         //NEED ItemManager.GetInstance().UseInitiativeItems();
@@ -54,7 +54,7 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
     /*OnDisposableItem
      *@Brief 触发使用一次性道具
      */
-    void OnDisposableItem()
+    public void OnDisposableItem()
     {
         Debug.Log("s使用一次性道具");
         //NEED ItemManager.GetInstance().UseDisposableItem();

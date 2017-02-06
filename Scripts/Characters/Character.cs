@@ -1,10 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Character : UnitySingleton<Character>
+public class Character:Subject
 {
 
+
     private float health;
+
+    public float Health
+    {
+        get { return health; }
+        set 
+        {
+            health = value;
+            Notify("HealthChanged");
+        }
+    }
     private float moveSpeed;
     private float attackSpeed;
     private float attackRange;
@@ -20,7 +31,7 @@ public class Character : UnitySingleton<Character>
 
     private int isAlive;//<0 死透 =0 正在死 >0 活着
     private int camp;
-   // private ActionStateMachine actionStateMachine;
+    private ActionStateMachine actionStateMachine;
 
     private int state;
     private Vector3 direction;
@@ -28,20 +39,37 @@ public class Character : UnitySingleton<Character>
     public Vector3 Direction
     {
         get { return direction; }
-        set { direction = value; }
+        set 
+        {
+        
+
+               Vector3 temp= gameObject.GetComponent<Transform>().localScale;
+               if(value.x*temp.x>0)
+                 temp.x = -temp.x;
+               gameObject.GetComponent<Transform>().localScale = temp;
+               // = gameObject.GetComponent<Transform>().localScale+new Vector3(-1,1,1);
+        
+          
+            direction = value;
+        }
     }
     public int State
     {
         get { return state; }
-        set { state = value; }
+        set 
+        {
+            if (state != value)
+            {
+                state = value;
+                actionStateMachine.Push(4 * state);              
+            }
+           
+        }
     }
     public virtual void Move()
-    {
-        Debug.Log("move前"+gameObject.transform.position);
-        
+    {     
         gameObject.transform.position += direction * moveSpeed;
-        Debug.Log("move后" + gameObject.transform.position);
-        
+       
     }
 
     public virtual void Attack()
@@ -61,32 +89,42 @@ public class Character : UnitySingleton<Character>
 
     public virtual void NormalAttack()
     {
-
+        actionStateMachine.Push(1);
     }
 
     public virtual void SpecialAttack()
     {
-
+        actionStateMachine.Push(2);
     }
 
     public virtual void UseRaceSkill()
     {
-
+        actionStateMachine.Push(3);
     }
 
-    void Start()
+    protected virtual void Start()
     {
+        Debug.Log("Character start");
         state = 0;
-        moveSpeed = 0.1f;
+        moveSpeed = 0.02f;
+        actionStateMachine = new ActionStateMachine();
+        actionStateMachine.Character = this;
     }
 
     public virtual void Update()
     {
-        Debug.Log("update进入");
         if(state==1)
         {
-            Debug.Log("update移动");
+           // Debug.Log("update移动");
             Move();
+           
         }
+      
+    }
+
+
+    void OnNotify()
+    {
+        Debug.Log("notify");
     }
 }

@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+/// <summary>
+/// Author YYF
+/// 负责3个攻击按钮的管理
+/// 待改善处 应该按下触发而不是离开触发
+/// </summary>
 public class AttackButtonManager : UnitySingleton<AttackButtonManager>
 {
 
@@ -42,17 +46,17 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
     /*OnNormalAttack
      *@Brief 触发普通攻击
      */
-    void OnNormalAttack()
+    public void OnNormalAttack()
     {
         Debug.Log("You have clicked the  JButton!");
-        //NEED Player.GetInstance().NormalAttack();
+        Player.Instance.NormalAttack();
         //TODO 若有冷却倒计时,则显示
     }
 
     /*OnSpecialAttack
      *@Brief 触发特殊攻击
      */
-    void OnSpecialAttack()
+    public void OnSpecialAttack()
     {
         Debug.Log("You have clicked the  KButton!");
         //NEED Player.GetInstance().SpecialAttack();
@@ -62,7 +66,7 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
     /*OnRaceSkill
      *@Brief 触发种族技能
      */
-    void OnRaceSkill()
+    public void OnRaceSkill()
     {
         Debug.Log("You have clicked the  LButton!");
         //NEED Player.GetInstance().UseRaceSkill();

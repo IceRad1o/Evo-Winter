@@ -48,9 +48,9 @@ public class AnimationManager : MonoBehaviour {
  
 #endif       
     }
-
+#if UNITY_STANDALONE_WIN
     public MovieTexture[] movTextures;  //电影纹理
-
+#endif
     private static AnimationManager instance = null;  //单例
 
     private int selAnimationID; //正在播放的动画ID
@@ -68,10 +68,12 @@ public class AnimationManager : MonoBehaviour {
 
     void Update()
     {
+#if UNITY_STANDALONE_WIN
         //当播放完毕使其不可见
         if (movTextures[selAnimationID].isPlaying == false&&GetComponent<MeshRenderer>().enabled)
         {
             GetComponent<MeshRenderer>().enabled = false;
         }
+#endif
     }
 }

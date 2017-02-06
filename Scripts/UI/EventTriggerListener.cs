@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 /// 事件触发封装 - 需要什么事件可扩展
 /// Event trigger listener.
 /// 这是一个静态类，用委托来传递你想要的事件。比如你再某个类中要监听你的 YourButton。
-//EventTriggerListener.Get(YourButton).onClick = onClickButtonHandler;
-//private void onClickButtonHandler( GameObject obj ){
-//    Debug.log("点击到了你的按钮");
-//｝
-// 
-//.onClick 可以换成其他的事件，如按下、抬起、划过等。我给你写的脚本只有几个事件，需要其他的你可以自己在那个类里再扩展
+///EventTriggerListener.Get(YourButton).onClick = onClickButtonHandler;
+///private void onClickButtonHandler( GameObject obj ){
+///    Debug.log("点击到了你的按钮");
+///｝
+/// 
+///.onClick 可以换成其他的事件，如按下、抬起、划过等。
 /// </summary>
+
 public class EventTriggerListener : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
     public delegate void VoidDelegate(GameObject go);
