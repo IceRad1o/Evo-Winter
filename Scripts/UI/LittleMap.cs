@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+/// <summary>
+/// Author YYF
+/// 小地图模块
+/// </summary>
 public class LittleMap : UnitySingleton<LittleMap>{
 
 

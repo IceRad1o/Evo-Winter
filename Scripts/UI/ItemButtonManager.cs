@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+/// <summary>
+/// Author YYF
+/// 管理2个使用道具按钮
+/// </summary>
 public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
 
     /*DestroyDisposableItem

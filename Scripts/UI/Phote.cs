@@ -2,6 +2,10 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// 头像模块
+/// 点击可查看详细信息
+/// </summary>
 public class Phote : UnitySingleton<Phote>
 {
 

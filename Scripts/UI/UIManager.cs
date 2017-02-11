@@ -9,7 +9,7 @@ using System.Collections;
  *@Update at 17.1.26
  */
 /// <summary>
-/// <para>Brief 负责管理游戏UI交互</para>
+/// <para>Brief 负责管理游戏UI元素</para>
 /// <para>Author YYF</para>
 /// <para>Time 17.1.26</para>
 /// </summary>
@@ -78,16 +78,16 @@ public class UIManager : UnitySingleton<UIManager>
         attackButtonManager = AttackButtonManager.Instance;
         itemButtonManager = ItemButtonManager.Instance;
 
-        Player.Instance.AddObserver(playerObserver);
+        Player.Instance.Character.AddObserver(playerObserver);
     }
 
-    PlayerObserver playerObserver=new PlayerObserver();
+    PlayerObserver playerObserver=new PlayerObserver(); //Player的观察者
     class PlayerObserver:Observer
     {
        public override void OnNotify(string msg)
        {
            if (msg == "HealthChanged")
-               UIManager.Instance.playerHealth.Health = (int)Player.Instance.Health;
+               UIManager.Instance.playerHealth.Health = (int)Player.Instance.Character.Health;
 
        }
     }

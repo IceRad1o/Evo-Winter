@@ -1,34 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 可通过键盘进行移动等操作
+/// 仅限PC端测试使用
+/// </summary>
 public class KeyBoardManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
+    int keyDownNum;
+    Vector3 direction;
+
+    void Start()
+    {
+        keyDownNum = 0;
+        direction = new Vector3(0, 0, 0);
+     
+    }
 	void Update () {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Player.Instance.Direction =new Vector3(0,1,0);
-            Player.Instance.State = 1;
+            direction=new Vector3(0,1,0);
+        
+            keyDownNum++;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Player.Instance.Direction = new Vector3(0, -1, 0);
-            Player.Instance.State = 1;
+            direction= new Vector3(0, -1, 0);
+           
+            keyDownNum++;
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Player.Instance.Direction = new Vector3(-1, 0, 0);
-            Player.Instance.State = 1;
+            direction= new Vector3(-1, 0, 0);
+           
+            keyDownNum++;
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Player.Instance.Direction = new Vector3(1, 0, 0);
-            Player.Instance.State = 1;
+            direction= new Vector3(1, 0, 0);
+           
+             keyDownNum++;
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -51,9 +62,31 @@ public class KeyBoardManager : MonoBehaviour {
             ItemButtonManager.Instance.OnInitiativeItem();
         }
 
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.W) )
         {
-            Player.Instance.State = 0;
+            keyDownNum--;
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            keyDownNum--;
+        }
+        if (Input.GetKeyUp(KeyCode.A) )
+        {
+            keyDownNum--;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            keyDownNum--;
+        }
+
+
+
+        if (keyDownNum == 0)
+            Player.Instance.Character.State = 0;
+        else
+        {
+            Player.Instance.Character.State = 1;
+            Player.Instance.Character.Direction = direction;
         }
 	}
 }

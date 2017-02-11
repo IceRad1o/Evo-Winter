@@ -82,7 +82,7 @@ public class MoveBall :UnitySingleton<MoveBall> {
         idleImg.SetActive(true);
         moveImg.SetActive(false);
 
-        Player.Instance.State = 0;
+        Player.Instance.Character.State = 0;
     }
 
 
@@ -111,7 +111,7 @@ public class MoveBall :UnitySingleton<MoveBall> {
             angle = -360 + Vector3.Angle(offset, oVector);
         moveImg.GetComponent<Transform>().rotation = Quaternion.Euler(0, 0, angle);
 
-        Player.Instance.Direction = offset;
-        Player.Instance.State = 1;
+        Player.Instance.Character.Direction = offset;
+        Player.Instance.Character.State = 1;
     }
 }

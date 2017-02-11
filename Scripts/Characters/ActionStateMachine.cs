@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ActionStateMachine {
 
-    private int state;  //状态栈,个位表示栈的第一个元素,十位表示第二个,类推
+    private int state;  //节点链,个位表示链的第一个元素,十位表示第二个,类推
     private float nextTime;
     private float intervalTime;
     private Character character;
@@ -23,7 +23,7 @@ public class ActionStateMachine {
     public void CheckActionState(){
 
     }
-    public void CallActionState(int state){
+    public void CallActionState(){
         Debug.Log("state:"+state);
         if (state < 0)
             return;
@@ -43,6 +43,9 @@ public class ActionStateMachine {
                 break;
             case 4:
                 Move();
+                break;
+            case 5:
+                Die();
                 break;
             case 11:
                 JJ();
@@ -69,8 +72,8 @@ public class ActionStateMachine {
                 KKK();
                 break;
             default:
-                state = state % 10;
-                CallActionState(state);
+                state = state % 10; //如果没有相应的状态与节点链对应,则表示进入的节点为新的节点链的首节点
+                CallActionState();
                 break;
         }
     }
@@ -78,88 +81,98 @@ public class ActionStateMachine {
 
     /*
      *@brief 将节点压入状态机 
-     *1=j,2=k,3=l,0=静止,4=移动
+     *1=j,2=k,3=l,0=静止,4=移动,5=死亡
      */
     public void Push(int node)
     {
 
- 
+        //如果时间大于状态机的响应时间,则新起一条链
         if (Time.time > nextTime)
             state = node;
+        //TODO 如果链已接受到下一个状态节点,且还未进入下一个状态节点,则不再接受新的节点
+        //由于unity自带的动作有缓存,貌似还不要紧
+
+        //如果链长度太大,则去掉前面无用节点 <异常处理>
         else if (state > 100000)
         {
             Debug.Log("State:" + state + " is too big!");
-            return;
+            state = state / 100;
         }
         else 
             state = state * 10 + node;
 
         nextTime = Time.time + intervalTime;
 
-        CallActionState(state);
+        CallActionState();
     }
 
-    protected virtual void J()
+    public virtual void J()
     {
         character.GetComponent<Animator>().SetTrigger("AttackJ");
     }
 
-     protected virtual void K()
+    public virtual void K()
     {
 
     }
 
-     protected  virtual void L()
+    public virtual void L()
     {
 
     }
-    protected virtual void JJ()
+    public virtual void JJ()
     {
         character.GetComponent<Animator>().SetTrigger("AttackJJ");
     }
 
-    protected virtual void JK()
+    public virtual void JK()
     {
 
     }
 
-    protected virtual void KJ()
+    public virtual void KJ()
     {
 
     }
 
-    protected virtual void KK()
+    public virtual void KK()
     {
 
 
     }
 
-    protected virtual void JJJ()
+    public virtual void JJJ()
+    {
+        character.GetComponent<Animator>().SetTrigger("AttackJJJ");
+        state = 0;
+    }
+
+    public virtual void JJK()
     {
 
     }
 
-    protected virtual void JJK()
+    public virtual void KKJ()
+    {
+
+    }
+    public virtual void KKK()
     {
 
     }
 
-    protected virtual void KKJ()
-    {
-
-    }
-    protected virtual void KKK()
-    {
-
-    }
-
-    protected virtual void Idle()
+    public virtual void Idle()
     {
         character.GetComponent<Animator>().SetTrigger("Idle");
     }
 
-    protected virtual void Move()
+    public virtual void Move()
     {
         character.GetComponent<Animator>().SetTrigger("Move");
+    }
+
+    public virtual void Die()
+    {
+        character.GetComponent<Animator>().SetTrigger("Die");
     }
 }

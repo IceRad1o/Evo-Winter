@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+/// <summary>
+/// 负责在UI上显示玩家生命
+/// </summary>
 public class PlayerHealth : UnitySingleton<PlayerHealth>{
 
     private int health;
