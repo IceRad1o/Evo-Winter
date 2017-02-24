@@ -22,6 +22,11 @@ public class MoveBall :UnitySingleton<MoveBall> {
     private Vector3 touchPoint; //触摸坐标
     private bool isPressed; //是否触摸
 
+    public bool IsPressed
+    {
+        get { return isPressed; }
+    }
+
 	void Start () {
         initMoveBall();
         isPressed = false;  

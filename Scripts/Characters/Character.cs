@@ -3,6 +3,12 @@ using System.Collections;
 
 public class Character:Subject
 {
+    public GameObject gnome;
+
+    public AudioClip attackingSound;
+    public AudioClip movingSound;
+    public AudioClip dyingSound;
+    public AudioClip damagingSound;
 
 
     private float health;
@@ -12,9 +18,12 @@ public class Character:Subject
         get { return health; }
         set 
         {
+            if (value < health)
+                SoundManager.Instance.PlaySoundEffect(damagingSound);
             health = value;
             if (health == 0)
                 Die();
+            
 
             //只有player才notify
             if(tag=="Player")
@@ -106,6 +115,15 @@ public class Character:Subject
         set { actionStateMachine = value; }
     }
 
+    private int canMove;    //能否移动
+
+    public int CanMove
+    {
+        get { return canMove; }
+        set { canMove = value; }
+    }
+
+
     private int state;// 0=静止 1=移动
 
     public int State
@@ -115,6 +133,8 @@ public class Character:Subject
         {
             if (state != value)
             {
+                if (CanMove == 0 && value == 1)
+                    return;
                 state = value;
                 actionStateMachine.Push(4 * state);
             }
@@ -150,7 +170,8 @@ public class Character:Subject
 
     public virtual void Move()
     {
-        gameObject.GetComponent<Transform>().position += direction * moveSpeed;
+        transform.position +=direction * moveSpeed;
+     
     }
 
     public virtual void Attack()
@@ -172,6 +193,8 @@ public class Character:Subject
 
     public virtual void NormalAttack()
     {
+        state = 0;
+        CanMove = 0;
         actionStateMachine.Push(1);
     }
 
@@ -182,19 +205,26 @@ public class Character:Subject
 
     public virtual void UseRaceSkill()
     {
-        actionStateMachine.Push(3);
+        if (tag == "Enemy")
+        {
+            actionStateMachine.Push(3);
+            Instantiate(gnome, transform.position, transform.rotation);
+            Instantiate(gnome, transform.position, transform.rotation);
+        }
     }
 
     protected virtual void Start()
     {
+
         state = 0;
         moveSpeed = 0.05f;
         health = 3;
         isAlive = 1;
+        canMove = 1;
   
     }
 
-    public virtual void Update()
+    public virtual void FixedUpdate()
     {
         if(state==1)
         {
@@ -203,6 +233,12 @@ public class Character:Subject
            
         }
       
+    }
+
+
+    public void PlaySound(AudioClip clip)
+    {
+        SoundManager.Instance.PlaySoundEffect(clip);
     }
 
     public void Awake()

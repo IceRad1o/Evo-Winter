@@ -17,6 +17,11 @@ public class KeyBoardManager : MonoBehaviour {
      
     }
 	void Update () {
+
+        //如果有触摸事件,则屏蔽键盘事件,否则键盘事件会干扰触摸事件
+        if (MoveBall.Instance.IsPressed)
+            return;
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             direction=new Vector3(0,1,0);
@@ -82,7 +87,7 @@ public class KeyBoardManager : MonoBehaviour {
 
 
         if (keyDownNum == 0)
-            Player.Instance.Character.State = 0;
+           Player.Instance.Character.State = 0;
         else
         {
             Player.Instance.Character.State = 1;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class MoveObject : MonoBehaviour
+public abstract class MoveObject : Subject
 {
 
     public float moveTime = 0.1f;
@@ -10,6 +10,30 @@ public abstract class MoveObject : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
     private float inverseMoveTime;
+
+    private float moveSpeed;
+
+    public float MoveSpeed
+    {
+        get { return moveSpeed; }
+        set { moveSpeed = value; }
+    }
+
+    private int state;
+
+    public virtual int State
+    {
+        get { return state; }
+        set { state = value; }
+    }
+
+    private Vector3 direction;
+
+    public Vector3 Direction
+    {
+        get { return direction; }
+        set { direction = value; }
+    }
     // Use this for initialization
     protected virtual void Start()
     {
@@ -18,31 +42,41 @@ public abstract class MoveObject : MonoBehaviour
         inverseMoveTime = 1f / moveTime;
     }
 
-    protected IEnumerator SmoothMovement(Vector3 end)
+    protected IEnumerator SmoothMovement()
     {
-        float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-        while (sqrRemainingDistance > float.Epsilon)
+        while (State==1)
         {
-            Vector3 newPosition = Vector3.MoveTowards(rb2D.transform.position, end, inverseMoveTime * Time.deltaTime);
+            Vector3 newPosition= gameObject.GetComponent<Transform>().position + direction * moveSpeed;
             rb2D.MovePosition(newPosition);
-            sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-            yield return null;
+            yield return null;//暂停协同程序,下一帧再继续往下执行
         }
     }
 
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
-        Vector2 start = transform.position;
-        Vector2 end = start + new Vector2(xDir, yDir);
+       
 
+        Vector2 start = rb2D.position;
+        Vector2 endX = start + new Vector2(xDir, 0);
+        Vector2 endY = start + new Vector2(0, yDir);
+        Vector2 end = start + new Vector2(xDir, yDir);
         boxCollider.enabled = false;
-        hit = Physics2D.Linecast(start, end, blockingLayer);
+
+        RaycastHit2D hitX = Physics2D.Linecast(start, endX, blockingLayer);
+        RaycastHit2D hitY = Physics2D.Linecast(start, endX, blockingLayer);
         boxCollider.enabled = true;
-        if (hit.transform == null)
+        if (hitX.transform != null)
         {
-            StartCoroutine(SmoothMovement(end));
-            return true;
+            end.x = start.x;
+            hit = hitX;
         }
+        if (hitY.transform != null)
+        {
+            end.y = start.y;
+            hit = hitY;
+        }
+        hit = hitY;
+        rb2D.MovePosition(end);
         return false;
     }
 

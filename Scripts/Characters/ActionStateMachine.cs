@@ -7,7 +7,7 @@ public class ActionStateMachine {
     private float nextTime;
     private float intervalTime;
     private Character character;
-
+    //2 ->21 0
     public Character Character
     {
         get { return character; }
@@ -109,6 +109,7 @@ public class ActionStateMachine {
     public virtual void J()
     {
         character.GetComponent<Animator>().SetTrigger("AttackJ");
+   
     }
 
     public virtual void K()
@@ -118,11 +119,12 @@ public class ActionStateMachine {
 
     public virtual void L()
     {
-
+         
     }
     public virtual void JJ()
     {
         character.GetComponent<Animator>().SetTrigger("AttackJJ");
+  
     }
 
     public virtual void JK()
@@ -144,7 +146,7 @@ public class ActionStateMachine {
     public virtual void JJJ()
     {
         character.GetComponent<Animator>().SetTrigger("AttackJJJ");
-        state = 0;
+        //state = 0;
     }
 
     public virtual void JJK()
@@ -164,6 +166,7 @@ public class ActionStateMachine {
     public virtual void Idle()
     {
         character.GetComponent<Animator>().SetTrigger("Idle");
+
     }
 
     public virtual void Move()
@@ -174,5 +177,6 @@ public class ActionStateMachine {
     public virtual void Die()
     {
         character.GetComponent<Animator>().SetTrigger("Die");
+        SoundManager.Instance.PlaySoundEffect(character.dyingSound);
     }
 }

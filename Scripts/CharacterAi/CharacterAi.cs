@@ -7,20 +7,9 @@ public class CharacterAi : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         character = GetComponent<Character>();
-       // StartCoroutine(Test());
 	}
 
-    IEnumerator Test()
-    {
-        yield return new WaitForSeconds(1.0f);
-        character.ActionStateMachine.J();
-        yield return new WaitForSeconds(1.0f);
-        character.ActionStateMachine.JJ();
-        //Debug.Log("Test1 Over");
-        yield return new WaitForSeconds(1.0f);
-        character.ActionStateMachine.JJJ();
 
-    }
 	void Update () {
 
         //TODO 增加一个随机因子,以免ai动作完全相同
@@ -39,7 +28,12 @@ public class CharacterAi : MonoBehaviour {
             {
 
                 offset.Normalize();
+                Vector3 rand = new Vector3(Random.value, Random.value, Random.value);
+                rand.Normalize();
+                offset =offset+offset+rand;//3：1
+                offset.Normalize();
                 character.Direction = offset;
+                
                 character.State = 1;
             }
 
