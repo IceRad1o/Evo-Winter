@@ -6,23 +6,9 @@ using System.Collections;
  *@Author YYF
  *@Time   16.12.23
  */
-public class SoundManager : MonoBehaviour {
+public class SoundManager : UnitySingleton<SoundManager> {
 
-    /*GetInstance
-     *@Brief 获取一个SoundManager实例 
-     *@Return SoundManager
-     */
-    static public SoundManager GetInstance()
-    {
-        if (instance)
-            return instance;
-        else
-        {
-            Debug.Log("SoundManager is null !");
-            return null;
-        }
-         
-    }
+
 
     /*PlayBackGroundMusic
      *@Brief 播放背景音乐 
@@ -123,14 +109,10 @@ public class SoundManager : MonoBehaviour {
 
     private static SoundManager instance = null;  //单例
 
-    void Awake()
-    {
-        if(instance==null)
-            instance=this;
-        else if(instance!=this)
-            Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+
+    void Start()
+    {
         musicSource = GetComponents<AudioSource>()[0];
         efxSource = GetComponents<AudioSource>()[1];
     }

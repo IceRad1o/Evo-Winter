@@ -46,7 +46,6 @@ public class UtilManager : MonoBehaviour {
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-        GetComponent<MeshRenderer>().enabled = false;
     }
 
 
