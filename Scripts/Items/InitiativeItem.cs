@@ -7,13 +7,15 @@ public class InitiativeItem : Item{
 
 
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+
+    /*@Destroy
+     *@Brief 销毁该实例
+     */
+    public void Destroy()
+    {
+        //need UIManager.GetInstance().DestroyInitiativeItem();
+
+        Destroy(gameObject);
+    }
 }
