@@ -22,12 +22,10 @@ public class Character:Subject
                 SoundManager.Instance.PlaySoundEffect(damagingSound);
             health = value;
             if (health == 0)
+            {
                 Die();
-            
-
-            //只有player才notify
-            if(tag=="Player")
-                 Notify("HealthChanged");
+            }
+            Notify("HealthChanged");
             
         }
     }
@@ -36,42 +34,71 @@ public class Character:Subject
     public float MoveSpeed
     {
         get { return moveSpeed; }
-        set { moveSpeed = value; }
+        set 
+        { 
+            moveSpeed = value;
+            AnimationController ac = GetComponent<AnimationController>();
+            ac.ChangeAnimationSpeed("Move", moveSpeed*20);
+            Notify("MoveSpeedChanged");
+        }
     }
     private float attackSpeed;
 
     public float AttackSpeed
     {
         get { return attackSpeed; }
-        set { attackSpeed = value; }
+        set 
+        {   
+            attackSpeed = value;
+            actionStateMachine.IntervalTime = 0.05f/attackSpeed;
+            AnimationController ac = GetComponent<AnimationController>();
+            ac.ChangeAttackAnimationsSpeed(attackSpeed);
+            Notify("AttackSpeedChanged");
+        }
     }
     private float attackRange;
 
     public float AttackRange
     {
         get { return attackRange; }
-        set { attackRange = value; }
+        set 
+        { 
+            attackRange = value;
+            Notify("AttackRangeChanged");
+        }
     }
     private float attackDamage;
 
     public float AttackDamage
     {
         get { return attackDamage; }
-        set { attackDamage = value; }
+        set 
+        { 
+            attackDamage = value;
+            Notify("AttackDamageChanged");
+        }
     }
     private float hitRecover;//硬直,即受击回复，影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
 
     public float HitRecover
     {
         get { return hitRecover; }
-        set { hitRecover = value; }
+        set 
+        { 
+            hitRecover = value;
+            Notify("HitRecoverChanged");
+        }
     }
     private float spasticity;//僵直,自身僵直度越高，那么对手或者地下城的怪物收到攻击后的呆滞时间就越长
 
     public float Spasticity
     {
         get { return spasticity; }
-        set { spasticity = value; }
+        set 
+        { 
+            spasticity = value;
+            Notify("SpasticityChanged");
+        }
     }
 
     private int race;
@@ -79,14 +106,22 @@ public class Character:Subject
     public int Race
     {
         get { return race; }
-        set { race = value; }
+        set 
+        { 
+            race = value;
+            Notify("RaceChanged");
+        }
     }
     private int weapon;
 
     public int Weapon
     {
         get { return weapon; }
-        set { weapon = value; }
+        set 
+        { 
+            weapon = value;
+            Notify("WeaponChanged");
+        }
     }
 
     //NEED private SkillManager skillManager;
@@ -120,7 +155,11 @@ public class Character:Subject
     public int CanMove
     {
         get { return canMove; }
-        set { canMove = value; }
+        set 
+        { 
+            canMove = value;
+            Notify("canMoveChanged");
+        }
     }
 
 
@@ -147,7 +186,14 @@ public class Character:Subject
     public int IsWeaponDmg
     {
         get { return isWeaponDmg; }
-        set { isWeaponDmg = value; }
+        set 
+        { 
+            isWeaponDmg = value;
+            if (value == 0)
+                Notify("WeaponDmg");
+            else
+                Notify("WeaponDontDmg");
+        }
     }
 
 
@@ -165,12 +211,14 @@ public class Character:Subject
             gameObject.GetComponent<Transform>().localScale = temp;
 
             direction = value;
+            Notify("DirectionChanged");
         }
     }
 
     public virtual void Move()
     {
         transform.position +=direction * moveSpeed;
+        Notify("Move");
      
     }
 
@@ -181,9 +229,9 @@ public class Character:Subject
 
     public virtual void Die()
     {
-        //Debug.Log("DiediediediedieDiediediediedie");
         actionStateMachine.Push(5);
         isAlive = -1;
+        Notify("Die");
     }
 
     bool CheckSurvivalTime()
@@ -205,12 +253,11 @@ public class Character:Subject
 
     public virtual void UseRaceSkill()
     {
-        if (tag == "Enemy")
-        {
-            actionStateMachine.Push(3);
-            Instantiate(gnome, transform.position, transform.rotation);
-            Instantiate(gnome, transform.position, transform.rotation);
-        }
+
+        actionStateMachine.Push(3);
+        //Instantiate(gnome, transform.position, transform.rotation);
+        //Instantiate(gnome, transform.position, transform.rotation);
+        
     }
 
     protected virtual void Start()
@@ -218,6 +265,7 @@ public class Character:Subject
 
         state = 0;
         moveSpeed = 0.05f;
+        attackSpeed = 1.0f;
         health = 3;
         isAlive = 1;
         canMove = 1;
@@ -228,7 +276,6 @@ public class Character:Subject
     {
         if(state==1)
         {
-          
             Move();
            
         }
@@ -247,8 +294,7 @@ public class Character:Subject
         actionStateMachine.Character = this;
     }
 
-    void OnNotify()
-    {
-        Debug.Log("notify");
-    }
+
+
+
 }

@@ -16,14 +16,14 @@ public class Player :UnitySingleton<Player>,IFly {
     void Start()
     {
         character = GetComponent<Character>();
-        character.MoveSpeed = 0.1f;
+        character.MoveSpeed = 0.08f;
 
     }
 
     //扩展方法示例
     void Fly()
     {
-
+        Debug.Log("此处为 C# 扩展方法示例");
         this.fly();
     }
 }
