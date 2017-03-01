@@ -2,50 +2,93 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class UIManager : MonoBehaviour {
+/*UIManager
+ *@Brief 负责管理游戏UI交互
+ *@Author YYF
+ *@Time 17.1.25 
+ *@Update at 17.1.26
+ */
+/// <summary>
+/// <para>Brief 负责管理游戏UI元素</para>
+/// <para>Author YYF</para>
+/// <para>Time 17.1.26</para>
+/// </summary>
+public class UIManager : UnitySingleton<UIManager>
+{
+    //8个子构件
 
-    public Button JButton;
-    public Button KButton;
-    public Button LButton;
+    private LittleMap littleMap;    //小地图
 
-    public Button PhoteButton;
-
-    public Button MapButton;
-
-    public GameObject PlayerInfo;
-
-	// Use this for initialization
-	void Start () {
-        Button jBtn = JButton.GetComponent<Button>();
-        jBtn.onClick.AddListener(OnNormalAttack);
-
-        Button kBtn = KButton.GetComponent<Button>();
-        jBtn.onClick.AddListener(OnNormalAttack);
-
-        Button lBtn = LButton.GetComponent<Button>();
-        jBtn.onClick.AddListener(OnNormalAttack);
-
-        Button photeBtn = PhoteButton.GetComponent<Button>();
-        //photeBtn.onClick.AddListener(OnPhote)
-	}
-	
-
-
-    void OnNormalAttack()
+    public LittleMap LittleMap
     {
-        Debug.Log("You have clicked the  JButton!");
-        //NEED Player.GetInstance().NormalAttack();
+        get { return littleMap; }
+    }
+    private PlayerInfo playerInfo;  //玩家信息
+
+    public PlayerInfo PlayerInfo
+    {
+        get { return playerInfo; }
+    }
+    private PlayerHealth playerHealth;  //玩家血量
+
+    public PlayerHealth PlayerHealth
+    {
+        get { return playerHealth; }
+    }
+    private Popup popup;    //弹窗
+
+    public Popup Popup
+    {
+        get { return popup; }
+    }
+    private EsscencesDisplayer esscencesDisplayer;  //精华数目展示模块
+
+    public EsscencesDisplayer EsscencesDisplayer
+    {
+        get { return esscencesDisplayer; }
+    }
+    private MoveBall moveBall;  //移动球
+
+    public MoveBall MoveBall
+    {
+        get { return moveBall; }
+    }
+    private AttackButtonManager attackButtonManager;    //攻击按钮管理者
+
+    public AttackButtonManager AttackButtonManager
+    {
+        get { return attackButtonManager; }
+    }
+    private ItemButtonManager itemButtonManager;    //道具按钮管理者
+
+    public ItemButtonManager ItemButtonManager
+    {
+        get { return itemButtonManager; }
     }
 
-    void OnSpecialAttack()
+
+    void Start()
     {
-        Debug.Log("You have clicked the  KButton!");
-        //NEED Player.GetInstance().SpecialAttack();
+        littleMap = LittleMap.Instance;
+        playerInfo = PlayerInfo.Instance;
+        playerHealth = PlayerHealth.Instance;
+        esscencesDisplayer = EsscencesDisplayer.Instance;
+        popup = Popup.Instance;
+        moveBall = MoveBall.Instance;
+        attackButtonManager = AttackButtonManager.Instance;
+        itemButtonManager = ItemButtonManager.Instance;
+
+        Player.Instance.Character.AddObserver(playerObserver);
     }
 
-    void OnRaceSkill()
+    PlayerObserver playerObserver=new PlayerObserver(); //Player的观察者
+    class PlayerObserver:Observer
     {
-        Debug.Log("You have clicked the  LButton!");
-        //NEED Player.GetInstance().UseRaceSkill();
+       public override void OnNotify(string msg)
+       {
+           if (msg == "HealthChanged")
+               UIManager.Instance.playerHealth.Health = (int)Player.Instance.Character.Health;
+
+       }
     }
 }
