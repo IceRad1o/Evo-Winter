@@ -11,7 +11,7 @@ public class Character:Subject
     public AudioClip damagingSound;
 
 
-    private float health;
+    private float health;   //生命
 
     public float Health
     {
@@ -29,7 +29,7 @@ public class Character:Subject
             
         }
     }
-    private float moveSpeed;
+    private float moveSpeed;    //移速
 
     public float MoveSpeed
     {
@@ -42,7 +42,7 @@ public class Character:Subject
             Notify("MoveSpeedChanged");
         }
     }
-    private float attackSpeed;
+    private float attackSpeed;  //攻速
 
     public float AttackSpeed
     {
@@ -56,7 +56,7 @@ public class Character:Subject
             Notify("AttackSpeedChanged");
         }
     }
-    private float attackRange;
+    private float attackRange;  //攻击范围
 
     public float AttackRange
     {
@@ -67,7 +67,7 @@ public class Character:Subject
             Notify("AttackRangeChanged");
         }
     }
-    private float attackDamage;
+    private float attackDamage; //攻击伤害
 
     public float AttackDamage
     {
@@ -89,7 +89,7 @@ public class Character:Subject
             Notify("HitRecoverChanged");
         }
     }
-    private float spasticity;//僵直,自身僵直度越高，那么对手或者地下城的怪物收到攻击后的呆滞时间就越长
+    private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
 
     public float Spasticity
     {
@@ -101,7 +101,7 @@ public class Character:Subject
         }
     }
 
-    private int race;
+    private int race;   //种族
 
     public int Race
     {
@@ -112,7 +112,7 @@ public class Character:Subject
             Notify("RaceChanged");
         }
     }
-    private int weapon;
+    private int weapon; //武器类型
 
     public int Weapon
     {
@@ -124,6 +124,30 @@ public class Character:Subject
         }
     }
 
+    private int sight;  //视野 影响可见范围,若玩家处于怪物的视野外则不会遭受攻击
+
+    public int Sight
+    {
+        get { return sight; }
+        set 
+        { 
+            sight = value;
+            Notify("SightChanged");
+        }
+    }
+
+    private int luck; //幸运 影响技能触发几率和道具掉落概率
+
+    public int Luck
+    {
+        get { return luck; }
+        set 
+        {
+            luck = value;
+            Notify("LuckChanged");
+        }
+    }
+
     //NEED private SkillManager skillManager;
     //NEED private BuffManager buffManager;
 
@@ -132,14 +156,23 @@ public class Character:Subject
     public int IsAlive
     {
         get { return isAlive; }
-        set { isAlive = value; }
+        set 
+        { 
+            isAlive = value;
+            
+        }
     }
-    private int camp;
+    private int camp;   //阵营 0=友方 1=敌方
 
     public int Camp
     {
         get { return camp; }
-        set { camp = value; }
+        set 
+        { 
+            camp = value;
+            Notify("CampChanged");
+ 
+        }
     }
 
     private ActionStateMachine actionStateMachine;
@@ -158,7 +191,7 @@ public class Character:Subject
         set 
         { 
             canMove = value;
-            Notify("canMoveChanged");
+            Notify("CanMoveChanged");
         }
     }
 
@@ -232,6 +265,7 @@ public class Character:Subject
         actionStateMachine.Push(5);
         isAlive = -1;
         Notify("Die");
+       
     }
 
     bool CheckSurvivalTime()
