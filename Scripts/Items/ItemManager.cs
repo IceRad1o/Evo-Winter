@@ -227,11 +227,13 @@ public class ItemManager : UnitySingleton<ItemManager>
     {
         public override void OnNotify(string msg)
         {
-            if (msg == "J")
+            if (msg == "AttackJStart")
             {
+                Debug.Log("Get");
                 //一次性道具的拾取                
                 foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
                 {
+                    Debug.Log("do");
                     if (ItemManager.Instance.itemsDis == t && t.playerIn)
                     {                        
                         ItemManager.Instance.AddDisposableItems(t);
@@ -320,11 +322,19 @@ public class ItemManager : UnitySingleton<ItemManager>
 
 
 
-	
-	void Start () {        
-        
-       
-	}
+
+    void Start()
+    {
+        Player.Instance.Character.AddObserver(playerObs);
+
+
+        Text();
+    }
+
+    void Text() {
+        Debug.Log("Start");
+        this.CreateItemType(true);
+    }
     
 
     

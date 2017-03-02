@@ -74,4 +74,6 @@ public class ImmediatelyItem : Item{
         spriteRenderer = GetComponent<SpriteRenderer>();
         itemSprite = itemSp.SpriteArray;
     }
+
+    
 }
