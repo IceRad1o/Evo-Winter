@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class FenShenAi : MonoBehaviour {
-
+   
     private Character character;
 	// Use this for initialization
 	void Start () {

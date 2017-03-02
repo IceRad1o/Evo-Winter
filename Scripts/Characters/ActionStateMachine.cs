@@ -4,8 +4,21 @@ using System.Collections;
 public class ActionStateMachine {
 
     private int state;  //节点链,个位表示链的第一个元素,十位表示第二个,类推
+
+
+    public int State
+    {
+        get { return state; }
+        set { state = value; }
+    }
     private float nextTime;
-    private float intervalTime;
+    private float intervalTime; //与攻速挂钩
+
+    public float IntervalTime
+    {
+        get { return intervalTime; }
+        set { intervalTime = value; }
+    }
     private Character character;
     //2 ->21 0
     public Character Character
@@ -16,6 +29,7 @@ public class ActionStateMachine {
 
     public ActionStateMachine()
     {
+       
         state = 0;
         nextTime = 0;
         intervalTime = 0.5f;
@@ -24,7 +38,7 @@ public class ActionStateMachine {
 
     }
     public void CallActionState(){
-        Debug.Log("state:"+state);
+        //Debug.Log("state:"+state);
         if (state < 0)
             return;
         switch(state)
@@ -76,6 +90,7 @@ public class ActionStateMachine {
                 CallActionState();
                 break;
         }
+        
     }
 
 
@@ -114,12 +129,12 @@ public class ActionStateMachine {
 
     public virtual void K()
     {
-
+        character.GetComponent<Animator>().SetTrigger("AttackK");
     }
 
     public virtual void L()
     {
-         
+        character.GetComponent<Animator>().SetTrigger("AttackL");
     }
     public virtual void JJ()
     {
@@ -129,18 +144,18 @@ public class ActionStateMachine {
 
     public virtual void JK()
     {
-
+        character.GetComponent<Animator>().SetTrigger("AttackJK");
     }
 
     public virtual void KJ()
     {
-
+        character.GetComponent<Animator>().SetTrigger("AttackKJ");
     }
 
     public virtual void KK()
     {
 
-
+        character.GetComponent<Animator>().SetTrigger("AttackKK");
     }
 
     public virtual void JJJ()
@@ -151,16 +166,16 @@ public class ActionStateMachine {
 
     public virtual void JJK()
     {
-
+        character.GetComponent<Animator>().SetTrigger("AttackJJK");
     }
 
     public virtual void KKJ()
     {
-
+        character.GetComponent<Animator>().SetTrigger("AttackKKJ");
     }
     public virtual void KKK()
     {
-
+        character.GetComponent<Animator>().SetTrigger("AttackKKK");
     }
 
     public virtual void Idle()

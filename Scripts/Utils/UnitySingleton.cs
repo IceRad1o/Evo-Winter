@@ -24,7 +24,8 @@ public class UnitySingleton<T> : MonoBehaviour
     }
     public virtual void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        
+        //DontDestroyOnLoad(this.gameObject);
         if (_instance == null)
         {
             _instance = this as T;

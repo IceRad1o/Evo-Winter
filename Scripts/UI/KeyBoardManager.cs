@@ -2,8 +2,7 @@
 using System.Collections;
 
 /// <summary>
-/// 可通过键盘进行移动等操作
-/// 仅限PC端测试使用
+/// 
 /// </summary>
 public class KeyBoardManager : MonoBehaviour {
 
@@ -16,6 +15,7 @@ public class KeyBoardManager : MonoBehaviour {
         direction = new Vector3(0, 0, 0);
      
     }
+    ///
 	void Update () {
 
         //如果有触摸事件,则屏蔽键盘事件,否则键盘事件会干扰触摸事件
