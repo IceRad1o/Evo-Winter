@@ -19,7 +19,7 @@ public class Box : MonoBehaviour
        
     }
 
-    void OpenBox()
+    public void OpenBox()
     {
         //打开宝箱的动画和声音
         animator.SetTrigger("OpenBox");
