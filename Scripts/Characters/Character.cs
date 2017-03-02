@@ -205,6 +205,7 @@ public class Character:Subject
         {
             if (state != value)
             {
+                Debug.Log("current state:" + state + " to " + value);
                 if (CanMove == 0 && value == 1)
                     return;
                 state = value;

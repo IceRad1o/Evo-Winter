@@ -38,7 +38,7 @@ public class ActionStateMachine {
 
     }
     public void CallActionState(){
-        Debug.Log("state:"+state);
+        //Debug.Log("state:"+state);
         if (state < 0)
             return;
         switch(state)

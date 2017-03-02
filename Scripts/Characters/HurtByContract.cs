@@ -25,6 +25,7 @@ public class HurtByContract : MonoBehaviour {
     /// <param name="other">与其碰撞的GameObj</param>
     void OnTriggerEnter2D(Collider2D other)
     {
+
         //如果武器无效化,则返回
         if (gameObject.GetComponentInParent<Character>().IsWeaponDmg == 0)
             return;
