@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : MonoBehaviour {
+public class Item : Subject {
 
     protected int itemID;
+    protected int itemBuffID;
+    protected int itemSkillID;
     protected SpriteRenderer spriteRenderer;
     public AudioClip usingSounds;
 
+   
 
-    protected ItemsTable itemsTable = new ItemsTable();
+
     /*@Destroy
      *@Brief 虚函数，用来销毁道具
      */
@@ -31,7 +34,6 @@ public class Item : MonoBehaviour {
      */
     public int GetID()
     {
-
         return itemID;
     }
     /*@GetID

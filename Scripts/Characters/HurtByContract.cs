@@ -19,24 +19,12 @@ public class HurtByContract : MonoBehaviour {
     /// <param name="other">与其碰撞的GameObj</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (gameObject.GetComponentInParent<Character>().IsWeaponDmg == 0)
-            return;
-        
-        if (camp == 0)
+      
+        if (other.tag == "Enemy")
         {
-            if (other.tag == "Enemy")
-            {
-                Debug.Log("Enemy hurt!" + other.GetComponent<Character>().Health);
-                other.GetComponent<Character>().Health--;
-            }
+            Debug.Log("Enemy hurt!" + other.GetComponent<Character>().Health);
+            other.GetComponent<Character>().Health--;
         }
-        else
-        {
-            if (other.tag == "Player")
-            {
-                Debug.Log("Player hurt!");
-                other.GetComponent<Character>().Health--;
-            }
-        }
+       
     }
 }
