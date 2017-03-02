@@ -21,11 +21,13 @@ public class Missile : MonoBehaviour {
     private bool penetrating;
     private float flyDistance;
     private float bombRange;
-    //方向（-1为左，1为右），飞行时间倒数，飞行路径，初始位置
+    //方向（-1为左，1为右），飞行时间倒数，飞行路径，初始位置,旋转角度
     private int direction;
     private float inverseMoveTime;
     private int flyPath;
-    private float startPosition;
+    private float startPositionX;
+    private float startPositionY;
+    private float rotationTheta;
 
 	void Awake () {
         
@@ -64,6 +66,13 @@ public class Missile : MonoBehaviour {
         inverseMoveTime = 1f / moveTime;
         Debug.Log("speed:" + flySpeed + "  distance:" + flyDistance + "  direction:" + direction);
 
+        if (direction == -1)
+            rotationTheta = 180;
+        else
+            rotationTheta = 0;
+
+        this.transform.rotation = Quaternion.Euler(0f, 0f, rotationTheta);
+
         //飞行路径1
         if (flyPath == 1)
         {
@@ -73,7 +82,7 @@ public class Missile : MonoBehaviour {
                 AttemptMove<Missile>(flyDistance, 0f);
             else
                 AttemptMove<Missile>(flyDistance * -1, 0f);
-            startPosition = this.transform.position.x;
+
             //检测结束条件
             StartCoroutine(FlyEndCheck());
         }
@@ -86,12 +95,38 @@ public class Missile : MonoBehaviour {
                 AttemptMove<Missile>(flyDistance, 3.0f);
             else
                 AttemptMove<Missile>(flyDistance * -1, 3.0f);
-            startPosition = this.transform.position.x;
+
             //检测结束条件
             StartCoroutine(FlyEndCheck());
         }
         Debug.Log("退出StartMove()");
-       
+       //飞行路径3
+        if (flyPath == 3)
+        {
+            Debug.Log("flyPath:" + flyPath);
+
+            if (direction == 1)
+                AttemptMove<Missile>(flyDistance, 6.0f);
+            else
+                AttemptMove<Missile>(flyDistance * -1, 6.0f);
+
+            //检测结束条件
+            StartCoroutine(FlyEndCheck());
+        }
+        //飞行路径4
+        if (flyPath == 4)
+        {
+            Debug.Log("flyPath:" + flyPath);
+
+            //if (direction == 1)
+            //    AttemptMove<Missile>(flyDistance, 6.0f);
+            //else
+            //    AttemptMove<Missile>(flyDistance * -1, 6.0f);
+
+            AttemptMove<Missile>(0, 6.0f);
+            //检测结束条件
+            StartCoroutine(FlyEndCheck());
+        }
     }
 	
 	void Update () {
@@ -104,34 +139,41 @@ public class Missile : MonoBehaviour {
     /// <returns></returns>
     IEnumerator FlyEndCheck()
     {
-        Debug.Log("进入FlyPath1()");
-        while (true)
+        Debug.Log("进入FlyEndCheck()");
+        Debug.Log("飞行路径："+flyPath);
+
+        startPositionX = this.transform.position.x;
+        startPositionY = this.transform.position.y;
+
+        if (flyPath >0)
         {
-            //Debug.Log("方向:" + direction + "正距离:" + startPosition +"+"+ flyDistance + "负距离:" + startPosition + flyDistance * -1 + "当前位置：" + this.transform.position.x);
-            if ((startPosition + flyDistance) - this.transform.position.x < float.Epsilon + 0.001 && (direction == 1))
-             {
-                 Debug.Log("1success");
-                 animator.SetTrigger("MissileBomb");
-                 Debug.Log("1+MissileBomb");
-                 yield return new WaitForSeconds(0.2f);
-                 //this.gameObject.SetActive(false);
-                 Destroy(gameObject);
-                 break;
-             }
-            if (this.transform.position.x - (startPosition - flyDistance) < float.Epsilon + 0.001 && (direction == -1))
-             {
-                 Debug.Log("-1success");
-                 animator.SetTrigger("MissileBomb");
-                 Debug.Log("-1+MissileBomb");
-                 yield return new WaitForSeconds(0.2f);
-                 //this.gameObject.SetActive(false);
-                 Destroy(gameObject);
-                 break;
-             }
-             else
-                 yield return null;
-        }
-        Debug.Log("退出FlyPath1()");
+            Debug.Log("进入飞行路径1" );
+            while (true)
+            {
+                //Debug.Log("方向:" + direction + "正距离:" + startPosition +"+"+ flyDistance + "负距离:" + startPosition + flyDistance * -1 + "当前位置：" + this.transform.position.x);
+                if ((startPositionX + flyDistance) - this.transform.position.x < float.Epsilon + 0.1 && (direction == 1))
+                {
+                    Debug.Log("1success");
+                    animator.SetTrigger("MissileBomb");
+                    Debug.Log("1+MissileBomb");
+                    yield return new WaitForSeconds(0.2f);
+                    Destroy(gameObject);
+                    break;
+                }
+                if (this.transform.position.x - (startPositionX - flyDistance) < float.Epsilon + 0.1 && (direction == -1))
+                {
+                    Debug.Log("-1success");
+                    animator.SetTrigger("MissileBomb");
+                    Debug.Log("-1+MissileBomb");
+                    yield return new WaitForSeconds(0.2f);
+                    Destroy(gameObject);
+                    break;
+                }
+                else
+                    yield return null;
+            }
+        } 
+        Debug.Log("退出FlyEndCheck()");
     }
     
 
@@ -231,11 +273,21 @@ public class Missile : MonoBehaviour {
             {
                 Debug.Log("Tirr+MissileBomb");
                 animator.SetTrigger("MissileBomb");
-                StartCoroutine(Wait(0.3f));
+                StartCoroutine(Wait(0.2f));
                 Destroy(gameObject);
             }
         }
-        //if(other.tag==...)
+        if (other.tag == "Box")
+        {
+            other.GetComponent<Box>().OpenBox();
+            if (!penetrating)
+            {
+                Debug.Log("Tirr+MissileBomb");
+                animator.SetTrigger("MissileBomb");
+                StartCoroutine(Wait(0.2f));
+                Destroy(gameObject);
+            }
+        }
     }
 
 
@@ -285,11 +337,19 @@ public class Missile : MonoBehaviour {
             {
                 StartCoroutine(GravityMovement(end));
             }
+            if (flyPath == 3)
+            {
+                StartCoroutine(DropMovement(end));
+            }
+            if (flyPath == 4)
+            {
+                //StartCoroutine(DownMovement());
+            }
             return true;
         }
         return false;
     }
-    //平滑移动
+    //1平滑移动
     protected IEnumerator SmoothMovement(Vector3 end)
     {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
@@ -304,6 +364,62 @@ public class Missile : MonoBehaviour {
         }
     }
 
+
+
+    //2重力下的运动
+    protected IEnumerator GravityMovement(Vector3 end)
+    {
+        float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+        float y=-0.05f;
+        Vector3 gravity=new Vector3(0f,y,0f);
+        while (sqrRemainingDistance > float.Epsilon)
+        {
+            Debug.Log("旋转角：" + rotationTheta);
+            rb2D = GetComponent<Rigidbody2D>();
+            Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+            rb2D.MovePosition(newPosition);
+            sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+
+            float tempTheta = Mathf.Atan((end.y-this.transform.position.y)/Mathf.Abs(end.x - this.transform.position.x))*2;
+            if (direction == -1)
+                rotationTheta -= tempTheta;
+            else
+                rotationTheta += tempTheta;
+            this.transform.rotation = Quaternion.Euler(0f, 0f, rotationTheta);
+
+            end = end + gravity;
+            yield return null;
+        }
+    }
+
+    //3坠落运动
+    protected IEnumerator DropMovement(Vector3 end)
+    {
+        float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+        float y = -0.05f;
+        Vector3 gravity = new Vector3(0f, y, 0f);
+        while (sqrRemainingDistance > float.Epsilon)
+        {
+            rb2D = GetComponent<Rigidbody2D>();
+            Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+            rb2D.MovePosition(newPosition);
+            sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+
+            float tempTheta = Mathf.Atan((end.y - this.transform.position.y) / Mathf.Abs(end.x - this.transform.position.x)) * 2;
+            if (direction == -1)
+                rotationTheta -= tempTheta;
+            else
+                rotationTheta += tempTheta;
+            this.transform.rotation = Quaternion.Euler(0f, 0f, rotationTheta);
+
+
+            end = end + gravity+gravity;
+            yield return null;
+        }
+    }
+
+    //4
+
     //无法移动
     protected void OnCantMove<T>(T component)
     {
@@ -315,28 +431,8 @@ public class Missile : MonoBehaviour {
         Debug.Log("cantMove");
         animator.SetTrigger("CantMove+MissileBomb");
         StartCoroutine(Wait(0.1f));
-        
+
     }
-
-    //重力下的运动
-    protected IEnumerator GravityMovement(Vector3 end)
-    {
-        float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-        float y=-0.05f;
-        Vector3 gravity=new Vector3(0f,y,0f);
-        while (sqrRemainingDistance > float.Epsilon)
-        {
-            rb2D = GetComponent<Rigidbody2D>();
-            Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
-            rb2D.MovePosition(newPosition);
-            sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-
-            end = end + gravity;
-            yield return null;
-        }
-    }
-
-
 
     //等待延迟
     IEnumerator Wait(float sec)
