@@ -34,7 +34,9 @@ public class FireJ : MonoBehaviour {
         {
             if (pathNumber == 1)
                 pathNumber = 2;
-            else
+            else if (pathNumber == 2)
+                pathNumber = 3;
+            else if (pathNumber == 3)
                 pathNumber = 1;
         }
 	}
