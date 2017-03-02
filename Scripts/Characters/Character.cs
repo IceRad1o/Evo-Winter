@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Character:Subject
+public class Character : Subject
 {
     public GameObject gnome;
 
@@ -16,17 +16,19 @@ public class Character:Subject
     public float Health
     {
         get { return health; }
-        set 
+        set
         {
             if (value < health)
-                SoundManager.Instance.PlaySoundEffect(damagingSound);
+            {
+                actionStateMachine.Push(6);
+            }
             health = value;
             if (health == 0)
             {
                 Die();
             }
             Notify("HealthChanged");
-            
+
         }
     }
     private float moveSpeed;    //移速
@@ -34,11 +36,11 @@ public class Character:Subject
     public float MoveSpeed
     {
         get { return moveSpeed; }
-        set 
-        { 
+        set
+        {
             moveSpeed = value;
             AnimationController ac = GetComponent<AnimationController>();
-            ac.ChangeAnimationSpeed("Move", moveSpeed*20);
+            ac.ChangeAnimationSpeed("Move", moveSpeed * 20);
             Notify("MoveSpeedChanged");
         }
     }
@@ -47,10 +49,10 @@ public class Character:Subject
     public float AttackSpeed
     {
         get { return attackSpeed; }
-        set 
-        {   
+        set
+        {
             attackSpeed = value;
-            actionStateMachine.IntervalTime = 0.05f/attackSpeed;
+            actionStateMachine.IntervalTime = 0.05f / attackSpeed;
             AnimationController ac = GetComponent<AnimationController>();
             ac.ChangeAttackAnimationsSpeed(attackSpeed);
             Notify("AttackSpeedChanged");
@@ -61,8 +63,8 @@ public class Character:Subject
     public float AttackRange
     {
         get { return attackRange; }
-        set 
-        { 
+        set
+        {
             attackRange = value;
             Notify("AttackRangeChanged");
         }
@@ -72,8 +74,8 @@ public class Character:Subject
     public float AttackDamage
     {
         get { return attackDamage; }
-        set 
-        { 
+        set
+        {
             attackDamage = value;
             Notify("AttackDamageChanged");
         }
@@ -83,8 +85,8 @@ public class Character:Subject
     public float HitRecover
     {
         get { return hitRecover; }
-        set 
-        { 
+        set
+        {
             hitRecover = value;
             Notify("HitRecoverChanged");
         }
@@ -94,8 +96,8 @@ public class Character:Subject
     public float Spasticity
     {
         get { return spasticity; }
-        set 
-        { 
+        set
+        {
             spasticity = value;
             Notify("SpasticityChanged");
         }
@@ -106,8 +108,8 @@ public class Character:Subject
     public int Race
     {
         get { return race; }
-        set 
-        { 
+        set
+        {
             race = value;
             Notify("RaceChanged");
         }
@@ -117,8 +119,8 @@ public class Character:Subject
     public int Weapon
     {
         get { return weapon; }
-        set 
-        { 
+        set
+        {
             weapon = value;
             Notify("WeaponChanged");
         }
@@ -129,8 +131,8 @@ public class Character:Subject
     public int Sight
     {
         get { return sight; }
-        set 
-        { 
+        set
+        {
             sight = value;
             Notify("SightChanged");
         }
@@ -141,7 +143,7 @@ public class Character:Subject
     public int Luck
     {
         get { return luck; }
-        set 
+        set
         {
             luck = value;
             Notify("LuckChanged");
@@ -156,10 +158,10 @@ public class Character:Subject
     public int IsAlive
     {
         get { return isAlive; }
-        set 
-        { 
+        set
+        {
             isAlive = value;
-            
+
         }
     }
     private int camp;   //阵营 0=友方 1=敌方
@@ -167,11 +169,11 @@ public class Character:Subject
     public int Camp
     {
         get { return camp; }
-        set 
-        { 
+        set
+        {
             camp = value;
             Notify("CampChanged");
- 
+
         }
     }
 
@@ -188,8 +190,8 @@ public class Character:Subject
     public int CanMove
     {
         get { return canMove; }
-        set 
-        { 
+        set
+        {
             canMove = value;
             Notify("CanMoveChanged");
         }
@@ -205,7 +207,7 @@ public class Character:Subject
         {
             if (state != value)
             {
-                Debug.Log("current state:" + state + " to " + value);
+                //Debug.Log("current state:" + state + " to " + value);
                 if (CanMove == 0 && value == 1)
                     return;
                 state = value;
@@ -220,8 +222,8 @@ public class Character:Subject
     public int IsWeaponDmg
     {
         get { return isWeaponDmg; }
-        set 
-        { 
+        set
+        {
             isWeaponDmg = value;
             if (value == 0)
                 Notify("WeaponDmg");
@@ -251,9 +253,9 @@ public class Character:Subject
 
     public virtual void Move()
     {
-        transform.position +=direction * moveSpeed;
+        transform.position += direction * moveSpeed;
         Notify("Move");
-     
+
     }
 
     public virtual void Attack()
@@ -266,7 +268,7 @@ public class Character:Subject
         actionStateMachine.Push(5);
         isAlive = -1;
         Notify("Die");
-       
+
     }
 
     bool CheckSurvivalTime()
@@ -292,7 +294,7 @@ public class Character:Subject
         actionStateMachine.Push(3);
         //Instantiate(gnome, transform.position, transform.rotation);
         //Instantiate(gnome, transform.position, transform.rotation);
-        
+
     }
 
     protected virtual void Start()
@@ -304,17 +306,17 @@ public class Character:Subject
         health = 3;
         isAlive = 1;
         canMove = 1;
-  
+
     }
 
     public virtual void FixedUpdate()
     {
-        if(state==1)
+        if (state == 1)
         {
             Move();
-           
+
         }
-      
+
     }
 
 
@@ -330,6 +332,9 @@ public class Character:Subject
     }
 
 
-
+    public void Disappear()
+    {
+        Destroy(this.gameObject);
+    }
 
 }
