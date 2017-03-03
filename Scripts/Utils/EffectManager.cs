@@ -7,26 +7,13 @@ using System.Collections;
  *@Author YYF
  *@Time 16.12.25
  */
-public class EffectManager : MonoBehaviour {
+public class EffectManager : UnitySingleton<EffectManager> {
 
 
     public  GameObject[] effects;   //特效prefabs
 
 
-    /*GetInstance
-    *@Brief 获取一个EffectManager实例 
-    *@Return EffectManager
-    */
-    static public EffectManager GetInstance()
-    {
-        if (instance)
-            return instance;
-        else
-        {
-            instance = Instantiate(instance);
-            return instance;
-        }
-    }
+
 
     /*InstantiateEffect
      *@Brief 生成一个对应ID的特效实例
@@ -41,18 +28,7 @@ public class EffectManager : MonoBehaviour {
     }
 
 
-    private static EffectManager instance = null;  //单例
 
-    void Awake()
-    {
-        
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
-    
-    }
 
 }

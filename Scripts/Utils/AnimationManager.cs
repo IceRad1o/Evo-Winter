@@ -7,24 +7,8 @@ using System.Collections;
  *@Author YYF
  *@Time 16.12.23
  */
-public class AnimationManager : MonoBehaviour {
+public class AnimationManager : UnitySingleton<AnimationManager>{
 
-
-    /*GetInstance
-     *@Brief 获取一个AnimationManager实例 
-     *@Return AnimationManager
-     */
-    static public AnimationManager GetInstance()
-    {
-        if (instance)
-            return instance;
-        else
-        {
-            instance = Instantiate(instance);
-            return instance;
-        }
-
-    }
 
     /*PlayAnimation
      *@Brief 播放动画
@@ -57,12 +41,7 @@ public class AnimationManager : MonoBehaviour {
     
     void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
         GetComponent<MeshRenderer>().enabled = false;
     }
 
