@@ -112,6 +112,7 @@ class ItemObserver : Observer
 {
     public override void OnNotify(string msg)
     {
+        //UtilManager.Instance.GetIDFormMsg()
         if (msg == "DisposableItem_Destroy")
             UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
         if (msg == "InitiativeItem_Destroy")
