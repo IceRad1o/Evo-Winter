@@ -27,4 +27,13 @@ public class Box : MonoBehaviour
         //NEED Item item=ItemManager.getInstance().GenerateItem();
         //item.transfrom.setParent(this.transform);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("箱子碰撞物标签：" + other.tag);
+        if ((other.tag == "Weapon"||other.tag=="Player" )&& Input.GetKeyDown(KeyCode.J))
+        {
+            OpenBox();
+        }
+    }
 }
