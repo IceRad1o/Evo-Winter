@@ -31,7 +31,7 @@ public class Box : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("箱子碰撞物标签：" + other.tag);
-        if ((other.tag == "Weapon"||other.tag=="Player" )&& Input.GetKeyDown(KeyCode.J))
+        if ((other.tag == "Weapon"||other.tag=="Player" )&& other.GetComponentInParent<Character>().IsWeaponDmg==1)
         {
             OpenBox();
         }

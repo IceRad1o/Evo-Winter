@@ -6,8 +6,8 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
 
     public GameObject m_Missile;
     public int numberOfMissile;
-    public int direction;
-    public int pathNumber;
+    public static int direction;
+    public static int pathNumber;
 	// Use this for initialization
 	void Start () {
         
@@ -24,11 +24,15 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         {
             Debug.Log("start rem2");
 
-            
-
-            if (msg == "AttackL")
+            string content = UtilManager.Instance.GetFieldFormMsg(msg, 0);
+            if (content== "AttackL")
             {
-                Debug.Log("start rem3");
+                float direct = float.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 1));
+                pathNumber = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 4));
+
+                if (direct > 0) direction = 1;
+                else direction = -1;
+
                 RoomElementManager.Instance.Fire();
             }
 
