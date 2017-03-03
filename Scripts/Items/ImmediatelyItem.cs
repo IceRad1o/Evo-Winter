@@ -20,7 +20,7 @@ public class ImmediatelyItem : Item{
 
         if (other.tag == "Player")
         {
-            Notify("Player_Get_ImmediatelyItem=" + itemID);
+            Notify("Player_Get_ImmediatelyItem;" + itemID);
             playerIn = true;
         }
 
@@ -34,7 +34,14 @@ public class ImmediatelyItem : Item{
             playerIn = false;
         }
     }
-    
+    /// <summary>
+    /// 发送消息，道具已被拾取
+    /// </summary>
+    public void PlayerGet()
+    {
+        Notify("Get_ImmediatelyItem;" + itemID);
+
+    }
     
     /*@Use
      *@Brief 一次性道具的使用
@@ -44,9 +51,9 @@ public class ImmediatelyItem : Item{
     {
         //发送消息，使用道具，并产生Buff
         if (itemBuffID != 0)
-            Notify("UseItem_Buff_ID=" + itemBuffID);
+            Notify("UseItem_Buff_ID;" + itemBuffID);
         if (itemSkillID != 0)
-            Notify("UseItem_Skill_ID=" + itemSkillID);
+            Notify("UseItem_Skill_ID;" + itemSkillID);
 
         Destroy();
     }

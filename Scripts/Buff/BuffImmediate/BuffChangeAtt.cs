@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class BuffChangeAttribute : BuffImmediate
+{
 
-	// Use this for initialization
+
+    void Create(int ID) { 
+    
+    
+    }
+
+
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+        spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 }

@@ -19,7 +19,75 @@ public class UtilManager : UnitySingleton<UtilManager>
         return System.DateTime.Now;
     }
 
+     /// <summary>
+    /// 解析消息
+    /// </summary>
+    /// <param name="_msg">要解析的消息</param>
+    /// <param name="number">需要返回的字段</param>
+    /// <returns>返回的字段，string形式，找不到对应字段返回“Error”</returns>
+    public string GetIDFormMsg(string msg, int number) {
+        string str="";
+        int num=-1,i=0;
+        for (i = 0; i < msg.Length; i++)
+        {
+            if (num == number)
+            {
+                if (msg[i] != ';')
+                    str += msg[i];
+                else
+                    return str;
+            }
+            else {
+                if (msg[i] == ';')
+                    num++;
+            }
+        }
+        if (num == number)
+            return str;
+        else
+            return "Error";
 
+    }
+    /// <summary>
+    /// 判断消息的匹配，并解析
+    /// </summary>
+    /// <param name="msg">消息匹配段</param>
+    /// <param name="_msg">要解析的消息</param>
+    /// <param name="number">消息的字段</param>
+    /// <returns>获取的字段string，“Fail”表示不匹配，“Error”表示无该字段</returns>
+    public string GetIDFormMsg(string msg,string srcMsg, int number) {
+        if (msg.Length > srcMsg.Length)
+            return "Fail";
+        for (int i = 0; i < msg.Length; i++)
+        {
+            if (msg[i] != srcMsg[i])
+                return "Fail";
+        }
+        string str = "";
+        int num = -1;
+        for (int i = 0; i < srcMsg.Length; i++)
+        {
+            if (num == number)
+            {
+                if (srcMsg[i] != ';')
+                    str += srcMsg[i];
+                else
+                    return str;
+            }
+            else
+            {
+                if (srcMsg[i] == ';')
+                    num++;
+            }
+        }
+
+        if (num == number)
+            return str;
+        else
+            return "Error";
+
+        
+    }
 
 
 
