@@ -112,16 +112,38 @@ class ItemObserver : Observer
 {
     public override void OnNotify(string msg)
     {
-        string content=UtilManager.Instance.GetFieldFormMsg(msg, 1);
+        string content=UtilManager.Instance.GetFieldFormMsg(msg, 0);
+        string para1= UtilManager.Instance.GetFieldFormMsg(msg, 1);
         if (content == "DisposableItem_Destroy")
             UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
         if (content == "InitiativeItem_Destroy")
             UIManager.Instance.ItemButtonManager.DestroyInitiativeItem();
-        if (content == "Player_Get_DisposableItem")
+        if (content == "Player_Get_DisposableItem" || content == "Player_Get_InitiativeItem")
         {
-            
-            UIManager.Instance.ItemButtonManager.AddDisposableItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(1)]);
-        } 
+            int para1int = int.Parse(para1);
+            //TODO 显示道具信息
+        }
+        if (content == "Player_Leave_DisposableItem" || content == "Player_Leave_InitiativeItem")
+        {
+            int para1int = int.Parse(para1);
+            //TODO 取消显示道具信息
+           
+        }
+        if(content=="XXX")//玩家拾取一次性道具
+        {
+            int para1int = int.Parse(para1);
+            UIManager.Instance.ItemButtonManager.AddDisposableItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(para1int)]);
+        }
+        if (content == "XXX")//玩家拾取主动道具
+        {
+            int para1int = int.Parse(para1);
+            UIManager.Instance.ItemButtonManager.AddInitiativeItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(para1int)]);
+        }
+        if(content=="InitiativeItem_Energy_Number")
+        {
+            //TODO 改变主动道具的能量显示
+        }
+        
 
 
     }

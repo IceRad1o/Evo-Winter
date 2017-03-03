@@ -56,9 +56,9 @@ public class InitiativeItem : Item{
         }
         //发送消息，使用道具，并产生Buff
         if (itemBuffID != 0)
-            Notify("UseItem_Buff_ID=" + itemBuffID);
+            Notify("UseItem_Buff_ID;" + itemBuffID);
         if (itemSkillID != 0)
-            Notify("UseItem_Skill_ID=" + itemSkillID);
+            Notify("UseItem_Skill_ID;" + itemSkillID);
 
         energyNow = 0;
         Notify("InitiativeItem_Energy_Number;" + energyNow);
@@ -74,7 +74,7 @@ public class InitiativeItem : Item{
 
         if (other.tag == "Player")
         {
-            Notify("Player_Get_InitiativeItem=" + itemID);
+            Notify("Player_Get_InitiativeItem;" + itemID);
             playerIn = true;
         }
 
@@ -87,6 +87,16 @@ public class InitiativeItem : Item{
             playerIn = false;
         }
     }
+    /// <summary>
+    /// 发送消息，道具已被拾取
+    /// </summary>
+    public void PlayerGet()
+    {
+        Notify("Get_InitiativeItem;" + itemID);
+    
+    }
+
+
 
     void Awake()
     {

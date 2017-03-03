@@ -6,7 +6,7 @@ public class BuffTiming : Buff {
     /// <summary>
     /// 计时方式，0时间制，1房间制，2状态类
     /// </summary>
-    private int timingType;
+    protected int timingType;
     public int TimingType
     {
         get { return timingType; }
@@ -15,7 +15,7 @@ public class BuffTiming : Buff {
     /// <summary>
     /// 计时的循环时间
     /// </summary>
-    int timing;
+    protected int timing;
     public int Timing
     {
         get { return timing; }
@@ -24,7 +24,7 @@ public class BuffTiming : Buff {
     /// <summary>
     /// 目前的计时情况，当数值为0时，buff再次触发
     /// </summary>
-    int timingNow;
+    protected int timingNow;
     public int TimingNow
     {
         get { return timingNow; }

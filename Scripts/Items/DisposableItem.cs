@@ -94,7 +94,7 @@ public class DisposableItem : Item{
         
         if (other.tag == "Player")
         {
-            Notify("Player_Get_DisposableItem=" + itemID);
+            Notify("Player_Get_DisposableItem;" + itemID);
           
             playerIn = true;
         }
@@ -109,6 +109,14 @@ public class DisposableItem : Item{
             Notify("Player_Leave_DisposableItem");
             playerIn = false;
         }
+    }
+    /// <summary>
+    /// 发送消息，道具已被拾取
+    /// </summary>
+    public void PlayerGet()
+    {
+        Notify("Get_DisposableItem;" + itemID);
+
     }
     // Use this for initialization
     void Awake()
