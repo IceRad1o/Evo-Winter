@@ -112,13 +112,17 @@ class ItemObserver : Observer
 {
     public override void OnNotify(string msg)
     {
-       // UtilManager.Instance.GetIDFormMsg(msg, 1);
-        if (msg == "DisposableItem_Destroy")
+        string content=UtilManager.Instance.GetFieldFormMsg(msg, 1);
+        if (content == "DisposableItem_Destroy")
             UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
-        if (msg == "InitiativeItem_Destroy")
+        if (content == "InitiativeItem_Destroy")
             UIManager.Instance.ItemButtonManager.DestroyInitiativeItem();
-        if (msg == "Player_Get_DisposableItem")
+        if (content == "Player_Get_DisposableItem")
+        {
+            
             UIManager.Instance.ItemButtonManager.AddDisposableItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(1)]);
+        } 
+
 
     }
 }
