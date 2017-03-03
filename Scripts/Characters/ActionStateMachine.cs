@@ -61,6 +61,9 @@ public class ActionStateMachine {
             case 5:
                 Die();
                 break;
+            case 6:
+                Hurt();
+                break;
             case 11:
                 JJ();
                 break;
@@ -135,6 +138,7 @@ public class ActionStateMachine {
     public virtual void L()
     {
         character.GetComponent<Animator>().SetTrigger("AttackL");
+        
     }
     public virtual void JJ()
     {
@@ -193,5 +197,12 @@ public class ActionStateMachine {
     {
         character.GetComponent<Animator>().SetTrigger("Die");
         SoundManager.Instance.PlaySoundEffect(character.dyingSound);
+    }
+
+    public virtual void Hurt()
+    {
+        if(character.IsAlive>0)
+            character.GetComponent<Animator>().SetTrigger("Hurt");
+        SoundManager.Instance.PlaySoundEffect(character.damagingSound);
     }
 }

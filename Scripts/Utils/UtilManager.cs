@@ -6,23 +6,8 @@ using UnityEngine.UI;
  *@Author YYF
  *@Time 16.12.23
  */
-public class UtilManager : MonoBehaviour {
-
-    /*GetInstance
-    *@Brief 获取一个UtilManager实例 
-    *@Return UtilManager
-    */
-    static public UtilManager GetInstance()
-    {
-        if (instance)
-            return instance;
-        else
-        {
-            instance = Instantiate(instance);
-            return instance;
-        }
-
-    }
+public class UtilManager : UnitySingleton<UtilManager> 
+{
 
     /*GetCurTime
      *@Brief 获取当前时间
@@ -35,18 +20,6 @@ public class UtilManager : MonoBehaviour {
     }
 
 
-
-    private static UtilManager instance = null;  //单例
-
-    void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
-    }
 
 
 

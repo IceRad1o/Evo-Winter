@@ -12,6 +12,6 @@ public class EffectManagerTest : MonoBehaviour {
     {
         yield return new WaitForSeconds(2.0f);
         Debug.Log("this is EffectManager test...");
-        EffectManager.GetInstance().InstantiateEffect(0);
+        EffectManager.Instance.InstantiateEffect(0);
     }
 }
