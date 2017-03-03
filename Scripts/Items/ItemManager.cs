@@ -58,7 +58,7 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.itemObserver);
+            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
 
             
         }
@@ -68,7 +68,7 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.itemObserver);
+            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
         }
         if (itemsTable.GetItemType(itemID) == 3)
         {
@@ -76,7 +76,7 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.itemObserver);
+            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
         }
     
     }
@@ -96,7 +96,7 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.itemObserver);
+            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
             
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -105,7 +105,7 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.itemObserver);
+            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
         }
         if (itemsTable.GetItemType(itemID) == 3)
         {
@@ -113,7 +113,7 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.itemObserver);
+            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
         }
 
     }

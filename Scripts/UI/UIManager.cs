@@ -93,17 +93,31 @@ public class UIManager : UnitySingleton<UIManager>
     }
 
     ItemObserver itemObserver = new ItemObserver(); //Player的观察者
-    class ItemObserver : Observer
-    {
-        public override void OnNotify(string msg)
-        {
-            if (msg == "DisposableItem_Destroy")
-                UIManager.Instance.itemButtonManager.DestroyDisposableItem();
-            if (msg == "InitiativeItem_Destroy")
-                UIManager.Instance.itemButtonManager.DestroyInitiativeItem();
-            if (msg == "Player_Get_DisposableItem")
-                UIManager.Instance.itemButtonManager.AddDisposableItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(1)]);
 
-        }
+    internal ItemObserver ItemObserver
+    {
+        get { return itemObserver; }
+        set { itemObserver = value; }
+    }
+
+
+
+
+
+
+
+}
+
+class ItemObserver : Observer
+{
+    public override void OnNotify(string msg)
+    {
+        if (msg == "DisposableItem_Destroy")
+            UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
+        if (msg == "InitiativeItem_Destroy")
+            UIManager.Instance.ItemButtonManager.DestroyInitiativeItem();
+        if (msg == "Player_Get_DisposableItem")
+            UIManager.Instance.ItemButtonManager.AddDisposableItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(1)]);
+
     }
 }
