@@ -342,11 +342,7 @@ public class Character : Subject
 
     public void NotifyMissile()
     {
-<<<<<<< HEAD
-        Notify("GenerateMissile;" + Direction.x + ";" + 3);
-=======
         Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 3);
->>>>>>> 81f11b3a5e60933bdddf0c28ccb24de45cf1564e
     }
 
 }

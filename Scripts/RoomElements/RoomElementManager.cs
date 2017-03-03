@@ -22,9 +22,9 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
     {
         public override void OnNotify(string msg)
         {
-            Debug.Log("start rem2");
 
             string content = UtilManager.Instance.GetFieldFormMsg(msg, 0);
+            Debug.Log("msg："+msg);
             if (content== "AttackL")
             {
                 float direct = float.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 1));
