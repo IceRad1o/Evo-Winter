@@ -5,7 +5,7 @@ using System.Collections;
 /// </summary>
 public class Buff : MonoBehaviour {
 
-    private int buffID;
+    protected int buffID;
     public int BuffID
     {
         get { return buffID; }
@@ -14,7 +14,7 @@ public class Buff : MonoBehaviour {
     /// <summary>
     /// 效果类型，1为增益，0为减益
     /// </summary>
-    private int effectType;
+    protected int effectType;
     public int EffectType
     {
         get { return effectType; }
@@ -24,7 +24,7 @@ public class Buff : MonoBehaviour {
     /// <summary>
     /// 持续时间，暂定只能以房间为准，0为触发效果后消失，1为永久，2位一个房间
     /// </summary>
-    private int buffDuration;
+    protected int buffDuration;
     public int BuffDuration
     {
       get { return buffDuration; }
@@ -33,18 +33,20 @@ public class Buff : MonoBehaviour {
     /// <summary>
     /// 效果持续时间，1位永久，0位临时
     /// </summary>
-    private int effectDuration;
+    protected int effectDuration;
     public int EffectDuration
     {
         get { return effectDuration; }
         set { effectDuration = value; }
     }
- 
+
+
+
+    protected Sprite buffSprite;
+    protected SpriteRenderer spriteRenderer;
 
     public void Create(int ID)
-    {
-        buffID = ID;     
-    
+    {           
     }
 
 

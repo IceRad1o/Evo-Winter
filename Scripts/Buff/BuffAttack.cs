@@ -5,7 +5,7 @@ public class BuffAttack : Buff {
     /// <summary>
     /// buff触发的概率
     /// </summary>
-    int probability;
+    protected int probability;
     public int Probability
     {
         get { return probability; }

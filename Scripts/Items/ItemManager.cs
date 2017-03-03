@@ -60,6 +60,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance.AddObserver(itemObs);
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
 
+
             
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -69,6 +70,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+
         }
         if (itemsTable.GetItemType(itemID) == 3)
         {
@@ -77,6 +79,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+
         }
     
     }
@@ -97,6 +100,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+
             
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -106,6 +110,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+
         }
         if (itemsTable.GetItemType(itemID) == 3)
         {
@@ -114,6 +119,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+
         }
 
     }
@@ -244,6 +250,7 @@ public class ItemManager : UnitySingleton<ItemManager>
                     if (ItemManager.Instance.itemsDis == t && t.playerIn)
                     {                        
                         ItemManager.Instance.AddDisposableItems(t);
+                        t.PlayerGet();
                         t.Destroy();
                         break;
                     }
@@ -254,6 +261,7 @@ public class ItemManager : UnitySingleton<ItemManager>
                     if (ItemManager.Instance.itemIni == t && t.PlayerIn)
                     {
                         ItemManager.Instance.AddInitiativeItems(t);
+                        t.PlayerGet();
                         t.Destroy();
                         break;
                     }
@@ -263,6 +271,7 @@ public class ItemManager : UnitySingleton<ItemManager>
                 {
                     if (ItemManager.Instance.itemImm == t && t.playerIn)
                     {
+                        t.PlayerGet();
                         t.Use();
                         break;
                     }
