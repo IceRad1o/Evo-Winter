@@ -58,6 +58,8 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
+            itemInstance.AddObserver(UIManager.Instance.itemObserver);
+
             
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -66,13 +68,15 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
+            itemInstance.AddObserver(UIManager.Instance.itemObserver);
         }
-        if (itemsTable.GetItemType(itemID) == 0)
+        if (itemsTable.GetItemType(itemID) == 3)
         {
             InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
+            itemInstance.AddObserver(UIManager.Instance.itemObserver);
         }
     
     }
@@ -92,6 +96,7 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
+            itemInstance.AddObserver(UIManager.Instance.itemObserver);
             
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -100,13 +105,15 @@ public class ItemManager : UnitySingleton<ItemManager>
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
+            itemInstance.AddObserver(UIManager.Instance.itemObserver);
         }
-        if (itemsTable.GetItemType(itemID) == 0)
+        if (itemsTable.GetItemType(itemID) == 3)
         {
             InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
 
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
+            itemInstance.AddObserver(UIManager.Instance.itemObserver);
         }
 
     }
@@ -367,5 +374,74 @@ public class ItemManager : UnitySingleton<ItemManager>
        return _id;
     }
 
+    /// <summary>
+    /// 解析消息
+    /// </summary>
+    /// <param name="_msg">要解析的消息</param>
+    /// <param name="_number">需要返回的字段</param>
+    /// <returns>返回的字段，string形式，找不到对应字段返回“Error”</returns>
+    public string GetIDFormMsg(string _msg, int _number) {
+        string _string="";
+        int number=-1,i=0;
+        for (i = 0; i < _msg.Length; i++)
+        {
+            if (number == _number)
+            {
+                if (_msg[i] != ';')
+                    _string += _msg[i];
+                else
+                    return _string;
+            }
+            else {
+                if (_msg[i] == ';')
+                    number++;
+            }
+        }
+        if (number == _number)
+            return _string;
+        else
+            return "Error";
+
+    }
+    /// <summary>
+    /// 判断消息的匹配，并解析
+    /// </summary>
+    /// <param name="msg">消息匹配段</param>
+    /// <param name="_msg">要解析的消息</param>
+    /// <param name="_number">消息的字段</param>
+    /// <returns>获取的字段string，“Fail”表示不匹配，“Error”表示无该字段</returns>
+    public string GetIDFormMsg(string msg,string _msg, int _number) {
+        if (msg.Length > _msg.Length)
+            return "Fail";
+        for (int i = 0; i < msg.Length; i++)
+        {
+            if (msg[i] != _msg[i])
+                return "Fail";
+        }
+        string _string = "";
+        int number = -1;
+        for (int i = 0; i < _msg.Length; i++)
+        {
+            if (number == _number)
+            {
+                if (_msg[i] != ';')
+                    _string += _msg[i];
+                else
+                    return _string;
+            }
+            else
+            {
+                if (_msg[i] == ';')
+                    number++;
+            }
+        }
+
+        if (number == _number)
+            return _string;
+        else
+            return "Error";
+
+        
+    }
 
 }
