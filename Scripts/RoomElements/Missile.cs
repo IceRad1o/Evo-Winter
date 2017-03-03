@@ -35,7 +35,6 @@ public class Missile : MonoBehaviour {
 	}
     void Start()
     {
-        Debug.Log("进入Start()");
         boxCollider = GetComponent<PolygonCollider2D>();
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
@@ -49,7 +48,6 @@ public class Missile : MonoBehaviour {
         penetrating = false;
         bombRange = 2;
         flyPath = 1;
-        Debug.Log("退出Start()");
         //StartMove();      
     }
     /// <summary>
@@ -59,12 +57,11 @@ public class Missile : MonoBehaviour {
     /// <param name="spd">移动速度</param>
     public void StartMove(float dis,float spd)
     {
-        Debug.Log("进入StartMove()");
         flyDistance = dis;
         flySpeed = spd;
         moveTime = flyDistance / flySpeed;
         inverseMoveTime = 1f / moveTime;
-        Debug.Log("speed:" + flySpeed + "  distance:" + flyDistance + "  direction:" + direction);
+        //Debug.Log("speed:" + flySpeed + "  distance:" + flyDistance + "  direction:" + direction);
 
         if (direction == -1)
             rotationTheta = 180;
@@ -76,7 +73,7 @@ public class Missile : MonoBehaviour {
         //飞行路径1
         if (flyPath == 1)
         {
-            Debug.Log("flyPath:"+flyPath);
+            //Debug.Log("flyPath:"+flyPath);
 
             if (direction == 1)
                 AttemptMove<Missile>(flyDistance, 0f);
@@ -89,7 +86,7 @@ public class Missile : MonoBehaviour {
         //飞行路径2
         if (flyPath == 2)
         {
-            Debug.Log("flyPath:" + flyPath);
+            //Debug.Log("flyPath:" + flyPath);
 
             if (direction == 1)
                 AttemptMove<Missile>(flyDistance, 3.0f);
@@ -99,11 +96,10 @@ public class Missile : MonoBehaviour {
             //检测结束条件
             StartCoroutine(FlyEndCheck());
         }
-        Debug.Log("退出StartMove()");
        //飞行路径3
         if (flyPath == 3)
         {
-            Debug.Log("flyPath:" + flyPath);
+            //Debug.Log("flyPath:" + flyPath);
 
             if (direction == 1)
                 AttemptMove<Missile>(flyDistance, 6.0f);
@@ -116,7 +112,7 @@ public class Missile : MonoBehaviour {
         //飞行路径4
         if (flyPath == 4)
         {
-            Debug.Log("flyPath:" + flyPath);
+            //Debug.Log("flyPath:" + flyPath);
 
             //if (direction == 1)
             //    AttemptMove<Missile>(flyDistance, 6.0f);
@@ -139,32 +135,29 @@ public class Missile : MonoBehaviour {
     /// <returns></returns>
     IEnumerator FlyEndCheck()
     {
-        Debug.Log("进入FlyEndCheck()");
-        Debug.Log("飞行路径："+flyPath);
+        //Debug.Log("进入FlyEndCheck()");
+        //Debug.Log("飞行路径："+flyPath);
 
         startPositionX = this.transform.position.x;
         startPositionY = this.transform.position.y;
 
         if (flyPath >0)
         {
-            Debug.Log("进入飞行路径1" );
+            //Debug.Log("进入飞行路径1" );
             while (true)
             {
                 //Debug.Log("方向:" + direction + "正距离:" + startPosition +"+"+ flyDistance + "负距离:" + startPosition + flyDistance * -1 + "当前位置：" + this.transform.position.x);
                 if ((startPositionX + flyDistance) - this.transform.position.x < float.Epsilon + 0.1 && (direction == 1))
                 {
-                    Debug.Log("1success");
+                 
                     animator.SetTrigger("MissileBomb");
-                    Debug.Log("1+MissileBomb");
                     yield return new WaitForSeconds(0.2f);
                     Destroy(gameObject);
                     break;
                 }
                 if (this.transform.position.x - (startPositionX - flyDistance) < float.Epsilon + 0.1 && (direction == -1))
                 {
-                    Debug.Log("-1success");
                     animator.SetTrigger("MissileBomb");
-                    Debug.Log("-1+MissileBomb");
                     yield return new WaitForSeconds(0.2f);
                     Destroy(gameObject);
                     break;
@@ -173,7 +166,7 @@ public class Missile : MonoBehaviour {
                     yield return null;
             }
         } 
-        Debug.Log("退出FlyEndCheck()");
+       // Debug.Log("退出FlyEndCheck()");
     }
     
 
@@ -265,14 +258,12 @@ public class Missile : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTrrigerEnter");
+        Debug.Log("Missile:OnTrrigerEnter");
         if (other.tag == "Enemy")
         {
-            Debug.Log("OnTrrigerEnemy");
             //other.GetComponent<Character>().Health-=damage;
             if (!penetrating)
             {
-                Debug.Log("Tirr+MissileBomb");
                 animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
                 Destroy(gameObject);
@@ -283,7 +274,6 @@ public class Missile : MonoBehaviour {
             //other.GetComponent<Box>().OpenBox();
             if (!penetrating)
             {
-                Debug.Log("Tirr+MissileBomb");
                 animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
                 Destroy(gameObject);
@@ -306,7 +296,6 @@ public class Missile : MonoBehaviour {
     protected void AttemptMove<T>(float xDir, float yDir)
     where T : Component
     {
-        Debug.Log("AttemptMove");
         RaycastHit2D hit;
         bool canMove = Move(xDir, yDir, out hit);
         if (hit.transform == null)
@@ -320,7 +309,6 @@ public class Missile : MonoBehaviour {
     //移动
     protected bool Move(float xDir, float yDir, out RaycastHit2D hit)
     {
-        Debug.Log("Move");
         Vector2 start = transform.position;
         Vector2 end = start + new Vector2(xDir, yDir);
 
@@ -375,7 +363,6 @@ public class Missile : MonoBehaviour {
         Vector3 gravity=new Vector3(0f,y,0f);
         while (sqrRemainingDistance > float.Epsilon)
         {
-            Debug.Log("旋转角：" + rotationTheta);
             rb2D = GetComponent<Rigidbody2D>();
             Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
             rb2D.MovePosition(newPosition);
@@ -429,7 +416,7 @@ public class Missile : MonoBehaviour {
         hitCharacter.ChangeHealth(damage);
         SoundManager.instance.PlaySingle(bomb);
         */
-        Debug.Log("cantMove");
+
         animator.SetTrigger("CantMove+MissileBomb");
         StartCoroutine(Wait(0.1f));
 
@@ -438,10 +425,8 @@ public class Missile : MonoBehaviour {
     //等待延迟
     IEnumerator Wait(float sec)
     {
-        Debug.Log("cantMoveSuccess");
         yield return new WaitForSeconds(sec);
-        //this.gameObject.SetActive(false);
-        
+        //this.gameObject.SetActive(false);     
     }
 
 

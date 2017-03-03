@@ -25,8 +25,10 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
 
             string content = UtilManager.Instance.GetFieldFormMsg(msg, 0);
             Debug.Log("msg："+msg);
+            Debug.Log("content：" + content);
             if (content== "AttackL")
             {
+                Debug.Log("content OK：" );
                 float direct = float.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 1));
                 pathNumber = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 4));
 
