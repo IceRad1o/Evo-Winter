@@ -19,6 +19,14 @@ public class UtilManager : UnitySingleton<UtilManager>
         return System.DateTime.Now;
     }
 
+
+    public string GetMsgField(string msg,int num)
+    {
+        string[] str1 = msg.Split(';');//分割
+        return str1[num];
+
+    }
+
      /// <summary>
     /// 解析消息
     /// </summary>
