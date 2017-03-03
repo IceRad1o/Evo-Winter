@@ -10,7 +10,7 @@ public class Missile : MonoBehaviour {
     //NEED public AudioClip bomb;
 
     public LayerMask blockingLayer;
-    private BoxCollider2D boxCollider;
+    private PolygonCollider2D boxCollider;
     private Rigidbody2D rb2D;
     private Animator animator;
     //飞行时间，速度，伤害
@@ -36,7 +36,7 @@ public class Missile : MonoBehaviour {
     void Start()
     {
         Debug.Log("进入Start()");
-        boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponent<PolygonCollider2D>();
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         //初始化默认值
@@ -268,7 +268,8 @@ public class Missile : MonoBehaviour {
         Debug.Log("OnTrrigerEnter");
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Character>().Health-=damage;
+            Debug.Log("OnTrrigerEnemy");
+            //other.GetComponent<Character>().Health-=damage;
             if (!penetrating)
             {
                 Debug.Log("Tirr+MissileBomb");
@@ -279,7 +280,7 @@ public class Missile : MonoBehaviour {
         }
         if (other.tag == "Box")
         {
-            other.GetComponent<Box>().OpenBox();
+            //other.GetComponent<Box>().OpenBox();
             if (!penetrating)
             {
                 Debug.Log("Tirr+MissileBomb");
@@ -323,9 +324,9 @@ public class Missile : MonoBehaviour {
         Vector2 start = transform.position;
         Vector2 end = start + new Vector2(xDir, yDir);
 
-        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<PolygonCollider2D >().enabled = false;
         hit = Physics2D.Linecast(start, end, blockingLayer);
-        GetComponent<BoxCollider2D>().enabled = true;
+        GetComponent<PolygonCollider2D>().enabled = true;
 
         if (hit.transform == null)
         {
