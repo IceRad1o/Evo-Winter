@@ -32,7 +32,7 @@ public class HurtByContract : MonoBehaviour
         //如果武器无效化,则返回
 
 
-        if ((other.tag == "EnemyRB2D" && camp == 0) || (other.tag == "Player" && camp == 1))
+        if ((other.tag == "EnemyRB2D" && camp == 0) || (other.tag == "PlayerRB2D" && camp == 1))
         {
             //Debug.Log("Enemy hurt!" + other.GetComponent<Character>().Health);
             other.GetComponentInParent<Character>().Health--;
