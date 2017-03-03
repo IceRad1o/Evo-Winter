@@ -25,7 +25,7 @@ public class UtilManager : UnitySingleton<UtilManager>
     /// <param name="_msg">要解析的消息</param>
     /// <param name="number">需要返回的字段</param>
     /// <returns>返回的字段，string形式，找不到对应字段返回“Error”</returns>
-    public string GetIDFormMsg(string msg, int number) {
+    public string GetFieldFormMsg(string msg, int number) {
         string str="";
         int num=-1,i=0;
         for (i = 0; i < msg.Length; i++)
@@ -55,7 +55,7 @@ public class UtilManager : UnitySingleton<UtilManager>
     /// <param name="_msg">要解析的消息</param>
     /// <param name="number">消息的字段</param>
     /// <returns>获取的字段string，“Fail”表示不匹配，“Error”表示无该字段</returns>
-    public string GetIDFormMsg(string msg,string srcMsg, int number) {
+    public string MatchFiledFormMsg(string msg,string srcMsg, int number) {
         if (msg.Length > srcMsg.Length)
             return "Fail";
         for (int i = 0; i < msg.Length; i++)
