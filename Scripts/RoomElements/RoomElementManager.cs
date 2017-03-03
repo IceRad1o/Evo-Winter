@@ -8,14 +8,12 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
     public int numberOfMissile;
     public int direction;
     public int pathNumber;
-    public 
-
 	// Use this for initialization
 	void Start () {
         numberOfMissile = 0;
         direction = -1;
         pathNumber = 1;
-        Debug.Log("start rem");
+
         Player.Instance.Character.AddObserver(playerObserver);
     }
 
