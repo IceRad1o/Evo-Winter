@@ -13,7 +13,7 @@ public class AnimationManagerTest : MonoBehaviour {
     {
         yield return new WaitForSeconds(2.0f);
         Debug.Log("2");
-        AnimationManager.GetInstance().PlayAnimation(0);
+        AnimationManager.Instance.PlayAnimation(0);
         yield return new WaitForSeconds(6.0f);
         Debug.Log("6");
 
@@ -23,7 +23,7 @@ public class AnimationManagerTest : MonoBehaviour {
         Debug.Log("6");
         yield return new WaitForSeconds(4.0f);
         Debug.Log("4");
-        AnimationManager.GetInstance().PlayAnimation(0);
+        AnimationManager.Instance.PlayAnimation(0);
         Debug.Log("0");
     }
 	

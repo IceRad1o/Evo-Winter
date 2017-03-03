@@ -13,6 +13,8 @@ public class Character : Subject
 
     private float health;   //生命
 
+
+
     public float Health
     {
         get { return health; }
@@ -35,6 +37,7 @@ public class Character : Subject
 
     public float MoveSpeed
     {
+        
         get { return moveSpeed; }
         set
         {
@@ -335,6 +338,11 @@ public class Character : Subject
     public void Disappear()
     {
         Destroy(this.gameObject);
+    }
+
+    public void NotifyMissile()
+    {
+        Notify("GenerateMissile;" + Direction + ";" + 3);
     }
 
 }
