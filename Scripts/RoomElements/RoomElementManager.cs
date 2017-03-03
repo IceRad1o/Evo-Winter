@@ -8,14 +8,12 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
     public int numberOfMissile;
     public int direction;
     public int pathNumber;
-    public 
-
 	// Use this for initialization
 	void Start () {
+        
+        //direction = -1;
+        //pathNumber = 1;
         numberOfMissile = 0;
-        direction = -1;
-        pathNumber = 1;
-        Debug.Log("start rem");
         Player.Instance.Character.AddObserver(playerObserver);
     }
 
@@ -25,6 +23,9 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         public override void OnNotify(string msg)
         {
             Debug.Log("start rem2");
+
+            
+
             if (msg == "AttackL")
             {
                 Debug.Log("start rem3");
@@ -80,7 +81,4 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         Debug.Log("发射物数量：" + numberOfMissile);
         Debug.Log("退出Fire()");
     }
-
-
-
 }

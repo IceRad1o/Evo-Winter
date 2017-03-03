@@ -50,6 +50,7 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
     public void OnInitiativeItem()
     {
         Debug.Log("s使用主动道具");
+        //ItemManager.
         //NEED ItemManager.GetInstance().UseInitiativeItems();
 
     }
