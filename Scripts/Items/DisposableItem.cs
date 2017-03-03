@@ -45,9 +45,9 @@ public class DisposableItem : Item{
 
         //发送消息，使用道具，并产生Buff
         if (itemBuffID!=0)
-            Notify("UseItem_Buff_ID="+itemBuffID);
+            Notify("UseItem_Buff_ID;"+itemBuffID);
         if (itemSkillID != 0)
-            Notify("UseItem_Skill_ID="+itemSkillID);
+            Notify("UseItem_Skill_ID;"+itemSkillID);
 
 
         if (usingNumber == 0)
