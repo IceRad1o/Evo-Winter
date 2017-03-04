@@ -190,6 +190,7 @@ public class Character : Subject
 
     private int canMove;    //能否移动
 
+    //PROBLEM 值不停的在改变
     public int CanMove
     {
         get { return canMove; }

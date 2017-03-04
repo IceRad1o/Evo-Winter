@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemManagerTest : MonoBehaviour {
+public class ProfileManager : UnitySingleton<ProfileManager>{
 
+ 
 	// Use this for initialization
 	void Start () {
-        
-        ItemManager.Instance.CreateItemType(true);
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    
+	
 	}
 }
