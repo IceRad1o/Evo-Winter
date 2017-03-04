@@ -13,7 +13,7 @@ public class PreferenceManager : UnitySingleton<PreferenceManager> {
 
     void InitData()
     {
-
+        data.Init();
     }
 
 }

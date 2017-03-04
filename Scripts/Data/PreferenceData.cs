@@ -24,4 +24,8 @@ public class PreferenceData  {
         PlayerPrefs.SetFloat("soundEffectVolume", soundEffectVolume);
         }
     }
+
+    public void Init(){
+        backGroundMusicVolume = PlayerPrefs.GetFloat("11");
+    }
 }
