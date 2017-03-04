@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 /*UtilManager
  *@Brief 负责提供一些游戏工具函数
  *@Author YYF
@@ -106,13 +107,23 @@ public class UtilManager : UnitySingleton<UtilManager>
 
 
 
-
-    public ArrayList DecomposeID(int id) 
+    /// <summary>
+    /// 解析id
+    /// </summary>
+    /// <param name="id">ID</param>
+    /// <param name="part">每部分ID的长度</param>
+    /// <returns></returns>
+    public int[] DecomposeID(int id,int[] part) 
     { 
-        ArrayList array=new ArrayList();
+        int[] a={1,10,100,1000,10000,100000,1000000};
+        List<int> array=new List<int>();
+        for (int i = 0; i < part.Length; i++)
+        {
+            array.Add(id % a[part[i]]);
+            id /= a[part[i]];
+        }
 
-
-        return array;
+        return array.ToArray();
     }
 
 

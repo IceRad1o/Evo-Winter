@@ -5,6 +5,7 @@ using System.Collections;
 /// </summary>
 public class Buff : MonoBehaviour {
 
+    protected string buffTag; 
     protected int buffID;
     public int BuffID
     {
@@ -45,11 +46,11 @@ public class Buff : MonoBehaviour {
     protected Sprite buffSprite;
     protected SpriteRenderer spriteRenderer;
 
-    public void Create(int ID)
-    {           
+    public void destroy()
+    {
+        this.gameObject.GetComponent<BuffManager>().BuffList.Remove(this);
+        Destroy(this);  
     }
-
-
 
 
 

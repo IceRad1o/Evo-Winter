@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuffChangeAttribute : BuffImmediate
+public class BuffChangeAttribute : Buff
 {
     /// <summary>
     /// 改变的差值
@@ -24,9 +24,11 @@ public class BuffChangeAttribute : BuffImmediate
 
 
     public void Trigger() {
+       
        switch (attribute) 
        { 
            case 0:
+               Debug.Log("Trigger");
                this.gameObject.GetComponent<Character>().Health += dValue;
                break;
            case 2:
@@ -56,15 +58,23 @@ public class BuffChangeAttribute : BuffImmediate
            default:
                break;
         
-       } 
-       
+       }
+       this.destroy();
     }
 
 
 
-    void Create(int ID) { 
-    
-    
+    public void Create(int ID) {
+
+        
+        int[] part = { 3, 2, 2 };
+        int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
+
+        attribute = idPart[1];
+        
+        dValue = idPart[2];
+        BuffManager.Instance.BuffList.Add(this);
+        Trigger();
     }
 
 
