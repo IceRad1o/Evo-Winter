@@ -245,7 +245,7 @@ public class RoomManager : MonoBehaviour {
     public void SetupScene()
     {
         InitialiseList();
-        LayoutEnemyAtRandom(enemys, groundElementsCount.minimum, groundElementsCount.maximum);
+        LayoutEnemyAtRandom(enemys, 1, 3);
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
 

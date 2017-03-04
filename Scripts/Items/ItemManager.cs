@@ -240,7 +240,8 @@ public class ItemManager : UnitySingleton<ItemManager>
     {
         public override void OnNotify(string msg)
         {
-            if (msg == "AttackJStart")
+            string[] str = UtilManager.Instance.GetMsgFields(msg);
+            if (str[0] == "AttackStart")
             {
                 //Debug.Log("Get");
                 //一次性道具的拾取                

@@ -29,7 +29,7 @@ public class BuffVampire : BuffAttack
         if (UtilManager.Instance.MatchFiledFormMsg("Attck", msg, 0) != "Fail")
             Trigger();
         //test
-        if (msg == "AttackJStart")
+        if (msg == "AttackHit")
         {
             Debug.Log("Get msg");
             Trigger();

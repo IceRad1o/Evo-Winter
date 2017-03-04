@@ -1,13 +1,10 @@
 fileFormatVersion: 2
 guid: 2077eb73472cd5549987b72ee0602674
-timeCreated: 1488446746
+timeCreated: 1488644605
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - itemsDis: {instanceID: 0}
-  - itemImm: {instanceID: 0}
-  - itemIni: {instanceID: 0}
   - itemsTransform: {fileID: 4000013777293908, guid: d45c9ec4478cc6843ade05fba103bdc8,
       type: 2}
   - itemsDisposable: {fileID: 114000012867744860, guid: 900511232a8695b44b8c1b7b2b6836e8,
@@ -15,6 +12,11 @@ MonoImporter:
   - itemImmediately: {fileID: 114000013013424312, guid: e29e473114d93c74bb29397bd81dd8a1,
       type: 2}
   - itemInitiative: {instanceID: 0}
+  - itemSprite: {fileID: 114000010344404554, guid: e6d46b590982f694a98602fbcc158de8,
+      type: 2}
+  - itemsDis: {instanceID: 0}
+  - itemImm: {instanceID: 0}
+  - itemIni: {instanceID: 0}
   executionOrder: 500
   icon: {instanceID: 0}
   userData: 
