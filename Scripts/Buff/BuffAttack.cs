@@ -12,7 +12,7 @@ public class BuffAttack : Buff {
         set { probability = value; }
     }
 
-    bool JudgeTrigger(){
+    protected bool JudgeTrigger(){
         //创建random的实例
         System.Random random = new System.Random();
         if (random.Next(100) <= probability)
@@ -21,5 +21,39 @@ public class BuffAttack : Buff {
             return false;
     }
 
+    public void CreateBuff(int ID,GameObject ob)
+    {
+        int[] part = { 2,2, 3, 1,2 };
+        int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
+        switch (idPart[1])
+        {
+            case 1:
+                BuffVampire newBuff = ob.AddComponent<BuffVampire>();
+                newBuff.Create(ID);
+                break;
 
+            default:
+                break;
+        }
+    }
+
+
+
+
+    protected virtual void Create(int ID)
+    {
+        
+        BuffID = ID;
+        int[] part = { 2, 2, 3, 1, 2 };
+        int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
+        this.probability = idPart[2];
+        this.effectDuration = idPart[3];        
+        if (idPart[3] == 0)
+            this.buffDuration = idPart[4];
+
+        this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
+        Player.Instance.Character.AddObserver(this);
+    }
+
+    protected virtual void Trigger() { }
 }

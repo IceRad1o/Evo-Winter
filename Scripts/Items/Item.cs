@@ -19,13 +19,6 @@ public class Item : Subject {
     {
 
     }
-    /*@Create
-     *@Brief 虚函数，设置该道具的一些相关属性
-     *@ID 该道具的ID
-     */
-    public virtual void Create(int ID)
-    {
-    }
 
 
     /*@GetID
