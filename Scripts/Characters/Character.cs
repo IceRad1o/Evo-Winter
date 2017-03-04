@@ -190,6 +190,7 @@ public class Character : Subject
 
     private int canMove;    //能否移动
 
+    //PROBLEM 值不停的在改变
     public int CanMove
     {
         get { return canMove; }
@@ -342,13 +343,11 @@ public class Character : Subject
 
     public void NotifyMissile()
     {
-<<<<<<< HEAD
-        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 3);
-=======
+
 
         Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 3);
 
->>>>>>> f5f71bfaf2e76b0532da351d9810b927e8217c09
+
     }
 
 }
