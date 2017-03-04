@@ -343,11 +343,7 @@ public class Character : Subject
 
     public void NotifyMissile()
     {
-
-
         Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 3);
-
-
     }
 
 }
