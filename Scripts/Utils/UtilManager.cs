@@ -34,6 +34,11 @@ public class UtilManager : UnitySingleton<UtilManager>
             return null;
     }
 
+    public string[] GetMsgFields(string msg)
+    {
+        return msg.Split(';');
+    }
+
      /// <summary>
     /// 解析消息，开头有";"
     /// </summary>

@@ -242,7 +242,7 @@ public class ItemManager : UnitySingleton<ItemManager>
         {
             if (msg == "AttackJStart")
             {
-                Debug.Log("Get");
+                //Debug.Log("Get");
                 //一次性道具的拾取                
                 foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
                 {
