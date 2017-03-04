@@ -204,7 +204,9 @@ public class ProfileData
     public int[] RoomElementID
     {
         get { return roomElementID; }
-        set { roomElementID = value; }
+        set { roomElementID = value;
+        PlayerPrefsX.SetIntArray("roomElementID", roomElementID);
+        }
     }
     float[] roomElementPosX;
 
@@ -212,7 +214,7 @@ public class ProfileData
     {
         get { return roomElementPosX; }
         set { roomElementPosX = value;
-        //PlayerPrefsX.SetFloatArray("",);
+        PlayerPrefsX.SetFloatArray("roomElementPosX",roomElementPosX);
         }
     }
     float[] roomElementPosY;
@@ -301,6 +303,8 @@ public class ProfileData
 
     public void Init()
     {
+        curLevel = PlayerPrefs.GetInt("curLevel", 0);
+        map = PlayerPrefsX.GetIntArray("map");
     }
 
 }

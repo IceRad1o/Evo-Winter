@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Character : Subject
+public class Character : ExSubject
 {
     public GameObject gnome;
 
