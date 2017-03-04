@@ -23,14 +23,12 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         public override void OnNotify(string msg)
         {
 
-            string content = UtilManager.Instance.GetFieldFormMsg(msg, 0);
+            string content = UtilManager.Instance.GetMsgField(msg, 0);
             Debug.Log("msg："+msg);
-            Debug.Log("content：" + content);
-            if (content== "AttackL")
+            if (content== "GenerateMissile")
             {
-                Debug.Log("content OK：" );
-                float direct = float.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 1));
-                pathNumber = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 4));
+                float direct = float.Parse(UtilManager.Instance.GetMsgField(msg, 1));
+                pathNumber = int.Parse(UtilManager.Instance.GetMsgField(msg, 4));
 
                 if (direct > 0) direction = 1;
                 else direction = -1;
@@ -69,7 +67,7 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
     public void Fire()
     {
 
-        Debug.Log("进入Fire()");
+        //Debug.Log("进入Fire()");
         GameObject missileInstance =
                Instantiate(m_Missile, Player.Instance.Character.transform.position, Quaternion.identity) as GameObject;
         if (numberOfMissile <100)
@@ -84,7 +82,7 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         }
         
         numberOfMissile++;
-        Debug.Log("发射物数量：" + numberOfMissile);
-        Debug.Log("退出Fire()");
+        //Debug.Log("发射物数量：" + numberOfMissile);
+        //Debug.Log("退出Fire()");
     }
 }
