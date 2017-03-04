@@ -23,9 +23,15 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         public override void OnNotify(string msg)
         {
 
+<<<<<<< HEAD
             string content = UtilManager.Instance.GetMsgField(msg, 0);
             Debug.Log("msg："+msg);
             if (content== "GenerateMissile")
+=======
+            string content = UtilManager.Instance.GetFieldFormMsg(msg, 0);
+
+            if (content== "AttackL")
+>>>>>>> a59b5e1b4a21121a2aa48af520328f48c94be7ae
             {
                 float direct = float.Parse(UtilManager.Instance.GetMsgField(msg, 1));
                 pathNumber = int.Parse(UtilManager.Instance.GetMsgField(msg, 4));

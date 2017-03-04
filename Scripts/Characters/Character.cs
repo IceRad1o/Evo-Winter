@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Character : Subject
+public class Character : ExSubject
 {
     public GameObject gnome;
 
@@ -190,6 +190,7 @@ public class Character : Subject
 
     private int canMove;    //能否移动
 
+    //PROBLEM 值不停的在改变
     public int CanMove
     {
         get { return canMove; }
@@ -342,9 +343,7 @@ public class Character : Subject
 
     public void NotifyMissile()
     {
-
         Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 3);
-
     }
 
 }

@@ -19,16 +19,28 @@ public class UtilManager : UnitySingleton<UtilManager>
         return System.DateTime.Now;
     }
 
-
+    /// <summary>
+    /// 解析消息,开头无";"
+    /// </summary>
+    /// <param name="msg"></param>
+    /// <param name="num"></param>
+    /// <returns></returns>
     public string GetMsgField(string msg,int num)
     {
         string[] str1 = msg.Split(';');//分割
-        return str1[num];
+        if (num < str1.Length)
+            return str1[num];
+        else
+            return null;
+    }
 
+    public string[] GetMsgFields(string msg)
+    {
+        return msg.Split(';');
     }
 
      /// <summary>
-    /// 解析消息
+    /// 解析消息，开头有";"
     /// </summary>
     /// <param name="_msg">要解析的消息</param>
     /// <param name="number">需要返回的字段</param>
@@ -97,6 +109,16 @@ public class UtilManager : UnitySingleton<UtilManager>
         
     }
 
+
+
+
+    public ArrayList DecomposeID(int id) 
+    { 
+        ArrayList array=new ArrayList();
+
+
+        return array;
+    }
 
 
 }

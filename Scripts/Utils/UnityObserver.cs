@@ -16,6 +16,7 @@ public abstract class Observer
 public class Subject:MonoBehaviour
 {
     private List<Observer> observerList = new List<Observer>(); 
+
     /// <summary>  
     /// 添加观察者  
     /// </summary>  
@@ -35,12 +36,49 @@ public class Subject:MonoBehaviour
     /// <summary>  
     /// 推送通知  
     /// </summary>  
-    public void Notify(string msg)
+    public virtual void Notify(string msg)
     {
         foreach (Observer o in observerList)
         {
             o.OnNotify(msg);
         }
     }
-}  
+} 
+
+public class ExSubject:Subject
+{
+    private List<ExSubject> exObserverList = new List<ExSubject>();
+
+    /// <summary>  
+    /// 添加观察者  
+    /// </summary>  
+    /// <param name="observer"></param>  
+    public void AddObserver(ExSubject observer)
+    {
+        exObserverList.Add(observer);
+    }
+    /// <summary>  
+    /// 移除观察者  
+    /// </summary>  
+    /// <param name="observer"></param>  
+    public void RemoveObserver(ExSubject observer)
+    {
+        exObserverList.Remove(observer);
+    }
+    /// <summary>  
+    /// 推送通知  
+    /// </summary>  
+    public override  void  Notify(string msg)
+    {
+        base.Notify(msg);
+        foreach (ExSubject o in exObserverList)
+        {
+            o.OnNotify(msg);
+        }
+    }
+
+    public virtual void OnNotify(string msg)
+    { 
+    }
+}
 

@@ -124,7 +124,8 @@ public class DisposableItem : Item{
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         //获取图片数组
-        itemSprite = itemSp.SpriteArray;
+        //itemSprite = itemSp.SpriteArray;
+        itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }
 
 
