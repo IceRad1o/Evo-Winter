@@ -6,7 +6,7 @@ using System.Collections;
  *@Author YYF
  *@Time   16.12.23
  */
-public class SoundManager : UnitySingleton<SoundManager> {
+public class SoundManager : ExUnitySingleton<SoundManager> {
 
 
 
@@ -57,7 +57,9 @@ public class SoundManager : UnitySingleton<SoundManager> {
      */
     public void SetBackGroundMusicVolume(float volume)
     {
+        Debug.Log("set:" + volume);
         musicSource.volume = volume;
+        Notify("BgmVolumeChanged;" + volume);
     }
 
     /*SetSoundEffectVolume
@@ -67,6 +69,7 @@ public class SoundManager : UnitySingleton<SoundManager> {
     public void SetSoundEffectVolume(float volume)
     {
         efxSource.volume = volume;
+        Notify("EfxVolumeChanged;" + volume);
     }
 
     /*PauseBackGroundMusic
@@ -109,11 +112,14 @@ public class SoundManager : UnitySingleton<SoundManager> {
 
     private static SoundManager instance = null;  //单例
 
-
+    
 
     void Start()
     {
         musicSource = GetComponents<AudioSource>()[0];
         efxSource = GetComponents<AudioSource>()[1];
+        AddObserver(PreferenceManager.Instance);
+        musicSource.volume = PreferenceManager.Instance.Data.BackGroundMusicVolume;
+        efxSource.volume = PreferenceManager.Instance.Data.SoundEffectVolume;
     }
 }

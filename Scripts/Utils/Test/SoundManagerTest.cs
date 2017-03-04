@@ -8,7 +8,6 @@ public class SoundManagerTest : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         StartCoroutine(Test());
-        SoundManager.Instance.PlayBackGroundMusic(test1);
 	}
 
     IEnumerator Test()
@@ -22,6 +21,8 @@ public class SoundManagerTest : MonoBehaviour {
         SoundManager.Instance.PlaySoundEffect(test1,true);
         yield return new WaitForSeconds(2.0f);
         SoundManager.Instance.SetSoundEffectVolume(0.0f);
+        yield return new WaitForSeconds(2.0f);
+        SoundManager.Instance.SetBackGroundMusicVolume(0.5F);
         yield return new WaitForSeconds(2.0f);
    
 
