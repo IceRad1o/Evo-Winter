@@ -106,4 +106,14 @@ public class UtilManager : UnitySingleton<UtilManager>
 
 
 
+
+    public ArrayList DecomposeID(int id) 
+    { 
+        ArrayList array=new ArrayList();
+
+
+        return array;
+    }
+
+
 }

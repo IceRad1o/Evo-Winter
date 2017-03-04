@@ -137,7 +137,6 @@ class ItemObserver : Observer
         if (content == "Get_DisposableItem")//玩家拾取一次性道具
         {
             //PROBELM 显示不出来
-            Debug.Log("Get_DisposableItem  "+para1int);
             UIManager.Instance.ItemButtonManager.AddDisposableItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(para1int)]);
         }
         if (content == "Get_InitiativeItem")//玩家拾取主动道具
