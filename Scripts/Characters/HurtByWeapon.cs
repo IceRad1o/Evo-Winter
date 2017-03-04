@@ -36,12 +36,19 @@ public class HurtByWeapon : MonoBehaviour
 
         if ((other.tag == "EnemyRB2D" && camp == 0) || (other.tag == "PlayerRB2D" && camp == 1))
         {
+            //若有生命,则减血
             //Debug.Log("Enemy hurt!" + other.GetComponent<Character>().Health);
             Character ch=other.GetComponentInParent<Character>();
             if (ch.IsAlive < 0)
                 return;
             ch.Health--;
 
+            //发送命中敌人消息
+            gameObject.GetComponentInParent<Character>().Notify("AttackHit");
+
+
+
+            //添加打击效果
             Vector2[] points = this.GetComponent<PolygonCollider2D>().points;
 
             Vector3 origin = lastPosition;//上一帧的位置

@@ -39,13 +39,13 @@ public class ProfileData
     }
 
     //人物数据
-    int health;
+    float  health;
 
-    public int Health
+    public float Health
     {
         get { return health; }
         set { health = value;
-        PlayerPrefs.SetInt("curHealth", health);
+        PlayerPrefs.SetFloat("curHealth", health);
         }
     }
     float moveSpeed;    //移速
@@ -305,6 +305,22 @@ public class ProfileData
     {
         curLevel = PlayerPrefs.GetInt("curLevel", 0);
         map = PlayerPrefsX.GetIntArray("map");
+        curMap = PlayerPrefs.GetInt("curMap", 0);
+
+        health = PlayerPrefs.GetFloat("curHealth");
+        moveSpeed = PlayerPrefs.GetFloat("curMoveSpeed");
+        attackRange = PlayerPrefs.GetFloat("curAttackRange");
+        attackDamage = PlayerPrefs.GetFloat("curAttackDamage");
+        hitRecover = PlayerPrefs.GetFloat("curHitRecover");
+        spasticity = PlayerPrefs.GetFloat("curSpasticity");
+        race=PlayerPrefs.GetInt("curRace");
+        weapon=PlayerPrefs.GetInt("curWeapon");
+        camp=PlayerPrefs.GetInt("curCamp");
+        sight=PlayerPrefs.GetInt("curSight");
+        luck = PlayerPrefs.GetInt("curLuck");
+
+
+
     }
 
 }
