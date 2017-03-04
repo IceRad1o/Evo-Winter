@@ -60,7 +60,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance.AddObserver(itemObs);
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
 
-
+            
             
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -344,12 +344,7 @@ public class ItemManager : UnitySingleton<ItemManager>
         Player.Instance.Character.AddObserver(playerObs);
 
 
-        Text();
-    }
-
-    void Text() {
-        Debug.Log("Start");
-        this.CreateItemType(true);
+        
     }
     
 
