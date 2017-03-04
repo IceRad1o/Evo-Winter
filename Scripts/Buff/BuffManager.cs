@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class BuffManager : Observer
+public class BuffManager : ExSubject
 {
     ArrayList buffList = new ArrayList();
     List<Buff> buffL = new List<Buff>();
@@ -14,16 +14,18 @@ public class BuffManager : Observer
 
     public void CreateBuff(int ID)
     {
-        int[] part={3,2,2};
+        int[] part={2};
         int[] idPart = UtilManager.Instance.DecomposeID(ID,part);
         switch (idPart[0])
         { 
             case 1:
-                BuffChangeAttribute newBuff = this.gameObject.AddComponent<BuffChangeAttribute>();
+                BuffChangeAttribute newBuff = this.gameObject.AddComponent<BuffChangeAttribute>();                
                 newBuff.Create(ID);
                 buffList.Add(newBuff);
                 break;
-            
+            case 10:
+                new BuffAttack().CreateBuff(ID,this.gameObject);
+                break;
             default:
                 break;
         }

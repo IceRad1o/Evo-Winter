@@ -67,13 +67,13 @@ public class BuffChangeAttribute : Buff
     public void Create(int ID) {
 
         
-        int[] part = { 3, 2, 2 };
+        int[] part = { 4, 2, 2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
         attribute = idPart[1];
         
         dValue = idPart[2];
-        BuffManager.Instance.BuffList.Add(this);
+        this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
         Trigger();
     }
 

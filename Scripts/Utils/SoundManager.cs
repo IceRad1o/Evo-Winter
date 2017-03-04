@@ -119,7 +119,8 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
         musicSource = GetComponents<AudioSource>()[0];
         efxSource = GetComponents<AudioSource>()[1];
         AddObserver(PreferenceManager.Instance);
-        musicSource.volume = PreferenceManager.Instance.Data.BackGroundMusicVolume;
-        efxSource.volume = PreferenceManager.Instance.Data.SoundEffectVolume;
+        
+        //musicSource.volume = PreferenceManager.Instance.Data.BackGroundMusicVolume;
+       // efxSource.volume = PreferenceManager.Instance.Data.SoundEffectVolume;
     }
 }
