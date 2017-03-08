@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+/// <summary>
+/// 存档管理
+/// 存档数据在每一次进入房间和清空房间的时候更新
+/// </summary>
 public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
 
@@ -33,9 +38,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             Debug.LogError("the msg is null!");
         }
         string[] str = UtilManager.Instance.GetMsgFields(msg);
-        if (str[0] == "BgmVolumeChanged")
-            ;// data.BackGroundMusicVolume = float.Parse(str[1]);
-        if (str[0] == "EfxVolumeChanged")
-                ; // data.SoundEffectVolume = float.Parse(str[1]);
+        //if (str[0] == "BgmVolumeChanged")
+            // data.BackGroundMusicVolume = float.Parse(str[1]);
     }
 }

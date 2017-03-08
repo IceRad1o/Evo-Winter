@@ -45,7 +45,7 @@ public class ProfileData
     {
         get { return health; }
         set { health = value;
-        PlayerPrefs.SetFloat("curHealth", health);
+        PlayerPrefs.SetFloat("health", health);
         }
     }
     float moveSpeed;    //移速
@@ -54,7 +54,7 @@ public class ProfileData
     {
         get { return moveSpeed; }
         set { moveSpeed = value;
-        PlayerPrefs.SetFloat("curMoveSpeed", moveSpeed);
+        PlayerPrefs.SetFloat("moveSpeed", moveSpeed);
         }
     }
     float attackRange;
@@ -63,7 +63,7 @@ public class ProfileData
     {
         get { return attackRange; }
         set { attackRange = value;
-        PlayerPrefs.SetFloat("curAttackRange", attackRange);
+        PlayerPrefs.SetFloat("attackRange", attackRange);
         }
     }
     float attackDamage;
@@ -72,7 +72,7 @@ public class ProfileData
     {
         get { return attackDamage; }
         set { attackDamage = value;
-        PlayerPrefs.SetFloat("curAttackDamage", attackDamage);
+        PlayerPrefs.SetFloat("attackDamage", attackDamage);
         }
     }
     float hitRecover;
@@ -81,7 +81,7 @@ public class ProfileData
     {
         get { return hitRecover; }
         set { hitRecover = value;
-        PlayerPrefs.SetFloat("curHitRecover", hitRecover);
+        PlayerPrefs.SetFloat("hitRecover", hitRecover);
         }
     }
     float spasticity;
@@ -90,7 +90,7 @@ public class ProfileData
     {
         get { return spasticity; }
         set { spasticity = value;
-        PlayerPrefs.SetFloat("curSpasticity", spasticity);
+        PlayerPrefs.SetFloat("spasticity", spasticity);
         }
     }
     int race;   //种族
@@ -99,7 +99,7 @@ public class ProfileData
     {
         get { return race; }
         set { race = value;
-        PlayerPrefs.SetInt("curRace", race);
+        PlayerPrefs.SetInt("race", race);
         }
     }
     int weapon;
@@ -108,7 +108,7 @@ public class ProfileData
     {
         get { return weapon; }
         set { weapon = value;
-        PlayerPrefs.SetInt("curWeapon", weapon);
+        PlayerPrefs.SetInt("weapon", weapon);
         }
     }
     int sight;
@@ -117,7 +117,7 @@ public class ProfileData
     {
         get { return sight; }
         set { sight = value;
-        PlayerPrefs.SetInt("curSight", sight);
+        PlayerPrefs.SetInt("sight", sight);
         }
     }
     int camp;
@@ -126,7 +126,7 @@ public class ProfileData
     {
         get { return camp; }
         set { camp = value;
-        PlayerPrefs.SetInt("curCamp", camp);
+        PlayerPrefs.SetInt("camp", camp);
         }
     }
     float luck;
@@ -135,7 +135,7 @@ public class ProfileData
     {
         get { return luck; }
         set { luck = value;
-        PlayerPrefs.SetFloat("curLuck",luck);
+        PlayerPrefs.SetFloat("luck",luck);
         }
     }
     int actionStateMachineID;
@@ -303,24 +303,35 @@ public class ProfileData
 
     public void Init()
     {
-        curLevel = PlayerPrefs.GetInt("curLevel", 0);
+        curLevel = PlayerPrefs.GetInt("curLevel");
+        curMap = PlayerPrefs.GetInt("curMap");
+        health = PlayerPrefs.GetFloat("health");
+        moveSpeed = PlayerPrefs.GetFloat("moveSpeed");
+        attackRange = PlayerPrefs.GetFloat("attackRange");
+        attackDamage = PlayerPrefs.GetFloat("attackDamage");
+        hitRecover = PlayerPrefs.GetFloat("hitRecover");
+        spasticity = PlayerPrefs.GetFloat("spasticity");
+        race = PlayerPrefs.GetInt("race");
+        weapon = PlayerPrefs.GetInt("weapon");
+        sight = PlayerPrefs.GetInt("sight");
+        camp = PlayerPrefs.GetInt("camp");
+        luck = PlayerPrefs.GetFloat("luck");
+        actionStateMachineID = PlayerPrefs.GetInt("actionStateMachineID");
+        itemEnergy = PlayerPrefs.GetInt("itemEnergy");
         map = PlayerPrefsX.GetIntArray("map");
-        curMap = PlayerPrefs.GetInt("curMap", 0);
-
-        health = PlayerPrefs.GetFloat("curHealth");
-        moveSpeed = PlayerPrefs.GetFloat("curMoveSpeed");
-        attackRange = PlayerPrefs.GetFloat("curAttackRange");
-        attackDamage = PlayerPrefs.GetFloat("curAttackDamage");
-        hitRecover = PlayerPrefs.GetFloat("curHitRecover");
-        spasticity = PlayerPrefs.GetFloat("curSpasticity");
-        race=PlayerPrefs.GetInt("curRace");
-        weapon=PlayerPrefs.GetInt("curWeapon");
-        camp=PlayerPrefs.GetInt("curCamp");
-        sight=PlayerPrefs.GetInt("curSight");
-        luck = PlayerPrefs.GetInt("curLuck");
-
-
-
+        curPosition = PlayerPrefsX.GetVector3("curPosition");
+        enemyID = PlayerPrefsX.GetIntArray("enemyID");
+        enemyPosX = PlayerPrefsX.GetFloatArray("enemyPosX");
+        enemyPosY = PlayerPrefsX.GetFloatArray("enemyPosY");
+        enemyPosZ = PlayerPrefsX.GetFloatArray("enemyPosZ");
+        roomElementID = PlayerPrefsX.GetIntArray("roomElementID");
+        roomElementPosX = PlayerPrefsX.GetFloatArray("roomElementPosX");
+        roomElementPosY = PlayerPrefsX.GetFloatArray("roomElementPosY");
+        roomElementPosZ = PlayerPrefsX.GetFloatArray("roomElementPosZ");
+        buffsID = PlayerPrefsX.GetIntArray("buffsID");
+        itemsID = PlayerPrefsX.GetIntArray("itemsID");
+        esscencesID = PlayerPrefsX.GetIntArray("esscencesID");
+        esscencesNum = PlayerPrefsX.GetIntArray("esscencesNum");
     }
 
 }
