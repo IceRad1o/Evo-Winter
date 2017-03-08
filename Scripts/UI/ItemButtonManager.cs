@@ -12,6 +12,7 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
      */
     public void DestroyDisposableItem()
     {
+        Debug.Log("gggggggggggggggggggggg");
         disposableItemImg.GetComponent<Image>().sprite = defaultItem;
     }
 
@@ -61,7 +62,7 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
     public void OnDisposableItem()
     {
         Debug.Log("s使用一次性道具");
-        //NEED ItemManager.GetInstance().UseDisposableItem();
+        ItemManager.Instance.UseDisposableItems();
 
     }
 

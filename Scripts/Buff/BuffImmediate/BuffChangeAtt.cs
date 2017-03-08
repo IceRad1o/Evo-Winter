@@ -59,7 +59,7 @@ public class BuffChangeAttribute : Buff
                break;
         
        }
-       this.destroy();
+       this.DestroyBuff();
     }
 
 

@@ -28,6 +28,10 @@ public class Box : MonoBehaviour
         //NEED SoundManager.instance.PlaySingle(openBox);   
         //NEED Item item=ItemManager.getInstance().GenerateItem();
         //item.transfrom.setParent(this.transform);
+        
+        ItemManager.Instance.ItemsTransform = this.transform;
+        
+        ItemManager.Instance.CreateItemDrop(false, false, true);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

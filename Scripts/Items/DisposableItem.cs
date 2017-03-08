@@ -14,23 +14,15 @@ public class DisposableItem : Item{
 
 
     int usingNumber = 1;
+
+    public int UsingNumber
+    {
+        get { return usingNumber; }
+        set { usingNumber = value; }
+    }
     
 
-    /*@SetUsingNumber
-     *@Brief 设置一次性道具的使用次数
-     *@Param number  将次数设置为number
-     */
-    void SetUsingNumber(int number)
-    {
-        usingNumber = number;
-    }
-    /*@GetUsingNumber
-     *@Brief 获得一次性道具的使用次数
-     */
-    int GetUsingNumber()
-    {
-        return usingNumber;
-    }
+   
 
 
 
@@ -42,16 +34,16 @@ public class DisposableItem : Item{
     {
         usingNumber--;
 
-
+        Debug.Log("UseItem_Buff_ID" + ItemBuffID);
         //发送消息，使用道具，并产生Buff
-        if (itemBuffID!=0)
-            Notify("UseItem_Buff_ID;"+itemBuffID);
+        if (ItemBuffID!=0)
+            Notify("UseItem_Buff_ID;"+ItemBuffID);
         if (itemSkillID != 0)
             Notify("UseItem_Skill_ID;"+itemSkillID);
 
 
-        if (usingNumber == 0)
-            Destroy();
+        if (usingNumber <= 0)
+            DestroyScript();
 
 
     }
@@ -63,26 +55,45 @@ public class DisposableItem : Item{
     public void Create(int ID)
     {
 
-        itemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
+        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
+        iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
         spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
-        itemID = ID;
+        ItemID = ID;
 
         ItemManager.Instance.listDisposableItem.Add(this);
     }
 
+    public void CreateScript(int ID)
+    {
+        iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
+        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
+        itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
+        ItemID = ID;
+    }
     /*@Destroy
      *@Brief 销毁该实例
      */
-    public void Destroy()
+    public void DestroyDisposableItem()
     {
+
         ItemManager.Instance.listDisposableItem.Remove(this);
         //发送消息，一次性道具销毁
-        Notify("DisposableItem_Destroy");
-
-        Destroy(gameObject);    
+       
+        if (this.gameObject)
+            Destroy(gameObject); 
+        else
+            Destroy(this);
     }
 
+    public override void DestroyScript()
+    {
+        Notify("DisposableItem_Destroy");
+        UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
+        Debug.Log("Des");
+        base.DestroyScript();
+        
+    }
 
 
     /// <summary>
@@ -91,10 +102,10 @@ public class DisposableItem : Item{
     /// <param name="other">与其碰撞的GameObj</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        
+       
         if (other.tag == "Player")
         {
-            Notify("Player_Get_DisposableItem;" + itemID);
+            Notify("Player_Get_DisposableItem;" + ItemID);
           
             playerIn = true;
         }
@@ -113,14 +124,15 @@ public class DisposableItem : Item{
     /// <summary>
     /// 发送消息，道具已被拾取
     /// </summary>
-    public void PlayerGet()
+    public void PlayerGet() 
     {
-        Notify("Get_DisposableItem;" + itemID);
+        Notify("Get_DisposableItem;" + ItemID);
 
     }
     // Use this for initialization
     void Awake()
     {
+        Debug.Log(".................");
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         //获取图片数组
