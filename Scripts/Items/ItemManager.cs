@@ -5,7 +5,12 @@ using System.Collections.Generic;
 public class ItemManager : UnitySingleton<ItemManager>
 {
     //用来确定道具生成时的道具位置
-    public Transform itemsTransform;
+    private Transform itemsTransform;
+    public Transform ItemsTransform
+    {
+        get { return itemsTransform; }
+        set { itemsTransform = value; }
+    }
     public DisposableItem itemsDisposable;
     public ImmediatelyItem itemImmediately;
     public InitiativeItem itemInitiative;
@@ -53,9 +58,8 @@ public class ItemManager : UnitySingleton<ItemManager>
         int itemID = RandomItemID(itemsTable.GetItemsByType(includeingImm, includeingDis, includeingIni));
         if (itemsTable.GetItemType(itemID)==1)
         {
-       
+            
             DisposableItem itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
-
             itemInstance.Create(itemID);
             itemInstance.AddObserver(itemObs);
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
@@ -112,7 +116,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance.AddObserver(UIManager.Instance.ItemObserver);
 
         }
-        if (itemsTable.GetItemType(itemID) == 3)
+        if (itemsTable.GetItemType(itemID) == 2)
         {
             InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
 
@@ -138,9 +142,11 @@ public class ItemManager : UnitySingleton<ItemManager>
             itemInstance = disposableItem;
             listDisposableItem.Add(itemInstance);
         }
-
-        disposableItem = item;      
-    
+        disposableItem.CreateScript(item.ItemID);
+        disposableItem.UsingNumber = item.UsingNumber;
+        Debug.Log("...." + disposableItem.ItemBuffID);
+        if (disposableItem.ItemID != 0)
+            Debug.Log("HAD");        
     }
     /// <summary>
     /// 获得当前拥有的一次性道具 
@@ -154,15 +160,27 @@ public class ItemManager : UnitySingleton<ItemManager>
     /// 使用一次性道具
     /// </summary>
     public void UseDisposableItems() {
-        disposableItem.Use();    
+
+
+        if (disposableItem.ItemID != 0)
+        { 
+            Debug.Log("Item Manager Use");
+            disposableItem.Use();
+        }
+                
     }  
     /// <summary>
     /// 销毁当前拥有的一次性道具 
     /// </summary>
     public void DestoryDisposableItems() {
         if (disposableItem != null)
-            disposableItem.Destroy();
+            disposableItem.DestroyDisposableItem();
     }
+
+    public Sprite GetDisposableItemsSprite() {
+        return disposableItem.GetSprite();
+    }
+
 
     /*************************************************************************************/
     //主动道具
@@ -209,7 +227,7 @@ public class ItemManager : UnitySingleton<ItemManager>
         initiativeItem.EnergyNow = initiativeItem.EnergyNow + number;        
     }
     /// <summary>
-    /// 使用一次性道具
+    /// 使用主动道具
     /// </summary>
     public void UseInitiativeItem()
     {
@@ -252,7 +270,7 @@ public class ItemManager : UnitySingleton<ItemManager>
                     {                        
                         ItemManager.Instance.AddDisposableItems(t);
                         t.PlayerGet();
-                        t.Destroy();
+                        t.DestroyDisposableItem();
                         break;
                     }
                 }

@@ -28,12 +28,12 @@ public class InitiativeItem : Item{
     public void Create(int ID)
     {
          
-        itemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
+        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
         energyMax = ItemManager.Instance.itemsTable.GetItemEnergy(ID);
         energyNow = energyMax;
         spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
-        itemID = ID;
+        ItemID = ID;
 
     }
 
@@ -55,8 +55,8 @@ public class InitiativeItem : Item{
             return;
         }
         //发送消息，使用道具，并产生Buff
-        if (itemBuffID != 0)
-            Notify("UseItem_Buff_ID;" + itemBuffID);
+        if (ItemBuffID != 0)
+            Notify("UseItem_Buff_ID;" + ItemBuffID);
         if (itemSkillID != 0)
             Notify("UseItem_Skill_ID;" + itemSkillID);
 
@@ -74,7 +74,7 @@ public class InitiativeItem : Item{
 
         if (other.tag == "Player")
         {
-            Notify("Player_Get_InitiativeItem;" + itemID);
+            Notify("Player_Get_InitiativeItem;" + ItemID);
             playerIn = true;
         }
 
@@ -92,7 +92,7 @@ public class InitiativeItem : Item{
     /// </summary>
     public void PlayerGet()
     {
-        Notify("Get_InitiativeItem;" + itemID);
+        Notify("Get_InitiativeItem;" + ItemID);
     
     }
 

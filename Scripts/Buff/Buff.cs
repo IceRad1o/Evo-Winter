@@ -8,7 +8,7 @@ public class Buff : ExSubject
 
     protected string buffTag;
     private int buffID;
-    protected int BuffID
+    public int BuffID
     {
         get { return buffID; }
         set { buffID = value; }
@@ -49,7 +49,7 @@ public class Buff : ExSubject
     protected Sprite buffSprite;
     protected SpriteRenderer spriteRenderer;
 
-    public void destroy()
+    public void DestroyBuff()
     {
         this.gameObject.GetComponent<BuffManager>().BuffList.Remove(this);
         Destroy(this);  
