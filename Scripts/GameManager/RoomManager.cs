@@ -122,6 +122,7 @@ public class RoomManager : MonoBehaviour {
             //门位置
             case 2:
                 randomIndex = Random.Range(0, doorPosition.Count);
+                Debug.Log("re:"+doorPosition.Count+";"+randomIndex);
                 randomPosition = doorPosition[randomIndex];
                 RemoveWallPosition(randomIndex);
                 break;
@@ -176,26 +177,26 @@ public class RoomManager : MonoBehaviour {
             saveID++;
         }
 
-        if (isDoor1 == false)
-        {
-            randomPosition = RandomPosition(2);
-            GameObject objectChoice = objectArray[1];
-            GameObject a = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
-            a.transform.SetParent(GameObject.Find("WallElements").transform);
-            //墙上物体放入存储数组
-            save.Add(new Save(saveID, randomPosition));
-            saveID++;
-        }
-        if (isDoor2 == false)
-        {
-            randomPosition = RandomPosition(2);
-            GameObject objectChoice = objectArray[2];
-            GameObject a = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
-            a.transform.SetParent(GameObject.Find("WallElements").transform);
-            //墙上物体放入存储数组
-            save.Add(new Save(saveID, randomPosition));
-            saveID++;
-        }
+        //if (isDoor1 == false)
+        //{
+        //    randomPosition = RandomPosition(2);
+        //    GameObject objectChoice = objectArray[1];
+        //    GameObject a = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
+        //    a.transform.SetParent(GameObject.Find("WallElements").transform);
+        //    //墙上物体放入存储数组
+        //    save.Add(new Save(saveID, randomPosition));
+        //    saveID++;
+        //}
+        //if (isDoor2 == false)
+        //{
+        //    randomPosition = RandomPosition(2);
+        //    GameObject objectChoice = objectArray[2];
+        //    GameObject a = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
+        //    a.transform.SetParent(GameObject.Find("WallElements").transform);
+        //    //墙上物体放入存储数组
+        //    save.Add(new Save(saveID, randomPosition));
+        //    saveID++;
+        //}
 
     }
     //随机布局地上物体
@@ -244,7 +245,7 @@ public class RoomManager : MonoBehaviour {
     public void SetupScene()
     {
         InitialiseList();
-        LayoutEnemyAtRandom(enemys, groundElementsCount.minimum, groundElementsCount.maximum);
+        LayoutEnemyAtRandom(enemys, 1, 3);
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
 

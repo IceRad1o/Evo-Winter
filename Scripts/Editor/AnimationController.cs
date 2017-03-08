@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using UnityEditor.Animations; 
+using UnityEditor.Animations; 
+
 
 public class AnimationController : MonoBehaviour {
-    //public AnimatorController ac;
+    public AnimatorController ac;
     public string[] attackAnimationNames;
     /// <summary>
     /// 改变单个动画的速度
@@ -12,21 +13,20 @@ public class AnimationController : MonoBehaviour {
     /// <param name="speed">播放速度</param>
     public void ChangeAnimationSpeed(string animationName,float speed)
     {
-        return;
-        //if(ac==null)
-        //{
-        //    Debug.Log("AnimatorController NULL!");
-        //    return;
-        //}
+        if(ac==null)
+        {
+            Debug.Log("AnimatorController NULL!");
+            return;
+        }
        
-        //for (int i = 0; i < ac.layers[0].stateMachine.states.Length; i++)
-        //{
-        //   // Debug.Log(AC.layers[0].stateMachine.states[i].state.name);
-        //    if (ac.layers[0].stateMachine.states[i].state.name == animationName)
-        //    {
-        //        ac.layers[0].stateMachine.states[i].state.speed = speed;
-        //    }
-        //}
+        for (int i = 0; i < ac.layers[0].stateMachine.states.Length; i++)
+        {
+           // Debug.Log(AC.layers[0].stateMachine.states[i].state.name);
+            if (ac.layers[0].stateMachine.states[i].state.name == animationName)
+            {
+                ac.layers[0].stateMachine.states[i].state.speed = speed;
+            }
+        }
     }
 
     /// <summary>

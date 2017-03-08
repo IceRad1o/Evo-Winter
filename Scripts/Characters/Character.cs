@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Character : ExSubject
 {
-    public GameObject gnome;
+
 
     public AudioClip attackingSound;
     public AudioClip movingSound;
@@ -343,7 +343,7 @@ public class Character : ExSubject
 
     public void NotifyMissile()
     {
-        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 3);
+        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1);
     }
 
 }

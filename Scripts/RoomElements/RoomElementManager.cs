@@ -23,7 +23,7 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         public override void OnNotify(string msg)
         {
             string content = UtilManager.Instance.GetMsgField(msg, 0);
-            Debug.Log("msg："+msg);
+            //Debug.Log("msg："+msg);
             if (content== "GenerateMissile")
             {
                 float direct = float.Parse(UtilManager.Instance.GetMsgField(msg, 1));

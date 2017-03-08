@@ -20,7 +20,7 @@ public class SoundManagerTest : MonoBehaviour {
         yield return new WaitForSeconds(2.0f);
         SoundManager.Instance.PlaySoundEffect(test1,true);
         yield return new WaitForSeconds(2.0f);
-        SoundManager.Instance.SetSoundEffectVolume(0.0f);
+        SoundManager.Instance.SetSoundEffectVolume(1.0f);
         yield return new WaitForSeconds(2.0f);
         SoundManager.Instance.SetBackGroundMusicVolume(0.5F);
         yield return new WaitForSeconds(2.0f);

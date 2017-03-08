@@ -5,12 +5,16 @@ public class ItemManagerTest : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+        StartCoroutine(Test());
         ItemManager.Instance.CreateItemType(true);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
+
+    IEnumerator Test()
+    {
+
+        yield return new WaitForSeconds(3.0f);
+        Debug.Log("Start Test1：create item");
+        ItemManager.Instance.CreateItemType(true);
+        Debug.Log("Test1 Over");
+    }
 }
