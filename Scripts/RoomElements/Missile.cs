@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// 发射物类，包括法球和弓箭
 /// </summary>
-public class Missile : MonoBehaviour {
+public class Missile : RoomElement {
 
     //NEED public AudioClip fly;
     //NEED public AudioClip bomb;
@@ -35,6 +35,8 @@ public class Missile : MonoBehaviour {
 	}
     void Start()
     {
+        RoomElementID = 0;
+
         boxCollider = GetComponent<PolygonCollider2D>();
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();

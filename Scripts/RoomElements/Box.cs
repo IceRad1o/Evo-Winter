@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Box : MonoBehaviour
+public class Box : RoomElement
 {
 
     private Animator animator;
     private bool isOpen;
     //NEED public AudioClip getBox;
     //NEED public AudioClip openBox;
-    void Awake()
+    void Start()
     {
+        RoomElementID = 1;
         animator = GetComponent<Animator>();
         isOpen = false;
         //NEED SoundManager.instance.PlaySingle(getBox);

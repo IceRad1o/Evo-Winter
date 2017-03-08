@@ -1,16 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class RoomElementManager : UnitySingleton<RoomElementManager>
 {
+    List<RoomElement> roomElementList = new List<RoomElement>();
+
+    public List<RoomElement> RoomElementList
+    {
+        get { return roomElementList; }
+        set { roomElementList = value; }
+    }
+
 
     public GameObject m_Missile;
     public int numberOfMissile;
     public static int direction;
     public static int pathNumber;
 	// Use this for initialization
+
+    void Awake()
+    {
+
+    }
 	void Start () {
-        
         //direction = -1;
         //pathNumber = 1;
         numberOfMissile = 0;
@@ -69,6 +81,9 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         //Debug.Log("进入Fire()");
         GameObject missileInstance =
                Instantiate(m_Missile, Player.Instance.Character.transform.position, Quaternion.identity) as GameObject;
+
+       roomElementList.Add(missileInstance.GetComponent<Missile>());
+
         if (numberOfMissile <100)
         {
             missileInstance.GetComponent<Missile>().SetDirection(direction);

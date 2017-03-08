@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     //参数的声明
     public static GameManager instance = null;
     public RoomManager roomScript;
+    public CheckpointManager checkpointScrip;
 
     private bool doingSetup;
 
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         roomScript = GetComponent<RoomManager>();
+        checkpointScrip = GetComponent<CheckpointManager>();
         InitGame();
 	}
 
@@ -29,6 +31,10 @@ public class GameManager : MonoBehaviour {
     void InitGame()
     {
         doingSetup = true;
+
+        checkpointScrip.SetupCheckpoint();
+
+        roomScript.SetDoorDierction(checkpointScrip.surroundRoom);
 
         roomScript.SetupScene();
     }
