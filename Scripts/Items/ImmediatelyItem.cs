@@ -20,7 +20,7 @@ public class ImmediatelyItem : Item{
 
         if (other.tag == "Player")
         {
-            Notify("Player_Get_ImmediatelyItem;" + itemID);
+            Notify("Player_Get_ImmediatelyItem;" + ItemID);
             playerIn = true;
         }
 
@@ -39,7 +39,7 @@ public class ImmediatelyItem : Item{
     /// </summary>
     public void PlayerGet()
     {
-        Notify("Get_ImmediatelyItem;" + itemID);
+        Notify("Get_ImmediatelyItem;" + ItemID);
 
     }
     
@@ -50,12 +50,12 @@ public class ImmediatelyItem : Item{
     public void Use()
     {
         //发送消息，使用道具，并产生Buff
-        if (itemBuffID != 0)
-            Notify("UseItem_Buff_ID;" + itemBuffID);
+        if (ItemBuffID != 0)
+            Notify("UseItem_Buff_ID;" + ItemBuffID);
         if (itemSkillID != 0)
             Notify("UseItem_Skill_ID;" + itemSkillID);
 
-        Destroy();
+        Destroy(gameObject);
     }
 
 
@@ -66,11 +66,11 @@ public class ImmediatelyItem : Item{
      */
     public void Create(int ID)
     {
-        itemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
+        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
 
         spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
-        itemID = ID;
+        ItemID = ID;
 
     }
 

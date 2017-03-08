@@ -29,7 +29,8 @@ public class BuffVampire : BuffAttack
         if (UtilManager.Instance.MatchFiledFormMsg("Attck", msg, 0) != "Fail")
             Trigger();
         //test
-        if (msg == "AttackHit")
+        //if (msg == "AttackHit")
+        if (msg == "AttackStart")
         {
             Debug.Log("Get msg");
             Trigger();
@@ -39,7 +40,7 @@ public class BuffVampire : BuffAttack
         {
             buffDuration--;
             if (buffDuration <= 0 && effectDuration == 0)
-                destroy();
+                DestroyBuff();
         }
     }
 	

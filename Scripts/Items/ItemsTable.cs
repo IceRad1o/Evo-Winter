@@ -168,8 +168,8 @@ public class ItemsTable {
         item.ID = 1012;
         item.spriteArrayID = 11;
         item.type = 1;
-        item.droping = 3;
-        item.buffID = 1000001;
+        item.droping = 6;
+        item.buffID = 10990110;
         item.skillID = 0;
         itemsData.Add(item);
 
