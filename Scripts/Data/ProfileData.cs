@@ -249,8 +249,14 @@ public class ProfileData
         }
     }
     //item数据
+    /// <summary>
+    /// 道具ID,第一位为玩家身上一次性道具,第二位为玩家身上主动道具,之后为地上道具
+    /// </summary>
     int[] itemsID;
 
+    /// <summary>
+    /// 道具ID,第一位为玩家身上一次性道具,第二位为玩家身上主动道具,之后为地上道具
+    /// </summary>
     public int[] ItemsID
     {
         get { return itemsID; }
