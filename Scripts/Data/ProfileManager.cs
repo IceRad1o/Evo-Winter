@@ -39,8 +39,10 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             Debug.LogError("the msg is null!");
         }
         string[] str = UtilManager.Instance.GetMsgFields(msg);
-        if (str[0] == "ClearRoom")
+        if (str[0] == "ClearRoom" || str[0] == "EnterRoom")
         {
+
+            //Player
             data.Health = Player.Instance.Character.Health;
             data.MoveSpeed = Player.Instance.Character.MoveSpeed;
             data.AttackRange = Player.Instance.Character.AttackRange;
@@ -53,36 +55,85 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             data.Luck = Player.Instance.Character.Luck;
             data.ActionStateMachineID = Player.Instance.Character.ActionStateMachine.MachineID;
             data.CurPosition = Player.Instance.Character.transform.position;
-            //data.Map=
+
+
+            //Item
             if (ItemManager.Instance.itemInitiative!=null)
                 data.ItemEnergy = ItemManager.Instance.itemInitiative.EnergyNow;
-            List<int> templist = new List<int>();
+            List<int> tempID = new List<int>();
             if (ItemManager.Instance.itemInitiative != null)
-                templist.Add(ItemManager.Instance.GetInitiativeItem().ItemID);
+                tempID.Add(ItemManager.Instance.GetInitiativeItem().ItemID);
             else
-                templist.Add(-1);
+                tempID.Add(-1);
             if (ItemManager.Instance.GetDisposableItems() != null)
-                templist.Add(ItemManager.Instance.GetDisposableItems().ItemID);
+                tempID.Add(ItemManager.Instance.GetDisposableItems().ItemID);
 
             for (int i = 0; i < ItemManager.Instance.listDisposableItem.Count; i++)
-                templist.Add(ItemManager.Instance.listDisposableItem[i].ItemID);
+                tempID.Add(ItemManager.Instance.listDisposableItem[i].ItemID);
             for (int i = 0; i < ItemManager.Instance.listImmediatelyItem.Count; i++)
-                templist.Add(ItemManager.Instance.listImmediatelyItem[i].ItemID);
+                tempID.Add(ItemManager.Instance.listImmediatelyItem[i].ItemID);
             for (int i = 0; i < ItemManager.Instance.listInitiativeItem.Count; i++)
-                templist.Add(ItemManager.Instance.listInitiativeItem[i].ItemID);
-            data.ItemsID = templist.ToArray();
+                tempID.Add(ItemManager.Instance.listInitiativeItem[i].ItemID);
+            data.ItemsID = tempID.ToArray();
+            tempID.Clear();
 
 
 
+
+            //Enemy
+            List<float> tempPosX = new List<float>();
+            List<float> tempPosY = new List<float>();
+            List<float> tempPosZ = new List<float>();
+            for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
+            {
+                tempID.Add(EnemyManager.Instance.EnemyList[i].CharacterID);
+                tempPosX.Add(EnemyManager.Instance.EnemyList[i].transform.position.x);
+                tempPosY.Add(EnemyManager.Instance.EnemyList[i].transform.position.y);
+                tempPosZ.Add(EnemyManager.Instance.EnemyList[i].transform.position.z);
+            }
+            data.EnemyID=tempID.ToArray();
+            data.EnemyPosX=tempPosX.ToArray();
+            data.EnemyPosY=tempPosY.ToArray();
+            data.EnemyPosZ=tempPosZ.ToArray();
+            tempID.Clear();
+            tempPosX.Clear();
+            tempPosY.Clear();
+            tempPosZ.Clear();
+
+            //Room
+            for(int i=0;i<CheckpointManager.Instance.rows;i++)
+                for(int j=0;j<CheckpointManager.Instance.columns;i++)
+                 tempID.Add(CheckpointManager.Instance.roomArray[i,j]);
+            data.Map = tempID.ToArray();
+            //TODO data.curLevel;
+            //TODO data.CurMap;
+
+
+            //RoomElements
+            for(int i=0;i<RoomElementManager.Instance.RoomElementList.Count;i++)
+            {
+                tempID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+                tempPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
+                tempPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);
+                tempPosZ.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.z);
+            }
+            data.RoomElementID = tempID.ToArray();
+            data.RoomElementPosX = tempPosX.ToArray();
+            data.RoomElementPosY = tempPosY.ToArray();
+            data.RoomElementPosZ = tempPosZ.ToArray();
+            tempID.Clear();
+            tempPosX.Clear();
+            tempPosY.Clear();
+            tempPosZ.Clear();
+
+
+            //TODO BuffID
+
+            //TODO EsscencesID
 
            
 
         }
-        if(str[0]=="EnterRoom")
-        {
 
-        }
-        //if (str[0] == "BgmVolumeChanged")
-            // data.BackGroundMusicVolume = float.Parse(str[1]);
     }
 }

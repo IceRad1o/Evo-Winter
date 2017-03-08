@@ -18,7 +18,7 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
     public static int pathNumber;
 	// Use this for initialization
 
-    void Awake()
+    public override void Awake()
     {
 
     }
