@@ -38,6 +38,18 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             Debug.LogError("the msg is null!");
         }
         string[] str = UtilManager.Instance.GetMsgFields(msg);
+        if (str[0] == "ClearRoom")
+        {
+            data.Health = Player.Instance.Character.Health;
+            data.MoveSpeed = Player.Instance.Character.MoveSpeed;
+            data.AttackRange = Player.Instance.Character.AttackRange;
+            data.AttackDamage = Player.Instance.Character.AttackDamage;
+            data.HitRecover = Player.Instance.Character.HitRecover;
+        }
+        if(str[0]=="EnterRoom")
+        {
+
+        }
         //if (str[0] == "BgmVolumeChanged")
             // data.BackGroundMusicVolume = float.Parse(str[1]);
     }

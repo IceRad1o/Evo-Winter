@@ -135,7 +135,7 @@ public class ItemManager : UnitySingleton<ItemManager>
     /// </summary>
     /// <param name="item">获得的一次性道具</param>
     public void AddDisposableItems( DisposableItem item) {
-        if (disposableItem != null)
+        if (disposableItem.ItemID != 0)
         {
             DisposableItem itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
 
