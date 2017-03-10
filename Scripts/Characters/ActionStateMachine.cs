@@ -41,6 +41,7 @@ public class ActionStateMachine {
         state = 0;
         nextTime = 0;
         intervalTime = 0.5f;
+
     }
     public void CheckActionState(){
 
@@ -135,7 +136,9 @@ public class ActionStateMachine {
     public virtual void J()
     {
         character.GetComponent<Animator>().SetTrigger("AttackJ");
-   
+       
+
+
     }
 
     public virtual void K()
@@ -199,6 +202,7 @@ public class ActionStateMachine {
     public virtual void Move()
     {
         character.GetComponent<Animator>().SetTrigger("Move");
+        //character.UpdateAnimSpeed("Move");
     }
 
     public virtual void Die()
@@ -213,4 +217,7 @@ public class ActionStateMachine {
             character.GetComponent<Animator>().SetTrigger("Hurt");
         SoundManager.Instance.PlaySoundEffect(character.damagingSound);
     }
+
+
+
 }

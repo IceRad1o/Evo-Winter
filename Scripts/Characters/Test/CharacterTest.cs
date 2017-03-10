@@ -14,12 +14,16 @@ public class CharacterTest : MonoBehaviour {
     {
         yield return new WaitForSeconds(3.0f);
         Debug.Log("Start Test1：改变攻速");
-        character.AttackSpeed = 1.5f;
+        AnimatorStateInfo a = character.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+        if (a.IsName("Idle"))//注意这里指的不是动画的名字而是动画状态的名字
+        {
+          
+        }
         Debug.Log("Test1 Over");
 
-        yield return new WaitForSeconds(3.0f);
-        Debug.Log("Start Test2：改变移速");
-        character.MoveSpeed = 0.07f;
-        Debug.Log("Test2 Over");
+        //yield return new WaitForSeconds(3.0f);
+        //Debug.Log("Start Test2：改变移速");
+        //character.MoveSpeed = 0.07f;
+        //Debug.Log("Test2 Over");
     }
 }

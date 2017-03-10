@@ -32,7 +32,7 @@ public class BuffChangeAttribute : Buff
                this.gameObject.GetComponent<Character>().Health += dValue;
                break;
            case 2:
-               this.gameObject.GetComponent<Character>().MoveSpeed += dValue;
+               this.gameObject.GetComponent<Character>().MoveSpeed += (int)dValue;
                break;
            case 3:
                this.gameObject.GetComponent<Character>().AttackSpeed += dValue;
