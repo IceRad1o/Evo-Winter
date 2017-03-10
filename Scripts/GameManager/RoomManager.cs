@@ -270,7 +270,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     }
 
     //清空
-    void ClearAll()
+    public void ClearAll()
     {
         //清除位置
         mirrorPosition.Clear();
@@ -280,6 +280,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         statuePosition.Clear();
         //清除物件
         RoomElementManager.Instance.ClearAll();
+        //清除敌人
+        EnemyManager.Instance.ClearAll();
 
     }
 

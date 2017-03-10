@@ -13,8 +13,8 @@ public class Door : RoomElement
     private void OnTriggerEnter2D(Collider2D other)
     {
         //RoomManager.Instance rm = RoomManager.Instance;
-        Debug.Log("门的碰撞物"+other.tag);
-        if (other.tag == "PlayerRB2D")
+        Debug.Log("门的碰撞物" + other.tag + "敌人数量" + EnemyManager.Instance.EnemyList.Count);
+        if (other.tag == "PlayerRB2D"&&EnemyManager.Instance.EnemyList.Count==0)
         {
             int roomDir = 0;
             for (int i = 0; i < 4; i++)
@@ -33,7 +33,7 @@ public class Door : RoomElement
             {
                     
                 case 0:
-                    //进入上侧房间
+                    //进入上侧房间   
                     Debug.Log("进上xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
                     RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).type,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).doorDirection,
