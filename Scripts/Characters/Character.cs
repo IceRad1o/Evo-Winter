@@ -393,7 +393,7 @@ public class Character : ExSubject
         }
         if (asi.IsName("Move"))
         {
-            Anim.speed = MoveSpeed;
+            Anim.speed = moveSpeed*10;
             //character.Anim.speed = character.MoveSpeed;
         }
         if (asi.IsName("Idle") )
