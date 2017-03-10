@@ -11,4 +11,7 @@ public class CharacterManager :ExUnitySingleton<CharacterManager>
         get { return characterList; }
         set { characterList = value; }
     }
+
+
+ 
 }
