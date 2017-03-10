@@ -12,6 +12,7 @@ public class BuffManager : ExSubject
     }
 
 
+
     public void CreateBuff(int ID)
     {
         int[] part={2};
