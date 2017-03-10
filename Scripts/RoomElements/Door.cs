@@ -10,16 +10,19 @@ public class Door : RoomElement
         RoomElementID = 3;
         roomManager = GetComponent<RoomManager>();
         checkpointManager = GetComponent<CheckpointManager>();
+
 	}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        RoomManager rm = roomManager;
         Debug.Log("门的碰撞物"+other.tag);
-        if (other.tag == "Player")
+        if (other.tag == "PlayerRB2D")
         {
             int roomDir = 0;
             for (int i = 0; i < 4; i++)
             {
+                Debug.Log("房间管理者" + roomManager);
                 if (roomManager.DoorDirection[i] > 0)
                 {
                     roomDir = i;
