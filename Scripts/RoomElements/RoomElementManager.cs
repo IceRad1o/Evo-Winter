@@ -78,13 +78,16 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
 
     public void ClearAll()
     {
-        Debug.Log("进入销毁");
+
+        Debug.Log("进入销毁" + roomElementList.Count);
         for (int i = 0; i < roomElementList.Count; i++)
         {
             Debug.Log("销毁"+i);
             Destroy(roomElementList[i].gameObject);
             Debug.Log("销毁" + i+"成功");
         }
-             
+        RoomElementList.Clear();
+        
+        Debug.Log("结束销毁");
     }
 }

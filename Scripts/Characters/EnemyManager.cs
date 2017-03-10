@@ -19,5 +19,6 @@ public class EnemyManager : ExUnitySingleton<EnemyManager>{
         {
             Destroy(enemy.gameObject);
         }
+        EnemyList.Clear();
     }
 }
