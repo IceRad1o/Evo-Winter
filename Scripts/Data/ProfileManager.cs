@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 
 /// <summary>
 /// 存档管理
@@ -10,6 +10,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
 
     ProfileData data;
+
 
     public ProfileData Data
     {
@@ -38,19 +39,101 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             Debug.LogError("the msg is null!");
         }
         string[] str = UtilManager.Instance.GetMsgFields(msg);
-        if (str[0] == "ClearRoom")
+        if (str[0] == "ClearRoom" || str[0] == "EnterRoom")
         {
+
+            //Player
             data.Health = Player.Instance.Character.Health;
             data.MoveSpeed = Player.Instance.Character.MoveSpeed;
             data.AttackRange = Player.Instance.Character.AttackRange;
             data.AttackDamage = Player.Instance.Character.AttackDamage;
             data.HitRecover = Player.Instance.Character.HitRecover;
-        }
-        if(str[0]=="EnterRoom")
-        {
+            data.Spasticity = Player.Instance.Character.Spasticity;
+            data.Race = Player.Instance.Character.Weapon;
+            data.Sight = Player.Instance.Character.Sight;
+            data.Camp = Player.Instance.Character.Camp;
+            data.Luck = Player.Instance.Character.Luck;
+            data.ActionStateMachineID = Player.Instance.Character.ActionStateMachine.MachineID;
+            data.CurPosition = Player.Instance.Character.transform.position;
+
+
+            //Item
+            if (ItemManager.Instance.itemInitiative!=null)
+                data.ItemEnergy = ItemManager.Instance.itemInitiative.EnergyNow;
+            List<int> tempID = new List<int>();
+            if (ItemManager.Instance.itemInitiative != null)
+                tempID.Add(ItemManager.Instance.GetInitiativeItem().ItemID);
+            else
+                tempID.Add(-1);
+            if (ItemManager.Instance.GetDisposableItems() != null)
+                tempID.Add(ItemManager.Instance.GetDisposableItems().ItemID);
+
+            for (int i = 0; i < ItemManager.Instance.listDisposableItem.Count; i++)
+                tempID.Add(ItemManager.Instance.listDisposableItem[i].ItemID);
+            for (int i = 0; i < ItemManager.Instance.listImmediatelyItem.Count; i++)
+                tempID.Add(ItemManager.Instance.listImmediatelyItem[i].ItemID);
+            for (int i = 0; i < ItemManager.Instance.listInitiativeItem.Count; i++)
+                tempID.Add(ItemManager.Instance.listInitiativeItem[i].ItemID);
+            data.ItemsID = tempID.ToArray();
+            tempID.Clear();
+
+
+
+
+            //Enemy
+            List<float> tempPosX = new List<float>();
+            List<float> tempPosY = new List<float>();
+            List<float> tempPosZ = new List<float>();
+            for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
+            {
+                tempID.Add(EnemyManager.Instance.EnemyList[i].CharacterID);
+                tempPosX.Add(EnemyManager.Instance.EnemyList[i].transform.position.x);
+                tempPosY.Add(EnemyManager.Instance.EnemyList[i].transform.position.y);
+                tempPosZ.Add(EnemyManager.Instance.EnemyList[i].transform.position.z);
+            }
+            data.EnemyID=tempID.ToArray();
+            data.EnemyPosX=tempPosX.ToArray();
+            data.EnemyPosY=tempPosY.ToArray();
+            data.EnemyPosZ=tempPosZ.ToArray();
+            tempID.Clear();
+            tempPosX.Clear();
+            tempPosY.Clear();
+            tempPosZ.Clear();
+
+            //Room
+            for(int i=0;i<CheckpointManager.Instance.rows;i++)
+                for(int j=0;j<CheckpointManager.Instance.columns;i++)
+                 tempID.Add(CheckpointManager.Instance.roomArray[i,j]);
+            data.Map = tempID.ToArray();
+            //TODO data.curLevel;
+            //TODO data.CurMap;
+
+
+            //RoomElements
+            for(int i=0;i<RoomElementManager.Instance.RoomElementList.Count;i++)
+            {
+                tempID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+                tempPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
+                tempPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);
+                tempPosZ.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.z);
+            }
+            data.RoomElementID = tempID.ToArray();
+            data.RoomElementPosX = tempPosX.ToArray();
+            data.RoomElementPosY = tempPosY.ToArray();
+            data.RoomElementPosZ = tempPosZ.ToArray();
+            tempID.Clear();
+            tempPosX.Clear();
+            tempPosY.Clear();
+            tempPosZ.Clear();
+
+
+            //TODO BuffID
+
+            //TODO EsscencesID
+
+           
 
         }
-        //if (str[0] == "BgmVolumeChanged")
-            // data.BackGroundMusicVolume = float.Parse(str[1]);
+
     }
 }

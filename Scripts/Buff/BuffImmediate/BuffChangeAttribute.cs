@@ -59,6 +59,11 @@ public class BuffChangeAttribute : Buff
                break;
         
        }
+
+       GameObject pfb = Resources.Load("Buffs/12") as GameObject;
+       GameObject prefabInstance = Instantiate(pfb);
+       prefabInstance.transform.parent = this.gameObject.transform;
+ 
        this.DestroyBuff();
     }
 

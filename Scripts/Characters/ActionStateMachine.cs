@@ -3,6 +3,14 @@ using System.Collections;
 
 public class ActionStateMachine {
 
+    int machineID;
+
+    public int MachineID
+    {
+        get { return machineID; }
+        set { machineID = value; }
+    }
+
     private int state;  //节点链,个位表示链的第一个元素,十位表示第二个,类推
 
 

@@ -5,6 +5,7 @@ using System.Collections;
 /// </summary>
 public class Buff : ExSubject
 {
+    public GameObject effectPrefeb;
 
     protected string buffTag;
     private int buffID;

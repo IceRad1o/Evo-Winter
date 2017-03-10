@@ -3,7 +3,13 @@ using System.Collections;
 
 public class Character : ExSubject
 {
+    private int characterID;
 
+    public int CharacterID
+    {
+        get { return characterID; }
+        set { characterID = value; }
+    }
 
     public AudioClip attackingSound;
     public AudioClip movingSound;

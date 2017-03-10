@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 3cef194816ca02245a2957f442d65a63
-timeCreated: 1488525616
+timeCreated: 1488980195
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - effectPrefeb: {fileID: 1000010298045566, guid: 064084327bd4f0249b5e46f995e0fa1e,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
