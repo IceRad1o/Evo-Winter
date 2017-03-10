@@ -342,7 +342,7 @@ public class Character : ExSubject
     {
 
         state = 0;
-        moveSpeed = 0.05f;
+        MoveSpeed = 1;
         attackSpeed = 1.0f;
         health = 3;
         isAlive = 1;
