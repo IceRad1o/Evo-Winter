@@ -346,6 +346,20 @@ public class ItemManager : UnitySingleton<ItemManager>
         }
     }
 
+    /// <summary>
+    /// 清除房间所有未捡道具
+    /// </summary>
+    public void DestoryAllItems() {
+        for (int i = 0; i < listDisposableItem.Count; i++)
+            listDisposableItem[i].DestroyDisposableItem();
+        for (int i = 0; i < listImmediatelyItem.Count; i++)
+            listImmediatelyItem[i].DestoryItem();
+        for (int i = 0; i < listInitiativeItem.Count; i++)
+            listInitiativeItem[i].DestoryItem();
+    
+    
+    }
+
 
     //初始化参数
     void Awake() {

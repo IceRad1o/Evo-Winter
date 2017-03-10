@@ -49,4 +49,8 @@ public class Item : Subject {
             Debug.Log("No Sprite");
         return iSprite;
     }
+
+    virtual public void DestoryItem() {
+        Destroy(gameObject);    
+    }
 }

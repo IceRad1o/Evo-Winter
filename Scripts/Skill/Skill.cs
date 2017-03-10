@@ -41,6 +41,24 @@ public class Skill : ExSubject
         set { probability = value; }
     }
     /// <summary>
+    /// 技能状态，表示是否进入冷却
+    /// </summary>
+    private int state;
+    public int State
+    {
+        get { return state; }
+        set { state = value; }
+    }
+    /// <summary>
+    /// 表示技能是否是一次性的，0否，1是
+    /// </summary>
+    private int disposable=0;
+    public int Disposable
+    {
+        get { return disposable; }
+        set { disposable = value; }
+    }
+    /// <summary>
     /// 判断是否触发（概率触发，彩蛋触发）
     /// </summary>
     /// <returns></returns>
@@ -59,10 +77,22 @@ public class Skill : ExSubject
     virtual public void Trigger() { }
 
     virtual public void Create(int ID) { }
-
+    /// <summary>
+    /// 延迟，用于技能的冷却等
+    /// </summary>
+    /// <param name="time">延迟的时间</param>
+    /// <returns></returns>
     virtual protected IEnumerator delay(float time)
     {
         yield return new WaitForSeconds(time);
         Trigger();
+    }
+    /// <summary>
+    /// 技能脚本的销毁
+    /// </summary>
+    virtual protected void skillDestory(){
+        this.gameObject.GetComponent<SkillManager>().SkillList.Remove(this);
+        Destroy(this); 
+    
     }
 }
