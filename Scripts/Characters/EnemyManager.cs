@@ -11,13 +11,13 @@ public class EnemyManager : ExUnitySingleton<EnemyManager>{
         get { return enemyList; }
         set { enemyList = value; }
     }
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+
+   public void ClearAll()
+    {
+        foreach (var enemy in enemyList)
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
 }
