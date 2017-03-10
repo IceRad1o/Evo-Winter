@@ -165,6 +165,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     //设置关卡
     public void SetupCheckpoint()
     {
+        Debug.Log("1");
         roomArray = new int[rows, columns];
         InitalRoomLayout();
         for (int i = 0; i < rows; i++)
@@ -179,7 +180,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 }
             }
         }
-
+        Debug.Log("2");
         //输出房间布局
         string str = "";
         for (int i = 0; i < rows; i++)
