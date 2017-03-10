@@ -19,33 +19,45 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
 
     //行列
-    public int rows = 3;
-    public int columns = 6;
+    private int rows = 3;
+    private int columns = 6;
     //墙上物件随机个数，地上物件随机个数
-    public Count wallElementsCount = new Count(2, 6);
-    public Count groundElementsCount = new Count(2, 6);
+    private Count wallElementsCount = new Count(2, 6);
+    private Count groundElementsCount = new Count(2, 6);
     //墙上物件，地上物件
     public GameObject[] wallElements;
     public GameObject[] groundElements;
+    public GameObject[] doors;
     //小怪
     public GameObject[] enemys;
-    //门的位置
-    public int[] doorDirection = new int[4];
+    //房间坐标位置
+    public int roomX;
+    public int roomY;
+    //门的位置(参数传递设置)
+    private int[] doorDirection = new int[4];
+    public int[] DoorDirection
+    {
+        get { return doorDirection; }
+        set { doorDirection = value; }
+    }
 
 
     private Transform boardHolder;
-    //列表ID:0
+    //列表ID:0 镜子
     private List<Vector3> mirrorPosition = new List<Vector3>();
-    //列表ID:1
+    //列表ID:1 图片
     private List<Vector3> picturePosition = new List<Vector3>();
-    //列表ID:2
+    //列表ID:2 门
     private List<Vector3> doorPosition = new List<Vector3>();
-    //列表ID:3
+    //列表ID:3 地上物品
     private List<Vector3> groundPosition = new List<Vector3>();
+    //列表ID:4 雕像
+    private List<Vector3> statuePosition = new List<Vector3>();
 
 
     //墙上物体位置向量
     /* 门Y:1.4       X最小间距2
+     * 雕像Y：1.54   X最小间距2
      * 镜子Y：1.88   X最小间距1
      * 图片Y：2.09   X最小间距1
      * */
@@ -67,10 +79,36 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         }
         //门位置列表
         doorPosition.Clear();
-        for (float x = -1 * columns; x < columns; x+=2f)
+
+        if (doorDirection[0] == 1)
         {
-            doorPosition.Add(new Vector3(x, 1.4f, 0f));
+            Debug.Log("doorDirection[0]=" + doorDirection[0]);
+            doorPosition.Add(new Vector3(-4f, 2f, 0f));
         }
+        if (doorDirection[1] == 1)
+        {
+            Debug.Log("doorDirection[1]=" + doorDirection[1]);
+            doorPosition.Add(new Vector3(-4f, -2f, 0f));
+        }
+        if (doorDirection[2] == 1)
+        {
+            Debug.Log("doorDirection[2]=" + doorDirection[2]);
+            doorPosition.Add(new Vector3(4f, 2f, 0f));
+        }
+        if (doorDirection[3] == 1)
+        {
+            Debug.Log("doorDirection[3]=" + doorDirection[3]);
+            doorPosition.Add(new Vector3(4f, -2f, 0f));
+        }    
+
+        //doorPosition.Add(new Vector3(x, 1.4f, 0f));
+       
+        //雕像位置列表
+        for (float x = -1 * columns; x < columns; x += 2f)
+        {
+            statuePosition.Add(new Vector3(x, 1.54f, 0f));
+        }
+
         //地上物体列表
         groundPosition.Clear();
         for (int x = -1 * columns; x < columns; x++)
@@ -103,11 +141,10 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 randomPosition = picturePosition[randomIndex];
                 RemoveWallPosition(randomIndex);
                 break;
-            //门位置
+            //雕像位置
             case 2:
-                randomIndex = Random.Range(0, doorPosition.Count);
-                Debug.Log("re:"+doorPosition.Count+";"+randomIndex);
-                randomPosition = doorPosition[randomIndex];
+                randomIndex = Random.Range(0, statuePosition.Count);
+                randomPosition = statuePosition[randomIndex];
                 RemoveWallPosition(randomIndex);
                 break;
             //地上物体位置
@@ -116,6 +153,12 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 randomPosition = groundPosition[randomIndex];
                 groundPosition.RemoveAt(randomIndex);
                 break;
+            //门位置
+            //case 4:
+            //    randomIndex = Random.Range(0, doorPosition.Count);
+            //    randomPosition = doorPosition[randomIndex];
+            //    RemoveWallPosition(randomIndex);
+            //    break;
         }
         return randomPosition;
     }
@@ -125,7 +168,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     {
         mirrorPosition.RemoveAt(randomIndex);
         picturePosition.RemoveAt(randomIndex);
-        doorPosition.RemoveAt(randomIndex);
+        //doorPosition.RemoveAt(randomIndex);
+        statuePosition.RemoveAt(randomIndex);
     }
 
 
@@ -142,7 +186,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             if(wallElementsID==0) randomPosition = RandomPosition(0);
             //放置图片
             if (wallElementsID == 3||wallElementsID==4) randomPosition = RandomPosition(1);
-            //放置门
+            //放置雕像
             if (wallElementsID == 1 || wallElementsID == 2)
             {
                 randomPosition = RandomPosition(2);
@@ -184,7 +228,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             GameObject enemy= Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
             enemy.transform.SetParent(GameObject.Find("GroundElements").transform);
             //小怪存入列表
-            EnemyManager.Instance.EnemyList.Add(enemy.GetComponent<Character>());
+            //EnemyManager.Instance.EnemyList.Add(enemy.GetComponent<Character>());
 
             if (randomIndex < groundPosition.Count - 1 && groundPosition[randomIndex]!=null) randomIndex++;
             else if (randomIndex > 0 && groundPosition[0] != null) randomIndex--;
@@ -199,16 +243,42 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             doorDirection[i] = doorDir[i];
         }
     }
-
-
-
-    //设置场景
-    public void SetupScene()
+    //布局门
+    void LayoutDoor()
     {
+        int j = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            Debug.Log(doorDirection[i]+"\n");
+            if (doorDirection[i] > 0)
+            {
+                GameObject objectChoice = doors[Random.Range(0,doors.Length-1)];
+                GameObject roomElement = Instantiate(objectChoice, doorPosition[j], Quaternion.identity) as GameObject;
+                roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                //房间物件存入列表
+                RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+                j++;
+            }
+        }
+    }
+
+    //设置房间位置
+    void SetRoomXY(int x, int y)
+    {
+        roomX = x;
+        roomY = y;
+    }
+
+    //设置场景,类型号，门位置,房间x，房间y
+    public void SetupScene(int tp, int[] dp, int x, int y)
+    {
+        SetDoorDierction(dp);
         InitialiseList();
+        SetRoomXY(x, y);
         LayoutEnemyAtRandom(enemys, 1, 3);
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
+        LayoutDoor();
           
     }
 }
