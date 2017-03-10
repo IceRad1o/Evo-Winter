@@ -15,9 +15,10 @@ public class Player :UnitySingleton<Player>,IFly {
 
     void Start()
     {
+        this.tag = "Player";
         character = GetComponent<Character>();
-        character.MoveSpeed = 0.08f;
-
+        character.MoveSpeed = 5;
+  
     }
 
     //扩展方法示例

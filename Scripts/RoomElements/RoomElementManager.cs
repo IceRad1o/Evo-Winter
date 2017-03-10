@@ -75,4 +75,19 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
         //Debug.Log("发射物数量：" + numberOfMissile);
         //Debug.Log("退出Fire()");
     }
+
+    public void ClearAll()
+    {
+
+        Debug.Log("进入销毁" + roomElementList.Count);
+        for (int i = 0; i < roomElementList.Count; i++)
+        {
+            Debug.Log("销毁"+i);
+            Destroy(roomElementList[i].gameObject);
+            Debug.Log("销毁" + i+"成功");
+        }
+        RoomElementList.Clear();
+        
+        Debug.Log("结束销毁");
+    }
 }

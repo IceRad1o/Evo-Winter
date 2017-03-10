@@ -3,6 +3,21 @@ using System.Collections;
 
 public class Character : ExSubject
 {
+
+
+    public AudioClip attackingSound;
+    public AudioClip movingSound;
+    public AudioClip dyingSound;
+    public AudioClip damagingSound;
+
+    Animator anim;
+
+    public Animator Anim
+    {
+        get { return anim; }
+        set { anim = value; }
+    }
+
     private int characterID;
 
     public int CharacterID
@@ -11,21 +26,18 @@ public class Character : ExSubject
         set { characterID = value; }
     }
 
-    public AudioClip attackingSound;
-    public AudioClip movingSound;
-    public AudioClip dyingSound;
-    public AudioClip damagingSound;
-
-
     private float health;   //生命
+    private float moveSpeed;    //移速
 
 
+    private float attackSpeed;  //攻速
 
     public float Health
     {
         get { return health; }
         set
         {
+            float temp = health;
             if (value < health)
             {
                 actionStateMachine.Push(6);
@@ -39,21 +51,40 @@ public class Character : ExSubject
 
         }
     }
-    private float moveSpeed;    //移速
+ 
 
-    public float MoveSpeed
+    public float MoveSpeedIn
     {
         
         get { return moveSpeed; }
         set
         {
             moveSpeed = value;
-            AnimationController ac = GetComponent<AnimationController>();
-            ac.ChangeAnimationSpeed("Move", moveSpeed * 20);
+            //AnimationController ac = GetComponent<AnimationController>();
+            //ac.ChangeAnimationSpeed("Move", moveSpeed * 20);
             Notify("MoveSpeedChanged");
         }
     }
-    private float attackSpeed;  //攻速
+
+
+    public int MoveSpeed
+    {
+        get { return (int)moveSpeed; }
+        set 
+        {
+            if (value == 1)
+                MoveSpeedIn = 0.05f;
+            if (value == 2)
+                MoveSpeedIn = 0.08f;
+            if (value == 3)
+                MoveSpeedIn = 0.1f;
+            if (value == 4)
+                MoveSpeedIn = 0.12f;
+            if (value >= 5)
+                MoveSpeedIn = 0.15f;
+        }
+    }
+
 
     public float AttackSpeed
     {
@@ -62,8 +93,8 @@ public class Character : ExSubject
         {
             attackSpeed = value;
             actionStateMachine.IntervalTime = 0.05f / attackSpeed;
-            AnimationController ac = GetComponent<AnimationController>();
-            ac.ChangeAttackAnimationsSpeed(attackSpeed);
+            //AnimationController ac = GetComponent<AnimationController>();
+            //ac.ChangeAttackAnimationsSpeed(attackSpeed);
             Notify("AttackSpeedChanged");
         }
     }
@@ -307,16 +338,16 @@ public class Character : ExSubject
 
     }
 
-    protected virtual void Start()
+   public virtual void Start()
     {
 
         state = 0;
-        moveSpeed = 0.05f;
+        MoveSpeed = 1;
         attackSpeed = 1.0f;
         health = 3;
         isAlive = 1;
         canMove = 1;
-
+        anim = this.GetComponent<Animator>();
     }
 
     public virtual void FixedUpdate()
@@ -350,6 +381,25 @@ public class Character : ExSubject
     public void NotifyMissile()
     {
         Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1);
+    }
+
+    public void UpdateAnimSpeed()
+    {
+        AnimatorStateInfo asi = Anim.GetCurrentAnimatorStateInfo(0);
+
+        if (asi.IsName("AttackJ") || asi.IsName("AttackJJ") || asi.IsName("AttackJJJ") || asi.IsName("AttackK") || asi.IsName("AttackL"))
+        {
+            Anim.speed = AttackSpeed;
+        }
+        if (asi.IsName("Move"))
+        {
+            Anim.speed = moveSpeed*10;
+            //character.Anim.speed = character.MoveSpeed;
+        }
+        if (asi.IsName("Idle") )
+        {
+            Anim.speed = 1;
+        }
     }
 
 }
