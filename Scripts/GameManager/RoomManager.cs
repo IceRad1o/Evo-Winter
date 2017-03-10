@@ -269,9 +269,24 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         roomY = y;
     }
 
+    //清空
+    void ClearAll()
+    {
+        //清除位置
+        mirrorPosition.Clear();
+        picturePosition.Clear();
+        doorPosition.Clear();
+        groundPosition.Clear();
+        statuePosition.Clear();
+        //清除物件
+        RoomElementManager.Instance.ClearAll();
+
+    }
+
     //设置场景,类型号，门位置,房间x，房间y
     public void SetupScene(int tp, int[] dp, int x, int y)
     {
+        ClearAll();
         SetDoorDierction(dp);
         InitialiseList();
         SetRoomXY(x, y);

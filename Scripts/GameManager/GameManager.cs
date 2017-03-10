@@ -5,9 +5,8 @@ using System.Collections.Generic;
 public class GameManager : ExUnitySingleton<GameManager>{
 
     //参数的声明
-    public static GameManager instance = null;
-    public RoomManager roomScript;
-    public CheckpointManager checkpointScrip;
+
+
 
     private bool doingSetup;
 
@@ -15,8 +14,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
 
 	// Use this for initialization
 	void Start () {
-        roomScript = GetComponent<RoomManager>();
-        checkpointScrip = GetComponent<CheckpointManager>();
+
         InitGame();
 	}
 
@@ -25,15 +23,15 @@ public class GameManager : ExUnitySingleton<GameManager>{
     {
         doingSetup = true;
         //设置关卡
-        checkpointScrip.SetupCheckpoint();
+        CheckpointManager.Instance.SetupCheckpoint();
         //传递房间门的方向
-        //roomScript.SetDoorDierction(checkpointScrip.roomList[0].doorDirection);
+        //roomScript.SetDoorDierction(CheckpointManager.Instance.roomList[0].doorDirection);
 
-        Debug.Log("type" + checkpointScrip.roomList[0].type);
-        roomScript.SetupScene(  checkpointScrip.roomList[0].type,
-                                checkpointScrip.roomList[0].doorDirection, 
-                                checkpointScrip.roomList[0].roomX, 
-                                checkpointScrip.roomList[0].roomY);
+        Debug.Log("type" + CheckpointManager.Instance.roomList[0].type);
+        RoomManager.Instance.SetupScene(  CheckpointManager.Instance.roomList[0].type,
+                                CheckpointManager.Instance.roomList[0].doorDirection, 
+                                CheckpointManager.Instance.roomList[0].roomX, 
+                                CheckpointManager.Instance.roomList[0].roomY);
     }
 
 	
