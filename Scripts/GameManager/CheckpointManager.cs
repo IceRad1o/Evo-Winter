@@ -11,7 +11,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     public class Room
     {
         //房间类型号
-        public int type;
+        public int type = 0;
         //是否进入过该房间，0否，1是
         public int pass = 0;
         //房间位置x,y
@@ -40,7 +40,18 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     //房间列表,存放Room类
     public List<Room> roomList = new List<Room>();
     
-
+    //获取下个房间类
+    public Room GetNextRoom(int x, int y)
+    {
+        for (int i = 0; i < roomList.Count; i++)
+        {
+            if (roomList[i].roomX == x && roomList[i].roomY==y)
+            {
+                return roomList[i];
+            }
+        }
+        return null;
+    }
 
     //初始化房间分布列表
     void InitalRoomLayout()
@@ -101,40 +112,42 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     //检索roomArray[x,y]周围房间
     int GetSurroundRoom(int x, int y)
     {
+        for (int i = 0; i < 4;i++ )
+            surroundRoom[i] = 0;
         int count=0;
-        //检查上侧
+        //检查右侧
         if (y+1<columns)
         {
             if (roomArray[x, y + 1] == 1)
+            {
+                surroundRoom[3] = 1;
+                count++;
+            }
+        }
+        //检查左侧
+        if (y - 1 >= 0)
+        {
+            if (roomArray[x, y - 1] == 1)
+            {
+                surroundRoom[2] = 1;
+                count++;
+            }
+        }
+        //检查上侧
+        if (x - 1 >= 0)
+        {
+            if (roomArray[x - 1, y] == 1)
             {
                 surroundRoom[0] = 1;
                 count++;
             }
         }
         //检查下侧
-        if (y - 1 >= 0)
-        {
-            if (roomArray[x, y - 1] == 1)
-            {
-                surroundRoom[1] = 1;
-                count++;
-            }
-        }
-        //检查左侧
-        if (x - 1 >= 0)
-        {
-            if (roomArray[x - 1, y] == 1)
-            {
-                surroundRoom[2] = 1;
-                count++;
-            }
-        }
-        //检查右侧
         if (x + 1 < rows)
         {
             if (roomArray[x + 1, y] == 1)
             {
-                surroundRoom[3] = 1;
+                surroundRoom[1] = 1;
                 count++;
             }
         }
@@ -152,6 +165,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     //设置关卡
     public void SetupCheckpoint()
     {
+        Debug.Log("1");
         roomArray = new int[rows, columns];
         InitalRoomLayout();
         for (int i = 0; i < rows; i++)
@@ -166,7 +180,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 }
             }
         }
-
+        Debug.Log("2");
         //输出房间布局
         string str = "";
         for (int i = 0; i < rows; i++)

@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : ExUnitySingleton<GameManager>{
 
     //参数的声明
     public static GameManager instance = null;
@@ -15,13 +14,7 @@ public class GameManager : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Awake () {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
-
+	void Start () {
         roomScript = GetComponent<RoomManager>();
         checkpointScrip = GetComponent<CheckpointManager>();
         InitGame();
@@ -31,12 +24,16 @@ public class GameManager : MonoBehaviour {
     void InitGame()
     {
         doingSetup = true;
-
+        //设置关卡
         checkpointScrip.SetupCheckpoint();
+        //传递房间门的方向
+        //roomScript.SetDoorDierction(checkpointScrip.roomList[0].doorDirection);
 
-        roomScript.SetDoorDierction(checkpointScrip.surroundRoom);
-
-        roomScript.SetupScene();
+        Debug.Log("type" + checkpointScrip.roomList[0].type);
+        roomScript.SetupScene(  checkpointScrip.roomList[0].type,
+                                checkpointScrip.roomList[0].doorDirection, 
+                                checkpointScrip.roomList[0].roomX, 
+                                checkpointScrip.roomList[0].roomY);
     }
 
 	
