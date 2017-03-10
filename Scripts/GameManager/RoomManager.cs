@@ -187,7 +187,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             GameObject roomElement = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
             roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
             //房间物件存入列表
-            Debug.Log("roomElementList.Count++" + RoomElementManager.Instance.RoomElementList.Count);
             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
 
         }
@@ -203,7 +202,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             GameObject roomElement = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
             //房间物件存入列表
-            Debug.Log("roomElementList.Count++" + RoomElementManager.Instance.RoomElementList.Count);
             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
 
         }
@@ -248,7 +246,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 GameObject roomElement = Instantiate(objectChoice, doorPosition[j], Quaternion.identity) as GameObject;
                 roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
                 //房间物件存入列表
-                Debug.Log("roomElementList.Count++" + RoomElementManager.Instance.RoomElementList.Count);
                 RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                 j++;
             }
@@ -265,18 +262,14 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     //清空
     public void ClearAll()
     {
-
-        Debug.Log("进入清空函数");
         //清除位置
         mirrorPosition.Clear();
         picturePosition.Clear();
         doorPosition.Clear();
         groundPosition.Clear();
         statuePosition.Clear();
-        Debug.Log("清空物件");
         //清除物件
         RoomElementManager.Instance.ClearAll();
-        Debug.Log("清空敌人");
         //清除敌人
         EnemyManager.Instance.ClearAll();
 
@@ -293,6 +286,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
+        Notify("EnterRoom");
           
     }
 }

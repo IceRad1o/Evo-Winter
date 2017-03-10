@@ -15,6 +15,7 @@ public class Door : RoomElement
 
         if (other.tag == "PlayerRB2D"&&EnemyManager.Instance.EnemyList.Count==0)
         {
+            RoomElementManager.Instance.Notify("LeaveRoom");
             int roomDir = 0;
             for (int i = 0; i < 4; i++)
             {
