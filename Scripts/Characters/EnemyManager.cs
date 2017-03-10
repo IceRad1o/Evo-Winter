@@ -12,4 +12,12 @@ public class EnemyManager : ExUnitySingleton<EnemyManager>{
         set { enemyList = value; }
     }
 
+
+   public void ClearAll()
+    {
+        foreach (var enemy in enemyList)
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
 }
