@@ -43,13 +43,16 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     //获取下个房间类
     public Room GetNextRoom(int x, int y)
     {
+        Debug.Log("Get1");
         for (int i = 0; i < roomList.Count; i++)
         {
             if (roomList[i].roomX == x && roomList[i].roomY==y)
             {
+                Debug.Log("Get1.5");
                 return roomList[i];
             }
         }
+        Debug.Log("Get2");
         return null;
     }
 

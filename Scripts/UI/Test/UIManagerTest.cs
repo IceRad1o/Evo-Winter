@@ -15,6 +15,7 @@ public class UIManagerTest : MonoBehaviour {
         
         yield return new WaitForSeconds(3.0f);
         Debug.Log("Start Test1：销毁一次性物品");
+        RoomElementManager.Instance.ClearAll();
         //UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
         Debug.Log("Test1 Over");
 
