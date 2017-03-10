@@ -11,7 +11,7 @@ public class BuffTest : MonoBehaviour {
     IEnumerator Test() 
     {
         yield return new WaitForSeconds(1.0f);
-        this.gameObject.GetComponent<BuffManager>().CreateBuff(10990110);
+        this.gameObject.GetComponent<BuffManager>().CreateBuff(1000001);
     
     
     }
