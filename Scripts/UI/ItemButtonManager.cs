@@ -12,7 +12,6 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
      */
     public void DestroyDisposableItem()
     {
-        Debug.Log("gggggggggggggggggggggg");
         disposableItemImg.GetComponent<Image>().sprite = defaultItem;
     }
 

@@ -108,7 +108,7 @@ public class UIManager : ExUnitySingleton<UIManager>
 
 }
 
-class ItemObserver : Observer
+class ItemObserver : ExSubject
 {
     public override void OnNotify(string msg)
     {

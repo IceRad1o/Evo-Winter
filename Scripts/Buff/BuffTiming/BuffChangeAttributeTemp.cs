@@ -34,13 +34,11 @@ public class BuffChangeAttributeTemp : BuffTiming {
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
         BuffDuration = idPart[2];
-        TimingType = idPart[3];
-        Timing = idPart[4];
-        Attribute = idPart[5];
+        Attribute = idPart[3];
         if (idPart[1] == 1)
-            DValue = idPart[6];
+            DValue = idPart[4];
         else
-            DValue = -idPart[6];
+            DValue = -idPart[4];
 
     }
 
@@ -87,11 +85,11 @@ public class BuffChangeAttributeTemp : BuffTiming {
         
         base.DestroyBuff();
     }
-
+ 
 	void Start () {
         Trigger();
         DValue = -DValue;
-        delay(BuffDuration, 0);
+        StartCoroutine(delay(BuffDuration, 0));
 	}
 	
 	

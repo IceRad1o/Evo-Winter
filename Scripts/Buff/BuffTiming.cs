@@ -80,7 +80,9 @@ public class BuffTiming : Buff {
         if (type == 1)
             Trigger();
         else
+        {
             DestroyBuff();
+        }
     } 
 
 }

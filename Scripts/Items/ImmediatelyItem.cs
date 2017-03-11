@@ -72,6 +72,9 @@ public class ImmediatelyItem : Item{
         spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
         ItemID = ID;
 
+        this.AddObserver(ItemManager.Instance.ItemObs);
+        this.AddObserver(UIManager.Instance.ItemObserver);
+
     }
 
 

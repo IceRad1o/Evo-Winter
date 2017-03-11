@@ -12,7 +12,6 @@ public class SpeedUp : Skill {
 
     public override void Trigger()
     {
-        Debug.Log("Skill_Trigger");
         base.Trigger();
         this.gameObject.GetComponent<BuffManager>().CreateBuff(1020070111);
         State = 1;
@@ -36,9 +35,9 @@ public class SpeedUp : Skill {
     /// <param name="msg"></param>
     public override void OnNotify(string msg)
     {
-        if (UtilManager.Instance.GetFieldFormMsg(msg, 0) == "AttackStart" && UtilManager.Instance.GetFieldFormMsg(msg, 1) == "L")
+        //if (UtilManager.Instance.GetFieldFormMsg(msg, 0) == "AttackStart" && UtilManager.Instance.GetFieldFormMsg(msg, 1) == "L")
+        if (UtilManager.Instance.MatchFiledFormMsg("AttackStart",msg,0)=="L")
         {
-            Debug.Log("AttackStart_L");
             if (State==0)
                 Trigger();
         }

@@ -30,22 +30,23 @@ public class DisposableItem : Item{
      *@Brief 一次性道具的使用
      *@发送消息，使用道具，并将Skill或Buff的ID发出
      */
-    public void Use()
+    public string Use()
     {
         usingNumber--;
 
         Debug.Log("UseItem_Buff_ID" + ItemBuffID);
-        //发送消息，使用道具，并产生Buff
-        if (ItemBuffID!=0)
-            Notify("UseItem_Buff_ID;"+ItemBuffID);
-        if (itemSkillID != 0)
-            Notify("UseItem_Skill_ID;"+itemSkillID);
-
 
         if (usingNumber <= 0)
             DestroyScript();
 
+        if (ItemBuffID != 0)
+            return "UseItem_Buff_ID;" + ItemBuffID;
+        if (itemSkillID != 0)
+            return "UseItem_Skill_ID;" + itemSkillID;
 
+        
+
+        return "Error";
     }
 
     /*@Create
@@ -62,6 +63,8 @@ public class DisposableItem : Item{
         ItemID = ID;
 
         ItemManager.Instance.listDisposableItem.Add(this);
+        this.AddObserver(ItemManager.Instance.ItemObs);
+        this.AddObserver(UIManager.Instance.ItemObserver);
     }
 
     public void CreateScript(int ID)
@@ -132,7 +135,6 @@ public class DisposableItem : Item{
     // Use this for initialization
     void Awake()
     {
-        Debug.Log(".................");
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         //获取图片数组

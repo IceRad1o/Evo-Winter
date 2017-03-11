@@ -2,10 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
-public class ItemManager : UnitySingleton<ItemManager>
+public class ItemManager : ExUnitySingleton<ItemManager>
 {
     //用来确定道具生成时的道具位置
-    private Transform itemsTransform;
+    public Transform itemsTransform;
     public Transform ItemsTransform
     {
         get { return itemsTransform; }
@@ -53,18 +53,19 @@ public class ItemManager : UnitySingleton<ItemManager>
      *Param  includeingImm 随机生成的道具中是否含立即使用道具
      *Param  includeingIni 随机生成的道具中是否含主动道具
      */
-    public void CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false)
+    public void CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false, bool trans = false)
     {
         int itemID = RandomItemID(itemsTable.GetItemsByType(includeingImm, includeingDis, includeingIni));
+        System.Random random = new System.Random();
         if (itemsTable.GetItemType(itemID)==1)
         {
-            
-            DisposableItem itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
-            itemInstance.Create(itemID);
-            itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+            DisposableItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
+            else
+                itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
-            
+            itemInstance.Create(itemID);           
             
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -72,8 +73,7 @@ public class ItemManager : UnitySingleton<ItemManager>
             ImmediatelyItem itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
 
             itemInstance.Create(itemID);
-            itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+            
 
         }
         if (itemsTable.GetItemType(itemID) == 3)
@@ -81,53 +81,53 @@ public class ItemManager : UnitySingleton<ItemManager>
             InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
 
             itemInstance.Create(itemID);
-            itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+            
 
         }
     
     }
-    /*CreateItem
-    *@Brief 创建一个道具
-    *Param  roomDroping 随机生成的道具中是否含房间掉落
-    *Param  bossDroping 随机生成的道具中是否含boss掉落
-    *Param  boxDroping 随机生成的道具中是否含宝箱掉落
-    */
-    public void CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false)
+
+    /// <summary>
+    /// 创建一个道具
+    /// </summary>
+    /// <param name="roomDroping">roomDroping 随机生成的道具中是否含房间掉落</param>
+    /// <param name="boosDroping">bossDroping 随机生成的道具中是否含boss掉落</param>
+    /// <param name="boxDroping">boxDroping 随机生成的道具中是否含宝箱掉落</param>
+    /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
+    public void CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false, bool trans=false)
     {
         int itemID = RandomItemID(itemsTable.GetItemsByDoping(roomDroping, boosDroping, boxDroping));
+        System.Random random = new System.Random();
         //int itemID = RandomItemID();
         if (itemsTable.GetItemType(itemID) == 1)
         {
-            DisposableItem itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
+            DisposableItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
+            else
+                itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
             itemInstance.Create(itemID);
-            itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
-
-            
+                        
         }
         if (itemsTable.GetItemType(itemID) == 0)
         {
             ImmediatelyItem itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
 
-            itemInstance.Create(itemID);
-            itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+            itemInstance.Create(itemID);            
 
         }
         if (itemsTable.GetItemType(itemID) == 2)
         {
             InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
 
-            itemInstance.Create(itemID);
-            itemInstance.AddObserver(itemObs);
-            itemInstance.AddObserver(UIManager.Instance.ItemObserver);
+            itemInstance.Create(itemID);            
 
         }
 
     }
-   
+
+    
     /****************************************************************************************/
     //一次性道具
     /// <summary>
@@ -137,16 +137,16 @@ public class ItemManager : UnitySingleton<ItemManager>
     public void AddDisposableItems( DisposableItem item) {
         if (disposableItem.ItemID != 0)
         {
-            DisposableItem itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
+            Debug.Log("Create disposableItem start");
+            System.Random random = new System.Random();
+            DisposableItem itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
-            itemInstance = disposableItem;
+            itemInstance.Create(disposableItem.ItemID);
+            itemInstance.UsingNumber = disposableItem.UsingNumber;
             listDisposableItem.Add(itemInstance);
         }
         disposableItem.CreateScript(item.ItemID);
-        disposableItem.UsingNumber = item.UsingNumber;
-        Debug.Log("...." + disposableItem.ItemBuffID);
-        if (disposableItem.ItemID != 0)
-            Debug.Log("HAD");        
+        disposableItem.UsingNumber = item.UsingNumber;       
     }
     /// <summary>
     /// 获得当前拥有的一次性道具 
@@ -161,11 +161,9 @@ public class ItemManager : UnitySingleton<ItemManager>
     /// </summary>
     public void UseDisposableItems() {
 
-
         if (disposableItem.ItemID != 0)
         { 
-            Debug.Log("Item Manager Use");
-            disposableItem.Use();
+            Notify( disposableItem.Use());
         }
                 
     }  
@@ -173,8 +171,8 @@ public class ItemManager : UnitySingleton<ItemManager>
     /// 销毁当前拥有的一次性道具 
     /// </summary>
     public void DestoryDisposableItems() {
-        if (disposableItem != null)
-            disposableItem.DestroyDisposableItem();
+        if (disposableItem.ItemID != 0)
+            disposableItem.DestroyScript();
     }
 
     public Sprite GetDisposableItemsSprite() {
@@ -190,11 +188,12 @@ public class ItemManager : UnitySingleton<ItemManager>
     /// <param name="item"></param>
     public void AddInitiativeItems(InitiativeItem item)
     {
-        if (initiativeItem != null)
+        if (initiativeItem.ItemID != 0)
         {
             InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
 
-            itemInstance = initiativeItem;
+            itemInstance.Create(initiativeItem.ItemID);
+            itemInstance.EnergyNow = initiativeItem.EnergyNow;
             listInitiativeItem.Add(itemInstance);
 
         }
@@ -250,101 +249,28 @@ public class ItemManager : UnitySingleton<ItemManager>
 
 
 
+
     /**************************************************************/
     //消息接收
     private PlayerObserver playerObs = new PlayerObserver(); //Player的观察者
 
-    class PlayerObserver : Observer
+    internal PlayerObserver PlayerObs
     {
-        public override void OnNotify(string msg)
-        {
-            string[] str = UtilManager.Instance.GetMsgFields(msg);
-            if (str[0] == "AttackStart")
-            {
-                //Debug.Log("Get");
-                //一次性道具的拾取                
-                foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
-                {
-                    Debug.Log("do");
-                    if (ItemManager.Instance.itemsDis == t && t.playerIn)
-                    {                        
-                        ItemManager.Instance.AddDisposableItems(t);
-                        t.PlayerGet();
-                        t.DestroyDisposableItem();
-                        break;
-                    }
-                }
-                //主动道具的拾取                
-                foreach (InitiativeItem t in ItemManager.Instance.listInitiativeItem)
-                {
-                    if (ItemManager.Instance.itemIni == t && t.PlayerIn)
-                    {
-                        ItemManager.Instance.AddInitiativeItems(t);
-                        t.PlayerGet();
-                        t.Destroy();
-                        break;
-                    }
-                }
-                //立即使用道具的拾取                
-                foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
-                {
-                    if (ItemManager.Instance.itemImm == t && t.playerIn)
-                    {
-                        t.PlayerGet();
-                        t.Use();
-                        break;
-                    }
-                }
-
-
-            }                
-
-        }
+        get { return playerObs; }
+        set { playerObs = value; }
     }
 
-    private ItemObserver itemObs = new ItemObserver(); //Item的观察者
+
+
+    private ItemObser itemObs = new ItemObser(); //Item的观察者
+
+    internal ItemObser ItemObs
+    {
+        get { return itemObs; }
+        set { itemObs = value; }
+    }
+
     
-    class ItemObserver : Observer
-    {
-        public override void OnNotify(string msg)
-        {
-            int _id = 0;
-            //获得一次性道具的消息检测
-            string m = "Player_Get_DisposableItem";
-            _id = ItemManager.Instance.GetIDofMSG(m, msg);
-            
-            if (_id != -1)
-            {
-                DisposableItem[] disItems;
-                disItems = ItemManager.Instance.gameObject.GetComponents<DisposableItem>();
-
-                foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
-                {
-                    if (_id == t.GetID())
-                    {                       
-                        ItemManager.Instance.itemsDis = t; 
-                    }
-                }
-            }
-
-            //获得立即使用道具的消息检测
-            m = "Player_Leave_ImmediatelyItem";
-            _id = ItemManager.Instance.GetIDofMSG(m, msg);
-
-            if (_id != -1)
-            {
-                foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
-                {
-                    if (_id == t.GetID())
-                    {
-                        ItemManager.Instance.itemImm = t;
-                    }
-                }
-            }
-
-
-        }
-    }
 
     /// <summary>
     /// 清除房间所有未捡道具
@@ -378,13 +304,7 @@ public class ItemManager : UnitySingleton<ItemManager>
 
 
         
-    }
-    
-
-    
-
-
-   
+    }   
 
 
     /********************************************************************/
@@ -481,4 +401,93 @@ public class ItemManager : UnitySingleton<ItemManager>
         
     }
 
+}
+
+class PlayerObserver : ExSubject
+{
+    public override void OnNotify(string msg)
+    {
+        string[] str = UtilManager.Instance.GetMsgFields(msg);
+        if (str[0] == "AttackStart")
+        {
+            //Debug.Log("Get");
+            //一次性道具的拾取                
+            foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
+            {
+                Debug.Log("do");
+                if (ItemManager.Instance.itemsDis == t && t.playerIn)
+                {
+                    ItemManager.Instance.AddDisposableItems(t);
+                    t.PlayerGet();
+                    t.DestroyDisposableItem();
+                    break;
+                }
+            }
+            //主动道具的拾取                
+            foreach (InitiativeItem t in ItemManager.Instance.listInitiativeItem)
+            {
+                if (ItemManager.Instance.itemIni == t && t.PlayerIn)
+                {
+                    ItemManager.Instance.AddInitiativeItems(t);
+                    t.PlayerGet();
+                    t.Destroy();
+                    break;
+                }
+            }
+            //立即使用道具的拾取                
+            foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
+            {
+                if (ItemManager.Instance.itemImm == t && t.playerIn)
+                {
+                    t.PlayerGet();
+                    t.Use();
+                    break;
+                }
+            }
+
+
+        }
+
+    }
+}
+
+class ItemObser : ExSubject
+{
+    public override void OnNotify(string msg)
+    {
+        int _id = 0;
+        //获得一次性道具的消息检测
+        string m = "Player_Get_DisposableItem";
+        _id = ItemManager.Instance.GetIDofMSG(m, msg);
+
+        if (_id != -1)
+        {
+            DisposableItem[] disItems;
+            disItems = ItemManager.Instance.gameObject.GetComponents<DisposableItem>();
+
+            foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
+            {
+                if (_id == t.GetID())
+                {
+                    ItemManager.Instance.itemsDis = t;
+                }
+            }
+        }
+
+        //获得立即使用道具的消息检测
+        m = "Player_Leave_ImmediatelyItem";
+        _id = ItemManager.Instance.GetIDofMSG(m, msg);
+
+        if (_id != -1)
+        {
+            foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
+            {
+                if (_id == t.GetID())
+                {
+                    ItemManager.Instance.itemImm = t;
+                }
+            }
+        }
+
+    }
 }

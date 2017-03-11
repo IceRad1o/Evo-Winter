@@ -55,6 +55,7 @@ public class Buff : ExSubject
 
     virtual public void DestroyBuff()
     {
+        
         this.gameObject.GetComponent<BuffManager>().BuffList.Remove(this);
         Destroy(this);  
     }
