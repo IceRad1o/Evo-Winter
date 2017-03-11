@@ -13,7 +13,7 @@ using System.Collections;
 /// <para>Author YYF</para>
 /// <para>Time 17.1.26</para>
 /// </summary>
-public class UIManager : UnitySingleton<UIManager>
+public class UIManager : ExUnitySingleton<UIManager>
 {
     //8个子构件
 

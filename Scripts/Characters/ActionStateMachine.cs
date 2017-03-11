@@ -20,7 +20,7 @@ public class ActionStateMachine {
         set { state = value; }
     }
     private float nextTime;
-    private float intervalTime; //与攻速挂钩
+    private float intervalTime; //最长反应时间
 
     public float IntervalTime
     {

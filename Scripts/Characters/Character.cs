@@ -25,12 +25,17 @@ public class Character : ExSubject
         get { return characterID; }
         set { characterID = value; }
     }
-
+    //Player基本属性
     private float health;   //生命
     private float moveSpeed;    //移速
-
-
+    private int moveSpeedTmp;    //移速
     private float attackSpeed;  //攻速
+    private int attackSpeedTmp; //攻速
+    private float attackRange;  //攻击范围
+    private float attackDamage; //攻击伤害
+    private float hitRecover;//硬直,即受击回复，影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
+    private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
+    private int luck; //幸运 影响技能触发几率和道具掉落概率
 
     public float Health
     {
@@ -52,7 +57,6 @@ public class Character : ExSubject
         }
     }
  
-
     public float MoveSpeedIn
     {
         
@@ -69,36 +73,64 @@ public class Character : ExSubject
 
     public int MoveSpeed
     {
-        get { return (int)moveSpeed; }
+        get 
+        {
+            return moveSpeedTmp;
+        }
         set 
         {
+            moveSpeedTmp=value;
+            float temp = 0;
             if (value == 1)
-                MoveSpeedIn = 0.05f;
+                temp = 0.05f;
             if (value == 2)
-                MoveSpeedIn = 0.08f;
+                temp = 0.08f;
             if (value == 3)
-                MoveSpeedIn = 0.1f;
+                temp = 0.1f;
             if (value == 4)
-                MoveSpeedIn = 0.12f;
+                temp = 0.12f;
             if (value >= 5)
-                MoveSpeedIn = 0.15f;
+                temp = 0.15f;
+            MoveSpeedIn = temp ;
         }
     }
 
-
-    public float AttackSpeed
+    public float AttackSpeedIn
     {
         get { return attackSpeed; }
         set
         {
             attackSpeed = value;
-            actionStateMachine.IntervalTime = 0.05f / attackSpeed;
+            //actionStateMachine.IntervalTime = f;
             //AnimationController ac = GetComponent<AnimationController>();
             //ac.ChangeAttackAnimationsSpeed(attackSpeed);
             Notify("AttackSpeedChanged");
         }
     }
-    private float attackRange;  //攻击范围
+    public int AttackSpeed
+    {
+        get
+        {
+            return attackSpeedTmp;
+        }
+        set
+        {
+            float temp = 0;
+            if (value == 1)
+                temp = 0.5f;
+            if (value == 2)
+                temp = 0.8f;
+            if (value == 3)
+                temp = 1f;
+            if (value == 4)
+                temp = 1.2f;
+            if (value >= 5)
+                temp = 1.4f;
+            moveSpeedTmp = value;
+            AttackSpeedIn = temp;
+        }
+    }
+
 
     public float AttackRange
     {
@@ -109,7 +141,7 @@ public class Character : ExSubject
             Notify("AttackRangeChanged");
         }
     }
-    private float attackDamage; //攻击伤害
+
 
     public float AttackDamage
     {
@@ -120,7 +152,7 @@ public class Character : ExSubject
             Notify("AttackDamageChanged");
         }
     }
-    private float hitRecover;//硬直,即受击回复，影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
+ 
 
     public float HitRecover
     {
@@ -131,7 +163,7 @@ public class Character : ExSubject
             Notify("HitRecoverChanged");
         }
     }
-    private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
+   
 
     public float Spasticity
     {
@@ -178,7 +210,7 @@ public class Character : ExSubject
         }
     }
 
-    private int luck; //幸运 影响技能触发几率和道具掉落概率
+   
 
     public int Luck
     {
@@ -343,7 +375,7 @@ public class Character : ExSubject
 
         state = 0;
         MoveSpeed = 1;
-        attackSpeed = 1.0f;
+        AttackSpeed = 2;
         health = 3;
         isAlive = 1;
         canMove = 1;
@@ -389,7 +421,7 @@ public class Character : ExSubject
 
         if (asi.IsName("AttackJ") || asi.IsName("AttackJJ") || asi.IsName("AttackJJJ") || asi.IsName("AttackK") || asi.IsName("AttackL"))
         {
-            Anim.speed = AttackSpeed;
+            Anim.speed = AttackSpeedIn;
         }
         if (asi.IsName("Move"))
         {
