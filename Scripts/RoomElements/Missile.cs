@@ -260,7 +260,6 @@ public class Missile : RoomElement {
     /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Missile:OnTrrigerEnter");
         if (other.tag == "Enemy")
         {
             //other.GetComponent<Character>().Health-=damage;

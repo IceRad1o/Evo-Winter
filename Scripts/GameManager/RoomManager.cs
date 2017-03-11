@@ -396,7 +396,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 }
             }
         }
-        Notify("EnterRoom");
+        //Notify("EnterRoom");
     }
 
     //加载小怪 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
@@ -425,6 +425,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 }
             }
         }
+        Notify("EnterRoom");
     }
 
 }
