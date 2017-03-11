@@ -30,12 +30,12 @@ public class Missile : RoomElement {
     private float rotationTheta;
 
 	void Awake () {
-        
+        RoomElementID = 0;
         //NEED SoundManager.instance.PlaySingle(fly);
 	}
     void Start()
     {
-        RoomElementID = 0;
+        
 
         boxCollider = GetComponent<PolygonCollider2D>();
         animator = GetComponent<Animator>();
@@ -154,14 +154,14 @@ public class Missile : RoomElement {
                  
                     animator.SetTrigger("MissileBomb");
                     yield return new WaitForSeconds(0.2f);
-                    Destroy(gameObject);
+                    Destroy();
                     break;
                 }
                 if (this.transform.position.x - (startPositionX - flyDistance) < float.Epsilon + 0.1 && (direction == -1))
                 {
                     animator.SetTrigger("MissileBomb");
                     yield return new WaitForSeconds(0.2f);
-                    Destroy(gameObject);
+                    Destroy();
                     break;
                 }
                 else
@@ -260,7 +260,6 @@ public class Missile : RoomElement {
     /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Missile:OnTrrigerEnter");
         if (other.tag == "Enemy")
         {
             //other.GetComponent<Character>().Health-=damage;
@@ -268,7 +267,7 @@ public class Missile : RoomElement {
             {
                 animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
-                Destroy(gameObject);
+                Destroy();
             }
         }
         if (other.tag == "Box")
@@ -278,7 +277,7 @@ public class Missile : RoomElement {
             {
                 animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
-                Destroy(gameObject);
+                Destroy();
             }
         }
     }

@@ -19,4 +19,10 @@ public class RoomElement : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public virtual void Destroy()
+    {
+        RoomElementManager.Instance.RoomElementList.Remove(this);
+        Destroy(this.gameObject);
+    }
 }

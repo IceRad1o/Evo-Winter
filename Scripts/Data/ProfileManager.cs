@@ -11,6 +11,12 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
     ProfileData data;
 
+    List<int> tempREID = new List<int>();
+    List<float> tempREPosX = new List<float>();
+    List<float> tempREPosY = new List<float>();
+    List<float> tempREPosZ = new List<float>();
+    List<int> tempRERoomX = new List<int>();
+    List<int> tempRERoomY = new List<int>();
 
     public ProfileData Data
     {
@@ -27,6 +33,8 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
     void Start()
     {
+        RoomManager.Instance.AddObserver(this);
+        EnemyManager.Instance.AddObserver(this);
         InitData();
 
     }
@@ -41,7 +49,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         if (str[0] == "ClearRoom" || str[0] == "EnterRoom")
         {
-
+            Debug.Log("the msg is "+msg);
             //Player
             data.Health = Player.Instance.Character.Health;
             data.MoveSpeed = Player.Instance.Character.MoveSpeed;
@@ -101,9 +109,14 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             tempPosZ.Clear();
 
             //Room
+            
             for(int i=0;i<CheckpointManager.Instance.rows;i++)
-                for(int j=0;j<CheckpointManager.Instance.columns;i++)
-                 tempID.Add(CheckpointManager.Instance.roomArray[i,j]);
+                for(int j=0;j<CheckpointManager.Instance.columns;j++)
+                {
+                    
+                         tempID.Add(CheckpointManager.Instance.roomArray[i,j]);
+                }
+                
             data.Map = tempID.ToArray();
             //TODO data.curLevel;
             data.CurMapX = RoomManager.Instance.roomX;
@@ -112,19 +125,21 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             //RoomElements
             for(int i=0;i<RoomElementManager.Instance.RoomElementList.Count;i++)
             {
-                tempID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
-                tempPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
-                tempPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);
-                tempPosZ.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.z);
+                Debug.Log("3333:"+RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+                tempREID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+                tempREPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
+                tempREPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);
+                tempREPosZ.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.z);
+                tempRERoomX.Add(RoomManager.Instance.roomX);
+                tempRERoomY.Add(RoomManager.Instance.roomY);
             }
-            data.RoomElementID = tempID.ToArray();
-            data.RoomElementPosX = tempPosX.ToArray();
-            data.RoomElementPosY = tempPosY.ToArray();
-            data.RoomElementPosZ = tempPosZ.ToArray();
-            tempID.Clear();
-            tempPosX.Clear();
-            tempPosY.Clear();
-            tempPosZ.Clear();
+            data.RoomElementID = tempREID.ToArray();
+            data.RoomElementPosX = tempREPosX.ToArray();
+            data.RoomElementPosY = tempREPosY.ToArray();
+            data.RoomElementPosZ = tempREPosZ.ToArray();
+            data.RoomElementRoomX = tempRERoomX.ToArray();
+            data.RoomElementRoomY = tempRERoomY.ToArray();
+
 
 
             //TODO BuffID

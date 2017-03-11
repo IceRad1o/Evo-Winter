@@ -3,8 +3,7 @@ using System.Collections;
 
 public class Character : ExSubject
 {
-
-
+    //音频
     public AudioClip attackingSound;
     public AudioClip movingSound;
     public AudioClip dyingSound;
@@ -375,7 +374,7 @@ public class Character : ExSubject
 
         state = 0;
         MoveSpeed = 1;
-        AttackSpeed = 2;
+        AttackSpeed = 1;
         health = 3;
         isAlive = 1;
         canMove = 1;
@@ -409,12 +408,17 @@ public class Character : ExSubject
     {
         Destroy(this.gameObject);
     }
-
+    /// <summary>
+    /// 发送生成发射物的通知
+    /// </summary>
     public void NotifyMissile()
     {
         Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1);
     }
 
+    /// <summary>
+    /// 更新动画速度
+    /// </summary>
     public void UpdateAnimSpeed()
     {
         AnimatorStateInfo asi = Anim.GetCurrentAnimatorStateInfo(0);

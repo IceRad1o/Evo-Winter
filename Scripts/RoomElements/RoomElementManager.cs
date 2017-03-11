@@ -4,13 +4,11 @@ using System.Collections.Generic;
 public class RoomElementManager : ExUnitySingleton<RoomElementManager>
 {
     List<RoomElement> roomElementList = new List<RoomElement>();
-
     public List<RoomElement> RoomElementList
     {
         get { return roomElementList; }
         set { roomElementList = value; }
     }
-
 
     public GameObject m_Missile;
     public int numberOfMissile;
@@ -82,7 +80,6 @@ public class RoomElementManager : ExUnitySingleton<RoomElementManager>
         {
             Destroy(roomElementList[i].gameObject);
         }
-        RoomElementList.Clear();
-        
+        RoomElementList.Clear();      
     }
 }

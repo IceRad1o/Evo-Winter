@@ -53,7 +53,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     private List<Vector3> groundPosition = new List<Vector3>();
     //列表ID:4 雕像
     private List<Vector3> statuePosition = new List<Vector3>();
-
+    //列表ID:5 爪子
+    private List<Vector3> clawPosition = new List<Vector3>();
 
     //墙上物体位置向量
     /* 门Y:1.4       X最小间距2
@@ -82,7 +83,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
         if (doorDirection[0] == 1)
         {
-            doorPosition.Add(new Vector3(-4f, 2f, 0f));
+            doorPosition.Add(new Vector3(-4f, 1.4f, 0f));
         }
         if (doorDirection[1] == 1)
         {
@@ -90,7 +91,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         }
         if (doorDirection[2] == 1)
         {
-            doorPosition.Add(new Vector3(4f, 2f, 0f));
+            doorPosition.Add(new Vector3(4f, 1.4f, 0f));
         }
         if (doorDirection[3] == 1)
         {
@@ -103,6 +104,12 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         for (float x = -1 * columns; x < columns; x += 2f)
         {
             statuePosition.Add(new Vector3(x, 1.54f, 0f));
+        }
+
+        //爪子位置列表
+        for (float x = -1 * columns; x < columns; x += 2f)
+        {
+            clawPosition.Add(new Vector3(x, 0.79f, 0f));
         }
 
         //地上物体列表
@@ -149,6 +156,12 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 randomPosition = groundPosition[randomIndex];
                 groundPosition.RemoveAt(randomIndex);
                 break;
+            //爪子位置
+            case 4:
+                randomIndex = Random.Range(0, clawPosition.Count);
+                randomPosition = clawPosition[randomIndex];
+                RemoveWallPosition(randomIndex);
+                break;
 
         }
         return randomPosition;
@@ -161,6 +174,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         picturePosition.RemoveAt(randomIndex);
         //doorPosition.RemoveAt(randomIndex);
         statuePosition.RemoveAt(randomIndex);
+        clawPosition.RemoveAt(randomIndex);
     }
 
 
@@ -178,15 +192,20 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             //放置图片
             if (wallElementsID == 3||wallElementsID==4) randomPosition = RandomPosition(1);
             //放置雕像
-            if (wallElementsID == 1 || wallElementsID == 2)
+            if (wallElementsID == 1)
             {
                 randomPosition = RandomPosition(2);
+            }
+            if (wallElementsID == 2)
+            {
+                randomPosition = RandomPosition(4);
             }
 
             GameObject objectChoice = objectArray[wallElementsID];
             GameObject roomElement = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
             roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
             //房间物件存入列表
+
             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
 
         }
@@ -244,6 +263,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             {
                 GameObject objectChoice = doors[Random.Range(0,doors.Length-1)];
                 GameObject roomElement = Instantiate(objectChoice, doorPosition[j], Quaternion.identity) as GameObject;
+                roomElement.GetComponent<Door>().SetPosition(i);
                 roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
                 //房间物件存入列表
                 RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
@@ -268,6 +288,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         doorPosition.Clear();
         groundPosition.Clear();
         statuePosition.Clear();
+        clawPosition.Clear();
         //清除物件
         RoomElementManager.Instance.ClearAll();
         //清除敌人
@@ -282,11 +303,129 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         SetDoorDierction(dp);
         InitialiseList();
         SetRoomXY(x, y);
-        LayoutEnemyAtRandom(enemys, 1, 3);
+        LayoutEnemyAtRandom(enemys, 1, 1);
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
-        Notify("EnterRoom");
-          
+
+        Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
+        Notify("EnterRoom");     
     }
+
+    //加载确定场景 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
+    public void LoadScene(int x,int y,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ)
+    {
+        Debug.Log("进入" + roomX.Length + ";" + roomY.Length);
+        ClearAll();
+        int count = 0;
+        for (int i = 0; i < roomX.Length; i++)
+        {
+         
+            {
+                Debug.Log("fangjian" + roomX[0]);
+                if (roomY[i] == y && roomX[i] == x)
+                {
+                    Debug.Log("j=y,i=x");
+                    Vector3 position = new Vector3(posiX[count],posiY[count],posiZ[count]);
+                    GameObject objectChoice;
+                    GameObject roomElement = null;
+                    count = i;
+                    switch (id[count])
+                    {
+                        case 0:
+                            //Missile
+                            break;
+                        case 1:
+                            Debug.Log("box");
+                            //Box Ground
+                            objectChoice = groundElements[0];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                           
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());                            
+                            break;
+                        case 2:
+                            //Mirror Wall
+                            objectChoice = wallElements[0];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                            roomElement.transform.localPosition = position;
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+                            break;
+                        case 3:
+                            //Door WALL
+                            objectChoice = doors[1];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                            //roomElement.transform.localPosition = position;
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+                            break;
+                        case 4:
+                            //Statue Wall
+                            objectChoice = wallElements[1];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+                            break;
+                        case 5:
+                            //Claw Wall
+                            objectChoice = wallElements[2];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                            roomElement.transform.localPosition = position;
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+                            break;
+                        case 6:
+                            //Picture1 Wall
+                            objectChoice = wallElements[3];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+                            break;
+                        case 7:
+                            //Picture2 Wall
+                            objectChoice = wallElements[4];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+                            break;
+                        case 8:
+                            //Skull Ground
+                            objectChoice = groundElements[1];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+                            break;
+                        case 9:
+                            //SkullLight Ground
+                            objectChoice = groundElements[2];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+                            break;
+                    }
+                    roomElement.transform.localPosition = position;
+                }
+            }
+        }
+        //Notify("EnterRoom");
+    }
+
+    //加载小怪 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
+    public void LoadEnemy(int x, int y, int[] id, float[] posiX, float[] posiY, float[] posiZ)
+    {
+        for (int count = 0; count < posiX.Length; count++)
+        {
+            Vector3 position = new Vector3(posiX[count], posiY[count], posiZ[count]);
+            GameObject objectChoice;
+            GameObject enemy;
+
+            objectChoice = enemys[0];
+            enemy = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+            enemy.transform.SetParent(GameObject.Find("GroundElements").transform);
+        }
+
+       Notify("EnterRoom");
+    }
+
 }
