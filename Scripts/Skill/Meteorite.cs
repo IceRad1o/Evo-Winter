@@ -5,7 +5,6 @@ public class Meteorite : Skill {
 
     public override void Create(int ID)
     {
-        base.Create(ID);
         SkillID = ID;
         LeadingTime = 0.0f;
         Cd = 10.0f;

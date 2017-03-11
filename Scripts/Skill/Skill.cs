@@ -76,7 +76,7 @@ public class Skill : ExSubject
     /// </summary>
     virtual public void Trigger() { }
 
-    virtual public void Create(int ID) { }
+    virtual public void Create(int ID) { SkillID = ID; }
     /// <summary>
     /// 延迟，用于技能的冷却等
     /// </summary>

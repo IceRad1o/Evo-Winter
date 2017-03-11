@@ -4,7 +4,7 @@ using System.Collections;
 public class SkillTest : MonoBehaviour {
 
 	void Start () {
-        StartCoroutine(Test());
+        //StartCoroutine(Test());
 	}
     IEnumerator Test()
     {
