@@ -46,14 +46,14 @@ public class PlayerHealth : UnitySingleton<PlayerHealth>{
 
     void InitPlayerHealth()
     {
-        for(int i=0;i<3;i++)
-        {
-            hearts[i].SetActive(true);
-        }
-        for (int i = 3; i < 10; i++)
-        {
-            hearts[i].SetActive(false);
-        }
+        //for(int i=0;i<3;i++)
+        //{
+        //    hearts[i].SetActive(true);
+        //}
+        //for (int i = 3; i < 10; i++)
+        //{
+        //    hearts[i].SetActive(false);
+        //}
     }
 
 }

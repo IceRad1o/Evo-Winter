@@ -10,6 +10,7 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
 
     public Sprite gridKnow;
     public Sprite gridUnknow;
+    public Sprite gridExist;
     public Button mapButton;    //地图按钮
     public GameObject grid;
 
@@ -49,6 +50,7 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         rows = CheckpointManager.Instance.rows;
         columns = CheckpointManager.Instance.columns;
 
+
         for(int i=0;i<rows;i++)
             for(int j=0;j<columns;j++)
             {
@@ -60,11 +62,28 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
                 {
                     gridList[i * rows + j].SetActive(false);
                 }
+                else
+                {
+                    if(CheckpointManager.Instance.GetNextRoom(i, j).pass==1)
+                        gridList[i * rows + j].GetComponent<Image>().sprite = gridUnknow;
+                    else
+                        gridList[i * rows + j].GetComponent<Image>().sprite = gridExist;
+                }
+
             }
 
         int roomX = RoomManager.Instance.roomX;
-        int roomY =RoomManager.Instance.roomY;
-        gridList[roomX* rows + roomY].GetComponent<Image>().sprite = gridKnow;
+        int roomY = RoomManager.Instance.roomY;
+        gridList[roomX * rows + roomY].GetComponent<Image>().sprite = gridKnow;
+        if (roomX - 1 >= 0)
+            gridList[(roomX-1) * rows + roomY].GetComponent<Image>().sprite = gridUnknow;
+        if (roomX + 1 >= 0)
+            gridList[(roomX+1) * rows  + roomY].GetComponent<Image>().sprite = gridUnknow;
+        if (roomY - 1 >= 0)
+            gridList[roomX * rows + roomY - 1].GetComponent<Image>().sprite = gridUnknow;
+        if (roomY + 1 >= 0)
+            gridList[roomX * rows + roomY + 1].GetComponent<Image>().sprite = gridUnknow;
+   
 
     }
 
