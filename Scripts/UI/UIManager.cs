@@ -79,7 +79,18 @@ public class UIManager : ExUnitySingleton<UIManager>
         itemButtonManager = ItemButtonManager.Instance;
 
         Player.Instance.Character.AddObserver(playerObserver);
+        RoomManager.Instance.AddObserver(this);
     }
+
+
+    public override void OnNotify(string msg)
+{
+    string[] str = UtilManager.Instance.GetMsgFields(msg);
+    if (str[0] == "EnterRoom")
+        littleMap.UpdateLittleMap();
+}
+
+
 
     PlayerObserver playerObserver=new PlayerObserver(); //Player的观察者
     class PlayerObserver:Observer

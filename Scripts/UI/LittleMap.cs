@@ -23,7 +23,7 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         StartCoroutine(Timing());
 
 	}
-    void InitLittleMap()
+   public  void InitLittleMap()
     {
         rows = CheckpointManager.Instance.rows;
         columns = CheckpointManager.Instance.columns;
@@ -44,7 +44,7 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         UpdateLittleMap();
     }
     //初始化小地图
-    void UpdateLittleMap()
+    public void UpdateLittleMap()
     {
         int[,] map = CheckpointManager.Instance.roomArray;
         rows = CheckpointManager.Instance.rows;
