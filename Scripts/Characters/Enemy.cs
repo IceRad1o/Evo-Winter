@@ -16,6 +16,11 @@ public class Enemy : Character{
     {
         base.Die();
         EnemyManager.Instance.EnemyList.Remove(this);
+      
+        if (EnemyManager.Instance.EnemyList.Count == 0)
+        {
+            EnemyManager.Instance.Notify("ClearRoom");
+        }
         
     }
 }

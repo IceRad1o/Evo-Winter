@@ -4,7 +4,7 @@ using System.Collections;
 public class Skull : RoomElement {
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         RoomElementID = 8;
 	}
 	

@@ -30,12 +30,12 @@ public class Missile : RoomElement {
     private float rotationTheta;
 
 	void Awake () {
-        
+        RoomElementID = 0;
         //NEED SoundManager.instance.PlaySingle(fly);
 	}
     void Start()
     {
-        RoomElementID = 0;
+        
 
         boxCollider = GetComponent<PolygonCollider2D>();
         animator = GetComponent<Animator>();

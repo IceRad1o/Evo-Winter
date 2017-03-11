@@ -9,12 +9,15 @@ public class Box : RoomElement
     //NEED public AudioClip openBox;
     void Start()
     {
-        RoomElementID = 1;
         animator = GetComponent<Animator>();
         isOpen = false;
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
 
+    void Awake()
+    {
+        RoomElementID = 1;
+    }
     void Update()
     {
        

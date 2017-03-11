@@ -7,7 +7,7 @@ public class Door : RoomElement
     private int position;
 
 
-	void Start () {
+	void Awake () {
         RoomElementID = 3;
         
 	}
@@ -97,6 +97,7 @@ public class Door : RoomElement
                     }
                     else
                     {
+                        Debug.Log("回左边:" + ProfileManager.Instance.Data.RoomElementRoomX[0] + " ");
                         RoomManager.Instance.LoadScene(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1,
                             ProfileManager.Instance.Data.RoomElementRoomX,
                             ProfileManager.Instance.Data.RoomElementRoomY,

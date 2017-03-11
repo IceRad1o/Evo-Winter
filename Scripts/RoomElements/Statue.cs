@@ -4,7 +4,7 @@ using System.Collections;
 public class Statue : RoomElement {
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         RoomElementID = 4;
 	}
 	

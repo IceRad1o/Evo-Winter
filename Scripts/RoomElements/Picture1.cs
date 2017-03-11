@@ -4,7 +4,7 @@ using System.Collections;
 public class Picture1 : RoomElement {
 
 	// Use this for initialization
-	void Start () {
+	void Awake() {
         RoomElementID = 6;
 	}
 	

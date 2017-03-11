@@ -9,7 +9,7 @@ public class Trap : MonoBehaviour
     private int damage;
 
 
-    void Start()
+    void Awake()
     {
         damage = 1;
         //NEED SoundManager.instance.PlaySingle(appearTrap);
