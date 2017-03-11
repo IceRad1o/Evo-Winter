@@ -12,10 +12,18 @@ public class SpeedUp : Skill {
     public override void Trigger()
     {
         base.Trigger();
-
-
+        this.gameObject.GetComponent<BuffManager>().CreateBuff(1020070111);
+        State = 1;
+        StartCoroutine(SkillCD(5 * 1.0f));
     }
 
+    private IEnumerator SkillCD(float time)
+    {
+
+        yield return new WaitForSeconds(time);
+
+        State = 0;
+    }
 	// Use this for initialization
 	void Start () {
 	

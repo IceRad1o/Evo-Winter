@@ -23,14 +23,14 @@ public class BuffChangeAttributeTemp : BuffTiming {
     }
 
     /// <summary>
-    /// ××（F）××(E)××(D)×（C）×××(B)01(02)11
+    /// ××（F）××(E)×××(B)01(02)11
     /// 改变属性的状态buff，01（加）02（减）(E)确定属性，(F)表示数
     /// (B) 持续时间，（C）循环类型 (D)为时间
     /// </summary>
     /// <param name="ID"></param>
     public override void Create(int ID)
     {
-        int[] part = { 2,2,3,1,2,2,2 };
+        int[] part = { 2,2,3,2,2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
         BuffDuration = idPart[2];
@@ -53,7 +53,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 this.gameObject.GetComponent<Character>().Health += dValue;
                 break;
             case 2:
-                this.gameObject.GetComponent<Character>().MoveSpeed += (int)dValue;
+                this.gameObject.GetComponent<Character>().MoveSpeed += dValue;
                 break;
             case 3:
                 this.gameObject.GetComponent<Character>().AttackSpeed += dValue;
@@ -71,10 +71,10 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 this.gameObject.GetComponent<Character>().Spasticity += dValue;
                 break;
             case 8:
-                this.gameObject.GetComponent<Character>().Sight += (int)dValue;
+                this.gameObject.GetComponent<Character>().Sight += dValue;
                 break;
             case 9:
-                this.gameObject.GetComponent<Character>().Luck += (int)dValue;
+                this.gameObject.GetComponent<Character>().Luck += dValue;
                 break;
             default:
                 break;
@@ -89,7 +89,9 @@ public class BuffChangeAttributeTemp : BuffTiming {
     }
 
 	void Start () {
-	
+        Trigger();
+        DValue = -DValue;
+        delay(BuffDuration, 0);
 	}
 	
 	
