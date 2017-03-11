@@ -374,8 +374,8 @@ public class Character : ExSubject
 
         state = 0;
         MoveSpeed = 1;
-        AttackSpeed = 2;
-        health = 5;
+        AttackSpeed = 1;
+        health = 3;
         isAlive = 1;
         canMove = 1;
         anim = this.GetComponent<Animator>();

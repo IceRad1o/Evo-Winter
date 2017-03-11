@@ -11,6 +11,12 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
     ProfileData data;
 
+    List<int> tempREID = new List<int>();
+    List<float> tempREPosX = new List<float>();
+    List<float> tempREPosY = new List<float>();
+    List<float> tempREPosZ = new List<float>();
+    List<int> tempRERoomX = new List<int>();
+    List<int> tempRERoomY = new List<int>();
 
     public ProfileData Data
     {
@@ -112,19 +118,20 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             //RoomElements
             for(int i=0;i<RoomElementManager.Instance.RoomElementList.Count;i++)
             {
-                tempID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
-                tempPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
-                tempPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);
-                tempPosZ.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.z);
+                tempREID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+                tempREPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
+                tempREPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);
+                tempREPosZ.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.z);
+                tempRERoomX.Add(RoomManager.Instance.roomX);
+                tempRERoomX.Add(RoomManager.Instance.roomY);
             }
-            data.RoomElementID = tempID.ToArray();
-            data.RoomElementPosX = tempPosX.ToArray();
-            data.RoomElementPosY = tempPosY.ToArray();
-            data.RoomElementPosZ = tempPosZ.ToArray();
-            tempID.Clear();
-            tempPosX.Clear();
-            tempPosY.Clear();
-            tempPosZ.Clear();
+            data.RoomElementID = tempREID.ToArray();
+            data.RoomElementPosX = tempREPosX.ToArray();
+            data.RoomElementPosY = tempREPosY.ToArray();
+            data.RoomElementPosZ = tempREPosZ.ToArray();
+            data.RoomElementRoomX = tempRERoomX.ToArray();
+            data.RoomElementRoomY = tempRERoomY.ToArray();
+
 
 
             //TODO BuffID
