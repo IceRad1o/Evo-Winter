@@ -6,8 +6,8 @@ public class BuffChangeAttribute : Buff
     /// <summary>
     /// 改变的差值
     /// </summary>
-    float dValue;
-    public float DValue
+    int dValue;
+    public int DValue
     {
         get { return dValue; }
         set { dValue = value; }
@@ -31,7 +31,7 @@ public class BuffChangeAttribute : Buff
                this.gameObject.GetComponent<Character>().Health += dValue;
                break;
            case 2:
-               this.gameObject.GetComponent<Character>().MoveSpeed += (int)dValue;
+               this.gameObject.GetComponent<Character>().MoveSpeed += dValue;
                break;
            case 3:
                this.gameObject.GetComponent<Character>().AttackSpeed += dValue;

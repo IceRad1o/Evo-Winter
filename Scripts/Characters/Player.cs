@@ -17,7 +17,7 @@ public class Player :UnitySingleton<Player>,IFly {
     {
         this.tag = "Player";
         character = GetComponent<Character>();
-        character.MoveSpeed = 5;
+        character.MoveSpeed = 3;
   
     }
 

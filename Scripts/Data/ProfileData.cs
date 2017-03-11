@@ -26,15 +26,25 @@ public class ProfileData
             
         }
     }
-    int curMap;
-
-    public int CurMap
+    int curMapX;
+    int curMapY;
+    public int CurMapX
     {
-        get { return curMap; }
+        get { return curMapX; }
         set 
         { 
-            curMap = value;
-            PlayerPrefs.SetInt("curMap", curMap);
+            curMapX= value;
+            PlayerPrefs.SetInt("curMapX", curMapX);
+        }
+    }
+
+    public int CurMapY
+    {
+        get { return curMapY; }
+        set
+        {
+            curMapY = value;
+            PlayerPrefs.SetInt("curMapY", curMapY);
         }
     }
 
@@ -235,8 +245,29 @@ public class ProfileData
         PlayerPrefsX.SetFloatArray("roomElementPosZ", roomElementPosZ);
         }
     }
-    
 
+    private int[] roomElementRoomX;
+
+    public int[] RoomElementRoomX
+    {
+        get { return roomElementRoomX; }
+        set 
+        {
+            roomElementRoomX = value;
+            PlayerPrefsX.SetIntArray("roomElementRoomX",roomElementRoomX);
+        }
+    }
+    private int[] roomElementRoomY;
+
+    public int[] RoomElementRoomY
+    {
+        get { return roomElementRoomY; }
+        set 
+        { 
+            roomElementRoomY = value;
+            PlayerPrefsX.SetIntArray("roomElementRoomY", roomElementRoomY);
+        }
+    }
 
     //buff数据
     int[] buffsID;
@@ -310,7 +341,8 @@ public class ProfileData
     public void Init()
     {
         curLevel = PlayerPrefs.GetInt("curLevel");
-        curMap = PlayerPrefs.GetInt("curMap");
+        curMapY = PlayerPrefs.GetInt("curMapY");
+        curMapX = PlayerPrefs.GetInt("curMapX");
         health = PlayerPrefs.GetFloat("health");
         moveSpeed = PlayerPrefs.GetFloat("moveSpeed");
         attackRange = PlayerPrefs.GetFloat("attackRange");
@@ -334,6 +366,8 @@ public class ProfileData
         roomElementPosX = PlayerPrefsX.GetFloatArray("roomElementPosX");
         roomElementPosY = PlayerPrefsX.GetFloatArray("roomElementPosY");
         roomElementPosZ = PlayerPrefsX.GetFloatArray("roomElementPosZ");
+        roomElementRoomX = PlayerPrefsX.GetIntArray("roomElementRoomX");
+        roomElementRoomY = PlayerPrefsX.GetIntArray("roomElementRoomY");
         buffsID = PlayerPrefsX.GetIntArray("buffsID");
         itemsID = PlayerPrefsX.GetIntArray("itemsID");
         esscencesID = PlayerPrefsX.GetIntArray("esscencesID");

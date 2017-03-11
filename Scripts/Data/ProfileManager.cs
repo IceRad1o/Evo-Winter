@@ -106,8 +106,8 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
                  tempID.Add(CheckpointManager.Instance.roomArray[i,j]);
             data.Map = tempID.ToArray();
             //TODO data.curLevel;
-            //TODO data.CurMap;
-
+            data.CurMapX = RoomManager.Instance.roomX;
+            data.CurMapY = RoomManager.Instance.roomY;
 
             //RoomElements
             for(int i=0;i<RoomElementManager.Instance.RoomElementList.Count;i++)
