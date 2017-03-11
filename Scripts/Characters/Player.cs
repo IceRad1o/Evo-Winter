@@ -3,7 +3,7 @@ using System.Collections;
 /// <summary>
 /// 玩家类,即玩家的操控对象
 /// </summary>
-public class Player :UnitySingleton<Player>,IFly {
+public class Player :ExUnitySingleton<Player>,IFly {
 
     Character character;
 

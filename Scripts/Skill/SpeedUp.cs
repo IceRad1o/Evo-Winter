@@ -7,10 +7,12 @@ public class SpeedUp : Skill {
     {
         base.Create(ID);
         State = 0;
+        Player.Instance.Character.AddObserver(this);
     }
 
     public override void Trigger()
     {
+        Debug.Log("Skill_Trigger");
         base.Trigger();
         this.gameObject.GetComponent<BuffManager>().CreateBuff(1020070111);
         State = 1;
@@ -36,6 +38,7 @@ public class SpeedUp : Skill {
     {
         if (UtilManager.Instance.GetFieldFormMsg(msg, 0) == "AttackStart" && UtilManager.Instance.GetFieldFormMsg(msg, 1) == "L")
         {
+            Debug.Log("AttackStart_L");
             if (State==0)
                 Trigger();
         }

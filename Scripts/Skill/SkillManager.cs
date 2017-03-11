@@ -47,7 +47,7 @@ public class SkillManager : ExSubject
         {
             switch (this.gameObject.GetComponent<Character>().Race)
             {
-                case 1:
+                case 0:
                     SpeedUp newSkill = this.gameObject.AddComponent<SpeedUp>();
                     newSkill.Create(this.gameObject.GetComponent<Character>().Race);
                     skillList.Add(newSkill);
