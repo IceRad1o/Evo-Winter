@@ -16,29 +16,32 @@ public class Buff : ExSubject
     }
    
 
+   
+    protected int effectType;
     /// <summary>
     /// 效果类型，1为增益，0为减益
     /// </summary>
-    protected int effectType;
     public int EffectType
     {
         get { return effectType; }
         set { effectType = value; }
     }
        
-    /// <summary>
-    /// 持续时间，暂定只能以房间为准
-    /// </summary>
+   
     protected int buffDuration;
+    /// <summary>
+    /// 持续时间
+    /// </summary>
     public int BuffDuration
     {
       get { return buffDuration; }
       set { buffDuration = value; }
     }
+    
+    protected int effectDuration;
     /// <summary>
     /// 效果持续时间，1位永久，0位临时
     /// </summary>
-    protected int effectDuration;
     public int EffectDuration
     {
         get { return effectDuration; }
@@ -50,7 +53,7 @@ public class Buff : ExSubject
     protected Sprite buffSprite;
     protected SpriteRenderer spriteRenderer;
 
-    public void DestroyBuff()
+    virtual public void DestroyBuff()
     {
         this.gameObject.GetComponent<BuffManager>().BuffList.Remove(this);
         Destroy(this);  

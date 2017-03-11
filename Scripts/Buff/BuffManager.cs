@@ -27,6 +27,9 @@ public class BuffManager : ExSubject
             case 10:
                 new BuffAttack().CreateBuff(ID,this.gameObject);
                 break;
+            case 11:
+                new BuffTiming().CreateBuff(ID, this.gameObject);
+                break;
             default:
                 break;
         }
