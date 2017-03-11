@@ -43,7 +43,8 @@ public class Door : RoomElement
                     }
                     else
                     {
-
+                        //RoomManager.Instance.LoadScene();
+                        //RoomManager.Instance.LoadEnemy();
                     }
                     break;
                 case 1:
@@ -58,7 +59,8 @@ public class Door : RoomElement
                     }
                     else
                     {
-
+                        //RoomManager.Instance.LoadScene();
+                        //RoomManager.Instance.LoadEnemy();
                     }                   
                     break;
                 case 2:
@@ -73,7 +75,8 @@ public class Door : RoomElement
                     }
                     else
                     {
-
+                        //RoomManager.Instance.LoadScene();
+                        //RoomManager.Instance.LoadEnemy();
                     }
                     break;
                 case 3:
@@ -88,7 +91,8 @@ public class Door : RoomElement
                     }
                     else
                     {
-
+                        //RoomManager.Instance.LoadScene();
+                        //RoomManager.Instance.LoadEnemy();
                     }
                     break;
             }
