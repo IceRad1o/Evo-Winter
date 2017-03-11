@@ -400,32 +400,20 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     }
 
     //加载小怪 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
-    public void LoadEnemy(int x, int y, int[] roomX, int[] roomY, int[] id, float[] posiX, float[] posiY, float[] posiZ)
+    public void LoadEnemy(int x, int y, int[] id, float[] posiX, float[] posiY, float[] posiZ)
     {
-        int count = 0;
-        for (int i = 0; i < roomX.Length; i++)
+        for (int count = 0; count < posiX.Length; count++)
         {
-            for (int j = 0; j < roomY.Length; j++)
-            {
-                if (j == y && i == x)
-                {
-                    Vector3 position = new Vector3(posiX[count], posiY[count], posiZ[count]);
-                    GameObject objectChoice;
-                    GameObject enemy;
-                    count = i * roomY.Length + j;
-                    switch (id[count])
-                    {
-                        case 0:
-                            objectChoice = enemys[0];
-                            enemy= Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            enemy.transform.SetParent(GameObject.Find("GroundElements").transform); 
-                            break;
-                    }
+            Vector3 position = new Vector3(posiX[count], posiY[count], posiZ[count]);
+            GameObject objectChoice;
+            GameObject enemy;
 
-                }
-            }
+            objectChoice = enemys[0];
+            enemy = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+            enemy.transform.SetParent(GameObject.Find("GroundElements").transform);
         }
-        Notify("EnterRoom");
+
+            Notify("EnterRoom");
     }
 
 }

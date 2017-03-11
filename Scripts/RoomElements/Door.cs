@@ -43,8 +43,19 @@ public class Door : RoomElement
                     }
                     else
                     {
-                        //RoomManager.Instance.LoadScene();
-                        //RoomManager.Instance.LoadEnemy();
+                        RoomManager.Instance.LoadScene(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY,
+                            ProfileManager.Instance.Data.RoomElementRoomX,
+                            ProfileManager.Instance.Data.RoomElementRoomY,
+                            ProfileManager.Instance.Data.RoomElementID,
+                            ProfileManager.Instance.Data.RoomElementPosX,
+                            ProfileManager.Instance.Data.RoomElementPosY,
+                            ProfileManager.Instance.Data.RoomElementPosZ);
+
+                        RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY,
+                            ProfileManager.Instance.Data.EnemyID,
+                            ProfileManager.Instance.Data.EnemyPosX,
+                            ProfileManager.Instance.Data.EnemyPosY,
+                            ProfileManager.Instance.Data.EnemyPosZ);
                     }
                     break;
                 case 1:
@@ -59,8 +70,19 @@ public class Door : RoomElement
                     }
                     else
                     {
-                        //RoomManager.Instance.LoadScene();
-                        //RoomManager.Instance.LoadEnemy();
+                        RoomManager.Instance.LoadScene(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY,
+                            ProfileManager.Instance.Data.RoomElementRoomX,
+                            ProfileManager.Instance.Data.RoomElementRoomY,
+                            ProfileManager.Instance.Data.RoomElementID,
+                            ProfileManager.Instance.Data.RoomElementPosX,
+                            ProfileManager.Instance.Data.RoomElementPosY,
+                            ProfileManager.Instance.Data.RoomElementPosZ);
+
+                        RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY,
+                            ProfileManager.Instance.Data.EnemyID,
+                            ProfileManager.Instance.Data.EnemyPosX,
+                            ProfileManager.Instance.Data.EnemyPosY,
+                            ProfileManager.Instance.Data.EnemyPosZ);
                     }                   
                     break;
                 case 2:
@@ -75,8 +97,19 @@ public class Door : RoomElement
                     }
                     else
                     {
-                        //RoomManager.Instance.LoadScene();
-                        //RoomManager.Instance.LoadEnemy();
+                        RoomManager.Instance.LoadScene(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1,
+                            ProfileManager.Instance.Data.RoomElementRoomX,
+                            ProfileManager.Instance.Data.RoomElementRoomY,
+                            ProfileManager.Instance.Data.RoomElementID,
+                            ProfileManager.Instance.Data.RoomElementPosX,
+                            ProfileManager.Instance.Data.RoomElementPosY,
+                            ProfileManager.Instance.Data.RoomElementPosZ);
+
+                        RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1,
+                            ProfileManager.Instance.Data.EnemyID,
+                            ProfileManager.Instance.Data.EnemyPosX,
+                            ProfileManager.Instance.Data.EnemyPosY,
+                            ProfileManager.Instance.Data.EnemyPosZ);
                     }
                     break;
                 case 3:
@@ -91,8 +124,19 @@ public class Door : RoomElement
                     }
                     else
                     {
-                        //RoomManager.Instance.LoadScene();
-                        //RoomManager.Instance.LoadEnemy();
+                        RoomManager.Instance.LoadScene(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1,
+                            ProfileManager.Instance.Data.RoomElementRoomX,
+                            ProfileManager.Instance.Data.RoomElementRoomY,
+                            ProfileManager.Instance.Data.RoomElementID,
+                            ProfileManager.Instance.Data.RoomElementPosX,
+                            ProfileManager.Instance.Data.RoomElementPosY,
+                            ProfileManager.Instance.Data.RoomElementPosZ);
+
+                        RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1,
+                            ProfileManager.Instance.Data.EnemyID,
+                            ProfileManager.Instance.Data.EnemyPosX,
+                            ProfileManager.Instance.Data.EnemyPosY,
+                            ProfileManager.Instance.Data.EnemyPosZ);
                     }
                     break;
             }
