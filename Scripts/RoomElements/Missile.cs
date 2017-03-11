@@ -154,14 +154,14 @@ public class Missile : RoomElement {
                  
                     animator.SetTrigger("MissileBomb");
                     yield return new WaitForSeconds(0.2f);
-                    Destroy(gameObject);
+                    Destroy();
                     break;
                 }
                 if (this.transform.position.x - (startPositionX - flyDistance) < float.Epsilon + 0.1 && (direction == -1))
                 {
                     animator.SetTrigger("MissileBomb");
                     yield return new WaitForSeconds(0.2f);
-                    Destroy(gameObject);
+                    Destroy();
                     break;
                 }
                 else
@@ -268,7 +268,7 @@ public class Missile : RoomElement {
             {
                 animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
-                Destroy(gameObject);
+                Destroy();
             }
         }
         if (other.tag == "Box")
@@ -278,7 +278,7 @@ public class Missile : RoomElement {
             {
                 animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
-                Destroy(gameObject);
+                Destroy();
             }
         }
     }

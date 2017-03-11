@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Box : RoomElement
 {
-
     private Animator animator;
     private bool isOpen;
     //NEED public AudioClip getBox;

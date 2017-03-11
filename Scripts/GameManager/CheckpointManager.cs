@@ -28,6 +28,11 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
             for (int i = 0; i < 4;i++ )
                 doorDirection[i] = doorDir[i];
         }
+        //设置通过标志
+        public void SetPass(int ps)
+        {
+            pass = ps;
+        }
     }
 
     //行列
