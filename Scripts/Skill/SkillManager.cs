@@ -45,9 +45,17 @@ public class SkillManager : ExSubject
     {
         if (this.gameObject.tag=="Player") 
         {
-            LSkill newSkill = this.gameObject.AddComponent<LSkill>();
-            newSkill.Create(this.gameObject.GetComponent<Character>().Race);
-            skillList.Add(newSkill);        
+            switch (this.gameObject.GetComponent<Character>().Race)
+            {
+                case 1:
+                    SpeedUp newSkill = this.gameObject.AddComponent<SpeedUp>();
+                    newSkill.Create(this.gameObject.GetComponent<Character>().Race);
+                    skillList.Add(newSkill);
+                    break;
+                default:
+                    break;
+            }
+                 
         }
 	
     }

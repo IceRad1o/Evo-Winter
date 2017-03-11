@@ -28,7 +28,6 @@ public class BuffChangeAttribute : Buff
        switch (attribute) 
        { 
            case 0:
-               Debug.Log("Trigger");
                this.gameObject.GetComponent<Character>().Health += dValue;
                break;
            case 2:
