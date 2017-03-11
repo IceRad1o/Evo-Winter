@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class RoomElementManager : UnitySingleton<RoomElementManager>
+public class RoomElementManager : ExUnitySingleton<RoomElementManager>
 {
     List<RoomElement> roomElementList = new List<RoomElement>();
 
@@ -78,13 +78,11 @@ public class RoomElementManager : UnitySingleton<RoomElementManager>
 
     public void ClearAll()
     {
-        Debug.Log("进入销毁");
         for (int i = 0; i < roomElementList.Count; i++)
         {
-            Debug.Log("销毁"+i);
             Destroy(roomElementList[i].gameObject);
-            Debug.Log("销毁" + i+"成功");
         }
-             
+        RoomElementList.Clear();
+        
     }
 }

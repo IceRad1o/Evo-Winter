@@ -5,6 +5,10 @@ public class HurtByContract : MonoBehaviour
 {
 
     public int camp;
+    /// <summary>
+    /// 造成伤害后是否销毁
+    /// </summary>
+    public int isDestory=0;
     public GameObject HitPrefab;
     private Vector3 tempPosition;
     private Vector3 lastPosition;
@@ -35,5 +39,11 @@ public class HurtByContract : MonoBehaviour
             other.GetComponentInParent<Character>().Health--;
             
         }
+
+        if (isDestory != 0)
+            Destroy(gameObject);
     }
+
+
+
 }

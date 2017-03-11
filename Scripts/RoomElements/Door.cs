@@ -12,14 +12,13 @@ public class Door : RoomElement
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //RoomManager.Instance rm = RoomManager.Instance;
-        Debug.Log("门的碰撞物" + other.tag + "敌人数量" + EnemyManager.Instance.EnemyList.Count);
+
         if (other.tag == "PlayerRB2D"&&EnemyManager.Instance.EnemyList.Count==0)
         {
+            RoomElementManager.Instance.Notify("LeaveRoom");
             int roomDir = 0;
             for (int i = 0; i < 4; i++)
             {
-               // Debug.Log("房间管理者" + RoomManager.Instance);
                 if (RoomManager.Instance.DoorDirection[i] > 0)
                 {
                     roomDir = i;
@@ -27,7 +26,7 @@ public class Door : RoomElement
                 }
             }
 
-            RoomElementManager.Instance.RoomElementList.Clear();
+            //RoomElementManager.Instance.RoomElementList.Clear();
             
             switch (roomDir)
             {

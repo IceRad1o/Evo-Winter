@@ -82,22 +82,18 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
         if (doorDirection[0] == 1)
         {
-            Debug.Log("doorDirection[0]=" + doorDirection[0]);
             doorPosition.Add(new Vector3(-4f, 2f, 0f));
         }
         if (doorDirection[1] == 1)
         {
-            Debug.Log("doorDirection[1]=" + doorDirection[1]);
             doorPosition.Add(new Vector3(-4f, -2f, 0f));
         }
         if (doorDirection[2] == 1)
         {
-            Debug.Log("doorDirection[2]=" + doorDirection[2]);
             doorPosition.Add(new Vector3(4f, 2f, 0f));
         }
         if (doorDirection[3] == 1)
         {
-            Debug.Log("doorDirection[3]=" + doorDirection[3]);
             doorPosition.Add(new Vector3(4f, -2f, 0f));
         }    
 
@@ -153,12 +149,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 randomPosition = groundPosition[randomIndex];
                 groundPosition.RemoveAt(randomIndex);
                 break;
-            //门位置
-            //case 4:
-            //    randomIndex = Random.Range(0, doorPosition.Count);
-            //    randomPosition = doorPosition[randomIndex];
-            //    RemoveWallPosition(randomIndex);
-            //    break;
+
         }
         return randomPosition;
     }
@@ -249,7 +240,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         int j = 0;
         for (int i = 0; i < 4; i++)
         {
-            Debug.Log(doorDirection[i]+"\n");
             if (doorDirection[i] > 0)
             {
                 GameObject objectChoice = doors[Random.Range(0,doors.Length-1)];
@@ -296,6 +286,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
+        Notify("EnterRoom");
           
     }
 }
