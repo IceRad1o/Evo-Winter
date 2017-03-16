@@ -15,7 +15,7 @@ public class InitiativeItem : Item{
     public int EnergyNow
     {
         get { return energyNow; }
-        set { energyNow = value; if (energyNow > energyMax) energyNow = energyMax; Notify("InitiativeItem_Energy_Number;"+energyNow); }
+        set { energyNow = value; if (energyNow > energyMax) energyNow = energyMax; ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;"+energyNow); }
     }
 
     public ItemSprite itemSp;
@@ -27,17 +27,24 @@ public class InitiativeItem : Item{
      */
     public void Create(int ID)
     {
-         
+
+        CreateScript(ID);
+        spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
+
+        ItemManager.Instance.listInitiativeItem.Add(this);
+        this.AddObserver(ItemManager.Instance);
+        this.AddObserver(UIManager.Instance.ItemObserver);
+
+    }
+
+    public void CreateScript(int ID)
+    {
+        iSprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
         ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
         energyMax = ItemManager.Instance.itemsTable.GetItemEnergy(ID);
         energyNow = energyMax;
-        spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
         ItemID = ID;
-
-        this.AddObserver(ItemManager.Instance.ItemObs);
-        this.AddObserver(UIManager.Instance.ItemObserver);
-
     }
 
     /*@Destroy
@@ -46,7 +53,7 @@ public class InitiativeItem : Item{
     public void Destroy()
     {
         //发送消息，一次性道具销毁
-        Notify("InitiativeItem_Destroy");
+        ItemManager.Instance.SendMsg("InitiativeItem_Destroy");
         
         Destroy(gameObject);
     }
@@ -54,20 +61,22 @@ public class InitiativeItem : Item{
     public void Use() {
         if (energyNow < energyMax)
         {
-            Notify("InitiativeItem_Energy_NotFull");
+            ItemManager.Instance.SendMsg("InitiativeItem_Energy_NotFull");
             return;
         }
         //发送消息，使用道具，并产生Buff
         if (ItemBuffID != 0)
-            Notify("UseItem_Buff_ID;" + ItemBuffID);
+            ItemManager.Instance.SendMsg("UseItem_Buff_ID;" + ItemBuffID);
         if (itemSkillID != 0)
-            Notify("UseItem_Skill_ID;" + itemSkillID);
+            ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + itemSkillID);
 
         energyNow = 0;
-        Notify("InitiativeItem_Energy_Number;" + energyNow);
+        ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;" + energyNow);
     }
 
 
+
+    /*************************************************************/
     /// <summary>
     /// 2D碰撞检测
     /// </summary>
@@ -87,16 +96,9 @@ public class InitiativeItem : Item{
     {
         if (other.tag == "Player")
         {
+            Notify("Player_Leave_InitiativeItem");
             playerIn = false;
         }
-    }
-    /// <summary>
-    /// 发送消息，道具已被拾取
-    /// </summary>
-    public void PlayerGet()
-    {
-        Notify("Get_InitiativeItem;" + ItemID);
-    
     }
 
 
@@ -105,6 +107,6 @@ public class InitiativeItem : Item{
     {
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        itemSprite = itemSp.SpriteArray;
+        itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }
 }

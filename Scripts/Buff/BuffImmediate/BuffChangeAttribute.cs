@@ -73,10 +73,26 @@ public class BuffChangeAttribute : Buff
         
         int[] part = { 4, 2, 2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
-
-        attribute = idPart[1];
-        
-        dValue = idPart[2];
+        if (idPart[0] == 1) 
+        {
+            attribute = idPart[1];
+            dValue = idPart[2];
+        }
+        if (idPart[0] == 101)
+        {
+            attribute = idPart[1];
+            
+            System.Random random = new System.Random();
+            int result = random.Next(100);
+            if (result <= 10) 
+                dValue =2;
+            if (result <= 30 && result >10)
+                dValue = 0;
+            if (result <= 80 && result > 30)
+                dValue = 1;
+            if (result <= 100 && result > 80)
+                dValue = -1;
+        }
         this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
         Trigger();
     }

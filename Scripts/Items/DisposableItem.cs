@@ -14,7 +14,6 @@ public class DisposableItem : Item{
 
 
     int usingNumber = 1;
-
     public int UsingNumber
     {
         get { return usingNumber; }
@@ -56,19 +55,17 @@ public class DisposableItem : Item{
     public void Create(int ID)
     {
 
-        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
-        itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
-        iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
+        CreateScript(ID);
         spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
-        ItemID = ID;
 
         ItemManager.Instance.listDisposableItem.Add(this);
-        this.AddObserver(ItemManager.Instance.ItemObs);
+        this.AddObserver(ItemManager.Instance);
         this.AddObserver(UIManager.Instance.ItemObserver);
     }
 
     public void CreateScript(int ID)
     {
+        //ItemName=
         iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
         ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
@@ -82,18 +79,13 @@ public class DisposableItem : Item{
 
         ItemManager.Instance.listDisposableItem.Remove(this);
         //发送消息，一次性道具销毁
-       
-        if (this.gameObject)
-            Destroy(gameObject); 
-        else
-            Destroy(this);
+        Destroy(gameObject);
     }
 
     public override void DestroyScript()
     {
-        Notify("DisposableItem_Destroy");
+        ItemManager.Instance.SendMsg("DisposableItem_Destroy");
         UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
-        Debug.Log("Des");
         base.DestroyScript();
         
     }
@@ -123,14 +115,6 @@ public class DisposableItem : Item{
             Notify("Player_Leave_DisposableItem");
             playerIn = false;
         }
-    }
-    /// <summary>
-    /// 发送消息，道具已被拾取
-    /// </summary>
-    public void PlayerGet() 
-    {
-        Notify("Get_DisposableItem;" + ItemID);
-
     }
     // Use this for initialization
     void Awake()
