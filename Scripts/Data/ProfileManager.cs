@@ -131,7 +131,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
                    {
                        if (RoomManager.Instance.roomX == tempRERoomX[i] && RoomManager.Instance.roomY ==tempRERoomY[i])
                        {
-                           Debug.Log("删除:" + tempREID[i]);
+                           //Debug.Log("删除:" + tempREID[i]);
                            tempREID.RemoveAt(i);
                            tempREPosX.RemoveAt(i);
                            tempREPosY.RemoveAt(i);
@@ -145,7 +145,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             //加载元素
             for(int i=0;i<RoomElementManager.Instance.RoomElementList.Count;i++)
             {
-                Debug.Log("加载:"+RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+                //Debug.Log("加载:"+RoomElementManager.Instance.RoomElementList[i].RoomElementID);
                 tempREID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
                 tempREPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
                 tempREPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);

@@ -22,6 +22,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         //构造函数
         public Room(int tp, int x, int y,int[] doorDir)
         {
+            pass = 0;
             type = tp;
             roomX = x;
             roomY = y;
@@ -35,6 +36,14 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         }
     }
 
+
+    //关卡号1-5
+    private int checkpointNumber = 1;
+    public int CheckpointNumber
+    {
+        get { return checkpointNumber; }
+        set { checkpointNumber = value; }
+    }
     //行列
     public int rows = 6;
     public int columns = 6;
@@ -170,7 +179,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     //设置关卡
     public void SetupCheckpoint()
     {
-        Debug.Log("1");
+        CheckpointNumber++;
         roomArray = new int[rows, columns];
         InitalRoomLayout();
         for (int i = 0; i < rows; i++)
@@ -185,7 +194,6 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 }
             }
         }
-        Debug.Log("2");
         //输出房间布局
         string str = "";
         for (int i = 0; i < rows; i++)

@@ -64,6 +64,7 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
                 }
                 else
                 {
+                    gridList[i * rows + j].SetActive(true);
                     if(CheckpointManager.Instance.GetNextRoom(i, j).pass==1)
                         gridList[i * rows + j].GetComponent<Image>().sprite = gridUnknow;
                     else
@@ -78,11 +79,11 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         gridList[roomX * rows + roomY].GetComponent<Image>().sprite = gridKnow;
         if (roomX - 1 >= 0)
             gridList[(roomX-1) * rows + roomY].GetComponent<Image>().sprite = gridUnknow;
-        if (roomX + 1 >= 0)
+        if (roomX + 1 < columns)
             gridList[(roomX+1) * rows  + roomY].GetComponent<Image>().sprite = gridUnknow;
         if (roomY - 1 >= 0)
             gridList[roomX * rows + roomY - 1].GetComponent<Image>().sprite = gridUnknow;
-        if (roomY + 1 >= 0)
+        if (roomY + 1 < rows)
             gridList[roomX * rows + roomY + 1].GetComponent<Image>().sprite = gridUnknow;
    
 

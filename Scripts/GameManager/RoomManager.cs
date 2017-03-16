@@ -28,6 +28,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     public GameObject[] wallElements;
     public GameObject[] groundElements;
     public GameObject[] doors;
+    public GameObject[] stair;
     //小怪
     public GameObject[] enemys;
     //房间坐标位置
@@ -83,19 +84,19 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
         if (doorDirection[0] == 1)
         {
-            doorPosition.Add(new Vector3(-4f, 1.4f, 0f));
+            doorPosition.Add(new Vector3(0f, 1.4f, 0f));
         }
         if (doorDirection[1] == 1)
         {
-            doorPosition.Add(new Vector3(-4f, -2f, 0f));
+            doorPosition.Add(new Vector3(0f, -2.45f, 0f));
         }
         if (doorDirection[2] == 1)
         {
-            doorPosition.Add(new Vector3(4f, 1.4f, 0f));
+            doorPosition.Add(new Vector3(-5.8f, -1.46f, 0f));
         }
         if (doorDirection[3] == 1)
         {
-            doorPosition.Add(new Vector3(4f, -2f, 0f));
+            doorPosition.Add(new Vector3(5.8f, -1.46f, 0f));
         }    
 
         //doorPosition.Add(new Vector3(x, 1.4f, 0f));
@@ -279,6 +280,40 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         roomY = y;
     }
 
+    //特定生成函数中门位置
+    void InitDoorList()
+    {
+        doorPosition.Clear();
+
+        if (doorDirection[0] == 1)
+        {
+            doorPosition.Add(new Vector3(0f, 1.4f, 0f));
+        }
+        if (doorDirection[1] == 1)
+        {
+            doorPosition.Add(new Vector3(0f, -2.45f, 0f));
+        }
+        if (doorDirection[2] == 1)
+        {
+            doorPosition.Add(new Vector3(-5.8f, -1.46f, 0f));
+        }
+        if (doorDirection[3] == 1)
+        {
+            doorPosition.Add(new Vector3(5.8f, -1.46f, 0f));
+        }    
+    }
+
+    //在最后一个房间生成楼梯
+    void LayoutStair()
+    {
+        Vector3 position = new Vector3(6f,0f,0f);
+        GameObject objectChoice = stair[0];
+        GameObject roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+        roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+        //房间物件存入列表
+        RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+    }
+
     //清空
     public void ClearAll()
     {
@@ -308,17 +343,30 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
 
+        if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
+        {
+            LayoutStair();
+        }
+
         Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
         Notify("EnterRoom;Unknow");     
     }
 
-    //加载确定场景 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
-    public void LoadScene(int x,int y,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ)
+    //加载确定场景 房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
+    public void LoadScene(int x,int y,int[] dp,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ)
     {
         Debug.Log("进入" + roomX.Length + ";" + roomY.Length);
         ClearAll();
-        this.roomX = x;
-        this.roomY = y;
+
+        SetDoorDierction(dp);
+        InitDoorList();
+        SetRoomXY(x, y);
+        LayoutDoor();
+        if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
+        {
+            LayoutStair();
+        }
+
         int count = 0;
         for (int i = 0; i < roomX.Length; i++)
         {
@@ -355,10 +403,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             break;
                         case 3:
                             //Door WALL
-                            objectChoice = doors[1];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                            RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+                            //objectChoice = doors[1];
+                            //roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            //roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+
                             break;
                         case 4:
                             //Statue Wall
