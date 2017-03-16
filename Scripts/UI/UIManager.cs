@@ -128,11 +128,14 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "Get_InitiativeItem")//玩家拾取主动道具
         {
 
-            UIManager.Instance.ItemButtonManager.AddInitiativeItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(int.Parse(str[1]))]);
+            Sprite sp = ItemManager.Instance.GetInitiativeSprite();
+            UIManager.Instance.ItemButtonManager.AddInitiativeItem(sp);
+          
         }
         if (str[0] == "InitiativeItem_Energy_Number")
         {
             //TODO 改变主动道具的能量显示
+
         }
 
            

@@ -7,6 +7,8 @@ using System.Collections;
 /// </summary>
 public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
 
+    int curEnergy;
+
     /*DestroyDisposableItem
      *@Brief 销毁UI上的一次性道具
      */
@@ -50,7 +52,7 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
     public void OnInitiativeItem()
     {
         Debug.Log("s使用主动道具");
-        //ItemManager.
+        ItemManager.Instance.UseInitiativeItem();
         //NEED ItemManager.GetInstance().UseInitiativeItems();
 
     }
@@ -65,13 +67,24 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
 
     }
 
+    public void SetEnergy(int value)
+    {
+        int temp = value ;
+        int delta = (temp - curEnergy);
+        curEnergy = temp;
+        fillImg.GetComponent<Image>().fillAmount = curEnergy/ 100.0f;
+    }
+
+
     public Button initiativeItemButton; //主动道具按钮
     public Button disposableItemButton; //一次性道具按钮
     private GameObject initiativeItemImg;   //主动道具图片
     private GameObject disposableItemImg;   //一次性道具图片
+    private GameObject fillImg;
     public Sprite defaultItem;  //缺省道具图片
 
 	void Start () {
+        curEnergy = 0;
         initControlButton();
 	}
 	
