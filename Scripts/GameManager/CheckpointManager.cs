@@ -208,4 +208,45 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         Debug.Log(str);
     }
 
+
+    //载入关卡
+    public void LoadCheckpoint(int[] r)
+    {
+        CheckpointNumber++;
+        roomArray = new int[rows, columns];
+
+        //载入房间布局
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                roomArray[i,j]=r[i*columns+j];
+            }
+        }
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                int surroundRoomNumber = GetSurroundRoom(i, j);
+                if (surroundRoomNumber > 0)
+                {
+                    int type = Random.Range(0, 3);
+                    roomList.Add(new Room(type, i, j, surroundRoom));
+                }
+            }
+        }
+    
+        //输出房间布局
+        string str = "";
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                str += roomArray[i, j].ToString();
+            }
+            str += "\n";
+        }
+        Debug.Log(str);
+    }
 }

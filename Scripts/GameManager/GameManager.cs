@@ -24,6 +24,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
         doingSetup = true;
 
         loadOrNew = PlayerPrefs.GetInt("isNew", 1);
+        //loadOrNew = 0;
 
         if (loadOrNew == 1)
         {
@@ -39,6 +40,27 @@ public class GameManager : ExUnitySingleton<GameManager>{
 
         else
         {
+            //ProfileManager.Instance.Data.CurMapX;
+            CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map);
+            //ProfileManager.Instance.Data.Map;
+
+            Debug.Log("begin---" + CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).doorDirection);
+            Debug.Log("end---xxxx");
+            RoomManager.Instance.LoadScene(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
+                CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).doorDirection,
+                ProfileManager.Instance.Data.RoomElementRoomX,
+                ProfileManager.Instance.Data.RoomElementRoomY,
+                ProfileManager.Instance.Data.RoomElementID,
+                ProfileManager.Instance.Data.RoomElementPosX,
+                ProfileManager.Instance.Data.RoomElementPosY,
+                ProfileManager.Instance.Data.RoomElementPosZ);
+
+            RoomManager.Instance.LoadEnemy(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
+                ProfileManager.Instance.Data.EnemyID,
+                ProfileManager.Instance.Data.EnemyPosX,
+                ProfileManager.Instance.Data.EnemyPosY,
+                ProfileManager.Instance.Data.EnemyPosZ);
+
 
         }
 

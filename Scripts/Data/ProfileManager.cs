@@ -30,12 +30,14 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
         data.Init();
     }
 
-
+    void Awake(){
+      InitData();
+    }
     void Start()
     {
         RoomManager.Instance.AddObserver(this);
         EnemyManager.Instance.AddObserver(this);
-        InitData();
+      
 
     }
 
