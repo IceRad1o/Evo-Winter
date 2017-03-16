@@ -70,16 +70,22 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         }
         if (itemsTable.GetItemType(itemID) == 0)
         {
-            ImmediatelyItem itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
-
+            ImmediatelyItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
+            else
+                itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
             itemInstance.Create(itemID);
             
 
         }
-        if (itemsTable.GetItemType(itemID) == 3)
+        if (itemsTable.GetItemType(itemID) == 2)
         {
-            InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
-
+            InitiativeItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
+            else
+                itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
             itemInstance.Create(itemID);
             
 
@@ -137,7 +143,6 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     public void AddDisposableItems( DisposableItem item) {
         if (disposableItem.ItemID != 0)
         {
-            Debug.Log("Create disposableItem start");
             System.Random random = new System.Random();
             DisposableItem itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
@@ -190,15 +195,16 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     {
         if (initiativeItem.ItemID != 0)
         {
-            InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
+            System.Random random = new System.Random();
+            InitiativeItem itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
 
             itemInstance.Create(initiativeItem.ItemID);
             itemInstance.EnergyNow = initiativeItem.EnergyNow;
             listInitiativeItem.Add(itemInstance);
 
         }
-
-        initiativeItem = item;
+        initiativeItem.CreateScript(item.ItemID);
+        initiativeItem.EnergyNow = item.EnergyNow;
 
     }
 
@@ -216,7 +222,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
    /// </summary>
     public void DestoryInitiativeItem()
     {
-        if (initiativeItem != null)
+        if (initiativeItem.ItemID != 0)
             initiativeItem.Destroy();
     }
     /// <summary>
@@ -231,7 +237,11 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     public void UseInitiativeItem()
     {
         initiativeItem.Use();
-    }  
+    }
+    public Sprite GetInitiativeItemSprite()
+    {
+        return initiativeItem.GetSprite();
+    }
     /**********************************************************************************/
     //立即使用道具
 
@@ -250,26 +260,117 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
 
 
+    public void SendMsg(string msg) {
+        Notify(msg);
+    }
+
+
     /**************************************************************/
     //消息接收
-    private PlayerObserver playerObs = new PlayerObserver(); //Player的观察者
 
-    internal PlayerObserver PlayerObs
+    public override void OnNotify(string msg)
     {
-        get { return playerObs; }
-        set { playerObs = value; }
+        /***************************/
+        //Player的消息接收
+
+        string[] str = UtilManager.Instance.GetMsgFields(msg);
+        if (str[0] == "AttackStart")
+        {
+            //一次性道具的拾取                
+            foreach (DisposableItem t in listDisposableItem)
+            {
+                if (itemsDis == t && t.playerIn)
+             
+                {
+                    AddDisposableItems(t);
+                    Notify("Get_DisposableItem;" + t.ItemID);
+                    t.DestroyDisposableItem();
+                    break;
+                }
+            }
+            //主动道具的拾取                
+            foreach (InitiativeItem t in listInitiativeItem)
+            {
+                if (itemIni == t && t.PlayerIn)
+                {
+                    AddInitiativeItems(t);
+                    Notify("Get_InitiativeItem;" + t.ItemID);
+                    t.Destroy();
+                    break;
+                }
+            }
+            //立即使用道具的拾取                
+            foreach (ImmediatelyItem t in listImmediatelyItem)
+            {
+                if (itemImm == t && t.playerIn)
+                {
+                    Debug.Log("Get_ImmediatelyItem");
+                    Notify("Get_ImmediatelyItem;" + t.ItemID);
+                    t.Use();
+                    break;
+                }
+            }
+
+
+        }
+
+        /************************************/
+        //Item的消息接收
+        int _id = 0;
+        //获得一次性道具的消息检测
+        string m = "Player_Get_DisposableItem";
+        _id = GetIDofMSG(m, msg);
+
+        if (_id != -1)
+        {
+            DisposableItem[] disItems;
+            disItems = gameObject.GetComponents<DisposableItem>();
+
+            foreach (DisposableItem t in listDisposableItem)
+            {
+                if (_id == t.GetID())
+                {
+                    itemsDis = t;
+                }
+            }
+        }
+
+        //获得立即使用道具的消息检测
+        m = "Player_Get_ImmediatelyItem";
+        _id = GetIDofMSG(m, msg);
+
+        if (_id != -1)
+        {
+            foreach (ImmediatelyItem t in listImmediatelyItem)
+            {
+               
+                if (_id == t.GetID())
+                {
+                    itemImm = t;
+                }
+            }
+        }
+
+        //获得立即使用道具的消息检测
+        m = "Player_Get_InitiativeItem";
+        _id = GetIDofMSG(m, msg);
+
+        if (_id != -1)
+        {
+            foreach (InitiativeItem t in listInitiativeItem)
+            {
+
+                if (_id == t.GetID())
+                {
+                    itemIni = t;
+                }
+            }
+        }
     }
 
 
 
-    private ItemObser itemObs = new ItemObser(); //Item的观察者
-
-    internal ItemObser ItemObs
-    {
-        get { return itemObs; }
-        set { itemObs = value; }
-    }
-
+    
     
 
     /// <summary>
@@ -300,11 +401,24 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
     void Start()
     {
-        Player.Instance.Character.AddObserver(playerObs);
-
+        Player.Instance.Character.AddObserver(this);
+        this.AddObserver(UIManager.Instance.ItemObserver);
 
         
-    }   
+    }
+
+    //private PlayerObserver playerObs = new PlayerObserver(); //Player的观察者
+    //internal PlayerObserver PlayerObs
+    //{
+    //    get { return playerObs; }
+    //    set { playerObs = value; }
+    //}
+    //private ItemObser itemObs = new ItemObser(); //Item的观察者
+    //internal ItemObser ItemObs
+    //{
+    //    get { return itemObs; }
+    //    set { itemObs = value; }
+    //}
 
 
     /********************************************************************/
@@ -403,91 +517,82 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
 }
 
-class PlayerObserver : ExSubject
-{
-    public override void OnNotify(string msg)
-    {
-        string[] str = UtilManager.Instance.GetMsgFields(msg);
-        if (str[0] == "AttackStart")
-        {
-            //Debug.Log("Get");
-            //一次性道具的拾取                
-            foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
-            {
-                Debug.Log("do");
-                if (ItemManager.Instance.itemsDis == t && t.playerIn)
-                {
-                    ItemManager.Instance.AddDisposableItems(t);
-                    t.PlayerGet();
-                    t.DestroyDisposableItem();
-                    break;
-                }
-            }
-            //主动道具的拾取                
-            foreach (InitiativeItem t in ItemManager.Instance.listInitiativeItem)
-            {
-                if (ItemManager.Instance.itemIni == t && t.PlayerIn)
-                {
-                    ItemManager.Instance.AddInitiativeItems(t);
-                    t.PlayerGet();
-                    t.Destroy();
-                    break;
-                }
-            }
-            //立即使用道具的拾取                
-            foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
-            {
-                if (ItemManager.Instance.itemImm == t && t.playerIn)
-                {
-                    t.PlayerGet();
-                    t.Use();
-                    break;
-                }
-            }
-
-
-        }
-
-    }
-}
-
-class ItemObser : ExSubject
-{
-    public override void OnNotify(string msg)
-    {
-        int _id = 0;
-        //获得一次性道具的消息检测
-        string m = "Player_Get_DisposableItem";
-        _id = ItemManager.Instance.GetIDofMSG(m, msg);
-
-        if (_id != -1)
-        {
-            DisposableItem[] disItems;
-            disItems = ItemManager.Instance.gameObject.GetComponents<DisposableItem>();
-
-            foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
-            {
-                if (_id == t.GetID())
-                {
-                    ItemManager.Instance.itemsDis = t;
-                }
-            }
-        }
-
-        //获得立即使用道具的消息检测
-        m = "Player_Leave_ImmediatelyItem";
-        _id = ItemManager.Instance.GetIDofMSG(m, msg);
-
-        if (_id != -1)
-        {
-            foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
-            {
-                if (_id == t.GetID())
-                {
-                    ItemManager.Instance.itemImm = t;
-                }
-            }
-        }
-
-    }
-}
+//class PlayerObserver : ExSubject
+//{
+//    public override void OnNotify(string msg)
+//    {
+//        string[] str = UtilManager.Instance.GetMsgFields(msg);
+//        if (str[0] == "AttackStart")
+//        {
+//            //Debug.Log("Get");
+//            //一次性道具的拾取                
+//            foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
+//            {
+//                Debug.Log("do");
+//                if (ItemManager.Instance.itemsDis == t && t.playerIn)
+//                {
+//                    ItemManager.Instance.AddDisposableItems(t);
+//                    Notify("Get_DisposableItem;" + t.ItemID);
+//                    t.DestroyDisposableItem();
+//                    break;
+//                }
+//            }
+//            //主动道具的拾取                
+//            foreach (InitiativeItem t in ItemManager.Instance.listInitiativeItem)
+//            {
+//                if (ItemManager.Instance.itemIni == t && t.PlayerIn)
+//                {
+//                    ItemManager.Instance.AddInitiativeItems(t);
+//                    Notify("Get_DisposableItem;" + t.ItemID);
+//                    t.Destroy();
+//                    break;
+//                }
+//            }
+//            //立即使用道具的拾取                
+//            foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
+//            {
+//                if (ItemManager.Instance.itemImm == t && t.playerIn)
+//                {
+//                    Notify("Get_ImmediatelyItem;" + t.ItemID);
+//                    t.Use();
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//}
+//class ItemObser : ExSubject
+//{
+//    public override void OnNotify(string msg)
+//    {
+//        int _id = 0;
+//        //获得一次性道具的消息检测
+//        string m = "Player_Get_DisposableItem";
+//        _id = ItemManager.Instance.GetIDofMSG(m, msg);
+//        if (_id != -1)
+//        {
+//            DisposableItem[] disItems;
+//            disItems = ItemManager.Instance.gameObject.GetComponents<DisposableItem>();
+//            foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
+//            {
+//                if (_id == t.GetID())
+//                {
+//                    ItemManager.Instance.itemsDis = t;
+//                }
+//            }
+//        }
+//        //获得立即使用道具的消息检测
+//        m = "Player_Leave_ImmediatelyItem";
+//        _id = ItemManager.Instance.GetIDofMSG(m, msg);
+//        if (_id != -1)
+//        {
+//            foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
+//            {
+//                if (_id == t.GetID())
+//                {
+//                    ItemManager.Instance.itemImm = t;
+//                }
+//            }
+//        }
+//    }
+//}

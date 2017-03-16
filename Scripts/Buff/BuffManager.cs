@@ -37,21 +37,21 @@ public class BuffManager : ExSubject
 
 
 
-	// Use this for initialization
+	
 	void Start () {
+        //将ItemManager设为观察者
         ItemManager.Instance.AddObserver(this);
 	}
 
 
     public override void OnNotify(string msg)
     {
-        Debug.Log(msg);
 
         string bID = "";
 
 
         bID = UtilManager.Instance.MatchFiledFormMsg("UseItem_Buff_ID", msg, 0);
-        if (bID != "Error")
+        if (bID != "Fail")
             CreateBuff(int.Parse(bID));
 
     }

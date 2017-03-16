@@ -18,7 +18,7 @@ public class Player :ExUnitySingleton<Player>,IFly {
         this.tag = "Player";
         character = GetComponent<Character>();
         character.MoveSpeed = 3;
-        character.Health = 10;
+        character.Health = 5;
         character.AttackSpeed = 3;
     }
 

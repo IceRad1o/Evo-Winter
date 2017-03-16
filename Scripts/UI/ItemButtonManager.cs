@@ -42,7 +42,6 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
      */
     public void AddDisposableItem(Sprite item)
     {
-        Debug.Log("AddDisposableItem");
         disposableItemImg.GetComponent<Image>().sprite = item;
     }
 
