@@ -309,7 +309,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         LayoutDoor();
 
         Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
-        Notify("EnterRoom");     
+        Notify("EnterRoom;Unknow");     
     }
 
     //加载确定场景 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
@@ -317,6 +317,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     {
         Debug.Log("进入" + roomX.Length + ";" + roomY.Length);
         ClearAll();
+        this.roomX = x;
+        this.roomY = y;
         int count = 0;
         for (int i = 0; i < roomX.Length; i++)
         {
@@ -325,11 +327,12 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 Debug.Log("fangjian" + roomX[0]);
                 if (roomY[i] == y && roomX[i] == x)
                 {
+                    count = i;
                     Debug.Log("j=y,i=x");
                     Vector3 position = new Vector3(posiX[count],posiY[count],posiZ[count]);
                     GameObject objectChoice;
                     GameObject roomElement = null;
-                    count = i;
+                  
                     switch (id[count])
                     {
                         case 0:
@@ -341,7 +344,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             objectChoice = groundElements[0];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
-                           
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());                            
                             break;
                         case 2:
@@ -349,7 +351,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             objectChoice = wallElements[0];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                            roomElement.transform.localPosition = position;
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                             break;
                         case 3:
@@ -357,7 +358,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             objectChoice = doors[1];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                            //roomElement.transform.localPosition = position;
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                             break;
                         case 4:
@@ -372,7 +372,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             objectChoice = wallElements[2];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                            roomElement.transform.localPosition = position;
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                             break;
                         case 6:
@@ -380,6 +379,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             objectChoice = wallElements[3];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
+                            roomElement.transform.localPosition = position;
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                             break;
                         case 7:
@@ -394,6 +394,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             objectChoice = groundElements[1];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                            roomElement.transform.localPosition = position;
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
                             break;
                         case 9:
@@ -401,10 +402,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             objectChoice = groundElements[2];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                            roomElement.transform.localPosition = position;
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
                             break;
                     }
-                    roomElement.transform.localPosition = position;
+                 
                 }
             }
         }
@@ -425,7 +427,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             enemy.transform.SetParent(GameObject.Find("GroundElements").transform);
         }
 
-       Notify("EnterRoom");
+       Notify("EnterRoom;Know");
     }
 
 }

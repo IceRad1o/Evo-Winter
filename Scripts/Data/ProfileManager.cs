@@ -47,9 +47,10 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             Debug.LogError("the msg is null!");
         }
         string[] str = UtilManager.Instance.GetMsgFields(msg);
-        if (str[0] == "ClearRoom" || str[0] == "EnterRoom")
+        //TODO leaveRoom存档
+        if (str[0] == "ClearRoom" || (str[0] == "EnterRoom"&&str[1]=="Unknow")||str[0]== "LeaveRoom")
         {
-            Debug.Log("the msg is "+msg);
+            Debug.Log("PofileManager recieved the msg : "+msg);
             //Player
             data.Health = Player.Instance.Character.Health;
             data.MoveSpeed = Player.Instance.Character.MoveSpeed;
@@ -123,9 +124,28 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             data.CurMapY = RoomManager.Instance.roomY;
 
             //RoomElements
+
+            //移除重复元素
+            //注意要从后往前删,否则序号会出问题
+            for (int i = tempRERoomX.Count-1; i >=0; i--)
+                   {
+                       if (RoomManager.Instance.roomX == tempRERoomX[i] && RoomManager.Instance.roomY ==tempRERoomY[i])
+                       {
+                           Debug.Log("删除:" + tempREID[i]);
+                           tempREID.RemoveAt(i);
+                           tempREPosX.RemoveAt(i);
+                           tempREPosY.RemoveAt(i);
+                           tempREPosZ.RemoveAt(i);
+                           tempRERoomX.RemoveAt(i);
+                           tempRERoomY.RemoveAt(i);
+                       }
+                   }
+           
+
+            //加载元素
             for(int i=0;i<RoomElementManager.Instance.RoomElementList.Count;i++)
             {
-                Debug.Log("3333:"+RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+                Debug.Log("加载:"+RoomElementManager.Instance.RoomElementList[i].RoomElementID);
                 tempREID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
                 tempREPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
                 tempREPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);

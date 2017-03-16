@@ -84,11 +84,15 @@ public class UIManager : ExUnitySingleton<UIManager>
 
 
     public override void OnNotify(string msg)
-{
-    string[] str = UtilManager.Instance.GetMsgFields(msg);
-    if (str[0] == "EnterRoom")
-        littleMap.UpdateLittleMap();
-}
+    {
+        string[] str = UtilManager.Instance.GetMsgFields(msg);
+        if (str[0] == "EnterRoom")
+        {
+            Debug.Log("EnterRoomUI");
+            littleMap.UpdateLittleMap();
+        }
+           
+    }
 
 
 
