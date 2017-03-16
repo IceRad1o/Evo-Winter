@@ -34,7 +34,7 @@ public class Door : RoomElement
                 case 0:
                     //进入上侧房间   
                     Debug.Log("进上xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(0f, -0.5f, 0f);
+                    Player.Instance.Character.transform.position = new Vector3(0f, -1f, 0f);
                     if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).pass == 0)
                     {
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).type,
@@ -63,7 +63,7 @@ public class Door : RoomElement
                 case 1:
                     //进入下侧房间
                     Debug.Log("进下xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(0f, -0.4f, 0f);
+                    Player.Instance.Character.transform.position = new Vector3(0f, -0.8f, 0f);
                     if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).pass == 0)
                     {
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).type,
@@ -92,7 +92,7 @@ public class Door : RoomElement
                 case 2:
                     //进入左侧房间
                     Debug.Log("进左xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(4.5f, -1f, 0f);
+                    Player.Instance.Character.transform.position = new Vector3(4.5f, -2f, 0f);
                     if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).pass == 0)
                     {
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).type,
@@ -122,7 +122,7 @@ public class Door : RoomElement
                 case 3:
                     //进入右侧房间
                     Debug.Log("进右xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(-4.5f, -1f, 0f);
+                    Player.Instance.Character.transform.position = new Vector3(-4.5f, -2f, 0f);
                     if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).pass == 0)
                     {
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).type,
