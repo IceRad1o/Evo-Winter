@@ -91,6 +91,11 @@ public class UIManager : ExUnitySingleton<UIManager>
             Debug.Log("EnterRoomUI");
             littleMap.UpdateLittleMap();
         }
+        if (str[0] == "EnterRoom")
+        {
+            Debug.Log("EnterRoomUI");
+            littleMap.UpdateLittleMap();
+        }
            
     }
 

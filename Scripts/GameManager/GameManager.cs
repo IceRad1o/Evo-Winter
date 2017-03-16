@@ -24,7 +24,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
         doingSetup = true;
         //设置关卡
         CheckpointManager.Instance.SetupCheckpoint();
-        Notify("SetupCheckpoint");
+        Notify("SetupCheckpoint;"+ CheckpointManager.Instance.CheckpointNumber);
         //设置房间0
         RoomManager.Instance.SetupScene(  CheckpointManager.Instance.roomList[0].type,
                                 CheckpointManager.Instance.roomList[0].doorDirection, 
