@@ -197,6 +197,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             {
                 randomPosition = RandomPosition(2);
             }
+            //放置爪子
             if (wallElementsID == 2)
             {
                 randomPosition = RandomPosition(4);

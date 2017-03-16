@@ -8,9 +8,9 @@ public class Stair : RoomElement {
 	}
 	
      //碰撞检测
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PlayerRB2D" && EnemyManager.Instance.EnemyList.Count == 0)
+        if (other.tag == "Player" && EnemyManager.Instance.EnemyList.Count == 0)
         {
             //设置关卡
             if (CheckpointManager.Instance.CheckpointNumber < 5)

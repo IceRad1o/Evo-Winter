@@ -119,6 +119,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 }
             }
         }
+        Notify("MapComplete");
     }
 
 
