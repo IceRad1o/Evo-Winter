@@ -21,7 +21,9 @@ public class ItemsTable {
      public int droping;
      public int buffID;
      public int skillID;
-     public int energy;       
+     public int energy;
+     public string itemName;
+     public string itemIntro;
     
     }
     
@@ -81,7 +83,26 @@ public class ItemsTable {
 
         return FindItemsByID(ID).skillID;
     }
+    /// <summary>
+    /// 获得对应item的Name
+    /// </summary>
+    /// <param name="ID">道具ID</param>
+    /// <returns>item的itemName</returns>
+    public string GetItemName(int ID)
+    {
 
+        return FindItemsByID(ID).itemName;
+    }
+    /// <summary>
+    /// 获得对应item的itemIntro
+    /// </summary>
+    /// <param name="ID">道具ID</param>
+    /// <returns>item的itemIntro</returns>
+    public string GetItemIntro(int ID)
+    {
+
+        return FindItemsByID(ID).itemIntro;
+    }
     /// <summary>
     /// 获得对应item的能量
     /// </summary>
@@ -89,7 +110,6 @@ public class ItemsTable {
     /// <returns>item的能量</returns>
     public int GetItemEnergy(int ID)
     {
-
         return FindItemsByID(ID).energy;
     }
     /*CreateItem
@@ -164,16 +184,40 @@ public class ItemsTable {
     {
         ItemsData item=new ItemsData();
 
-        
+        /*********************/
+        //一次性道具
         item.ID = 1012;
         item.spriteArrayID = 11;
         item.type = 1;
         item.droping = 6;
         item.buffID = 1000001;
         item.skillID = 0;
+        item.itemName = "生命之精";
+        item.itemIntro = "拥有浓郁的生命活力，使用后恢复一定体力";
         itemsData.Add(item);
-
-       
+        /*********************/
+        //立即使用道具
+        item.ID = 1002;
+        item.spriteArrayID = 1;
+        item.type = 0;
+        item.droping = 6;
+        item.buffID = 1000101;
+        item.skillID = 0;
+        item.itemName = "赌博骰子";
+        item.itemIntro = "来试试人品吧，随机回复（扣去）生命";
+        itemsData.Add(item);
+        /*********************/
+        //主动道具
+        item.ID = 1028;
+        item.spriteArrayID = 2;
+        item.type = 2;
+        item.droping = 6;
+        item.buffID = 1000001;
+        item.skillID = 0;
+        item.energy = 6;
+        item.itemName = "生命之树的种子";
+        item.itemIntro = "相传是精灵一族圣树的种子，拥有浓郁的生命力";
+        itemsData.Add(item);
     }
 	
 

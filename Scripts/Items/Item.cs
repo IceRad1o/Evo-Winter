@@ -20,7 +20,19 @@ public class Item : ExSubject {
     protected SpriteRenderer spriteRenderer;
     public AudioClip usingSounds;
 
-  
+    private string itemName;
+    public string ItemName
+    {
+        get { return itemName; }
+        set { itemName = value; }
+    }
+
+    private string itemIntro;
+    public string ItemIntro
+    {
+        get { return itemIntro; }
+        set { itemIntro = value; }
+    }
 
 
     /*@GetID
@@ -53,4 +65,5 @@ public class Item : ExSubject {
     virtual public void DestoryItem() {
         Destroy(gameObject);    
     }
+
 }

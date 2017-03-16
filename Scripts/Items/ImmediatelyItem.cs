@@ -12,35 +12,29 @@ public class ImmediatelyItem : Item{
 
 
     /// <summary>
-    /// 2D碰撞检测
+    /// 碰撞检测
     /// </summary>
     /// <param name="other">与其碰撞的GameObj</param>
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
 
         if (other.tag == "Player")
         {
+
+
             Notify("Player_Get_ImmediatelyItem;" + ItemID);
             playerIn = true;
         }
 
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
-        {
+        if (other.tag == "Player"){
+
             Notify("Player_Leave_ImmediatelyItem");
             playerIn = false;
         }
-    }
-    /// <summary>
-    /// 发送消息，道具已被拾取
-    /// </summary>
-    public void PlayerGet()
-    {
-        Notify("Get_ImmediatelyItem;" + ItemID);
-
     }
     
     /*@Use
@@ -51,10 +45,11 @@ public class ImmediatelyItem : Item{
     {
         //发送消息，使用道具，并产生Buff
         if (ItemBuffID != 0)
-            Notify("UseItem_Buff_ID;" + ItemBuffID);
+            ItemManager.Instance.SendMsg("UseItem_Buff_ID;" + ItemBuffID);
         if (itemSkillID != 0)
-            Notify("UseItem_Skill_ID;" + itemSkillID);
+            ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + itemSkillID);
 
+        ItemManager.Instance.listImmediatelyItem.Remove(this);
         Destroy(gameObject);
     }
 
@@ -72,7 +67,8 @@ public class ImmediatelyItem : Item{
         spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
         ItemID = ID;
 
-        this.AddObserver(ItemManager.Instance.ItemObs);
+        ItemManager.Instance.listImmediatelyItem.Add(this);
+        this.AddObserver(ItemManager.Instance);
         this.AddObserver(UIManager.Instance.ItemObserver);
 
     }
@@ -82,7 +78,7 @@ public class ImmediatelyItem : Item{
     {
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        itemSprite = itemSp.SpriteArray;
+        itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }
 
     

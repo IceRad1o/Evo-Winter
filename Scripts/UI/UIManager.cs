@@ -128,7 +128,7 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "Get_InitiativeItem")//玩家拾取主动道具
         {
 
-            Sprite sp = ItemManager.Instance.GetInitiativeSprite();
+            Sprite sp = ItemManager.Instance.GetInitiativeItemSprite();
             UIManager.Instance.ItemButtonManager.AddInitiativeItem(sp);
           
         }
@@ -200,7 +200,6 @@ class ItemObserver : ExSubject
         {
             //Sprite sp=ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(para1int)];
             Sprite sp = ItemManager.Instance.GetDisposableItemsSprite();
-            Debug.Log(sp);
             //PROBELM 显示不出来
             UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
         }
