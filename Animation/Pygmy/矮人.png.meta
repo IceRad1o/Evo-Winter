@@ -1,0 +1,367 @@
+fileFormatVersion: 2
+guid: 6b21f4351c43751429872bd86af88682
+timeCreated: 1489652518
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: "\u77EE\u4EBA_0"
+    21300002: "\u77EE\u4EBA_1"
+    21300004: "\u77EE\u4EBA_3"
+    21300006: "\u77EE\u4EBA_4"
+    21300008: "\u77EE\u4EBA_5"
+    21300010: "\u77EE\u4EBA_6"
+    21300012: "\u77EE\u4EBA_8"
+    21300014: "\u77EE\u4EBA_9"
+    21300016: "\u77EE\u4EBA_10"
+    21300018: "\u77EE\u4EBA_11"
+    21300020: "\u77EE\u4EBA_12"
+    21300022: "\u77EE\u4EBA_15"
+    21300024: "\u77EE\u4EBA_16"
+    21300026: "\u77EE\u4EBA_17"
+    21300028: "\u77EE\u4EBA_18"
+    21300030: "\u77EE\u4EBA_19"
+    21300032: "\u77EE\u4EBA_23"
+    21300034: "\u77EE\u4EBA_24"
+    21300036: "\u77EE\u4EBA_26"
+    21300038: "\u77EE\u4EBA_27"
+    21300040: "\u77EE\u4EBA_29"
+    21300042: "\u77EE\u4EBA_32"
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_0"
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 964
+        width: 270
+        height: 154
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_1"
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 460
+        width: 110
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_3"
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 817
+        width: 318
+        height: 341
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_4"
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 684
+        width: 174
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_5"
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 981
+        width: 258
+        height: 139
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_6"
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 689
+        width: 103
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_8"
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 16
+        width: 455
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_9"
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 733
+        width: 4
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_10"
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 688
+        width: 95
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_11"
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 676
+        width: 145
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_12"
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 718
+        width: 5
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_15"
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 563
+        width: 153
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_16"
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 595
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_17"
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 559
+        width: 142
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_18"
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 394
+        width: 155
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_19"
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 583
+        width: 4
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_23"
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 487
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_24"
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 369
+        width: 87
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_26"
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 366
+        width: 155
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_27"
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 43
+        width: 118
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_29"
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 209
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: "\u77EE\u4EBA_32"
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 43
+        width: 154
+        height: 211
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
