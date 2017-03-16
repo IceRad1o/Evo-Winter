@@ -14,7 +14,6 @@ public class HurtByWeapon : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         //记录下之前的位置
@@ -26,7 +25,7 @@ public class HurtByWeapon : MonoBehaviour
     /// 2D碰撞检测
     /// </summary>
     /// <param name="other">与其碰撞的GameObj</param>
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
 
         //如果武器无效化,则返回
@@ -34,7 +33,7 @@ public class HurtByWeapon : MonoBehaviour
             return;
 
 
-        if ((other.tag == "EnemyRB2D" && camp == 0) || (other.tag == "PlayerRB2D" && camp == 1))
+        if ((other.tag == "Enemy" && camp == 0) || (other.tag == "PlayerRB2D" && camp == 1))
         {
             //若有生命,则减血
             //Debug.Log("Enemy hurt!" + other.GetComponent<Character>().Health);
@@ -46,8 +45,8 @@ public class HurtByWeapon : MonoBehaviour
             //发送命中敌人消息
             gameObject.GetComponentInParent<Character>().Notify("AttackHit");
 
-
-
+            Debug.Log("111");
+            return;
             //添加打击效果
             Vector2[] points = this.GetComponent<PolygonCollider2D>().points;
 

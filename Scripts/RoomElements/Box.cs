@@ -37,7 +37,7 @@ public class Box : RoomElement
         ItemManager.Instance.CreateItemDrop(false, false, true);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("箱子碰撞物标签：" + other.tag);
         if (other.tag == "Weapon")
