@@ -12,10 +12,10 @@ public class ImmediatelyItem : Item{
 
 
     /// <summary>
-    /// 2D碰撞检测
+    /// 碰撞检测
     /// </summary>
     /// <param name="other">与其碰撞的GameObj</param>
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
 
         if (other.tag == "Player")
@@ -28,7 +28,7 @@ public class ImmediatelyItem : Item{
 
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player"){
 
@@ -49,6 +49,7 @@ public class ImmediatelyItem : Item{
         if (itemSkillID != 0)
             ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + itemSkillID);
 
+        ItemManager.Instance.listImmediatelyItem.Remove(this);
         Destroy(gameObject);
     }
 

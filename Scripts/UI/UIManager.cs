@@ -128,7 +128,7 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "Get_InitiativeItem")//玩家拾取主动道具
         {
 
-            Sprite sp = ItemManager.Instance.GetInitiativeSprite();
+            Sprite sp = ItemManager.Instance.GetInitiativeItemSprite();
             UIManager.Instance.ItemButtonManager.AddInitiativeItem(sp);
           
         }

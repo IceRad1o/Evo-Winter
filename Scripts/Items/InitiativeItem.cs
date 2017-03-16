@@ -29,7 +29,7 @@ public class InitiativeItem : Item{
     {
 
         CreateScript(ID);
-        spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
+        spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
 
         ItemManager.Instance.listInitiativeItem.Add(this);
         this.AddObserver(ItemManager.Instance);
@@ -39,11 +39,11 @@ public class InitiativeItem : Item{
 
     public void CreateScript(int ID)
     {
-        iSprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
+        iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
         ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
         energyMax = ItemManager.Instance.itemsTable.GetItemEnergy(ID);
-        energyNow = energyMax;
+        EnergyNow = energyMax;
         ItemID = ID;
     }
 
@@ -52,10 +52,17 @@ public class InitiativeItem : Item{
      */
     public void Destroy()
     {
-        //发送消息，一次性道具销毁
-        ItemManager.Instance.SendMsg("InitiativeItem_Destroy");
+        ItemManager.Instance.listInitiativeItem.Remove(this);
         
         Destroy(gameObject);
+    }
+
+    public override void DestroyScript()
+    {
+        //发送消息，一次性道具销毁
+        ItemManager.Instance.SendMsg("InitiativeItem_Destroy");
+
+        base.DestroyScript();
     }
 
     public void Use() {
@@ -81,7 +88,7 @@ public class InitiativeItem : Item{
     /// 2D碰撞检测
     /// </summary>
     /// <param name="other">与其碰撞的GameObj</param>
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
 
         if (other.tag == "Player")
@@ -92,7 +99,7 @@ public class InitiativeItem : Item{
 
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
