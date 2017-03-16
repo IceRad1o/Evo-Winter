@@ -47,6 +47,18 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             Debug.LogError("the msg is null!");
         }
         string[] str = UtilManager.Instance.GetMsgFields(msg);
+
+
+        if(str[0]=="SetupCheckpoint")
+        {
+            tempREID.Clear();
+            tempREPosX.Clear();
+            tempREPosY.Clear();
+            tempREPosZ.Clear();
+            tempRERoomX.Clear();
+            tempRERoomY.Clear();
+        }
+
         //TODO leaveRoom存档
         if (str[0] == "ClearRoom" || (str[0] == "EnterRoom"&&str[1]=="Unknow")||str[0]== "LeaveRoom")
         {
@@ -119,7 +131,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
                 }
                 
             data.Map = tempID.ToArray();
-            //TODO data.curLevel;
+            data.CurLevel = CheckpointManager.Instance.CheckpointNumber;
             data.CurMapX = RoomManager.Instance.roomX;
             data.CurMapY = RoomManager.Instance.roomY;
 

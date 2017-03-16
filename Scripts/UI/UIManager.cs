@@ -80,22 +80,61 @@ public class UIManager : ExUnitySingleton<UIManager>
 
         Player.Instance.Character.AddObserver(playerObserver);
         RoomManager.Instance.AddObserver(this);
+        ItemManager.Instance.AddObserver(this);
     }
 
 
     public override void OnNotify(string msg)
     {
+
+        //RoomManager Msg
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         if (str[0] == "EnterRoom")
         {
-            Debug.Log("EnterRoomUI");
             littleMap.UpdateLittleMap();
         }
         if (str[0] == "EnterRoom")
         {
-            Debug.Log("EnterRoomUI");
             littleMap.UpdateLittleMap();
         }
+
+
+        if (str[0] == "MapComplete")
+            littleMap.InitLittleMap();
+
+
+        //ItemManager Msg
+
+        if (str[0] == "DisposableItem_Destroy")
+            UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
+        if (str[0] == "InitiativeItem_Destroy")
+            UIManager.Instance.ItemButtonManager.DestroyInitiativeItem();
+        if (str[0] == "Player_Get_DisposableItem" || str[0] == "Player_Get_InitiativeItem")
+        {
+
+            //TODO 显示道具信息
+        }
+        if (str[0] == "Player_Leave_DisposableItem" || str[0] == "Player_Leave_InitiativeItem")
+        {
+
+            //TODO 取消显示道具信息
+
+        }
+        if (str[0] == "Get_DisposableItem")//玩家拾取一次性道具
+        {
+            Sprite sp = ItemManager.Instance.GetDisposableItemsSprite();
+            UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
+        }
+        if (str[0] == "Get_InitiativeItem")//玩家拾取主动道具
+        {
+
+            UIManager.Instance.ItemButtonManager.AddInitiativeItem(ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(int.Parse(str[1]))]);
+        }
+        if (str[0] == "InitiativeItem_Energy_Number")
+        {
+            //TODO 改变主动道具的能量显示
+        }
+
            
     }
 
