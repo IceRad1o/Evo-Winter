@@ -71,32 +71,32 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         mirrorPosition.Clear();
         for (float x = -1 * columns; x < columns; x+=2f)
         {
-            mirrorPosition.Add(new Vector3(x, 1.8f, 0f));
+            mirrorPosition.Add(new Vector3(x, 1.8f*2f, 0f));
         }
         //图片位置列表
         picturePosition.Clear();
         for (float x = -1 * columns; x < columns; x+=2f)
         {
-            picturePosition.Add(new Vector3(x, 2.0f, 0f));
+            picturePosition.Add(new Vector3(x, 2.0f*2f, 0f));
         }
         //门位置列表
         doorPosition.Clear();
 
         if (doorDirection[0] == 1)
         {
-            doorPosition.Add(new Vector3(0f, 1.4f, 0f));
+            doorPosition.Add(new Vector3(0f, 1.4f*2f, 0f));
         }
         if (doorDirection[1] == 1)
         {
-            doorPosition.Add(new Vector3(0f, -2.45f, 0f));
+            doorPosition.Add(new Vector3(0f, -2.45f*2f, 0f));
         }
         if (doorDirection[2] == 1)
         {
-            doorPosition.Add(new Vector3(-5.8f, -1.46f, 0f));
+            doorPosition.Add(new Vector3(-5.8f, -1.46f*2f, 0f));
         }
         if (doorDirection[3] == 1)
         {
-            doorPosition.Add(new Vector3(5.8f, -1.46f, 0f));
+            doorPosition.Add(new Vector3(5.8f, -1.46f*2f, 0f));
         }    
 
         //doorPosition.Add(new Vector3(x, 1.4f, 0f));
@@ -104,13 +104,13 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         //雕像位置列表
         for (float x = -1 * columns; x < columns; x += 2f)
         {
-            statuePosition.Add(new Vector3(x, 1.54f, 0f));
+            statuePosition.Add(new Vector3(x, 1.54f*2f, 0f));
         }
 
         //爪子位置列表
         for (float x = -1 * columns; x < columns; x += 2f)
         {
-            clawPosition.Add(new Vector3(x, 0.79f, 0f));
+            clawPosition.Add(new Vector3(x, 0.79f*2f, 0f));
         }
 
         //地上物体列表
@@ -197,6 +197,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             {
                 randomPosition = RandomPosition(2);
             }
+            //放置爪子
             if (wallElementsID == 2)
             {
                 randomPosition = RandomPosition(4);
@@ -287,19 +288,19 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
         if (doorDirection[0] == 1)
         {
-            doorPosition.Add(new Vector3(0f, 1.4f, 0f));
+            doorPosition.Add(new Vector3(0f, 1.4f*2f, 0f));
         }
         if (doorDirection[1] == 1)
         {
-            doorPosition.Add(new Vector3(0f, -2.45f, 0f));
+            doorPosition.Add(new Vector3(0f, -2.45f*2f, 0f));
         }
         if (doorDirection[2] == 1)
         {
-            doorPosition.Add(new Vector3(-5.8f, -1.46f, 0f));
+            doorPosition.Add(new Vector3(-5.8f, -1.46f*2f, 0f));
         }
         if (doorDirection[3] == 1)
         {
-            doorPosition.Add(new Vector3(5.8f, -1.46f, 0f));
+            doorPosition.Add(new Vector3(5.8f, -1.46f*2f, 0f));
         }    
     }
 
