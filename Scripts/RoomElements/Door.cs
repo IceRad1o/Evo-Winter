@@ -21,13 +21,13 @@ public class Door : RoomElement
     //碰撞检测
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("DoorOnTiger" + other.tag + "    敌人数量：" + EnemyManager.Instance.EnemyList.Count);
+        //Debug.Log("DoorOnTiger" + other.tag + "    敌人数量：" + EnemyManager.Instance.EnemyList.Count);
         if (other.tag == "Player"&&EnemyManager.Instance.EnemyList.Count==0)
         {
             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);
-            RoomElementManager.Instance.Notify("LeaveRoom");    
+            RoomManager.Instance.Notify("LeaveRoom");    
             int roomDir = position;
-            
+            int pass = 0;
             switch (roomDir)
             {
                     
@@ -44,6 +44,7 @@ public class Door : RoomElement
                     }
                     else
                     {
+                        pass = 1;
                         RoomManager.Instance.LoadScene(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY,
                             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).doorDirection,
                             ProfileManager.Instance.Data.RoomElementRoomX,
@@ -53,11 +54,12 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementPosY,
                             ProfileManager.Instance.Data.RoomElementPosZ);
 
-                        RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY,
-                            ProfileManager.Instance.Data.EnemyID,
-                            ProfileManager.Instance.Data.EnemyPosX,
-                            ProfileManager.Instance.Data.EnemyPosY,
-                            ProfileManager.Instance.Data.EnemyPosZ);
+                        //RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY,
+                        //    ProfileManager.Instance.Data.EnemyID,
+                        //    ProfileManager.Instance.Data.EnemyPosX,
+                        //    ProfileManager.Instance.Data.EnemyPosY,
+                        //    ProfileManager.Instance.Data.EnemyPosZ);
+
                     }
                     break;
                 case 1:
@@ -73,6 +75,7 @@ public class Door : RoomElement
                     }
                     else
                     {
+                        pass = 1;
                         RoomManager.Instance.LoadScene(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY,
                             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).doorDirection,
                             ProfileManager.Instance.Data.RoomElementRoomX,
@@ -82,11 +85,6 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementPosY,
                             ProfileManager.Instance.Data.RoomElementPosZ);
 
-                        RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY,
-                            ProfileManager.Instance.Data.EnemyID,
-                            ProfileManager.Instance.Data.EnemyPosX,
-                            ProfileManager.Instance.Data.EnemyPosY,
-                            ProfileManager.Instance.Data.EnemyPosZ);
                     }                   
                     break;
                 case 2:
@@ -102,6 +100,7 @@ public class Door : RoomElement
                     }
                     else
                     {
+                        pass = 1;
                         Debug.Log("回左边:" + ProfileManager.Instance.Data.RoomElementRoomX[0] + " ");
                         RoomManager.Instance.LoadScene(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1,
                             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).doorDirection,
@@ -112,11 +111,6 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementPosY,
                             ProfileManager.Instance.Data.RoomElementPosZ);
 
-                        RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1,
-                            ProfileManager.Instance.Data.EnemyID,
-                            ProfileManager.Instance.Data.EnemyPosX,
-                            ProfileManager.Instance.Data.EnemyPosY,
-                            ProfileManager.Instance.Data.EnemyPosZ);
                     }
                     break;
                 case 3:
@@ -132,6 +126,7 @@ public class Door : RoomElement
                     }
                     else
                     {
+                        pass = 1;
                         RoomManager.Instance.LoadScene(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1,
                             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).doorDirection,
                             ProfileManager.Instance.Data.RoomElementRoomX,
@@ -141,14 +136,22 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementPosY,
                             ProfileManager.Instance.Data.RoomElementPosZ);
 
-                        RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1,
-                            ProfileManager.Instance.Data.EnemyID,
-                            ProfileManager.Instance.Data.EnemyPosX,
-                            ProfileManager.Instance.Data.EnemyPosY,
-                            ProfileManager.Instance.Data.EnemyPosZ);
                     }
                     break;
             }
+            CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);
+            Debug.Log("本房间pass："+CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).pass);
+            if (pass == 1)
+            {
+                Debug.Log("pass=1");
+                RoomManager.Instance.Notify("EnterRoom;Know");
+            }
+            else
+            {
+                Debug.Log("pass=0");
+                RoomManager.Instance.Notify("EnterRoom;Unknow");
+            }
+
         }
     }
 

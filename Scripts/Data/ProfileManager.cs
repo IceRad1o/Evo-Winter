@@ -42,7 +42,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
     public override void OnNotify(string msg)
     {
-        //Debug.Log("OnNotify the msg : " + msg);
+        Debug.Log("OnNotify the msg : " + msg);
         if (msg == null)
         {
             Debug.LogError("the msg is null!");
@@ -61,7 +61,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
         }
        
         //TODO leaveRoom存档
-        if (str[0] == "ClearRoom" || (str[0] == "EnterRoom"&&str[1]=="Unknow")||str[0]== "LeaveRoom")
+        if (str[0] == "ClearRoom" || (str[0] == "EnterRoom")||str[0]== "LeaveRoom")
         {
             //Debug.Log("PofileManager recieved the msg : " + msg);
            
