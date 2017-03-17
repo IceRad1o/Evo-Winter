@@ -356,7 +356,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     //加载确定场景 房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
     public void LoadScene(int x,int y,int[] dp,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ)
     {
-        Debug.Log("进入" + roomX.Length + ";" + roomY.Length);
+        //Debug.Log("LoadScene进入" + roomX.Length + ";" + roomY.Length);
         ClearAll();
 
         SetDoorDierction(dp);
@@ -373,11 +373,9 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         {
          
             {
-                Debug.Log("fangjian" + roomX[0]);
                 if (roomY[i] == y && roomX[i] == x)
                 {
                     count = i;
-                    Debug.Log("j=y,i=x");
                     Vector3 position = new Vector3(posiX[count],posiY[count],posiZ[count]);
                     GameObject objectChoice;
                     GameObject roomElement = null;
