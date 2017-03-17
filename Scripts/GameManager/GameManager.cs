@@ -44,8 +44,6 @@ public class GameManager : ExUnitySingleton<GameManager>{
             CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map);
             //ProfileManager.Instance.Data.Map;
 
-            Debug.Log("begin---" + CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).doorDirection);
-            Debug.Log("end---xxxx");
             RoomManager.Instance.LoadScene(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
                 CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).doorDirection,
                 ProfileManager.Instance.Data.RoomElementRoomX,
