@@ -5,6 +5,8 @@ public class Character : ExSubject
 {
     //音频
     public AudioClip attackingSound;
+    public AudioClip attackingSound2;
+    public AudioClip attackingSound3;
     public AudioClip movingSound;
     public AudioClip dyingSound;
     public AudioClip damagingSound;

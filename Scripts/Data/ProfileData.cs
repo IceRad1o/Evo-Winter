@@ -15,6 +15,17 @@ public class ProfileData
         }
     }
     int[] map;
+    int[] isMapPassed;
+
+    public int[] IsMapPassed
+    {
+        get { return isMapPassed; }
+        set {
+            isMapPassed = value;
+            PlayerPrefsX.SetIntArray("isMapPassed", isMapPassed);
+        }
+    }
+
 
     public int[] Map
     {
@@ -357,6 +368,7 @@ public class ProfileData
         actionStateMachineID = PlayerPrefs.GetInt("actionStateMachineID");
         itemEnergy = PlayerPrefs.GetInt("itemEnergy");
         map = PlayerPrefsX.GetIntArray("map");
+        isMapPassed = PlayerPrefsX.GetIntArray("isMapPassed");
         curPosition = PlayerPrefsX.GetVector3("curPosition");
         enemyID = PlayerPrefsX.GetIntArray("enemyID");
         enemyPosX = PlayerPrefsX.GetFloatArray("enemyPosX");
