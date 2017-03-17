@@ -432,6 +432,7 @@ public class Character : ExSubject
     {
 
         state = 0;
+        IsAlive = 1;
         anim = this.GetComponent<Animator>();
 
         Health = initialHealth;
