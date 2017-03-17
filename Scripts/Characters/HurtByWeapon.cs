@@ -33,7 +33,7 @@ public class HurtByWeapon : MonoBehaviour
             return;
 
 
-        if ((other.tag == "Enemy" && camp == 0) || (other.tag == "PlayerRB2D" && camp == 1))
+        if ((other.tag == "Enemy" && camp == 0) || (other.tag == "Player" && camp == 1))
         {
             //若有生命,则减血
             //Debug.Log("Enemy hurt!" + other.GetComponent<Character>().Health);

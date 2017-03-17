@@ -54,6 +54,14 @@ public class Character : ExSubject
     public int initialLuck;
 
 
+    int invincible;
+
+    public int Invincible
+    {
+        get { return invincible; }
+        set { invincible = value; }
+    }
+
     public float HealthIn
     {
         get { return health; }
@@ -433,8 +441,8 @@ public class Character : ExSubject
 
         state = 0;
         IsAlive = 1;
-        anim = this.GetComponent<Animator>();
-
+        canMove = 1;
+        invincible = 0;
         Health = initialHealth;
         MoveSpeed = initialMoveSpeed;
         AttackSpeed = initialAttackSpeed;
@@ -442,6 +450,7 @@ public class Character : ExSubject
         Luck = initialLuck;
         HitRecover = initialHitRecover;
         AttackRange = initialAttackRange;
+        anim = this.GetComponent<Animator>();
 
 
     }
