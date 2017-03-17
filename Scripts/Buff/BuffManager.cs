@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 public class BuffManager : ExSubject
 {
+    private string buffManagerTag;
+    
     ArrayList buffList = new ArrayList();
     List<Buff> buffL = new List<Buff>();
     public ArrayList BuffList
@@ -41,6 +43,8 @@ public class BuffManager : ExSubject
 	void Start () {
         //将ItemManager设为观察者
         ItemManager.Instance.AddObserver(this);
+        if (this.gameObject.tag == "Player")
+            buffManagerTag = "Player";
 	}
 
 
@@ -48,10 +52,11 @@ public class BuffManager : ExSubject
     {
 
         string bID = "";
-
+        if (buffManagerTag != "Player")
+            return;
 
         bID = UtilManager.Instance.MatchFiledFormMsg("UseItem_Buff_ID", msg, 0);
-        if (bID != "Fail")
+        if (bID != "Fail" )
             CreateBuff(int.Parse(bID));
 
     }
