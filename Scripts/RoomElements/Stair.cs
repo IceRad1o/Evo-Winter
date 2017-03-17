@@ -26,6 +26,8 @@ public class Stair : RoomElement {
                                     CheckpointManager.Instance.roomList[0].doorDirection,
                                     CheckpointManager.Instance.roomList[0].roomX,
                                     CheckpointManager.Instance.roomList[0].roomY);
+
+            RoomManager.Instance.Notify("EnterRoom;Unknow");
         }
     }
 
