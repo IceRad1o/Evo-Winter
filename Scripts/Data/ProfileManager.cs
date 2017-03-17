@@ -28,6 +28,17 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
     {
         data = new ProfileData();
         data.Init();
+
+        for(int i=0;i<data.RoomElementID.Length;i++)
+        {
+            tempREID.Add(data.RoomElementID[i]);
+            tempREPosX.Add(data.RoomElementPosX[i]);
+            tempREPosY.Add(data.RoomElementPosY[i]);
+            tempREPosZ.Add(data.RoomElementPosZ[i]);
+            tempRERoomX.Add(data.RoomElementRoomX[i]);
+            tempRERoomY.Add(data.RoomElementRoomY[i]);
+        }
+
     }
 
     void Awake(){

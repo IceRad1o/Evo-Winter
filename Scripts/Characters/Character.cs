@@ -19,7 +19,7 @@ public class Character : ExSubject
         set { anim = value; }
     }
 
-    private int characterID;
+
 
     public int CharacterID
     {
@@ -27,18 +27,34 @@ public class Character : ExSubject
         set { characterID = value; }
     }
     //Player基本属性
-    private float health;   //生命
-    private float moveSpeed;    //移速
-    private int moveSpeedTmp;    //移速
-    private float attackSpeed;  //攻速
-    private int attackSpeedTmp; //攻速
-    private float attackRange;  //攻击范围
-    private float attackDamage; //攻击伤害
-    private float hitRecover;//硬直,即受击回复，影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
-    private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
-    private int luck; //幸运 影响技能触发几率和道具掉落概率
+    private int characterID;
+    private float health;   //0.生命
+    private int healthTmp;   //0.生命
+    private float moveSpeed;    //1.移速
+    private int moveSpeedTmp;    //移速-int
+    private float attackSpeed;  //2.攻速
+    private int attackSpeedTmp; //攻速-int
+    private float attackRange;  //3.攻击范围
+    private int attackRangeTmp;//攻击范围-int
+    private float attackDamage; //4.攻击伤害
+    private int attackDamageTmp; //攻击伤害-int
+    private float hitRecover;//5.硬直,即受击回复，影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
+    private int hitRecoverTmp;//
+ 
+    private int luck; //6.幸运 影响技能触发几率和道具掉落概率
 
-    public float Health
+
+    //init属性
+    public int initialHealth;
+    public int initialMoveSpeed;
+    public int initialAttackSpeed;
+    public int initialAttackRange;
+    public int initialAttackDamage;
+    public int initialHitRecover;
+    public int initialLuck;
+
+
+    public float HealthIn
     {
         get { return health; }
         set
@@ -57,6 +73,24 @@ public class Character : ExSubject
 
         }
     }
+
+    public int Health
+    {
+        get { return healthTmp; }
+        set
+        {
+            float temp = health;
+            healthTmp = value;
+            if (Health < 0)
+                HealthIn = 0;
+            else if (Health > 10)
+                HealthIn = 10;
+            else
+                HealthIn = value;
+
+        }
+    }
+
  
     public float MoveSpeedIn
     {
@@ -65,8 +99,6 @@ public class Character : ExSubject
         set
         {
             moveSpeed = value;
-            //AnimationController ac = GetComponent<AnimationController>();
-            //ac.ChangeAnimationSpeed("Move", moveSpeed * 20);
             Notify("MoveSpeedChanged");
         }
     }
@@ -102,9 +134,6 @@ public class Character : ExSubject
         set
         {
             attackSpeed = value;
-            //actionStateMachine.IntervalTime = f;
-            //AnimationController ac = GetComponent<AnimationController>();
-            //ac.ChangeAttackAnimationsSpeed(attackSpeed);
             Notify("AttackSpeedChanged");
         }
     }
@@ -133,7 +162,7 @@ public class Character : ExSubject
     }
 
 
-    public float AttackRange
+    public float AttackRangeIn
     {
         get { return attackRange; }
         set
@@ -142,9 +171,18 @@ public class Character : ExSubject
             Notify("AttackRangeChanged");
         }
     }
+    public int AttackRange
+    {
+        get { return attackRangeTmp; }
+        set
+        {
+            //TODO 效果
+            attackRangeTmp = value;
+            AttackRangeIn = attackRangeTmp;
+        }
+    }
 
-
-    public float AttackDamage
+    public float AttackDamageIn
     {
         get { return attackDamage; }
         set
@@ -153,9 +191,17 @@ public class Character : ExSubject
             Notify("AttackDamageChanged");
         }
     }
- 
+    public int AttackDamage
+    {
+        get { return attackDamageTmp; }
+        set
+        {
+            attackRangeTmp = value;
+            AttackDamageIn = attackRangeTmp;
+        }
+    }
 
-    public float HitRecover
+    public float HitRecoverIn
     {
         get { return hitRecover; }
         set
@@ -164,8 +210,28 @@ public class Character : ExSubject
             Notify("HitRecoverChanged");
         }
     }
-   
+    public int HitRecover
+    {
+        get { return hitRecoverTmp; }
+        set
+        {
+            hitRecoverTmp = value;
+            HitRecoverIn = hitRecoverTmp;
+        }
+    }
 
+    public int Luck
+    {
+        get { return luck; }
+        set
+        {
+            luck = value;
+            Notify("LuckChanged");
+        }
+    }
+
+    //附加属性
+    private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
     public float Spasticity
     {
         get { return spasticity; }
@@ -213,15 +279,6 @@ public class Character : ExSubject
 
    
 
-    public int Luck
-    {
-        get { return luck; }
-        set
-        {
-            luck = value;
-            Notify("LuckChanged");
-        }
-    }
 
     //NEED private SkillManager skillManager;
     //NEED private BuffManager buffManager;
@@ -375,12 +432,18 @@ public class Character : ExSubject
     {
 
         state = 0;
-        MoveSpeed = 1;
-        AttackSpeed = 1;
-        health = 3;
-        isAlive = 1;
-        canMove = 1;
+        IsAlive = 1;
         anim = this.GetComponent<Animator>();
+
+        Health = initialHealth;
+        MoveSpeed = initialMoveSpeed;
+        AttackSpeed = initialAttackSpeed;
+        AttackDamage = initialAttackDamage;
+        Luck = initialLuck;
+        HitRecover = initialHitRecover;
+        AttackRange = initialAttackRange;
+
+
     }
 
     public virtual void FixedUpdate()

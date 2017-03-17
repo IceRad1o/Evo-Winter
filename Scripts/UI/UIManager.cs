@@ -78,7 +78,7 @@ public class UIManager : ExUnitySingleton<UIManager>
         attackButtonManager = AttackButtonManager.Instance;
         itemButtonManager = ItemButtonManager.Instance;
 
-        Player.Instance.Character.AddObserver(playerObserver);
+        Player.Instance.Character.AddObserver(this);
         RoomManager.Instance.AddObserver(this);
         ItemManager.Instance.AddObserver(this);
     }
@@ -135,24 +135,17 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "InitiativeItem_Energy_Number")
         {
             //TODO 改变主动道具的能量显示
-
+            itemButtonManager.SetEnergy(float.Parse(str[1]));
         }
 
-           
+        //Player Msg
+        if (str[0]== "HealthChanged")
+            UIManager.Instance.playerHealth.Health = (int)Player.Instance.Character.Health;
     }
 
 
 
-    PlayerObserver playerObserver=new PlayerObserver(); //Player的观察者
-    class PlayerObserver:Observer
-    {
-       public override void OnNotify(string msg)
-       {
-           if (msg == "HealthChanged")
-               UIManager.Instance.playerHealth.Health = (int)Player.Instance.Character.Health;
 
-       }
-    }
 
     ItemObserver itemObserver = new ItemObserver(); //Player的观察者
 
