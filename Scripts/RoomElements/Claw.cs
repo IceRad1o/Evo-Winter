@@ -7,8 +7,9 @@ public class Claw : RoomElement {
 	void Start () {
 
 	}
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         RoomElementID = 5;
     }
 	// Update is called once per frame

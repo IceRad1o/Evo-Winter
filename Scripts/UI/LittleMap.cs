@@ -75,7 +75,7 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
      
         int roomX = RoomManager.Instance.roomX;
         int roomY = RoomManager.Instance.roomY;
-        Debug.Log("room:" + roomX + roomY);
+        //Debug.Log("room:" + roomX + roomY);
         gridList[roomX * rows + roomY].GetComponent<Image>().sprite = gridKnow;
         if (roomX - 1 >= 0)
             gridList[(roomX-1) * rows + roomY].GetComponent<Image>().sprite = gridUnknow;

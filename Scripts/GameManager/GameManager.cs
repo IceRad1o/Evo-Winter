@@ -36,15 +36,13 @@ public class GameManager : ExUnitySingleton<GameManager>{
                                     CheckpointManager.Instance.roomList[0].doorDirection,
                                     CheckpointManager.Instance.roomList[0].roomX,
                                     CheckpointManager.Instance.roomList[0].roomY);
+            RoomManager.Instance.Notify("EnterRoom;Unknow");
         }
 
         else
         {
             //ProfileManager.Instance.Data.CurMapX;
-            Debug.Log("1ENGTH :" + ProfileManager.Instance.Data.IsMapPassed.Length);
             CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsMapPassed);
-            
-            //ProfileManager.Instance.Data.Map;
 
             RoomManager.Instance.LoadScene(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
                 CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).doorDirection,
@@ -55,6 +53,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
                 ProfileManager.Instance.Data.RoomElementPosY,
                 ProfileManager.Instance.Data.RoomElementPosZ);
 
+
             
 
             RoomManager.Instance.LoadEnemy(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
@@ -62,6 +61,8 @@ public class GameManager : ExUnitySingleton<GameManager>{
                 ProfileManager.Instance.Data.EnemyPosX,
                 ProfileManager.Instance.Data.EnemyPosY,
                 ProfileManager.Instance.Data.EnemyPosZ);
+
+            RoomManager.Instance.Notify("EnterRoom;Know");
 
 
         }

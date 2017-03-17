@@ -23,7 +23,7 @@ public class StartAdventrue : MonoBehaviour {
         PlayerPrefs.SetInt("isNew", isNew);
         PlayerPrefs.SetInt("mode", mode);
 
-        SceneManager.LoadScene("Scenes/GameCharacterYYF");
+        SceneManager.LoadScene("Scenes/CharacterYYF");
 
     }
 

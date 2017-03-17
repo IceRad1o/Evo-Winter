@@ -8,6 +8,7 @@ public class BuffAllDamage : BuffAura
     public override void Trigger()
     {
         var list = EnemyManager.Instance.EnemyList.ToArray();
+        if (list.Length == 0) return;
         foreach (Character t in list)
        {
            //表示这些buff只有enemy有效

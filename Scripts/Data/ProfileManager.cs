@@ -28,6 +28,17 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
     {
         data = new ProfileData();
         data.Init();
+
+        for(int i=0;i<data.RoomElementID.Length;i++)
+        {
+            tempREID.Add(data.RoomElementID[i]);
+            tempREPosX.Add(data.RoomElementPosX[i]);
+            tempREPosY.Add(data.RoomElementPosY[i]);
+            tempREPosZ.Add(data.RoomElementPosZ[i]);
+            tempRERoomX.Add(data.RoomElementRoomX[i]);
+            tempRERoomY.Add(data.RoomElementRoomY[i]);
+        }
+
     }
 
     void Awake(){
@@ -42,7 +53,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
     public override void OnNotify(string msg)
     {
-        //Debug.Log("OnNotify the msg : " + msg);
+        Debug.Log("OnNotify the msg : " + msg);
         if (msg == null)
         {
             Debug.LogError("the msg is null!");
@@ -61,7 +72,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
         }
        
         //TODO leaveRoom存档
-        if (str[0] == "ClearRoom" || (str[0] == "EnterRoom"&&str[1]=="Unknow")||str[0]== "LeaveRoom")
+        if (str[0] == "ClearRoom" || (str[0] == "EnterRoom")||str[0]== "LeaveRoom")
         {
             //Debug.Log("PofileManager recieved the msg : " + msg);
            

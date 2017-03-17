@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Stair : RoomElement {
 
-	void Awake () {
+    public override void Awake()
+    {
+        base.Awake();
         RoomElementID = 10;
 	}
 	
@@ -26,6 +28,8 @@ public class Stair : RoomElement {
                                     CheckpointManager.Instance.roomList[0].doorDirection,
                                     CheckpointManager.Instance.roomList[0].roomX,
                                     CheckpointManager.Instance.roomList[0].roomY);
+
+            RoomManager.Instance.Notify("EnterRoom;Unknow");
         }
     }
 

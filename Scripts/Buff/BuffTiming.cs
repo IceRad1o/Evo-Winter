@@ -53,6 +53,11 @@ public class BuffTiming : Buff {
                 BuffChangeAttributeTemp newBuff2 = ob.AddComponent<BuffChangeAttributeTemp>();
                 newBuff2.Create(ID);
                 break;
+            case 0:
+                BuffInvincible newBuff3 = ob.AddComponent<BuffInvincible>();
+                newBuff3.Create(ID);
+                break;
+
             default:
                 break;
         }

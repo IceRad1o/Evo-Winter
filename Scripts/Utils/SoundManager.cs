@@ -114,7 +114,7 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
 
     
 
-    void Start()
+    void Awake()
     {
         musicSource = GetComponents<AudioSource>()[0];
         efxSource = GetComponents<AudioSource>()[1];
