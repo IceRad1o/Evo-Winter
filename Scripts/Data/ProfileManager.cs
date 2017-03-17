@@ -145,6 +145,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
                 }
                 
             data.Map = tempID.ToArray();
+            data.IsMapPassed = temp2.ToArray();
             data.CurLevel = CheckpointManager.Instance.CheckpointNumber;
             data.CurMapX = RoomManager.Instance.roomX;
             data.CurMapY = RoomManager.Instance.roomY;

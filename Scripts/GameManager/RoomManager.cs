@@ -386,7 +386,6 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             //Missile
                             break;
                         case 1:
-                            Debug.Log("box");
                             //Box Ground
                             objectChoice = groundElements[0];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
@@ -458,7 +457,9 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 }
             }
         }
-        //Notify("EnterRoom");
+        Debug.Log("0");
+        Notify("EnterRoom;Know");
+        Debug.Log("1");
     }
 
     //加载小怪 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
@@ -475,7 +476,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             enemy.transform.SetParent(GameObject.Find("GroundElements").transform);
         }
 
-       Notify("EnterRoom;Know");
+       //Notify("EnterRoom;Know");
     }
 
 
