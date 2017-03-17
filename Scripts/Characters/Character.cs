@@ -49,7 +49,7 @@ public class Character : ExSubject
                 actionStateMachine.Push(6);
             }
             health = value;
-            if (health == 0)
+            if (health <= 0)
             {
                 Die();
             }

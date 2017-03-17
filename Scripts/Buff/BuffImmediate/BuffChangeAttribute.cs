@@ -24,7 +24,7 @@ public class BuffChangeAttribute : Buff
 
 
     public void Trigger() {
-       
+        Debug.Log(tag + " Trigger" + dValue + " attribute " + attribute);
        switch (attribute) 
        { 
            case 0:
@@ -70,13 +70,16 @@ public class BuffChangeAttribute : Buff
 
     public void Create(int ID) {
 
-        
-        int[] part = { 4, 2, 2 };
+        //最后一位1表示值为负
+        int[] part = { 3, 1, 1,1 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
         if (idPart[0] == 1) 
         {
             attribute = idPart[1];
-            dValue = idPart[2];
+            if (idPart[2] != 1)
+                dValue = idPart[3];
+            else
+                dValue = -idPart[3];
         }
         //命运骰子
         if (idPart[0] == 101)
@@ -94,6 +97,11 @@ public class BuffChangeAttribute : Buff
             if (result <= 100 && result > 80)
                 dValue = -1;
         }
+        if (idPart[0] == 201)
+        {
+            attribute = 0;
+            dValue = 10 - (int)this.gameObject.GetComponent<Character>().Health;
+        }
         //命运硬币
         if (idPart[0] == 301)
         {
@@ -107,6 +115,7 @@ public class BuffChangeAttribute : Buff
                 DValue = 10 - (int)this.gameObject.GetComponent<Character>().Health;
         }
         this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
+
         Trigger();
     }
 
@@ -114,4 +123,10 @@ public class BuffChangeAttribute : Buff
 	void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>();
 	}
+    //延迟触发防止enemy死亡，循环出错
+    IEnumerator delay()
+    {
+        yield return new WaitForSeconds(1f);
+        
+    } 
 }

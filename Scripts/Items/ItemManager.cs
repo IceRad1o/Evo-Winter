@@ -118,15 +118,21 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         }
         if (itemsTable.GetItemType(itemID) == 0)
         {
-            ImmediatelyItem itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
-
-            itemInstance.Create(itemID);            
+            ImmediatelyItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
+            else
+                itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
+            itemInstance.Create(itemID);          
 
         }
         if (itemsTable.GetItemType(itemID) == 2)
         {
-            InitiativeItem itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
-
+            InitiativeItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
+            else
+                itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
             itemInstance.Create(itemID);            
 
         }
@@ -370,7 +376,6 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
         /*******************************************************/
         //roomManager的消息
-        Debug.Log(msg);
         if (msg == "LeaveRoom")
         {
             Debug.Log("Leave");
