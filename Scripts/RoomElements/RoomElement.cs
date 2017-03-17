@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RoomElement : MonoBehaviour {
+public class RoomElement : ExSubject {
 
     int roomElementID;
 
@@ -11,8 +11,8 @@ public class RoomElement : MonoBehaviour {
         set { roomElementID = value; }
     }
 	// Use this for initialization
-	void Start () {
-	
+	public virtual void Awake () {
+        RoomElementManager.Instance.RoomElementList.Add(this);
 	}
 	
 	// Update is called once per frame

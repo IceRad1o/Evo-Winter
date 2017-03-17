@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Trap : MonoBehaviour
+public class Trap : RoomElement
 {
 
     //NEED public AudioClip appearTrap; 
@@ -9,8 +9,9 @@ public class Trap : MonoBehaviour
     private int damage;
 
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         damage = 1;
         //NEED SoundManager.instance.PlaySingle(appearTrap);
     }

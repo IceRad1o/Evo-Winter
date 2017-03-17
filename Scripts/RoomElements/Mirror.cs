@@ -6,8 +6,9 @@ public class Mirror : RoomElement {
 	void Start () {
 
 	}
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         RoomElementID = 2;
     }
 	void Update () {

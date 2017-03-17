@@ -4,7 +4,9 @@ using System.Collections;
 public class Statue : RoomElement {
 
 	// Use this for initialization
-	void Awake () {
+    public override void Awake()
+    {
+        base.Awake();
         RoomElementID = 4;
 	}
 	
