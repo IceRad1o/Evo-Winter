@@ -32,18 +32,17 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
     void Awake(){
       InitData();
+     
     }
     void Start()
     {
         RoomManager.Instance.AddObserver(this);
         EnemyManager.Instance.AddObserver(this);
-      
-
     }
 
     public override void OnNotify(string msg)
     {
-
+        //Debug.Log("OnNotify the msg : " + msg);
         if (msg == null)
         {
             Debug.LogError("the msg is null!");
@@ -60,11 +59,12 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             tempRERoomX.Clear();
             tempRERoomY.Clear();
         }
-
+       
         //TODO leaveRoom存档
         if (str[0] == "ClearRoom" || (str[0] == "EnterRoom"&&str[1]=="Unknow")||str[0]== "LeaveRoom")
         {
-            Debug.Log("PofileManager recieved the msg : "+msg);
+            //Debug.Log("PofileManager recieved the msg : " + msg);
+           
             //Player
             data.Health = Player.Instance.Character.Health;
             data.MoveSpeed = Player.Instance.Character.MoveSpeed;
