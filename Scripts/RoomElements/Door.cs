@@ -25,9 +25,21 @@ public class Door : RoomElement
         if (other.tag == "Player"&&EnemyManager.Instance.EnemyList.Count==0)
         {
             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);
-            RoomManager.Instance.Notify("LeaveRoom");    
+            //RoomManager.Instance.Notify("LeaveRoom");    
             int roomDir = position;
             int pass = 0;
+
+            for (int i = 0; i < ProfileManager.Instance.Data.RoomElementID.Length; i++)
+            {
+                Debug.Log("ID:" + ProfileManager.Instance.Data.RoomElementID[i]);
+                Debug.Log("posX:" + ProfileManager.Instance.Data.RoomElementPosX[i]);
+                Debug.Log("roomX:" + ProfileManager.Instance.Data.RoomElementRoomX[i]);
+                Debug.Log("roomY:" + ProfileManager.Instance.Data.RoomElementRoomY[i]);
+                Debug.Log("\n");
+            }
+
+
+
             switch (roomDir)
             {
                     
@@ -37,6 +49,7 @@ public class Door : RoomElement
                     Player.Instance.Character.transform.position = new Vector3(0f, -1f, 0f);
                     if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).pass == 0)
                     {
+
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).type,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).doorDirection,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomX,
@@ -84,6 +97,7 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementPosX,
                             ProfileManager.Instance.Data.RoomElementPosY,
                             ProfileManager.Instance.Data.RoomElementPosZ);
+
 
                     }                   
                     break;
@@ -143,12 +157,13 @@ public class Door : RoomElement
             Debug.Log("本房间pass："+CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).pass);
             if (pass == 1)
             {
-                Debug.Log("pass=1");
+                Debug.Log("进进过的房间");
                 RoomManager.Instance.Notify("EnterRoom;Know");
+             
             }
             else
             {
-                Debug.Log("pass=0");
+                Debug.Log("进没进过的房间");
                 RoomManager.Instance.Notify("EnterRoom;Unknow");
             }
 

@@ -16,7 +16,7 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
     /// </summary>
     public void OnNormalAttack()
     {
-        Debug.Log("You have clicked the  JButton!");
+        //Debug.Log("You have clicked the  JButton!");
         Player.Instance.Character.NormalAttack();
         //TODO 若有冷却倒计时,则显示
     }
@@ -29,7 +29,7 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
     /// </summary>
     public void OnSpecialAttack()
     {
-        Debug.Log("You have clicked the  KButton!");
+        //Debug.Log("You have clicked the  KButton!");
         Player.Instance.Character.SpecialAttack();
         //TODO 若有冷却倒计时,则显示
     }
@@ -42,7 +42,7 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
     /// </summary>
     public void OnRaceSkill()
     {
-        Debug.Log("You have clicked the  LButton!");
+        //Debug.Log("You have clicked the  LButton!");
         Player.Instance.Character.UseRaceSkill();
         //TODO 若有冷却倒计时,则显示
     }

@@ -181,6 +181,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     public void SetupCheckpoint()
     {
         int k = 0;
+        roomList.Clear();
         CheckpointNumber++;
         roomArray = new int[rows, columns];
         InitalRoomLayout();
@@ -209,15 +210,17 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
             str += "\n";
         }
         Debug.Log(str);
+        Debug.Log("生成roomList长度："+roomList.Count);
     }
 
 
     //载入关卡
     public void LoadCheckpoint(int[] r, int[] isPass)
     {
+        roomList.Clear();
         CheckpointNumber++;
         roomArray = new int[rows, columns];
-        int k = 0;
+ 
         //载入房间布局
         for (int i = 0; i < rows; i++)
         {
@@ -226,7 +229,6 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 roomArray[i,j]=r[i*columns+j];
             }
         }
-
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
@@ -235,11 +237,12 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 {
                     int surroundRoomNumber = GetSurroundRoom(i, j);
                     int type = Random.Range(0, 3);
-                    roomList.Add(new Room(type, i, j, surroundRoom, isPass[k]));
-                    k++;
+                    roomList.Add(new Room(type, i, j, surroundRoom, isPass[i*columns+j]));
                 }
+
             }
         }
+        
     
         //输出房间布局
         string str = "";

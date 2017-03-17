@@ -24,7 +24,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
         doingSetup = true;
 
         loadOrNew = PlayerPrefs.GetInt("isNew", 1);
-        loadOrNew = 0;
+        //loadOrNew = 0;
 
         if (loadOrNew == 1)
         {
@@ -42,10 +42,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
         else
         {
             //ProfileManager.Instance.Data.CurMapX;
-            Debug.Log("加载:" );
             CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsMapPassed);
-            
-            //ProfileManager.Instance.Data.Map;
 
             RoomManager.Instance.LoadScene(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
                 CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).doorDirection,
@@ -55,6 +52,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
                 ProfileManager.Instance.Data.RoomElementPosX,
                 ProfileManager.Instance.Data.RoomElementPosY,
                 ProfileManager.Instance.Data.RoomElementPosZ);
+
 
             
 
