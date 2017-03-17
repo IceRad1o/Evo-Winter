@@ -78,6 +78,7 @@ public class BuffChangeAttribute : Buff
             attribute = idPart[1];
             dValue = idPart[2];
         }
+        //命运骰子
         if (idPart[0] == 101)
         {
             attribute = idPart[1];
@@ -92,6 +93,18 @@ public class BuffChangeAttribute : Buff
                 dValue = 1;
             if (result <= 100 && result > 80)
                 dValue = -1;
+        }
+        //命运硬币
+        if (idPart[0] == 301)
+        {
+            attribute = 0;
+
+            System.Random random = new System.Random();
+            int result = random.Next(100);
+            if (result <= 50)
+                dValue = -(int)this.gameObject.GetComponent<Character>().Health;
+            else
+                DValue = 10 - (int)this.gameObject.GetComponent<Character>().Health;
         }
         this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
         Trigger();

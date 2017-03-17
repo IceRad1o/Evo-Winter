@@ -195,16 +195,27 @@ public class ItemsTable {
         item.itemName = "生命之精";
         item.itemIntro = "拥有浓郁的生命活力，使用后恢复一定体力";
         itemsData.Add(item);
+
         /*********************/
         //立即使用道具
         item.ID = 1002;
         item.spriteArrayID = 1;
         item.type = 0;
-        item.droping = 6;
+        item.droping = 2;
         item.buffID = 1000101;
         item.skillID = 0;
         item.itemName = "赌博骰子";
         item.itemIntro = "来试试人品吧，随机回复（扣去）生命";
+        itemsData.Add(item);
+
+        item.ID = 1001;
+        item.spriteArrayID = 0;
+        item.type = 0;
+        item.droping = 2;
+        item.buffID = 301;
+        item.skillID = 0;
+        item.itemName = "命运硬币";
+        item.itemIntro = "听取命运的安排吧，正面新生，反面地狱";
         itemsData.Add(item);
         /*********************/
         //主动道具
@@ -217,6 +228,16 @@ public class ItemsTable {
         item.energy = 6;
         item.itemName = "生命之树的种子";
         item.itemIntro = "相传是精灵一族圣树的种子，拥有浓郁的生命力";
+        itemsData.Add(item);
+
+        item.ID = 1005;
+        item.spriteArrayID = 4;
+        item.type = 2;
+        item.droping = 6;
+        item.buffID = 201;
+        item.skillID = 0;
+        item.itemName = "冥王哈迪斯的金库钥匙";
+        item.itemIntro = "地狱和死人的统治者----哈得斯同时是掌管财富的神，掌管地下埋藏的宝藏";
         itemsData.Add(item);
     }
 	

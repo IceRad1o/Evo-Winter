@@ -60,11 +60,5 @@ public class Buff : ExSubject
         Destroy(this);  
     }
 
-
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 }

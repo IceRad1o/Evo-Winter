@@ -366,6 +366,16 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 }
             }
         }
+
+
+        /*******************************************************/
+        //roomManager的消息
+        Debug.Log(msg);
+        if (msg == "LeaveRoom")
+        {
+            Debug.Log("Leave");
+            DestoryAllItems();        
+        }
     }
 
 
@@ -403,7 +413,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     {
         Player.Instance.Character.AddObserver(this);
         this.AddObserver(UIManager.Instance.ItemObserver);
-
+        RoomManager.Instance.AddObserver(this);
         
     }
 
