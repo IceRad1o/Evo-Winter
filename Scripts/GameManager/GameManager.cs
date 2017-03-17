@@ -24,7 +24,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
         doingSetup = true;
 
         loadOrNew = PlayerPrefs.GetInt("isNew", 1);
-        //loadOrNew = 0;
+        loadOrNew = 0;
 
         if (loadOrNew == 1)
         {

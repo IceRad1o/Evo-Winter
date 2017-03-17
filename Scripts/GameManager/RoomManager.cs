@@ -349,8 +349,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             LayoutStair();
         }
 
-        Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
-        Notify("EnterRoom;Unknow");     
+        //Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
+        Notify("EnterRoom;Unknow");
     }
 
     //加载确定场景 房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
@@ -478,4 +478,9 @@ public class RoomManager : ExUnitySingleton<RoomManager>
        Notify("EnterRoom;Know");
     }
 
+
+    void Start()
+    {
+       
+    }
 }
