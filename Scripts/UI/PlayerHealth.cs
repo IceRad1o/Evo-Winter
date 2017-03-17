@@ -38,6 +38,7 @@ public class PlayerHealth : UnitySingleton<PlayerHealth>{
 
 	void Start () {
         InitPlayerHealth();
+        Health = (int)Player.Instance.Character.Health;
 	}
 	
 	void Update () {
