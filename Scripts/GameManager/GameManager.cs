@@ -41,7 +41,9 @@ public class GameManager : ExUnitySingleton<GameManager>{
         else
         {
             //ProfileManager.Instance.Data.CurMapX;
-            CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map);
+            Debug.Log("1ENGTH :" + ProfileManager.Instance.Data.IsMapPassed.Length);
+            CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsMapPassed);
+            
             //ProfileManager.Instance.Data.Map;
 
             RoomManager.Instance.LoadScene(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
@@ -52,6 +54,8 @@ public class GameManager : ExUnitySingleton<GameManager>{
                 ProfileManager.Instance.Data.RoomElementPosX,
                 ProfileManager.Instance.Data.RoomElementPosY,
                 ProfileManager.Instance.Data.RoomElementPosZ);
+
+            
 
             RoomManager.Instance.LoadEnemy(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
                 ProfileManager.Instance.Data.EnemyID,
