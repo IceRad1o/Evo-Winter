@@ -45,7 +45,7 @@ public class HurtByWeapon : MonoBehaviour
             //发送命中敌人消息
             gameObject.GetComponentInParent<Character>().Notify("AttackHit");
 
-            Debug.Log("111");
+            //Debug.Log("111");
             return;
             //添加打击效果
             Vector2[] points = this.GetComponent<PolygonCollider2D>().points;

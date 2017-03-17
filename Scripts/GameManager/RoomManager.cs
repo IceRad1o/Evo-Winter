@@ -350,7 +350,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         }
 
         //Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
-        Notify("EnterRoom;Unknow");
+        //Notify("EnterRoom;Unknow");
     }
 
     //加载确定场景 房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
@@ -457,9 +457,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 }
             }
         }
-        Debug.Log("0");
-        Notify("EnterRoom;Know");
-        Debug.Log("1");
+        //Notify("EnterRoom;Know");
     }
 
     //加载小怪 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
@@ -467,6 +465,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     {
         for (int count = 0; count < posiX.Length; count++)
         {
+
             Vector3 position = new Vector3(posiX[count], posiY[count], posiZ[count]);
             GameObject objectChoice;
             GameObject enemy;

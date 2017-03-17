@@ -24,7 +24,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
         doingSetup = true;
 
         loadOrNew = PlayerPrefs.GetInt("isNew", 1);
-        //loadOrNew = 0;
+        loadOrNew = 0;
 
         if (loadOrNew == 1)
         {
@@ -36,12 +36,15 @@ public class GameManager : ExUnitySingleton<GameManager>{
                                     CheckpointManager.Instance.roomList[0].doorDirection,
                                     CheckpointManager.Instance.roomList[0].roomX,
                                     CheckpointManager.Instance.roomList[0].roomY);
+            RoomManager.Instance.Notify("EnterRoom;Unknow");
         }
 
         else
         {
             //ProfileManager.Instance.Data.CurMapX;
-            CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map);
+            Debug.Log("加载:" );
+            CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsMapPassed);
+            
             //ProfileManager.Instance.Data.Map;
 
             RoomManager.Instance.LoadScene(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
@@ -53,11 +56,15 @@ public class GameManager : ExUnitySingleton<GameManager>{
                 ProfileManager.Instance.Data.RoomElementPosY,
                 ProfileManager.Instance.Data.RoomElementPosZ);
 
+            
+
             RoomManager.Instance.LoadEnemy(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
                 ProfileManager.Instance.Data.EnemyID,
                 ProfileManager.Instance.Data.EnemyPosX,
                 ProfileManager.Instance.Data.EnemyPosY,
                 ProfileManager.Instance.Data.EnemyPosZ);
+
+            RoomManager.Instance.Notify("EnterRoom;Know");
 
 
         }

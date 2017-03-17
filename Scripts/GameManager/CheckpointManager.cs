@@ -20,9 +20,9 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         //门位置
         public int[] doorDirection = new int[4];
         //构造函数
-        public Room(int tp, int x, int y,int[] doorDir)
+        public Room(int tp, int x, int y,int[] doorDir,int ps)
         {
-            pass = 0;
+            pass = ps;
             type = tp;
             roomX = x;
             roomY = y;
@@ -180,6 +180,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     //设置关卡
     public void SetupCheckpoint()
     {
+        int k = 0;
         CheckpointNumber++;
         roomArray = new int[rows, columns];
         InitalRoomLayout();
@@ -187,11 +188,13 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         {
             for (int j = 0; j < columns; j++)
             {
-                int surroundRoomNumber = GetSurroundRoom(i, j);
-                if (surroundRoomNumber > 0)
+                
+                if (roomArray[i,j]>0)
                 {
+                    int surroundRoomNumber = GetSurroundRoom(i, j);
                     int type = Random.Range(0, 3);
-                    roomList.Add(new Room(type, i, j, surroundRoom));
+                    roomList.Add(new Room(type, i, j, surroundRoom, 0));
+                    k++;
                 }
             }
         }
@@ -210,11 +213,11 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 
 
     //载入关卡
-    public void LoadCheckpoint(int[] r)
+    public void LoadCheckpoint(int[] r, int[] isPass)
     {
         CheckpointNumber++;
         roomArray = new int[rows, columns];
-
+        int k = 0;
         //载入房间布局
         for (int i = 0; i < rows; i++)
         {
@@ -227,12 +230,13 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
-            {
-                int surroundRoomNumber = GetSurroundRoom(i, j);
-                if (surroundRoomNumber > 0)
+            {            
+                if (roomArray[i,j]>0)
                 {
+                    int surroundRoomNumber = GetSurroundRoom(i, j);
                     int type = Random.Range(0, 3);
-                    roomList.Add(new Room(type, i, j, surroundRoom));
+                    roomList.Add(new Room(type, i, j, surroundRoom, isPass[k]));
+                    k++;
                 }
             }
         }
