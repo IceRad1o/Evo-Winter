@@ -14,8 +14,9 @@ public class Box : RoomElement
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         RoomElementID = 1;
     }
     void Update()

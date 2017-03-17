@@ -6,8 +6,9 @@ public class Door : RoomElement
     //门的位置，0上，1下，2左，3右
     private int position;
 
-
-	void Awake () {
+    public override void Awake()
+    {
+        base.Awake();
         RoomElementID = 3;
         
 	}

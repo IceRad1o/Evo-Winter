@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Stair : RoomElement {
 
-	void Awake () {
+    public override void Awake()
+    {
+        base.Awake();
         RoomElementID = 10;
 	}
 	
