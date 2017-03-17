@@ -356,7 +356,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     //加载确定场景 房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
     public void LoadScene(int x,int y,int[] dp,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ)
     {
-        Debug.Log("LoadScene进入" + x + ";" + y);
+        //Debug.Log("LoadScene进入" + x + ";" + y);
         ClearAll();
 
         SetDoorDierction(dp);
@@ -375,7 +375,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             {
                 if (roomY[i] == y && roomX[i] == x)
                 {
-                    Debug.Log("选中物体:"+id[count]);
+                    //Debug.Log("选中物体:"+id[count]);
                     count = i;
                     Vector3 position = new Vector3(posiX[count],posiY[count],posiZ[count]);
                     GameObject objectChoice;
@@ -387,7 +387,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             //Missile
                             break;
                         case 1:
-                            Debug.Log("选中箱子");
+                            //Debug.Log("选中箱子");
                             //Box Ground
                             objectChoice = groundElements[0];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
@@ -395,7 +395,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());                            
                             break;
                         case 2:
-                            Debug.Log("选中镜子");
+                            //Debug.Log("选中镜子");
                             //Mirror Wall
                             objectChoice = wallElements[0];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
@@ -411,7 +411,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
                             break;
                         case 4:
-                            Debug.Log("选中雕塑");
+                            //Debug.Log("选中雕塑");
                             //Statue Wall
                             objectChoice = wallElements[1];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
@@ -419,7 +419,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                             break;
                         case 5:
-                            Debug.Log("选中爪子");
+                            //Debug.Log("选中爪子");
                             //Claw Wall
                             objectChoice = wallElements[2];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
@@ -427,7 +427,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                             break;
                         case 6:
-                            Debug.Log("选中图一");
+                            //Debug.Log("选中图一");
                             //Picture1 Wall
                             objectChoice = wallElements[3];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
@@ -436,7 +436,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                             break;
                         case 7:
-                            Debug.Log("选中图二");
+                            //Debug.Log("选中图二");
                             //Picture2 Wall
                             objectChoice = wallElements[4];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
@@ -444,7 +444,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
                             break;
                         case 8:
-                            Debug.Log("选中骷髅");
+                            //Debug.Log("选中骷髅");
                             //Skull Ground
                             objectChoice = groundElements[1];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
@@ -453,7 +453,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
                             break;
                         case 9:
-                            Debug.Log("选中骷髅灯");
+                            //Debug.Log("选中骷髅灯");
                             //SkullLight Ground
                             objectChoice = groundElements[2];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;

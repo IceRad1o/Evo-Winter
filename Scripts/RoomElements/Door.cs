@@ -29,14 +29,14 @@ public class Door : RoomElement
             int roomDir = position;
             int pass = 0;
 
-            for (int i = 0; i < ProfileManager.Instance.Data.RoomElementID.Length; i++)
-            {
-                Debug.Log("ID:" + ProfileManager.Instance.Data.RoomElementID[i]);
-                Debug.Log("posX:" + ProfileManager.Instance.Data.RoomElementPosX[i]);
-                Debug.Log("roomX:" + ProfileManager.Instance.Data.RoomElementRoomX[i]);
-                Debug.Log("roomY:" + ProfileManager.Instance.Data.RoomElementRoomY[i]);
-                Debug.Log("\n");
-            }
+            //for (int i = 0; i < ProfileManager.Instance.Data.RoomElementID.Length; i++)
+            //{
+            //    Debug.Log("ID:" + ProfileManager.Instance.Data.RoomElementID[i]);
+            //    Debug.Log("posX:" + ProfileManager.Instance.Data.RoomElementPosX[i]);
+            //    Debug.Log("roomX:" + ProfileManager.Instance.Data.RoomElementRoomX[i]);
+            //    Debug.Log("roomY:" + ProfileManager.Instance.Data.RoomElementRoomY[i]);
+            //    Debug.Log("\n");
+            //}
 
 
 
@@ -154,16 +154,16 @@ public class Door : RoomElement
                     break;
             }
             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);
-            Debug.Log("本房间pass："+CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).pass);
+
             if (pass == 1)
             {
-                Debug.Log("进进过的房间");
+                //Debug.Log("进进过的房间");
                 RoomManager.Instance.Notify("EnterRoom;Know");
              
             }
             else
             {
-                Debug.Log("进没进过的房间");
+                //Debug.Log("进没进过的房间");
                 RoomManager.Instance.Notify("EnterRoom;Unknow");
             }
 

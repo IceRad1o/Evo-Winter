@@ -210,7 +210,6 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
             str += "\n";
         }
         Debug.Log(str);
-        Debug.Log("生成roomList长度："+roomList.Count);
     }
 
 
