@@ -81,9 +81,12 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
 
             //Item
+            List<int> tempID = new List<int>();
+            List<int> temp2 = new List<int>();
+
             if (ItemManager.Instance.itemInitiative!=null)
                 data.ItemEnergy = ItemManager.Instance.itemInitiative.EnergyNow;
-            List<int> tempID = new List<int>();
+       
             if (ItemManager.Instance.itemInitiative != null)
                 tempID.Add(ItemManager.Instance.GetInitiativeItem().ItemID);
             else
@@ -128,15 +131,24 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             for(int i=0;i<CheckpointManager.Instance.rows;i++)
                 for(int j=0;j<CheckpointManager.Instance.columns;j++)
                 {
+                    if (CheckpointManager.Instance.roomArray[i, j]==1)
+                    {
+                        tempID.Add(1);
+                        temp2.Add(CheckpointManager.Instance.GetNextRoom(i, j).pass);
+                    }
+                    else
+                    {
+                        tempID.Add(0);
+                        temp2.Add(0);
+                    }
                     
-                         tempID.Add(CheckpointManager.Instance.roomArray[i,j]);
                 }
                 
             data.Map = tempID.ToArray();
             data.CurLevel = CheckpointManager.Instance.CheckpointNumber;
             data.CurMapX = RoomManager.Instance.roomX;
             data.CurMapY = RoomManager.Instance.roomY;
-
+            
             //RoomElements
 
             //移除重复元素
