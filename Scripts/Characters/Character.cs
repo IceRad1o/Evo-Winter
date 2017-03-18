@@ -571,7 +571,8 @@ public class Character : ExSubject
 
     public void Disappear()
     {
-        Destroy(this.gameObject);
+        if (tag != "Player")
+            Destroy(this.gameObject);
     }
     /// <summary>
     /// 发送生成发射物的通知

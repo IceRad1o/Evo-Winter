@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : ExUnitySingleton<GameManager>{
 
@@ -14,8 +15,9 @@ public class GameManager : ExUnitySingleton<GameManager>{
 
 	// Use this for initialization
 	void Start () {
-
+        Player.Instance.Character.AddObserver(this);
         InitGame();
+        PlayerPrefs.SetInt("canLoad", 1);
 	}
 
     //游戏初始化
@@ -68,7 +70,19 @@ public class GameManager : ExUnitySingleton<GameManager>{
         }
 
     }
-
+    public override void OnNotify(string msg)
+    {
+        string[] str = UtilManager.Instance.GetMsgFields(msg);
+        if (str[0] == "Die")
+        {
+            if (str[1] == "Player")
+            {
+                PlayerPrefs.SetInt("canLoad", 0);
+                SceneManager.LoadScene("Scenes/MainScene");
+            }
+        }
+        
+    }
 	
 
 }
