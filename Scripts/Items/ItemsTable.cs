@@ -258,7 +258,27 @@ public class ItemsTable {
         item.itemName = "石之刃";
         item.itemIntro = "";
         itemsData.Add(item);
-         
+        
+        item.ID = 1060;
+        item.spriteArrayID = 14;
+        item.type = 0;
+        item.droping = 2;
+        item.buffID = 5100;
+        item.skillID = 0;
+        item.itemName = "霜之刃";
+        item.itemIntro = "攻击带冻结（攻击未冻结敌人冻结,攻击冻结敌人解冻）（冻结:无法行动,再次遭受攻击解冻）";
+        itemsData.Add(item);
+
+        item.ID = 1064;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.buffID = 6100;
+        item.skillID = 0;
+        item.itemName = "止之刃";
+        item.itemIntro = "攻击几率使敌人时间静止x秒";
+        itemsData.Add(item); 
+        
         item.ID = 1062;
         item.spriteArrayID = 18;
         item.type = 0;
@@ -301,11 +321,13 @@ public class ItemsTable {
         item.spriteArrayID = 18;
         item.type = 0;
         item.droping = 2;
-        item.buffID = 4100;
+        item.buffID = 3100;
         item.skillID = 0;
         item.itemName = "幽之刃";
         item.itemIntro = "";
         itemsData.Add(item);
+
+
     }
 	
 
