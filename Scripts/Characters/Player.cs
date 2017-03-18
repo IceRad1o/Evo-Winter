@@ -17,7 +17,7 @@ public class Player :ExUnitySingleton<Player>,IFly {
     {
         this.tag = "Player";
         character = GetComponent<Character>();
-        
+        character.Camp = 0;
         //加载存档
         if (PlayerPrefs.GetInt("isNew", 1) == 0)
             LoadPlayerMsg();

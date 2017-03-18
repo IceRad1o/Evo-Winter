@@ -4,14 +4,16 @@ using System.Collections;
 public class HurtByWeapon : MonoBehaviour
 {
 
-    public int camp;
+    private int camp;
     public GameObject HitPrefab;
     private Vector3 tempPosition;
     private Vector3 lastPosition;
+
     // Use this for initialization
     void Start()
     {
-
+ 
+        camp = gameObject.GetComponentInParent<Character>().Camp;
     }
 
     void LateUpdate()
@@ -37,15 +39,15 @@ public class HurtByWeapon : MonoBehaviour
         {
             //若有生命,则减血
             //Debug.Log("Enemy hurt!" + other.GetComponent<Character>().Health);
-            Character ch=other.GetComponentInParent<Character>();
+            Character ch=other.GetComponent<Character>();
             if (ch.IsAlive < 0)
                 return;
-            ch.Health--;
+            ch.Health -= gameObject.GetComponentInParent<Character>().AttackDamage;
 
             //Debug.Log("AttackHit;" + other.tag + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
 
             //发送命中敌人消息
-            gameObject.GetComponentInParent<Character>().Notify("AttackHit;"+other.tag+";"+CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
+            gameObject.GetComponentInParent<Character>().Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
 
             //Debug.Log("111");
             return;
