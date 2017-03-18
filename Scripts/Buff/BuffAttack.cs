@@ -15,7 +15,7 @@ public class BuffAttack : Buff {
     protected bool JudgeTrigger(){
         //创建random的实例
         System.Random random = new System.Random();
-        if (random.Next(100) <= probability)
+        if (random.Next(100) <= (int)(probability * 1.0f * (1.0f+Player.Instance.Character.LuckIn)))
             return true;
         else
             return false;
@@ -50,6 +50,16 @@ public class BuffAttack : Buff {
                 }
                 else
                     ob.GetComponent<Attacklethal>().Probability++;
+                break;
+            case 4:
+                if (ob.GetComponent<AttackHitRecoverUp>() == null)
+                {
+                    AttackHitRecoverUp newBuff3 = ob.AddComponent<AttackHitRecoverUp>();
+
+                    newBuff3.Create(ID);
+                }
+                else
+                    ob.GetComponent<AttackHitRecoverUp>().Probability++;
                 break;
             default:
                 break;

@@ -248,7 +248,17 @@ public class ItemsTable {
         item.itemName = "凛之刃";
         item.itemIntro = "";
         itemsData.Add(item);
-        
+       
+        item.ID = 1061;
+        item.spriteArrayID = 19;
+        item.type = 0;
+        item.droping = 2;
+        item.buffID = 410;
+        item.skillID = 0;
+        item.itemName = "石之刃";
+        item.itemIntro = "";
+        itemsData.Add(item);
+         
         item.ID = 1062;
         item.spriteArrayID = 18;
         item.type = 0;
@@ -286,11 +296,12 @@ public class ItemsTable {
         item.itemIntro = "地狱和死人的统治者----哈得斯同时是掌管财富的神，掌管地下埋藏的宝藏";
         itemsData.Add(item);
         */
+
         item.ID = 1062;
         item.spriteArrayID = 18;
         item.type = 0;
         item.droping = 2;
-        item.buffID = 2100;
+        item.buffID = 4100;
         item.skillID = 0;
         item.itemName = "幽之刃";
         item.itemIntro = "";

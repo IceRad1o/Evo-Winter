@@ -10,7 +10,7 @@ public class AttackHitRecoverUp : BuffAttack
     {
         if (JudgeTrigger())
         {
-            this.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(1060702110);
+            this.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(1060701110);
         }
     }
     protected override void Create(int ID)
