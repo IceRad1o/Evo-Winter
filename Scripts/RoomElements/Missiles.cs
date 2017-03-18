@@ -25,7 +25,15 @@ public class Missiles : RoomElement {
         RoomElementID = 0;
     }
 
-    //构造函数,距离，速度，穿透性，方向，伤害，飞行路径
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="fd">飞行距离</param>
+    /// <param name="fs">发射物飞行速度</param>
+    /// <param name="pe">穿透性</param>
+    /// <param name="dr">方向</param>
+    /// <param name="dm">伤害</param>
+    /// <param name="fp">飞行路径</param>
     public void InitMissiles(float fd, float fs, int pe, int dr, int dm, int fp)
     {
         flyDistance = fd;
@@ -53,7 +61,7 @@ public class Missiles : RoomElement {
             switch (flyPath)
             {
                 case 1://直线
-                    StartCoroutine(FlyPath1());
+                    StartCoroutine(FlyPath5());
                     break;
                 case 2://斜向上抛物线
                     StartCoroutine(FlyPath2());
@@ -63,6 +71,9 @@ public class Missiles : RoomElement {
                     break;
                 case 4://水平抛物线
                     StartCoroutine(FlyPath4());
+                    break;
+                case 5://Z轴斜线
+                    StartCoroutine(FlyPath5());
                     break;
             }
         }
@@ -274,13 +285,51 @@ public class Missiles : RoomElement {
         }
     }
 
+    //发射物飞行路径5, Z轴斜线
+    IEnumerator FlyPath5()
+    {
+        float zSpeed = flySpeed / 100;
+        float speed = flySpeed / 30;
+        while (true)
+        {
+            if (direction < 0)
+            {
+                if (this.transform.position.x > (startPosition.x - flyDistance))
+                {
+                    this.transform.position = new Vector3(this.transform.position.x - speed,
+                        this.transform.position.y + zSpeed,
+                        this.transform.position.z + zSpeed);
+                }
+                else
+                {
+                    this.Destroy();
+                    break;
+                }
+            }
 
+            if (direction > 0)
+            {
+                if (this.transform.position.x < (startPosition.x + flyDistance))
+                {
+                    this.transform.position = new Vector3(this.transform.position.x + speed,
+                        this.transform.position.y + zSpeed,
+                        this.transform.position.z + zSpeed);
+                }
+                else
+                {
+                    this.Destroy();
+                    break;
+                }
+            }
+            yield return null;
+        }
+    }
 
 
     //碰撞检测
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Missile碰撞标签：" + other.tag);
+        Debug.Log("Missile碰撞标签：" + other.tag);
         if (other.tag == "Enemy")
         {
             other.GetComponent<Enemy>().Health-=damage;
@@ -300,6 +349,11 @@ public class Missiles : RoomElement {
                 StartCoroutine(Wait(0.2f));
                 Destroy();
             }
+        }
+        if (other.tag == "Wall")
+        {
+            StartCoroutine(Wait(0.2f));
+            Destroy();
         }
     }
 
