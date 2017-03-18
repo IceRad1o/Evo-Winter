@@ -109,7 +109,7 @@ public class Character : ExSubject
                 HealthIn = 10;
             else
                 HealthIn = value;
-            Notify("HealthChanged;" + temp + ";" + healthTmp);
+            Notify("HealthChanged;" + temp + ";" + healthTmp + this.tag);
 
         }
     }
