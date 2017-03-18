@@ -12,7 +12,7 @@ public class Character : ExSubject
     public AudioClip damagingSound;
 
     Animator anim;
-
+    GameObject weaponObj;
     public Animator Anim
     {
         get { return anim; }
@@ -40,8 +40,11 @@ public class Character : ExSubject
     private int attackDamageTmp; //攻击伤害-int
     private float hitRecover;//5.硬直,即受击回复，影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
     private int hitRecoverTmp;//
- 
-    private int luck; //6.幸运 影响技能触发几率和道具掉落概率
+
+    private float luck;
+
+
+    private int luckTmp; //6.幸运 影响技能触发几率和道具掉落概率
 
 
     //init属性
@@ -54,6 +57,18 @@ public class Character : ExSubject
     public int initialLuck;
 
 
+    int invincible;
+
+    public int Invincible
+    {
+        get { return invincible; }
+        set 
+        { 
+            invincible = value;
+            Notify("InvincibleChanged;" + invincible);
+        }
+    }
+
     public float HealthIn
     {
         get { return health; }
@@ -65,11 +80,11 @@ public class Character : ExSubject
                 actionStateMachine.Push(6);
             }
             health = value;
-            if (health == 0)
+            if (health <= 0)
             {
                 Die();
             }
-            Notify("HealthChanged");
+            Notify("HealthInChanged;"+temp+";"+health+";"+this.tag);
 
         }
     }
@@ -79,7 +94,14 @@ public class Character : ExSubject
         get { return healthTmp; }
         set
         {
-            float temp = health;
+            //若无敌且收到伤害
+            if (Invincible == 1 && value < Health)
+            {
+                Notify("WithStand:" + (Health - value));
+                return;
+            } 
+
+            int temp = healthTmp;
             healthTmp = value;
             if (Health < 0)
                 HealthIn = 0;
@@ -87,6 +109,7 @@ public class Character : ExSubject
                 HealthIn = 10;
             else
                 HealthIn = value;
+            Notify("HealthChanged;" + temp + ";" + healthTmp + this.tag);
 
         }
     }
@@ -98,8 +121,9 @@ public class Character : ExSubject
         get { return moveSpeed; }
         set
         {
+            float temp=moveSpeed;
             moveSpeed = value;
-            Notify("MoveSpeedChanged");
+            Notify("MoveSpeedInChanged;" + temp + ";" + moveSpeed);
         }
     }
 
@@ -112,19 +136,24 @@ public class Character : ExSubject
         }
         set 
         {
+            int tmp=moveSpeedTmp;
             moveSpeedTmp=value;
             float temp = 0;
-            if (value == 1)
+            
+            if (value <= 0)
+                temp = 0f;
+            else if (value == 1)
                 temp = 0.05f;
-            if (value == 2)
+            else if (value == 2)
                 temp = 0.08f;
-            if (value == 3)
+            else if (value == 3)
                 temp = 0.1f;
-            if (value == 4)
+            else if (value == 4)
                 temp = 0.12f;
-            if (value >= 5)
+            else if (value >= 5)
                 temp = 0.15f;
             MoveSpeedIn = temp ;
+            Notify("MoveSpeedChanged;" + tmp + ";" + moveSpeedTmp);
         }
     }
 
@@ -133,8 +162,9 @@ public class Character : ExSubject
         get { return attackSpeed; }
         set
         {
+            float temp = attackSpeed;
             attackSpeed = value;
-            Notify("AttackSpeedChanged");
+            Notify("AttackSpeedInChanged;"+temp+";"+attackSpeed);
         }
     }
     public int AttackSpeed
@@ -146,18 +176,21 @@ public class Character : ExSubject
         set
         {
             float temp = 0;
-            if (value == 1)
+            if (value <= 0)
+                temp = 0f;
+            else  if (value == 1)
                 temp = 0.5f;
-            if (value == 2)
+            else if (value == 2)
                 temp = 0.8f;
-            if (value == 3)
+            else if (value == 3)
                 temp = 1f;
-            if (value == 4)
+            else if (value == 4)
                 temp = 1.2f;
-            if (value >= 5)
+            else if (value >= 5)
                 temp = 1.4f;
-            moveSpeedTmp = value;
+            attackSpeedTmp = value;
             AttackSpeedIn = temp;
+            Notify("AttackSpeedChanged;" + temp + ";" + attackSpeed);
         }
     }
 
@@ -167,8 +200,10 @@ public class Character : ExSubject
         get { return attackRange; }
         set
         {
+            float tmp = attackRange;
             attackRange = value;
-            Notify("AttackRangeChanged");
+            ChangeWeaponRange();
+            Notify("AttackRangeInChanged;"+tmp+";"+attackRange);
         }
     }
     public int AttackRange
@@ -177,8 +212,22 @@ public class Character : ExSubject
         set
         {
             //TODO 效果
+            int tmp = attackRangeTmp;
             attackRangeTmp = value;
-            AttackRangeIn = attackRangeTmp;
+            if (value <= 0)
+                AttackRangeIn = 1f;
+            else if (value == 1)
+                AttackRangeIn = 1.05f;
+            else if (value == 2)
+                AttackRangeIn = 1.1f;
+            else if (value == 3)
+                AttackRangeIn = 1.15f;
+            else if (value == 4)
+                AttackRangeIn = 1.2f;
+            else if (value >= 5)
+                AttackRangeIn = 1.25f;
+    
+            Notify("AttackRangeChanged;" + tmp + ";" + attackRangeTmp);
         }
     }
 
@@ -187,8 +236,9 @@ public class Character : ExSubject
         get { return attackDamage; }
         set
         {
+            float tmp = attackDamage;
             attackDamage = value;
-            Notify("AttackDamageChanged");
+            Notify("AttackDamageInChanged;"+tmp+";"+attackDamage);
         }
     }
     public int AttackDamage
@@ -196,8 +246,10 @@ public class Character : ExSubject
         get { return attackDamageTmp; }
         set
         {
-            attackRangeTmp = value;
+             int tmp = attackDamageTmp;
+            attackDamageTmp = value;
             AttackDamageIn = attackRangeTmp;
+            Notify("AttackDamageChanged;" + tmp + ";" + attackDamageTmp);
         }
     }
 
@@ -206,8 +258,9 @@ public class Character : ExSubject
         get { return hitRecover; }
         set
         {
+            float tmp = hitRecover;
             hitRecover = value;
-            Notify("HitRecoverChanged");
+            Notify("HitRecoverInChanged;"+tmp+";"+hitRecover);
         }
     }
     public int HitRecover
@@ -215,18 +268,57 @@ public class Character : ExSubject
         get { return hitRecoverTmp; }
         set
         {
+            int tmp = hitRecoverTmp;
             hitRecoverTmp = value;
-            HitRecoverIn = hitRecoverTmp;
+            
+            if (value <= 0)
+                HitRecoverIn = 1f;
+            else if (value == 1)
+                HitRecoverIn = 1.5f;
+            else if (value == 2)
+                HitRecoverIn = 2f;
+            else if (value == 3)
+                HitRecoverIn = 2.5f;
+            else if (value == 4)
+                HitRecoverIn = 3f;
+            else if (value >= 5)
+                HitRecoverIn = 3.5f;
+    
+            Notify("HitRecoverChanged;" + tmp + ";" + hitRecoverTmp);
         }
     }
 
     public int Luck
     {
-        get { return luck; }
+        get { return luckTmp; }
         set
         {
+            int tmp = luckTmp;
+            luckTmp = value;
+            if (value <= 0)
+                LuckIn = 0;
+            else if (value == 1)
+                LuckIn = 0.05f;
+            else if (value == 2)
+                LuckIn = 0.09f;
+            else if (value == 3)
+                LuckIn = 0.13f;
+            else if (value == 4)
+                LuckIn = 0.17f;
+            else if (value >= 5)
+                LuckIn = 0.20f;
+            Notify("LuckChanged;"+tmp+";"+luckTmp);
+        }
+    }
+
+    public float LuckIn
+    {
+        get { return luck; }
+        set 
+        {
+            float tmp = luck;
             luck = value;
-            Notify("LuckChanged");
+            Notify("LuckInChanged;" + tmp + ";" + luck);
         }
     }
 
@@ -237,8 +329,9 @@ public class Character : ExSubject
         get { return spasticity; }
         set
         {
+            float tmp = spasticity;
             spasticity = value;
-            Notify("SpasticityChanged");
+            Notify("SpasticityChanged"+tmp+";"+spasticity);
         }
     }
 
@@ -249,8 +342,9 @@ public class Character : ExSubject
         get { return race; }
         set
         {
+            int tmp = race;
             race = value;
-            Notify("RaceChanged");
+            Notify("RaceChanged"+tmp+";"+race);
         }
     }
     private int weapon; //武器类型
@@ -260,8 +354,9 @@ public class Character : ExSubject
         get { return weapon; }
         set
         {
+            int tmp = weapon;
             weapon = value;
-            Notify("WeaponChanged");
+            Notify("WeaponChanged;"+tmp+";"+weapon);
         }
     }
 
@@ -398,7 +493,8 @@ public class Character : ExSubject
     {
         actionStateMachine.Push(5);
         isAlive = -1;
-        Notify("Die");
+        CharacterManager.Instance.CharacterList.Remove(this);
+        Notify("Die;"+this.tag);
 
     }
 
@@ -430,19 +526,22 @@ public class Character : ExSubject
 
    public virtual void Start()
     {
-
+      
         state = 0;
         IsAlive = 1;
-        anim = this.GetComponent<Animator>();
-
+        canMove = 1;
+        invincible = 0;
+        weapon = 0;
         Health = initialHealth;
         MoveSpeed = initialMoveSpeed;
         AttackSpeed = initialAttackSpeed;
         AttackDamage = initialAttackDamage;
         Luck = initialLuck;
         HitRecover = initialHitRecover;
+        weaponObj = this.GetComponent<Transform>().Find("Body").Find("RightArmNode").Find("RightArm").Find("RightHandNode").Find("RightHand").Find("WeaponNode").gameObject;
         AttackRange = initialAttackRange;
-
+        anim = this.GetComponent<Animator>();
+       
 
     }
 
@@ -466,6 +565,7 @@ public class Character : ExSubject
     {
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;
+        CharacterManager.Instance.CharacterList.Add(this);
     }
 
 
@@ -478,7 +578,7 @@ public class Character : ExSubject
     /// </summary>
     public void NotifyMissile()
     {
-        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1);
+        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1+";"+AttackRange);
     }
 
     /// <summary>
@@ -492,15 +592,41 @@ public class Character : ExSubject
         {
             Anim.speed = AttackSpeedIn;
         }
-        if (asi.IsName("Move"))
+        else if (asi.IsName("Move"))
         {
             Anim.speed = moveSpeed*10;
             //character.Anim.speed = character.MoveSpeed;
         }
-        if (asi.IsName("Idle") )
+        else if (asi.IsName("Idle") )
         {
             Anim.speed = 1;
         }
+        else if(asi.IsName("Hurt"))
+        {
+            Anim.speed = hitRecover;
+        }
     }
+
+
+    public void ChangeWeaponRange()
+    {
+        if (weapon == 0)
+        {
+            weaponObj.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
+        }
+
+    }
+
+    int lastFrames;
+    public void MoveBy(int lastFrames)
+    {
+  
+
+       this.gameObject.transform.position += direction*moveSpeed;
+    }
+
+
+
+
 
 }

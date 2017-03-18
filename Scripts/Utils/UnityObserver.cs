@@ -71,7 +71,8 @@ public class ExSubject:Subject
     public override  void  Notify(string msg)
     {
         base.Notify(msg);
-        foreach (ExSubject o in exObserverList)
+        var s = exObserverList.ToArray();
+        foreach (ExSubject o in s)
         {
             o.OnNotify(msg);
         }
@@ -80,5 +81,6 @@ public class ExSubject:Subject
     public virtual void OnNotify(string msg)
     { 
     }
+ 
 }
 

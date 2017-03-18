@@ -86,7 +86,7 @@ public class UIManager : ExUnitySingleton<UIManager>
 
     public override void OnNotify(string msg)
     {
-
+        Debug.Log("UIManager recieved :"+msg);
         //RoomManager Msg
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         if (str[0] == "EnterRoom")
@@ -109,15 +109,18 @@ public class UIManager : ExUnitySingleton<UIManager>
             UIManager.Instance.ItemButtonManager.DestroyDisposableItem();
         if (str[0] == "InitiativeItem_Destroy")
             UIManager.Instance.ItemButtonManager.DestroyInitiativeItem();
-        if (str[0] == "Player_Get_DisposableItem" || str[0] == "Player_Get_InitiativeItem")
+        if (str[0] == "Player_Get_DisposableItem" || str[0] == "Player_Get_InitiativeItem" || str[0] == "Player_Get_ImmediatelyItem")
         {
-
             //TODO 显示道具信息
+            Debug.Log("111");
+            UIManager.Instance.popup.SetItemDetailPopup(ItemManager.Instance.itemsTable.GetItemName(int.Parse(str[1])),ItemManager.Instance.itemsTable.GetItemIntro(int.Parse(str[1])));
+            UIManager.Instance.popup.itemDetailPopup.SetActive(true);
         }
-        if (str[0] == "Player_Leave_DisposableItem" || str[0] == "Player_Leave_InitiativeItem")
+        if (str[0] == "Player_Leave_DisposableItem" || str[0] == "Player_Leave_InitiativeItem" || str[0] == "Player_Leave_ImmediatelyItem")
         {
 
             //TODO 取消显示道具信息
+            UIManager.Instance.popup.itemDetailPopup.SetActive(false);
 
         }
         if (str[0] == "Get_DisposableItem")//玩家拾取一次性道具
@@ -139,6 +142,7 @@ public class UIManager : ExUnitySingleton<UIManager>
         }
 
         //Player Msg
+
         if (str[0]== "HealthChanged")
             UIManager.Instance.playerHealth.Health = (int)Player.Instance.Character.Health;
     }

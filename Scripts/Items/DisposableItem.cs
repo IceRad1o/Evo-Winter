@@ -101,7 +101,7 @@ public class DisposableItem : Item{
         if (other.tag == "Player")
         {
             Notify("Player_Get_DisposableItem;" + ItemID);
-          
+            ItemManager.Instance.SendMsg("Player_Get_DisposableItem;" + ItemID);
             playerIn = true;
         }
        
@@ -112,7 +112,8 @@ public class DisposableItem : Item{
     {
         if (other.tag == "Player")
         {
-            Notify("Player_Leave_DisposableItem");
+            Notify("Player_Leave_DisposableItem;" + ItemID);
+            ItemManager.Instance.SendMsg("Player_Leave_DisposableItem;" + ItemID);
             playerIn = false;
         }
     }

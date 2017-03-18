@@ -43,7 +43,7 @@ public class InitiativeItem : Item{
         ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
         energyMax = ItemManager.Instance.itemsTable.GetItemEnergy(ID);
-        EnergyNow = energyMax;
+        energyNow = energyMax;
         ItemID = ID;
     }
 
@@ -94,6 +94,8 @@ public class InitiativeItem : Item{
         if (other.tag == "Player")
         {
             Notify("Player_Get_InitiativeItem;" + ItemID);
+            ItemManager.Instance.SendMsg("Player_Leave_ImmediatelyItem;" + ItemID);
+
             playerIn = true;
         }
 
@@ -103,7 +105,9 @@ public class InitiativeItem : Item{
     {
         if (other.tag == "Player")
         {
-            Notify("Player_Leave_InitiativeItem");
+            Notify("Player_Leave_InitiativeItem;" + ItemID);
+            ItemManager.Instance.SendMsg("Player_Leave_ImmediatelyItem;" + ItemID);
+
             playerIn = false;
         }
     }

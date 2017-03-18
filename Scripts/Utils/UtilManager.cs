@@ -119,8 +119,8 @@ public class UtilManager : UnitySingleton<UtilManager>
     /// <param name="part">每部分ID的长度</param>
     /// <returns></returns>
     public int[] DecomposeID(int id,int[] part) 
-    { 
-        int[] a={1,10,100,1000,10000,100000,1000000};
+    {
+        int[] a = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000};
         List<int> array=new List<int>();
         for (int i = 0; i < part.Length; i++)
         {

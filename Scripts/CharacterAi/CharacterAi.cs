@@ -19,10 +19,21 @@ public class CharacterAi : MonoBehaviour {
             Vector3 srcPos = transform.position;
             Vector3 offset = destPos - srcPos;
             //Debug.Log("offset" + offset);
-            if (offset.x < 2 && offset.x > -2 && offset.y < 0.5 && offset.y > -0.5)
+            if (offset.x < 0.8 && offset.x > -0.8 && offset.y < 0.5 && offset.y > -0.5)
             {
-                character.State = 0;
-                character.NormalAttack();
+                if (Random.value > 0.95)
+                {
+                    if (Random.value > 0.3)
+                        character.NormalAttack();
+                    else
+                        character.UseRaceSkill();
+                }
+                else
+                {
+                    character.State = 0;
+                }
+               
+             
             }
             else
             {

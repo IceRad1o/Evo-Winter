@@ -53,6 +53,11 @@ public class BuffTiming : Buff {
                 BuffChangeAttributeTemp newBuff2 = ob.AddComponent<BuffChangeAttributeTemp>();
                 newBuff2.Create(ID);
                 break;
+            case 0:
+                BuffInvincible newBuff3 = ob.AddComponent<BuffInvincible>();
+                newBuff3.Create(ID);
+                break;
+
             default:
                 break;
         }
@@ -74,9 +79,9 @@ public class BuffTiming : Buff {
     /// <param name="time">延迟的时间</param>
     /// <param name="type">1延迟释放，0延迟销毁</param>
     /// <returns></returns>    
-    virtual protected IEnumerator delay(float time,int type)
+    virtual protected IEnumerator delay(float time,int type,float baseNumber=1.0f)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time*baseNumber);
         if (type == 1)
             Trigger();
         else
