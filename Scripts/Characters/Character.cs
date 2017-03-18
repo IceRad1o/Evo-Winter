@@ -167,7 +167,7 @@ public class Character : ExSubject
                 temp = 1.2f;
             if (value >= 5)
                 temp = 1.4f;
-            moveSpeedTmp = value;
+            attackSpeedTmp = value;
             AttackSpeedIn = temp;
         }
     }
@@ -207,7 +207,7 @@ public class Character : ExSubject
         get { return attackDamageTmp; }
         set
         {
-            attackRangeTmp = value;
+            attackDamageTmp = value;
             AttackDamageIn = attackRangeTmp;
         }
     }
@@ -409,6 +409,7 @@ public class Character : ExSubject
     {
         actionStateMachine.Push(5);
         isAlive = -1;
+        CharacterManager.Instance.CharacterList.Remove(this);
         Notify("Die");
 
     }
@@ -454,7 +455,7 @@ public class Character : ExSubject
         HitRecover = initialHitRecover;
         AttackRange = initialAttackRange;
         anim = this.GetComponent<Animator>();
-
+      
 
     }
 
@@ -478,6 +479,7 @@ public class Character : ExSubject
     {
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;
+        CharacterManager.Instance.CharacterList.Add(this);
     }
 
 
@@ -514,5 +516,17 @@ public class Character : ExSubject
             Anim.speed = 1;
         }
     }
+
+    int lastFrames;
+    public void MoveBy(int lastFrames)
+    {
+  
+
+       this.gameObject.transform.position += direction*moveSpeed;
+    }
+
+
+
+
 
 }

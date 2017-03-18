@@ -42,8 +42,10 @@ public class HurtByWeapon : MonoBehaviour
                 return;
             ch.Health--;
 
+            //Debug.Log("AttackHit;" + other.tag + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
+
             //发送命中敌人消息
-            gameObject.GetComponentInParent<Character>().Notify("AttackHit");
+            gameObject.GetComponentInParent<Character>().Notify("AttackHit;"+other.tag+";"+CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
 
             //Debug.Log("111");
             return;
