@@ -84,7 +84,7 @@ public class Character : ExSubject
             {
                 Die();
             }
-            Notify("HealthInChanged;"+temp+";"+health);
+            Notify("HealthInChanged;"+temp+";"+health+";"+this.tag);
 
         }
     }

@@ -5,13 +5,21 @@ using System.Collections;
 /// </summary>
 public class Popup : UnitySingleton<Popup> {
 
+
+    public GameObject itemDetailPopup;
+    GameObject itemDetailPopupTitle;
+    GameObject itemDetailPopupText;
+
 	// Use this for initialization
 	void Start () {
-	
+        itemDetailPopupTitle = itemDetailPopup.GetComponent<RectTransform>().Find("Title").gameObject;
+        itemDetailPopupText= itemDetailPopup.GetComponent<RectTransform>().Find("Text").gameObject;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+
+
+    void SetItemDetailPopup(string itemName,string itemIntro)
+    {
+        itemDetailPopupTitle
+    }
 }
