@@ -70,6 +70,7 @@ public class BuffManager : ExSubject
 	void Start () {
         //将ItemManager设为观察者
         ItemManager.Instance.AddObserver(this);
+        Player.Instance.Character.AddObserver(this);
         Debug.Log(this.gameObject.tag);
         if (this.gameObject.tag == "Player")
             buffManagerTag = "Player";
@@ -95,10 +96,10 @@ public class BuffManager : ExSubject
             CreateBuff(id/10);
         }
 
-        if (bID == "HealthChanged" && int.Parse(UtilManager.Instance.MatchFiledFormMsg("UseItem_Buff_ID", msg, 0)) - int.Parse(UtilManager.Instance.MatchFiledFormMsg("UseItem_Buff_ID", msg, 1)) > 0 && UtilManager.Instance.MatchFiledFormMsg("UseItem_Buff_ID", msg, 2)=="Player")
-        {
-            CreateDifferenceBuff(100110);
-        }
+        //if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "HealthChanged" && int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0)) - int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 1)) > 0 && UtilManager.Instance.GetFieldFormMsg(msg, 2) == "Player")
+        //{
+        //    CreateDifferenceBuff(100110);
+        //}
     }
 	
 }

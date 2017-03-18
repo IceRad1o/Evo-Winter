@@ -52,6 +52,26 @@ public class BuffAttack : Buff {
                     ob.GetComponent<Attacklethal>().Probability++;
                 break;
             case 4:
+                if (ob.GetComponent<AttackFrozen>() == null)
+                {
+                    AttackFrozen newBuff3 = ob.AddComponent<AttackFrozen>();
+
+                    newBuff3.Create(ID);
+                }
+                else
+                    ob.GetComponent<AttackFrozen>().Probability++;
+                break;
+            case 5:
+                if (ob.GetComponent<AttackStatic>() == null)
+                {
+                    AttackStatic newBuff3 = ob.AddComponent<AttackStatic>();
+
+                    newBuff3.Create(ID);
+                }
+                else
+                    ob.GetComponent<AttackStatic>().Probability++;
+                break;
+            case 6:
                 if (ob.GetComponent<AttackHitRecoverUp>() == null)
                 {
                     AttackHitRecoverUp newBuff3 = ob.AddComponent<AttackHitRecoverUp>();
