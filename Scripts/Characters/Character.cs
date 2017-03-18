@@ -578,7 +578,7 @@ public class Character : ExSubject
     /// </summary>
     public void NotifyMissile()
     {
-        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1);
+        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1+";"+AttackRange);
     }
 
     /// <summary>
