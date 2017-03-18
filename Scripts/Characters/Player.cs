@@ -34,7 +34,7 @@ public class Player :ExUnitySingleton<Player>,IFly {
 
     void LoadPlayerMsg()
     {
-        Debug.Log("load");
+        //Debug.Log("load");
         ProfileData data = ProfileManager.Instance.Data;
         character.Health = (int)data.Health;
         character.MoveSpeed = (int)data.MoveSpeed;
