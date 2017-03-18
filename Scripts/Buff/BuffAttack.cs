@@ -31,7 +31,9 @@ public class BuffAttack : Buff {
                 BuffVampire newBuff = ob.AddComponent<BuffVampire>();
                 newBuff.Create(ID);
                 break;
+            case 2:
 
+                break;
             default:
                 break;
         }
@@ -44,12 +46,12 @@ public class BuffAttack : Buff {
     {
         
         BuffID = ID;
-        int[] part = { 2, 2, 3, 1, 2 };
+        int[] part = { 1,2, 2, 3, 1, 2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
-        this.probability = idPart[2];
-        this.effectDuration = idPart[3];        
+        this.probability = idPart[3];
+        this.effectDuration = idPart[4];        
         if (idPart[3] == 0)
-            this.buffDuration = idPart[4];
+            this.buffDuration = idPart[5];
 
         this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
         Player.Instance.Character.AddObserver(this);

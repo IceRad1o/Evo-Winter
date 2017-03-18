@@ -73,7 +73,7 @@ public class Character : ExSubject
                 actionStateMachine.Push(6);
             }
             health = value;
-            if (health == 0)
+            if (health <= 0)
             {
                 Die();
             }
@@ -87,6 +87,9 @@ public class Character : ExSubject
         get { return healthTmp; }
         set
         {
+            if (Invincible == 1 && value < Health)
+                return;
+
             float temp = health;
             healthTmp = value;
             if (Health < 0)
