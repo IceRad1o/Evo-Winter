@@ -4,6 +4,9 @@ using System.Collections;
 public class CharacterAi : MonoBehaviour {
 
     private Character character;
+    public float moveAbility;//好动性
+    public float attackAbility;//攻击性
+  //  public float 
 	// Use this for initialization
 	void Start () {
         character = GetComponent<Character>();
@@ -21,7 +24,7 @@ public class CharacterAi : MonoBehaviour {
             //Debug.Log("offset" + offset);
             if (offset.x < 0.8 && offset.x > -0.8 && offset.y < 0.5 && offset.y > -0.5)
             {
-                if (Random.value > 0.95)
+                if (Random.value > 0.98)
                 {
                     if (Random.value > 0.3)
                         character.NormalAttack();

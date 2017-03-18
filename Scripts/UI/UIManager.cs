@@ -125,15 +125,20 @@ public class UIManager : ExUnitySingleton<UIManager>
         }
         if (str[0] == "Get_DisposableItem")//玩家拾取一次性道具
         {
+            UIManager.Instance.popup.itemDetailPopup.SetActive(false);
             Sprite sp = ItemManager.Instance.GetDisposableItemsSprite();
             UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
         }
         if (str[0] == "Get_InitiativeItem")//玩家拾取主动道具
         {
-
+            UIManager.Instance.popup.itemDetailPopup.SetActive(false);
             Sprite sp = ItemManager.Instance.GetInitiativeItemSprite();
             UIManager.Instance.ItemButtonManager.AddInitiativeItem(sp);
           
+        }
+        if (str[0] == "Get_ImmediatelyItem")//玩家拾取主动道具
+        {
+            UIManager.Instance.popup.itemDetailPopup.SetActive(false);
         }
         if (str[0] == "InitiativeItem_Energy_Number")
         {
