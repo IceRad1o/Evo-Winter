@@ -30,7 +30,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
     /// <param name="ID"></param>
     public override void Create(int ID)
     {
-        int[] part = { 2,2,3,2,2 };
+        int[] part = { 2,2,2,2,2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
         BuffDuration = idPart[2];

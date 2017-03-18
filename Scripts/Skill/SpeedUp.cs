@@ -13,7 +13,7 @@ public class SpeedUp : Skill {
     public override void Trigger()
     {
         base.Trigger();
-        this.gameObject.GetComponent<BuffManager>().CreateBuff(1020070111);
+        this.gameObject.GetComponent<BuffManager>().CreateBuff(1020701110);
         State = 1;
         StartCoroutine(SkillCD(5 * 1.0f));
     }
