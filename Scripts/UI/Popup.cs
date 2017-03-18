@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 /// <summary>
 /// 负责UI弹幕的显示
 /// </summary>
@@ -18,8 +19,9 @@ public class Popup : UnitySingleton<Popup> {
 
 
 
-    void SetItemDetailPopup(string itemName,string itemIntro)
+    public void SetItemDetailPopup(string itemName,string itemIntro)
     {
-        itemDetailPopupTitle
+        itemDetailPopupTitle.GetComponent<Text>().text = itemName;
+        itemDetailPopupText.GetComponent<Text>().text = itemIntro;
     }
 }

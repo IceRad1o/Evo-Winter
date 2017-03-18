@@ -111,13 +111,15 @@ public class UIManager : ExUnitySingleton<UIManager>
             UIManager.Instance.ItemButtonManager.DestroyInitiativeItem();
         if (str[0] == "Player_Get_DisposableItem" || str[0] == "Player_Get_InitiativeItem")
         {
-            ItemManager.Instance.itemsTable.GetItemIntro(str[1]);
             //TODO 显示道具信息
+            UIManager.Instance.popup.SetItemDetailPopup(ItemManager.Instance.itemsTable.GetItemName(int.Parse(str[1])),ItemManager.Instance.itemsTable.GetItemIntro(int.Parse(str[1])));
+            UIManager.Instance.popup.itemDetailPopup.SetActive(true);
         }
         if (str[0] == "Player_Leave_DisposableItem" || str[0] == "Player_Leave_InitiativeItem")
         {
 
             //TODO 取消显示道具信息
+            UIManager.Instance.popup.itemDetailPopup.SetActive(false);
 
         }
         if (str[0] == "Get_DisposableItem")//玩家拾取一次性道具
