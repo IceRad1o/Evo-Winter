@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BuffChangeAttributeTemp : BuffTiming {
 
+    GameObject prefabInstance;
+
     /// <summary>
     /// 改变的差值
     /// </summary>
@@ -30,7 +32,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
     /// <param name="ID"></param>
     public override void Create(int ID)
     {
-        int[] part = { 2,2,3,2,2 };
+        int[] part = { 2,2,2,2,2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
         BuffDuration = idPart[2];
@@ -52,6 +54,14 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 break;
             case 2:
                 this.gameObject.GetComponent<Character>().MoveSpeed += dValue;
+                if (dValue <= 0)
+                {
+                    GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
+                    Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+                    prefabInstance = Instantiate(pfb);
+                    prefabInstance.transform.position = s;
+                    prefabInstance.transform.parent = this.gameObject.transform;
+                }
                 break;
             case 3:
                 this.gameObject.GetComponent<Character>().AttackSpeed += dValue;
@@ -64,6 +74,14 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 break;
             case 6:
                 this.gameObject.GetComponent<Character>().HitRecover += dValue;
+                if (dValue >= 0)
+                {
+                    GameObject pfb = Resources.Load("Buffs/HitRecoverUp") as GameObject;
+                    Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+                    prefabInstance = Instantiate(pfb);
+                    prefabInstance.transform.position = s;
+                    prefabInstance.transform.parent = this.gameObject.transform;
+                }
                 break;
             case 7:
                 this.gameObject.GetComponent<Character>().Spasticity += dValue;
@@ -82,7 +100,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
 
     public override void DestroyBuff()
     {
-        
+        Destroy(prefabInstance);
         base.DestroyBuff();
     }
  

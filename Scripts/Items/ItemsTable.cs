@@ -157,7 +157,6 @@ public class ItemsTable {
                 itemsIDs.Add(itemsData[i].ID);
         }
 
-        Debug.Log("itemsIDs Number:   " + itemsIDs.Count);
 
         return itemsIDs.ToArray();
     }
@@ -182,10 +181,11 @@ public class ItemsTable {
 
     public ItemsTable()
     {
-        ItemsData item=new ItemsData();
+        ItemsData item = new ItemsData();
 
         /*********************/
         //一次性道具
+        /*
         item.ID = 1012;
         item.spriteArrayID = 11;
         item.type = 1;
@@ -205,8 +205,10 @@ public class ItemsTable {
         item.itemName = "命运硬币";
         item.itemIntro = "听取命运的安排吧，正面新生，反面地狱";
         itemsData.Add(item);
+        */
         /*********************/
         //立即使用道具
+        /*
         item.ID = 1002;
         item.spriteArrayID = 1;
         item.type = 0;
@@ -236,14 +238,47 @@ public class ItemsTable {
         item.itemName = "尼伯龙根的指环";
         item.itemIntro = "莱茵河的黄金所铸，据说拥有统治世界的能力，却也拥有无法消除的诅咒";
         itemsData.Add(item);
-        /*********************/
-        //主动道具
+        
+        item.ID = 1059;
+        item.spriteArrayID = 17;
+        item.type = 0;
+        item.droping = 2;
+        item.buffID = 2100;
+        item.skillID = 0;
+        item.itemName = "凛之刃";
+        item.itemIntro = "";
+        itemsData.Add(item);
+       
+        item.ID = 1061;
+        item.spriteArrayID = 19;
+        item.type = 0;
+        item.droping = 2;
+        item.buffID = 410;
+        item.skillID = 0;
+        item.itemName = "石之刃";
+        item.itemIntro = "";
+        itemsData.Add(item);
+         
+        item.ID = 1062;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.buffID = 3100;
+        item.skillID = 0;
+        item.itemName = "幽之刃";
+        item.itemIntro = "";
+        itemsData.Add(item);
+        */
+
+        ///*********************/
+        ////主动道具
+        /*
         item.ID = 1028;
         item.spriteArrayID = 2;
         item.type = 2;
         item.droping = 6;
         item.buffID = 1000010;
-        //item.buffID = 201;
+        item.buffID = 2010;
         item.skillID = 0;
         item.energy = 6;
         item.itemName = "生命之树的种子";
@@ -259,6 +294,17 @@ public class ItemsTable {
         item.energy = 6;
         item.itemName = "冥王哈迪斯的金库钥匙";
         item.itemIntro = "地狱和死人的统治者----哈得斯同时是掌管财富的神，掌管地下埋藏的宝藏";
+        itemsData.Add(item);
+        */
+
+        item.ID = 1062;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.buffID = 4100;
+        item.skillID = 0;
+        item.itemName = "幽之刃";
+        item.itemIntro = "";
         itemsData.Add(item);
     }
 	

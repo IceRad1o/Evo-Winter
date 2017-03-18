@@ -87,12 +87,17 @@ public class BuffManager : ExSubject
         if (bID != "Fail" )
         {
             int id = int.Parse(bID);
-            Debug.Log("bID" + id);
+            //Debug.Log("bID" + id);
             if (buffManagerTag == "Player" && id % 10 == 0)
                 judgeCreate = true;
             if (buffManagerTag == "Enemy" && id % 10 == 1)
                 judgeCreate = true;
             CreateBuff(id/10);
+        }
+
+        if (bID == "HealthChanged" && int.Parse(UtilManager.Instance.MatchFiledFormMsg("UseItem_Buff_ID", msg, 0)) - int.Parse(UtilManager.Instance.MatchFiledFormMsg("UseItem_Buff_ID", msg, 1)) > 0 && UtilManager.Instance.MatchFiledFormMsg("UseItem_Buff_ID", msg, 2)=="Player")
+        {
+            CreateDifferenceBuff(100110);
         }
     }
 	

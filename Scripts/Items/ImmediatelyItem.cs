@@ -23,6 +23,8 @@ public class ImmediatelyItem : Item{
 
 
             Notify("Player_Get_ImmediatelyItem;" + ItemID);
+            ItemManager.Instance.SendMsg("Player_Get_ImmediatelyItem;" + ItemID);
+
             playerIn = true;
         }
 
@@ -32,7 +34,9 @@ public class ImmediatelyItem : Item{
     {
         if (other.tag == "Player"){
 
-            Notify("Player_Leave_ImmediatelyItem");
+            Notify("Player_Leave_ImmediatelyItem;" + ItemID);
+            ItemManager.Instance.SendMsg("Player_Leave_ImmediatelyItem;" + ItemID);
+
             playerIn = false;
         }
     }

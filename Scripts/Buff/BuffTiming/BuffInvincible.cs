@@ -42,6 +42,6 @@ public class BuffInvincible : BuffTiming{
     void Start()
     {
         Trigger();       
-        StartCoroutine(delay(BuffDuration, 0));
+        StartCoroutine(delay(BuffDuration, 0,0.5f));
     }
 }

@@ -15,7 +15,7 @@ public class BuffAttack : Buff {
     protected bool JudgeTrigger(){
         //创建random的实例
         System.Random random = new System.Random();
-        if (random.Next(100) <= probability)
+        if (random.Next(100) <= (int)(probability * 1.0f * (1.0f+Player.Instance.Character.LuckIn)))
             return true;
         else
             return false;
@@ -32,7 +32,34 @@ public class BuffAttack : Buff {
                 newBuff.Create(ID);
                 break;
             case 2:
+                if (ob.GetComponent<AttackSpeedDown>() == null)
+                {
+                    AttackSpeedDown newBuff1 = ob.AddComponent<AttackSpeedDown>();
 
+                    newBuff1.Create(ID);
+                }
+                else
+                    ob.GetComponent<AttackSpeedDown>().Probability++;
+                break;
+            case 3:
+                if (ob.GetComponent<Attacklethal>() == null)
+                {
+                    Attacklethal newBuff2 = ob.AddComponent<Attacklethal>();
+
+                    newBuff2.Create(ID);
+                }
+                else
+                    ob.GetComponent<Attacklethal>().Probability++;
+                break;
+            case 4:
+                if (ob.GetComponent<AttackHitRecoverUp>() == null)
+                {
+                    AttackHitRecoverUp newBuff3 = ob.AddComponent<AttackHitRecoverUp>();
+
+                    newBuff3.Create(ID);
+                }
+                else
+                    ob.GetComponent<AttackHitRecoverUp>().Probability++;
                 break;
             default:
                 break;
@@ -54,6 +81,7 @@ public class BuffAttack : Buff {
             this.buffDuration = idPart[5];
 
         this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
+
         Player.Instance.Character.AddObserver(this);
     }
 
