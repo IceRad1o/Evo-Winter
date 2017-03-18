@@ -29,7 +29,8 @@ public class Missile : RoomElement {
     private float startPositionY;
     private float rotationTheta;
 
-	void Awake () {
+	public override void Awake () {
+        base.Awake();
         RoomElementID = 0;
         //NEED SoundManager.instance.PlaySingle(fly);
 	}
