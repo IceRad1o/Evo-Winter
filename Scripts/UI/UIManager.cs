@@ -139,7 +139,6 @@ public class UIManager : ExUnitySingleton<UIManager>
         }
 
         //Player Msg
-        Debug.Log("UIManager recieved msg:" + msg);
 
         if (str[0]== "HealthChanged")
             UIManager.Instance.playerHealth.Health = (int)Player.Instance.Character.Health;

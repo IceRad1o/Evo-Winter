@@ -87,7 +87,7 @@ public class BuffManager : ExSubject
         if (bID != "Fail" )
         {
             int id = int.Parse(bID);
-            Debug.Log("bID" + id);
+            //Debug.Log("bID" + id);
             if (buffManagerTag == "Player" && id % 10 == 0)
                 judgeCreate = true;
             if (buffManagerTag == "Enemy" && id % 10 == 1)
