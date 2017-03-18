@@ -61,7 +61,7 @@ public class Missiles : RoomElement {
             switch (flyPath)
             {
                 case 1://直线
-                    StartCoroutine(FlyPath5());
+                    StartCoroutine(FlyPath1());
                     break;
                 case 2://斜向上抛物线
                     StartCoroutine(FlyPath2());
