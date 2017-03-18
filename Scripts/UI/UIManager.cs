@@ -111,7 +111,7 @@ public class UIManager : ExUnitySingleton<UIManager>
             UIManager.Instance.ItemButtonManager.DestroyInitiativeItem();
         if (str[0] == "Player_Get_DisposableItem" || str[0] == "Player_Get_InitiativeItem")
         {
-
+            ItemManager.Instance.itemsTable.GetItemIntro(str[1]);
             //TODO 显示道具信息
         }
         if (str[0] == "Player_Leave_DisposableItem" || str[0] == "Player_Leave_InitiativeItem")

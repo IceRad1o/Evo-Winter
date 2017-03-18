@@ -84,7 +84,7 @@ public class Character : ExSubject
             {
                 Die();
             }
-            Notify("HealthInChanged;"+temp+";"+health);
+            Notify("HealthInChanged;"+temp+";"+health+";"+this.tag);
 
         }
     }
@@ -109,7 +109,7 @@ public class Character : ExSubject
                 HealthIn = 10;
             else
                 HealthIn = value;
-            Notify("HealthChanged;" + temp + ";" + healthTmp);
+            Notify("HealthChanged;" + temp + ";" + healthTmp + this.tag);
 
         }
     }
@@ -578,7 +578,7 @@ public class Character : ExSubject
     /// </summary>
     public void NotifyMissile()
     {
-        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1);
+        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1+";"+AttackRange);
     }
 
     /// <summary>
