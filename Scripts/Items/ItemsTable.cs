@@ -185,7 +185,7 @@ public class ItemsTable {
 
         /*********************/
         //一次性道具
-        /*
+        
         item.ID = 1012;
         item.spriteArrayID = 11;
         item.type = 1;
@@ -205,10 +205,10 @@ public class ItemsTable {
         item.itemName = "命运硬币";
         item.itemIntro = "听取命运的安排吧，正面新生，反面地狱";
         itemsData.Add(item);
-        */
+        
         /*********************/
         //立即使用道具
-        /*
+        
         item.ID = 1002;
         item.spriteArrayID = 1;
         item.type = 0;
@@ -246,7 +246,7 @@ public class ItemsTable {
         item.buffID = 2100;
         item.skillID = 0;
         item.itemName = "凛之刃";
-        item.itemIntro = "";
+        item.itemIntro = "环绕着凛冽寒风的魔刃,攻击一定概率使敌人减速.";
         itemsData.Add(item);
        
         item.ID = 1061;
@@ -256,7 +256,7 @@ public class ItemsTable {
         item.buffID = 410;
         item.skillID = 0;
         item.itemName = "石之刃";
-        item.itemIntro = "";
+        item.itemIntro = "承载着重力的魔刃,攻击一定概率使敌人僵化";
         itemsData.Add(item);
         
         item.ID = 1060;
@@ -266,7 +266,7 @@ public class ItemsTable {
         item.buffID = 5100;
         item.skillID = 0;
         item.itemName = "霜之刃";
-        item.itemIntro = "攻击带冻结（攻击未冻结敌人冻结,攻击冻结敌人解冻）（冻结:无法行动,再次遭受攻击解冻）";
+        item.itemIntro = "覆盖着霜雪的魔刃，攻击一定概率使敌人冻结.";
         itemsData.Add(item);
 
         item.ID = 1064;
@@ -276,7 +276,7 @@ public class ItemsTable {
         item.buffID = 6100;
         item.skillID = 0;
         item.itemName = "止之刃";
-        item.itemIntro = "攻击几率使敌人时间静止x秒";
+        item.itemIntro = "凝固着时光的魔刃,攻击一定概率束缚敌人";
         itemsData.Add(item); 
         
         item.ID = 1062;
@@ -286,13 +286,13 @@ public class ItemsTable {
         item.buffID = 3100;
         item.skillID = 0;
         item.itemName = "幽之刃";
-        item.itemIntro = "";
+        item.itemIntro = "散发着幽暗气息的魔刃,攻击一定概率使敌人即死.";
         itemsData.Add(item);
-        */
+        
 
         ///*********************/
         ////主动道具
-        /*
+        
         item.ID = 1028;
         item.spriteArrayID = 2;
         item.type = 2;
@@ -315,7 +315,7 @@ public class ItemsTable {
         item.itemName = "冥王哈迪斯的金库钥匙";
         item.itemIntro = "地狱和死人的统治者----哈得斯同时是掌管财富的神，掌管地下埋藏的宝藏";
         itemsData.Add(item);
-        */
+        
 
         item.ID = 1062;
         item.spriteArrayID = 18;
@@ -324,7 +324,7 @@ public class ItemsTable {
         item.buffID = 3100;
         item.skillID = 0;
         item.itemName = "幽之刃";
-        item.itemIntro = "";
+        item.itemIntro = "散发着幽暗气息的魔刃,攻击一定概率使敌人即死.";
         itemsData.Add(item);
 
 
