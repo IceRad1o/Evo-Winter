@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : ExSubject {
+public class Item : RoomElement {
 
     protected Sprite iSprite;
     private int itemID;
