@@ -573,6 +573,7 @@ public class Character : ExSubject
         invincible = 0;
         weapon = 0;
         deadTime =50;
+        controllable = 1;
         Health = initialHealth;
         MoveSpeed = initialMoveSpeed;
         AttackSpeed = initialAttackSpeed;

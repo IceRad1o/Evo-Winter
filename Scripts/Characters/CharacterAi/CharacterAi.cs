@@ -14,6 +14,8 @@ public class CharacterAi : MonoBehaviour {
 
 
 	void Update () {
+        if (character.Controllable == 0)
+            return;
 
         //TODO 增加一个随机因子,以免ai动作完全相同
         if(Player.Instance.Character.IsAlive>0&&character.IsAlive>0)
