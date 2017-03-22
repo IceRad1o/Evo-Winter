@@ -9,7 +9,8 @@ using System.Collections.Generic;
 public class LittleMap : ExUnitySingleton<LittleMap>{
 
     public Sprite gridKnow;
-    public Sprite gridUnknow;
+    public Sprite gridStayed;
+    public Sprite gridAccessible;
     public Sprite gridExist;
     public Button mapButton;    //地图按钮
     public GameObject grid;
@@ -43,7 +44,9 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         yield return new WaitForSeconds(1);
         UpdateLittleMap();
     }
-    //初始化小地图
+    /// <summary>
+    /// 更新小地图
+    /// </summary>
     public void UpdateLittleMap()
     {
         int[,] map = CheckpointManager.Instance.roomArray;
@@ -51,13 +54,14 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         columns = CheckpointManager.Instance.columns;
 
 
+        int roomX = RoomManager.Instance.roomX;
+        int roomY = RoomManager.Instance.roomY;
+
+   
+        //先根据通过与否分成已知的和未知的和可接近的
         for(int i=0;i<rows;i++)
             for(int j=0;j<columns;j++)
             {
-                //if (map[j, i] == 0)
-                //{
-                //    gridList[(i)*rows+ rows-1-j].SetActive(false);
-                //}
                 if (map[i, j] == 0)
                 {
                     gridList[i * rows + j].SetActive(false);
@@ -66,25 +70,19 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
                 {
                     gridList[i * rows + j].SetActive(true);
                     if(CheckpointManager.Instance.GetNextRoom(i, j).pass==1)
-                        gridList[i * rows + j].GetComponent<Image>().sprite = gridUnknow;
+                        gridList[i * rows + j].GetComponent<Image>().sprite = gridKnow;
+                    else if ((i <= roomX + 1 && i >= roomX - 1&&j==roomY) ||( j <= roomY + 1 && j >= roomY - 1&&i==roomX))
+                        gridList[i * rows + j].GetComponent<Image>().sprite = gridAccessible;
                     else
                         gridList[i * rows + j].GetComponent<Image>().sprite = gridExist;
+
+                  
                 }
 
             }
-     
-        int roomX = RoomManager.Instance.roomX;
-        int roomY = RoomManager.Instance.roomY;
-        //Debug.Log("room:" + roomX + roomY);
-        gridList[roomX * rows + roomY].GetComponent<Image>().sprite = gridKnow;
-        if (roomX - 1 >= 0)
-            gridList[(roomX-1) * rows + roomY].GetComponent<Image>().sprite = gridUnknow;
-        if (roomX + 1 < columns)
-            gridList[(roomX+1) * rows  + roomY].GetComponent<Image>().sprite = gridUnknow;
-        if (roomY - 1 >= 0)
-            gridList[roomX * rows + roomY - 1].GetComponent<Image>().sprite = gridUnknow;
-        if (roomY + 1 < rows)
-            gridList[roomX * rows + roomY + 1].GetComponent<Image>().sprite = gridUnknow;
+
+        gridList[roomX * rows + roomY].GetComponent<Image>().sprite = gridStayed;
+
    
 
     }

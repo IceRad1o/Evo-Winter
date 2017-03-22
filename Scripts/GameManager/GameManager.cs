@@ -78,7 +78,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
             if (str[1] == "Player")
             {
                 PlayerPrefs.SetInt("canLoad", 0);
-                SceneManager.LoadScene("Scenes/MainScene");
+                SceneManager.LoadScene("Scenes/Formal/MainScene");
             }
         }
         

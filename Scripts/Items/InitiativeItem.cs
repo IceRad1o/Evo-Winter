@@ -94,7 +94,7 @@ public class InitiativeItem : Item{
         if (other.tag == "Player")
         {
             Notify("Player_Get_InitiativeItem;" + ItemID);
-            ItemManager.Instance.SendMsg("Player_Leave_ImmediatelyItem;" + ItemID);
+            ItemManager.Instance.SendMsg("Player_Get_InitiativeItem;" + ItemID);
 
             playerIn = true;
         }
@@ -106,7 +106,7 @@ public class InitiativeItem : Item{
         if (other.tag == "Player")
         {
             Notify("Player_Leave_InitiativeItem;" + ItemID);
-            ItemManager.Instance.SendMsg("Player_Leave_ImmediatelyItem;" + ItemID);
+            ItemManager.Instance.SendMsg("Player_Leave_InitiativeItem;" + ItemID);
 
             playerIn = false;
         }

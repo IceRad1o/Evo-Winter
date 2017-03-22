@@ -17,7 +17,8 @@ public class EnemyManager : ExUnitySingleton<EnemyManager>{
     {
         foreach (var enemy in enemyList)
         {
-            Destroy(enemy.gameObject);
+            if (enemy!=null)
+                 Destroy(enemy.gameObject);
         }
         EnemyList.Clear();
     }

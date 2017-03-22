@@ -40,11 +40,14 @@ public class Character : ExSubject
     private int attackDamageTmp; //攻击伤害-int
     private float hitRecover;//5.硬直,即受击回复，影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
     private int hitRecoverTmp;//
-
     private float luck;
-
-
     private int luckTmp; //6.幸运 影响技能触发几率和道具掉落概率
+
+
+    //扩展属性
+    int invincible;
+    //附加属性
+    private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
 
 
     //init属性
@@ -57,7 +60,7 @@ public class Character : ExSubject
     public int initialLuck;
 
 
-    int invincible;
+   
 
     public int Invincible
     {
@@ -80,9 +83,10 @@ public class Character : ExSubject
                 actionStateMachine.Push(6);
             }
             health = value;
-            if (health <= 0)
+            if (health <= 0&&IsAlive!=-1)
             {
-                Die();
+                //gameObject.GetComponent<HitAwary>().BeHitAwary();
+                IsAlive = 0;
             }
             Notify("HealthInChanged;"+temp+";"+health+";"+this.tag);
 
@@ -104,7 +108,7 @@ public class Character : ExSubject
             int temp = healthTmp;
             healthTmp = value;
             if (Health < 0)
-                HealthIn = 0;
+                HealthIn = value;
             else if (Health > 10)
                 HealthIn = 10;
             else
@@ -322,8 +326,7 @@ public class Character : ExSubject
         }
     }
 
-    //附加属性
-    private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
+
     public float Spasticity
     {
         get { return spasticity; }
@@ -379,13 +382,20 @@ public class Character : ExSubject
     //NEED private BuffManager buffManager;
 
     private int isAlive;//<0 死透 =0 正在死 >0 活着
-
+    private int deadTime;
     public int IsAlive
     {
         get { return isAlive; }
         set
         {
+          
             isAlive = value;
+            if (isAlive == 0)
+                deadTime = 50;
+            if(isAlive<0)
+            {
+                Die();
+            }
 
         }
     }
@@ -452,11 +462,36 @@ public class Character : ExSubject
         {
             isWeaponDmg = value;
             if (value == 0)
-                Notify("WeaponDmg");
-            else
+            {
+                weaponObj.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = false;
                 Notify("WeaponDontDmg");
+            }
+               
+            else
+            {
+                weaponObj.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = true;
+                Notify("WeaponDmg");
+            }
+             
         }
     }
+
+    private int isWeaponHitAwary;//武器是否有击飞效果
+
+    public int IsWeaponHitAwary
+    {
+        get { return isWeaponHitAwary; }
+        set { isWeaponHitAwary = value; }
+    }
+
+    private int controllable;//是否受控制
+
+    public int Controllable
+    {
+        get { return controllable; }
+        set { controllable = value; }
+    }
+
 
 
 
@@ -467,10 +502,16 @@ public class Character : ExSubject
         get { return direction; }
         set
         {
-            Vector3 temp = gameObject.GetComponent<Transform>().localScale;
+            Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
+            //Vector3 temp = gameObject.GetComponent<Transform>().localScale;
             if (value.x * temp.x > 0)
                 temp.x = -temp.x;
-            gameObject.GetComponent<Transform>().localScale = temp;
+            //gameObject.GetComponent<Transform>().localScale = temp;
+            gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale = temp;
+            //Vector3 temp = gameObject.GetComponent<Transform>().localScale;
+            //if (value.x * temp.x > 0)
+            //    temp.x = -temp.x;
+            //gameObject.GetComponent<Transform>().localScale = temp;
 
             direction = value;
             Notify("DirectionChanged");
@@ -491,8 +532,9 @@ public class Character : ExSubject
 
     public virtual void Die()
     {
+      
         actionStateMachine.Push(5);
-        isAlive = -1;
+        //isAlive = -1;
         CharacterManager.Instance.CharacterList.Remove(this);
         Notify("Die;"+this.tag);
 
@@ -519,8 +561,6 @@ public class Character : ExSubject
     {
 
         actionStateMachine.Push(3);
-        //Instantiate(gnome, transform.position, transform.rotation);
-        //Instantiate(gnome, transform.position, transform.rotation);
 
     }
 
@@ -532,18 +572,35 @@ public class Character : ExSubject
         canMove = 1;
         invincible = 0;
         weapon = 0;
+        deadTime =50;
         Health = initialHealth;
         MoveSpeed = initialMoveSpeed;
         AttackSpeed = initialAttackSpeed;
         AttackDamage = initialAttackDamage;
         Luck = initialLuck;
         HitRecover = initialHitRecover;
-        weaponObj = this.GetComponent<Transform>().Find("Body").Find("RightArmNode").Find("RightArm").Find("RightHandNode").Find("RightHand").Find("WeaponNode").gameObject;
+        weaponObj = this.GetComponent<Transform>().Find("BodyNode").Find("Body").Find("RightArmNode").Find("RightArm").Find("RightHandNode").Find("RightHand").Find("WeaponNode").gameObject;
         AttackRange = initialAttackRange;
         anim = this.GetComponent<Animator>();
        
 
     }
+
+
+   void Update()
+   {
+       if (isAlive == 0)
+       {
+           deadTime--;
+           Debug.Log(deadTime);
+       }
+
+       if (deadTime == 0)
+       {
+           IsAlive = -1;
+           deadTime = -1;
+       } 
+   }
 
     public virtual void FixedUpdate()
     {
@@ -566,6 +623,12 @@ public class Character : ExSubject
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;
         CharacterManager.Instance.CharacterList.Add(this);
+
+        Transform bodyNode = gameObject.transform.FindChild("BodyNode");
+        Transform body = gameObject.transform.FindChild("Body");
+        body.SetParent(bodyNode);
+
+        gameObject.AddComponent<HitAwary>();
     }
 
 

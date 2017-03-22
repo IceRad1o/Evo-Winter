@@ -24,7 +24,7 @@ public class BuffChangeAttribute : Buff
 
 
     public void Trigger() {
-        Debug.Log(tag + " Trigger" + dValue + " attribute " + attribute);
+        //Debug.Log(tag + " Trigger" + dValue + " attribute " + attribute);
        switch (attribute) 
        { 
            case 0:

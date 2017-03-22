@@ -24,7 +24,7 @@ public class HurtByWeapon : MonoBehaviour
     }
 
     /// <summary>
-    /// 2D碰撞检测
+    /// 碰撞检测
     /// </summary>
     /// <param name="other">与其碰撞的GameObj</param>
     void OnTriggerEnter(Collider other)
@@ -34,22 +34,43 @@ public class HurtByWeapon : MonoBehaviour
         if (gameObject.GetComponentInParent<Character>().IsWeaponDmg == 0)
             return;
 
+  
+           
 
+
+        //对于character
         if ((other.tag == "Enemy" && camp == 0) || (other.tag == "Player" && camp == 1))
         {
             //若有生命,则减血
-            //Debug.Log("Enemy hurt!" + other.GetComponent<Character>().Health);
-            Character ch=other.GetComponent<Character>();
-            if (ch.IsAlive < 0)
+            Character ch1 = gameObject.GetComponentInParent<Character>();
+            Character ch2=other.GetComponent<Character>();
+            if (ch2.IsAlive < 0||ch2.Invincible==1)
                 return;
-            ch.Health -= gameObject.GetComponentInParent<Character>().AttackDamage;
+            ch2.Health -= ch1.AttackDamage;
+            ch2.Direction = -ch1.Direction;
+            //是否有击飞击退效果
+            if (ch1.IsWeaponHitAwary != 0)
+            {
 
-            //Debug.Log("AttackHit;" + other.tag + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
+                if (ch1.IsWeaponHitAwary == 1)
+                {
+                    ch2.GetComponent<HitAwary>().Init(0.3f, 0.15f, ch1.Direction,0);
+                    ch2.GetComponent<HitAwary>().BeHitAwary();
+                    ch2.ActionStateMachine.Push(7);
+                }
+                if (ch1.IsWeaponHitAwary == 2)
+                {
+                    ch2.GetComponent<HitAwary>().Init(0.1f, 0.1f, ch1.Direction,1);
+                    ch2.GetComponent<HitAwary>().BeHitAwary();
+                    //ch2.ActionStateMachine.Push(7);
+                }
+
+            }
+            
 
             //发送命中敌人消息
-            gameObject.GetComponentInParent<Character>().Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
+            ch1.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
 
-            //Debug.Log("111");
             return;
             //添加打击效果
             Vector2[] points = this.GetComponent<PolygonCollider2D>().points;

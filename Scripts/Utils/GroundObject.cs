@@ -11,6 +11,8 @@ public class GroundObject : MonoBehaviour {
         temp.z = a;
         this.transform.position = temp;
 
+
+     
         this.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 	}
 }

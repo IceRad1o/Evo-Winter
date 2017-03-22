@@ -86,7 +86,6 @@ public class UIManager : ExUnitySingleton<UIManager>
 
     public override void OnNotify(string msg)
     {
-        Debug.Log("UIManager recieved :"+msg);
         //RoomManager Msg
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         if (str[0] == "EnterRoom")
