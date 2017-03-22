@@ -59,16 +59,26 @@ public class HitAwary : MonoBehaviour {
 
         while (true)
         {
+       
             float rotateTheta = Mathf.Atan((v - g * t) / (speed)) * 10;
             //Debug.Log("旋转角：" + Mathf.Atan((v-g*t)/(speed))*10);
+            int direct = 0;
             if (direction.x < 0)
-            {
+                direct = -1;
+            else if (direction.x > 0)
+                direct = 1;
+        
                 //if ((this.transform.position.x!=startPosition.x )||Mathf.Abs(this.transform.position.z-startPosition.z)>float.Epsilon)
                 if (v > 0.5f * g * t||t==0)
                 {
                     
-                    this.transform.rotation = Quaternion.Euler(0f, 0f, 180f - rotateTheta);
-                    this.transform.position = new Vector3(this.transform.position.x - speed,
+
+                   //this.transform.rotation = Quaternion.Euler(0f, 0f, 90f*(1-direct) + direct*rotateTheta);
+                    //Vector3 temp = new Vector3(this.transform.position.x + direct * speed,
+                    //    startPosition.y + v * t - 0.5f * g * t * t,
+                    //   this.transform.position.z);
+                  //  this.GetComponent<Rigidbody>().MovePosition(temp);
+                    this.transform.position = new Vector3(this.transform.position.x + direct*speed,
                         startPosition.y + v * t - 0.5f * g * t * t,
                        this.transform.position.z);
                     t += 0.1f;
@@ -77,23 +87,7 @@ public class HitAwary : MonoBehaviour {
                 {
                     break;
                 }
-            }
-
-            if (direction.x > 0)
-            {
-                if (v > 0.5f * g * t || t == 0)
-                {
-                    this.transform.rotation = Quaternion.Euler(0f, 0f, rotateTheta);
-                    this.transform.position = new Vector3(this.transform.position.x + speed,
-                        startPosition.y + v * t - 0.5f * t * t,
-                       this.transform.position.z);
-                    t += 0.1f;
-                }
-                else
-                {
-                    break;
-                }
-            }
+   
             yield return null;
         }
     }
