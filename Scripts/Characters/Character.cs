@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Character : ExSubject
+public class Character : RoomElement
 {
     //音频
     public AudioClip attackingSound;
@@ -46,6 +46,13 @@ public class Character : ExSubject
 
     //扩展属性
     int invincible;
+    int faceDirection;
+
+    public int FaceDirection
+    {
+        get { return faceDirection; }
+        set { faceDirection = value; }
+    }
     //附加属性
     private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
 
@@ -502,6 +509,8 @@ public class Character : ExSubject
         get { return direction; }
         set
         {
+            if (controllable == 0)
+                return;
             Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
             //Vector3 temp = gameObject.GetComponent<Transform>().localScale;
             if (value.x * temp.x > 0)
@@ -514,6 +523,11 @@ public class Character : ExSubject
             //gameObject.GetComponent<Transform>().localScale = temp;
 
             direction = value;
+            if (direction.x > 0)
+                faceDirection = 1;
+            else if (direction.x < 0)
+                faceDirection = -1;
+                
             Notify("DirectionChanged");
         }
     }
@@ -547,6 +561,9 @@ public class Character : ExSubject
 
     public virtual void NormalAttack()
     {
+        if (controllable == 0)
+            return;
+
         state = 0;
         CanMove = 0;
         actionStateMachine.Push(1);
@@ -554,11 +571,15 @@ public class Character : ExSubject
 
     public virtual void SpecialAttack()
     {
+        if (controllable == 0)
+            return;
         actionStateMachine.Push(2);
     }
 
     public virtual void UseRaceSkill()
     {
+        if (controllable == 0)
+            return;
 
         actionStateMachine.Push(3);
 
@@ -573,6 +594,7 @@ public class Character : ExSubject
         invincible = 0;
         weapon = 0;
         deadTime =50;
+        controllable = 1;
         Health = initialHealth;
         MoveSpeed = initialMoveSpeed;
         AttackSpeed = initialAttackSpeed;
@@ -604,7 +626,7 @@ public class Character : ExSubject
 
     public virtual void FixedUpdate()
     {
-        if (state == 1)
+        if (state == 1&&controllable==1)
         {
             Move();
 

@@ -11,8 +11,9 @@ public class GroundObject : MonoBehaviour {
         temp.z = a;
         this.transform.position = temp;
 
-
-     
+        //if(tag=="Enemy")
+          //Debug.Log(this.GetComponent<Rigidbody>().);
+        // this.GetComponent<Rigidbody>().
         this.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 	}
 }
