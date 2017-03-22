@@ -46,6 +46,13 @@ public class Character : RoomElement
 
     //扩展属性
     int invincible;
+    int faceDirection;
+
+    public int FaceDirection
+    {
+        get { return faceDirection; }
+        set { faceDirection = value; }
+    }
     //附加属性
     private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
 
@@ -516,6 +523,11 @@ public class Character : RoomElement
             //gameObject.GetComponent<Transform>().localScale = temp;
 
             direction = value;
+            if (direction.x > 0)
+                faceDirection = 1;
+            else if (direction.x < 0)
+                faceDirection = -1;
+                
             Notify("DirectionChanged");
         }
     }
@@ -549,6 +561,9 @@ public class Character : RoomElement
 
     public virtual void NormalAttack()
     {
+        if (controllable == 0)
+            return;
+
         state = 0;
         CanMove = 0;
         actionStateMachine.Push(1);
@@ -556,11 +571,15 @@ public class Character : RoomElement
 
     public virtual void SpecialAttack()
     {
+        if (controllable == 0)
+            return;
         actionStateMachine.Push(2);
     }
 
     public virtual void UseRaceSkill()
     {
+        if (controllable == 0)
+            return;
 
         actionStateMachine.Push(3);
 
