@@ -29,10 +29,8 @@ public class SkullLight : RoomElement {
         {
             if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isBroken == 0 && other.GetComponentInParent<Character>().Camp == 0)
             {
-                // if (Player.Instance.Character.FaceDirection < 0) ;
-                animator.SetTrigger("destory");
-                //else
-                //animator.SetTrigger("destory2");
+                if (Player.Instance.Character.FaceDirection < 0) animator.SetTrigger("destory");
+                else animator.SetTrigger("destory2");
                 isBroken = 1;
             }
             else
