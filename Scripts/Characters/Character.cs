@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Character : ExSubject
+public class Character : RoomElement
 {
     //音频
     public AudioClip attackingSound;
@@ -502,6 +502,8 @@ public class Character : ExSubject
         get { return direction; }
         set
         {
+            if (controllable == 0)
+                return;
             Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
             //Vector3 temp = gameObject.GetComponent<Transform>().localScale;
             if (value.x * temp.x > 0)
@@ -605,7 +607,7 @@ public class Character : ExSubject
 
     public virtual void FixedUpdate()
     {
-        if (state == 1)
+        if (state == 1&&controllable==1)
         {
             Move();
 
