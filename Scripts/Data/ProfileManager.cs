@@ -53,7 +53,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
 
     public override void OnNotify(string msg)
     {
-        Debug.Log("OnNotify the msg : " + msg);
+        //Debug.Log("OnNotify the msg : " + msg);
         if (msg == null)
         {
             Debug.LogError("the msg is null!");
