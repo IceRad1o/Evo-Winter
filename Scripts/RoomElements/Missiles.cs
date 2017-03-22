@@ -329,7 +329,7 @@ public class Missiles : RoomElement {
     //碰撞检测
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Missile碰撞标签：" + other.tag);
+        //Debug.Log("Missile碰撞标签：" + other.tag);
         if (other.tag == "Enemy")
         {
             other.GetComponent<Enemy>().Health-=damage;

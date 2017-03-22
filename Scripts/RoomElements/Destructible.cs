@@ -13,14 +13,4 @@ public class Destructible : MonoBehaviour {
 	
 	}
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Missile" || (other.tag == "Weapon" && Input.GetKeyDown(KeyCode.J)))
-        {
-            if (this.transform.position.x - other.transform.position.x > 0)
-            {
-
-            }
-        }
-    }
 }
