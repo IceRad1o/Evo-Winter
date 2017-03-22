@@ -1,3 +1,6 @@
 3.10 hahaha
 prefab通过Load方式加载，要将对应的文件夹拖到resources下
 	暂时只是将Effects中的Buff拖到resources
+
+3.22 hahaha
+道具掉落位置

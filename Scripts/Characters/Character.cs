@@ -592,7 +592,7 @@ public class Character : ExSubject
        if (isAlive == 0)
        {
            deadTime--;
-           Debug.Log(deadTime);
+           //Debug.Log(deadTime);
        }
 
        if (deadTime == 0)

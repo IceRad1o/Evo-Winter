@@ -14,6 +14,7 @@ public class SkillManager : ExSubject
     public void CreateSkill(int ID) {
         if (ID == 1)
         {
+            Debug.Log("ggggggggg");
             Meteorite newSkill = this.gameObject.AddComponent<Meteorite>();
             newSkill.Create(ID);
             skillList.Add(newSkill);        
