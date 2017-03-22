@@ -11,12 +11,11 @@ public class RoomElementManager : ExUnitySingleton<RoomElementManager>
     }
 
     public GameObject[] missile;
-    private int lastDirection;
+
 
 	void Start () {
 
         Player.Instance.Character.AddObserver(this);
-        lastDirection = -1;
     }
 
     public override void OnNotify(string msg)
@@ -29,20 +28,15 @@ public class RoomElementManager : ExUnitySingleton<RoomElementManager>
             float direct = float.Parse(UtilManager.Instance.GetMsgField(msg, 1));
             int flyPath = int.Parse(UtilManager.Instance.GetMsgField(msg, 4));
             int direction;
-            if (direct > 0)
+            if (Player.Instance.Character.FaceDirection > 0)
             {
                 direction = 1;
-                lastDirection = 1;
-            }
-            else if (direct < 0)
-            {
-                direction = -1;
-                lastDirection = -1;
             }
             else
             {
-                direction = lastDirection;
+                direction = -1;
             }
+
 
 
             GameObject missileInstance = Instantiate(missile[0], Player.Instance.Character.transform.position, Quaternion.identity) as GameObject;
