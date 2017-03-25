@@ -374,7 +374,7 @@ public class Missiles : MonoBehaviour {
         //Debug.Log("Missile碰撞标签：" + other.tag);
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().Health-=damage;
+            //other.GetComponent<Enemy>().Health-=damage;
             if (penetrating==0)
             {
                 //animator.SetTrigger("MissileBomb");

@@ -339,7 +339,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         SetDoorDierction(dp);
         InitialiseList();
         SetRoomXY(x, y);
-        LayoutEnemyAtRandom(enemys, 1, 1);
+        LayoutEnemyAtRandom(enemys, 2, 5);
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
