@@ -18,6 +18,7 @@ public class Missiles : RoomElement {
     //初始位置
     private Vector3 startPosition;
 
+
     public override void Awake()
     {
         Debug.Log("Awake");
@@ -61,7 +62,7 @@ public class Missiles : RoomElement {
             switch (flyPath)
             {
                 case 1://直线
-                    StartCoroutine(FlyPath1());
+                    StartCoroutine(FlyPath6());
                     break;
                 case 2://斜向上抛物线
                     StartCoroutine(FlyPath2());
@@ -75,6 +76,12 @@ public class Missiles : RoomElement {
                 case 5://Z轴斜线
                     StartCoroutine(FlyPath5());
                     break;
+                case 6://上下圆环
+                    StartCoroutine(FlyPath6());
+                    break;
+                //case 7://对角圆环
+                //    StartCoroutine(FlyPath7());
+                //    break;
             }
         }
     }
@@ -175,7 +182,7 @@ public class Missiles : RoomElement {
     IEnumerator FlyPath3()
     {
         float speed = flySpeed / 100;
-        float ySpeed = 0.1f;
+        float ySpeed = 0.2f;
         float high = 4f;
         int arrive = 0;
         float xDistance;
@@ -324,7 +331,40 @@ public class Missiles : RoomElement {
             yield return null;
         }
     }
+    //发射物飞行路径6, 上下圆环
+    IEnumerator FlyPath6()
+    {
+        int loop = 30;
+        float theta = 0;
+        float t = 0.1f;
+        float r = flyDistance / 10;
+        Vector3 startPosition; 
+        while (true)
+        {
+            if (theta<2*3.14*loop)
+            {
+                startPosition = Player.Instance.transform.position;
+                this.transform.position = new Vector3(startPosition.x + 2*r*Mathf.Sin(theta),
+                        startPosition.y + r * Mathf.Cos(theta),
+                        startPosition.y + r * Mathf.Cos(theta));
+                theta += t;
+                //Debug.Log("theta:" + theta + "     sin:" + Mathf.Sin(theta) + "     cos" + Mathf.Cos(theta));
+            }
+            else
+            {
+                this.Destroy();
+                break;
+            }
+            yield return null;
+        }
+    }
 
+    //发射物飞行路径7
+    //IEnumerator FlyPath7()
+    //{
+       
+    //   yield return null;
+    //}
 
     //碰撞检测
     private void OnTriggerEnter(Collider other)
