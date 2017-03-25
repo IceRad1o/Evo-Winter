@@ -3,46 +3,53 @@ using System.Collections;
 
 public class BeatDown : MonoBehaviour {
 
+
     public int level;
-    public float flySpeed = 0.1f;
+    public float flySpeedX = 0.15f;
+    public float flySpeedY = 2f;
+    public float g = 1.2f;
+
     public int direction;
 
-    /// <summary>
-    /// 初始值根据level发生变化
-    /// </summary>
-    public float flyDistance;
+
 
     void Start()
     {
         if (level <= 0)
             return;
-        flyDistance = (2 * level - 1) * 0.1f;
-        if (direction != 1 || direction != -1)
+        flySpeedX = level * 0.1f;
+        //flySpeedX = level * 0.1f;
+        if (direction != 1 && direction != -1)
         {
-            Debug.LogError("the direction is not correct!");
+            Debug.LogError("the direction is not correct!"+direction);
             return;
         }
         StartCoroutine(Fly());
     }
-
-    //发射物飞行路径1, 直线
     IEnumerator Fly()
     {
+   
+
+        //时间
+        float t = 0;
+        float posY = this.transform.position.y;
+        Debug.Log("enter");
         while (true)
         {
-            if (flyDistance > 0)
+            if (flySpeedY > 0.5f * g * t || t == 0)
             {
-                this.transform.position = new Vector3(this.transform.position.x + direction * flySpeed,
-                      this.transform.position.y,
-                      this.transform.position.z);
-                flyDistance -= flySpeed;
+          
+                this.transform.position = new Vector3(this.transform.position.x + direction * flySpeedX,
+                  posY + flySpeedY * t - 0.5f * g * t * t,
+                   this.transform.position.z);
+                t += 0.1f;
+          
             }
             else
             {
                 Destroy(this);
                 break;
             }
-
             yield return null;
         }
     }

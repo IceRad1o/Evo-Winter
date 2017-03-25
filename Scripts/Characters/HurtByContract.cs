@@ -5,18 +5,20 @@ using System.Collections;
 /// </summary>
 public class HurtByContract : MonoBehaviour
 {
-
+    /// <summary>
+    /// 被伤害的对象
+    /// </summary>
     public string[] destTags;
     /// <summary>
-    /// 伤害:0-999
+    /// 伤害:>=0
     /// </summary>
     public int damage = 1;
     /// <summary>
-    /// 击退效果等级:0-3
+    /// 击退效果等级:>=0
     /// </summary>
     public int beatBackLevel = 0;
     /// <summary>
-    /// 击倒效果等级:0-3
+    /// 击倒效果等级:>=0
     /// </summary>
     public int beatDownLevel = 0;
     /// <summary>
@@ -48,11 +50,17 @@ public class HurtByContract : MonoBehaviour
                 ch.Health -= damage;
                 if (beatBackLevel > 0)
                 {
-
+              
+                    BeatBack b=ch.gameObject.AddComponent<BeatBack>();
+                    b.level = beatBackLevel;
+                    b.direction = ch.transform.position.x >= this.transform.position.x ? 1 : -1;
                 }
                 if (beatDownLevel > 0)
                 {
-
+                    
+                    BeatDown b = ch.gameObject.AddComponent<BeatDown>();
+                    b.level = beatDownLevel;
+                    b.direction = ch.transform.position.x >= this.transform.position.x ? 1 : -1;
                 }
                 if(hitPrefab!=null)
                 {
