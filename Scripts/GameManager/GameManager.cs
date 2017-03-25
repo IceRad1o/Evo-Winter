@@ -11,8 +11,6 @@ public class GameManager : ExUnitySingleton<GameManager>{
     private int loadOrNew;
     private bool doingSetup;
 
-
-
 	// Use this for initialization
 	void Start () {
         Player.Instance.Character.AddObserver(this);
@@ -46,7 +44,9 @@ public class GameManager : ExUnitySingleton<GameManager>{
             //ProfileManager.Instance.Data.CurMapX;
             CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsMapPassed);
 
-            RoomManager.Instance.LoadScene(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
+            RoomManager.Instance.LoadScene(
+                ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns)+ProfileManager.Instance.Data.CurMapY * (CheckpointManager.Instance.rows)],
+                ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
                 CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).doorDirection,
                 ProfileManager.Instance.Data.RoomElementRoomX,
                 ProfileManager.Instance.Data.RoomElementRoomY,
