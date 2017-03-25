@@ -93,5 +93,13 @@ public class KeyBoardManager : MonoBehaviour {
             Player.Instance.Character.State = 1;
             Player.Instance.Character.Direction = direction;
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
+                EnemyManager.Instance.EnemyList[i].Health = 0;
+        }
+
+
 	}
 }
