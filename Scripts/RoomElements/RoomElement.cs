@@ -10,8 +10,17 @@ public class RoomElement : ExSubject {
         get { return roomElementID; }
         set { roomElementID = value; }
     }
-	// Use this for initialization
+
+    int health;
+
+    public  int Health
+    {
+        get { return health; }
+        set { health = value; }
+    }
+
 	public virtual void Awake () {
+        health = 1;
         RoomElementManager.Instance.RoomElementList.Add(this);
 	}
 	

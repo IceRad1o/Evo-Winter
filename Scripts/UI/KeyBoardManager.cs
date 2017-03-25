@@ -37,7 +37,6 @@ public class KeyBoardManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.A))
         {
             direction= new Vector3(-1, 0, 0);
-           
             keyDownNum++;
         }
         if (Input.GetKeyDown(KeyCode.D))
@@ -90,6 +89,7 @@ public class KeyBoardManager : MonoBehaviour {
            Player.Instance.Character.State = 0;
         else
         {
+           // Debug.Log("122:");
             Player.Instance.Character.State = 1;
             Player.Instance.Character.Direction = direction;
         }

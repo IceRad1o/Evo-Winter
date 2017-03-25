@@ -4,3 +4,10 @@ prefab通过Load方式加载，要将对应的文件夹拖到resources下
 
 3.22 hahaha
 道具掉落位置
+
+3.23 YYF
+IsFinite (m_CachedRange.first) && IsFinite (m_CachedRange.second) 动画有错误信息
+
+3.25 YYF
+1.击飞依然会动
+2.移动中无法发射飞行物,等停止移动才会发,使用强制优先级
