@@ -22,7 +22,7 @@ public class Door : RoomElement
     //碰撞检测
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("DoorOnTiger" + other.tag + "    敌人数量：" + EnemyManager.Instance.EnemyList.Count);
+        //Debug.Log("DoorOnTiger" + other.tag + "    敌人数量：" + EnemyManager.Instance.EnemyList.Count);
         if (other.tag == "Player"&&EnemyManager.Instance.EnemyList.Count==0)
         {
             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);
