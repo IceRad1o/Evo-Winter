@@ -18,6 +18,13 @@ public class Attacklethal : BuffAttack
     {
         base.Create(ID);
         Probability = 100;
+
+        //添加特效
+        GameObject pfb = Resources.Load("Buffs/Attack/Attacklethal") as GameObject;
+        Vector3 s = new Vector3(this.gameObject.GetComponent<CharacterSkin>().Weapon.transform.position.x, this.gameObject.GetComponent<CharacterSkin>().Weapon.transform.position.y, -1);
+        prefabInstance = Instantiate(pfb);
+        prefabInstance.transform.position = s;
+        prefabInstance.transform.parent = this.gameObject.GetComponent<CharacterSkin>().Weapon.transform;
     }
 
     // Use this for initialization
