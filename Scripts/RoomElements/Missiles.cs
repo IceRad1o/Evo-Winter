@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Missiles : RoomElement {
+public class Missiles : MonoBehaviour {
 
     //飞行距离
     private float flyDistance;
@@ -19,12 +19,12 @@ public class Missiles : RoomElement {
     private Vector3 startPosition;
 
 
-    public override void Awake()
-    {
-        Debug.Log("Awake");
-        base.Awake();
-        RoomElementID = 0;
-    }
+    //public override void Awake()
+    //{
+    //    Debug.Log("Awake");
+    //    base.Awake();
+    //    RoomElementID = 0;
+    //}
 
     /// <summary>
     /// 构造函数
@@ -101,7 +101,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -116,7 +116,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -153,7 +153,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -170,7 +170,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -216,7 +216,7 @@ public class Missiles : RoomElement {
             //结束
             else
             {
-                this.Destroy();
+                Destroy(this.gameObject);
                 break;
             }    
 
@@ -260,7 +260,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -284,7 +284,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -309,7 +309,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -324,7 +324,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -338,7 +338,8 @@ public class Missiles : RoomElement {
         float theta = 0;
         float t = 0.1f;
         float r = flyDistance / 10;
-        Vector3 startPosition; 
+        Vector3 startPosition;
+        penetrating = 1;
         while (true)
         {
             if (theta<2*3.14*loop)
@@ -352,7 +353,8 @@ public class Missiles : RoomElement {
             }
             else
             {
-                this.Destroy();
+                Destroy(this.gameObject);
+                penetrating = 0;
                 break;
             }
             yield return null;
@@ -377,7 +379,7 @@ public class Missiles : RoomElement {
             {
                 //animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
-                Destroy();
+                Destroy(this.gameObject);
             }
         }
         if (other.tag == "Box")
@@ -387,13 +389,13 @@ public class Missiles : RoomElement {
             {
                 //animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
-                Destroy();
+                Destroy(this.gameObject);
             }
         }
         if (other.tag == "Wall")
         {
             StartCoroutine(Wait(0.2f));
-            Destroy();
+            Destroy(this.gameObject);
         }
     }
 
