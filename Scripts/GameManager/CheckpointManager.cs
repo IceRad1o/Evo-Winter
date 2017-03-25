@@ -119,9 +119,23 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 }
             }
         }
-        Notify("MapComplete");
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++)
+                if (GetNearRoom(i, j) >= 8) roomArray[i , j] = 0;
+            Notify("MapComplete");
     }
-
+    //检索roomArray[x,y]邻近房间
+    int GetNearRoom(int x, int y)
+    {
+        int count = 0;
+        for (int i = -1; i < 2; i++)
+            for (int j = -1; j < 2; j++)
+                if (x + i >= 0 && y + j >= 0 && x + i < rows && y + j < columns)
+                {
+                    if (roomArray[x + i, y + j] == 1) count++;
+                }
+        return count;
+    }
 
 
     //检索roomArray[x,y]周围房间

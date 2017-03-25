@@ -4,7 +4,12 @@ using System.Collections;
 public class RoomElement : ExSubject {
 
     int roomElementID;
-
+    /*
+     * 
+     * 
+     * 
+     * 
+     * */
     public int RoomElementID
     {
         get { return roomElementID; }
