@@ -505,8 +505,18 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
                             break;
                         case 12:
+                            //Debug.Log("骨头");
                             //Gone Ground
                             objectChoice = groundElements[7];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                            roomElement.transform.localPosition = position;
+                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+                            break;
+                        case 13:
+                            //Debug.Log("选中杆子");
+                            //Rod Ground
+                            objectChoice = groundElements[8];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
                             roomElement.transform.localPosition = position;
