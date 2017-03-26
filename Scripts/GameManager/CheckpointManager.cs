@@ -122,7 +122,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
                 if (GetNearRoom(i, j) >= 8) roomArray[i , j] = 0;
-            Notify("MapComplete");
+        Notify("MapComplete");
     }
     //检索roomArray[x,y]邻近房间
     int GetNearRoom(int x, int y)
@@ -132,7 +132,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
             for (int j = -1; j < 2; j++)
                 if (x + i >= 0 && y + j >= 0 && x + i < rows && y + j < columns)
                 {
-                    if (roomArray[x + i, y + j] == 1) count++;
+                    if (roomArray[x + i, y + j] >= 1) count++;
                 }
         return count;
     }
@@ -147,7 +147,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         //检查右侧
         if (y+1<columns)
         {
-            if (roomArray[x, y + 1] == 1)
+            if (roomArray[x, y + 1] >= 1)
             {
                 surroundRoom[3] = 1;
                 count++;
@@ -156,7 +156,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         //检查左侧
         if (y - 1 >= 0)
         {
-            if (roomArray[x, y - 1] == 1)
+            if (roomArray[x, y - 1] >= 1)
             {
                 surroundRoom[2] = 1;
                 count++;
@@ -165,7 +165,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         //检查上侧
         if (x - 1 >= 0)
         {
-            if (roomArray[x - 1, y] == 1)
+            if (roomArray[x - 1, y] >= 1)
             {
                 surroundRoom[0] = 1;
                 count++;
@@ -174,7 +174,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         //检查下侧
         if (x + 1 < rows)
         {
-            if (roomArray[x + 1, y] == 1)
+            if (roomArray[x + 1, y] >= 1)
             {
                 surroundRoom[1] = 1;
                 count++;
@@ -207,9 +207,10 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 if (roomArray[i,j]>0)
                 {
                     int surroundRoomNumber = GetSurroundRoom(i, j);
-                    int type = Random.Range(0, 3);
+                    int type = Random.Range(1, 6);
                     roomList.Add(new Room(type, i, j, surroundRoom, 0));
                     k++;
+                    roomArray[i, j] = type;
                 }
             }
         }
