@@ -224,10 +224,22 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         {
             GameObject objectChoice;
             Vector3 randomPosition = RandomPosition(3);
-            if(roomType<4)
+            if (roomType < 4)
+            {
                 objectChoice = objectArray[Random.Range(0, objectArray.Length)];
+            }
+
             else//宝箱房
+            {
                 objectChoice = objectArray[0];
+                if (Mathf.Abs(randomPosition.x) < columns / 2)
+                {
+                    randomPosition = new Vector3(
+                        -1*columns +  Random.Range(1f,2f)*columns/4,
+                        randomPosition.y,
+                        randomPosition.z);
+                }
+            }
             GameObject roomElement = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
             //房间物件存入列表
@@ -487,6 +499,14 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             //Debug.Log("选中瓶子二");
                             //Bottle2 Ground
                             objectChoice = groundElements[6];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                            roomElement.transform.localPosition = position;
+                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+                            break;
+                        case 12:
+                            //Gone Ground
+                            objectChoice = groundElements[7];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
                             roomElement.transform.localPosition = position;

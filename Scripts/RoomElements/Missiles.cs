@@ -62,7 +62,7 @@ public class Missiles : MonoBehaviour {
             switch (flyPath)
             {
                 case 1://直线
-                    StartCoroutine(FlyPath6());
+                    StartCoroutine(FlyPath1());
                     break;
                 case 2://斜向上抛物线
                     StartCoroutine(FlyPath2());
