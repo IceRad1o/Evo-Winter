@@ -18,6 +18,7 @@ public class RoomElement : ExSubject {
      * 10:瓶子一Bottle1
      * 11:瓶子二Bottle2
      * 12:骨头Gone
+     * 13:杆Rod
      * */
     public int RoomElementID
     {
