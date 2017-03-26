@@ -667,7 +667,7 @@ public class Character : RoomElement
     /// <summary>
     /// 发送生成发射物的通知
     /// </summary>
-    public void NotifyMissile()
+    public void NotifyMissile(int type=0)
     {
         Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1+";"+AttackRange);
     }
