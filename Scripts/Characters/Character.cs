@@ -716,6 +716,55 @@ public class Character : RoomElement
     }
 
 
+    public void changeCurrentMachine(int race,int weapon)
+    {
+        int machineID = race * 10 + weapon;
+        switch(machineID)
+        {
+            case 0:
+                actionStateMachine = new GnomeWarriorMachine();
+                actionStateMachine.Character = this;
+                break;
+            case 1:
+                actionStateMachine = new GnomeWarriorMachine();
+                actionStateMachine.Character = this;
+                break;
+            case 2:
+                break;
+            case 3:
+                actionStateMachine = new GnomeMagicianMachine();
+                actionStateMachine.Character = this;
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+            case 20:
+                break;
+            case 21:
+                break;
+            case 22:
+                break;
+            case 23:
+                break;
+            
+            case 30:
+                break;
+            case 31:
+                break;
+            case 32:
+                break;
+            case 33:
+                break;
+ 
+        }
+
+
+    }
 
 
 
