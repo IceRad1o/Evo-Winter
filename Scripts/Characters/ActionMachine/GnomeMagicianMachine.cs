@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GnomeMagicianMachine : MonoBehaviour {
+public class GnomeMagicianMachine : ActionStateMachine
+{
 
 	// Use this for initialization
 	void Start () {
