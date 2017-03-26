@@ -55,7 +55,7 @@ public class CharacterSkin : MonoBehaviour
 
     //武器型
     GameObject weapon;
-
+    GameObject weaponPoint;
     //Sprite
    public Sprite[] leftEarSprite;
    public Sprite[] rightEarSprite;
@@ -142,6 +142,7 @@ public class CharacterSkin : MonoBehaviour
         rightHand = rightHandNode.transform.Find("RightHand").gameObject;
         weaponNode = rightHand.transform.Find("WeaponNode").gameObject;
         weapon = weaponNode.transform.Find("Weapon").gameObject;
+        //weaponPoint = weapon.transform.Find("WeaponPoint").gameObject;
         leftLeg = leftLegNode.transform.Find("LeftLeg").gameObject;
         rightLeg = rightLegNode.transform.Find("RightLeg").gameObject;
         leftShoe = leftLeg.transform.Find("LeftShoe").gameObject;
