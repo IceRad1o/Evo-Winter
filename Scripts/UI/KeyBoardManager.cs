@@ -8,7 +8,7 @@ public class KeyBoardManager : MonoBehaviour {
 
     int keyDownNum;
     Vector3 direction;
-
+    public GameObject DamageSrc;
     void Start()
     {
         keyDownNum = 0;
@@ -97,9 +97,15 @@ public class KeyBoardManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.P))
         {
             for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
-                EnemyManager.Instance.EnemyList[i].Health = 0;
+            {
+                Instantiate(DamageSrc, EnemyManager.Instance.EnemyList[i].transform.position, Quaternion.identity);
+                //EnemyManager.Instance.EnemyList[i].Health = 0;
+            }
         }
-
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Player.Instance.Character.Health = 10;
+        }
 
 	}
 }

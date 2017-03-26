@@ -31,7 +31,6 @@ public class HurtByContract : MonoBehaviour
     public GameObject hitPrefab;
 
 
-
     /// <summary>
     /// 3D碰撞检测,对于不同物体有
     /// </summary>

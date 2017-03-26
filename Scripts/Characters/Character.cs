@@ -676,8 +676,6 @@ public class Character : RoomElement
         //Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + type+";"+AttackRange);
        // Notify("GenerateMissile;" + CharacterManager.Instance.CharacterList.IndexOf(this) + ";" + type );
         GameObject missileInstance = Instantiate(missiles[0],transform.position, Quaternion.identity) as GameObject;
-
-        //Debug.Log("Missile飞行路径:" +  flyPath);
         missileInstance.GetComponent<Missiles>().InitMissiles(7.5f, 5f, 0, faceDirection, 1, type);
         missileInstance.GetComponent<Missiles>().Fly();
     }
