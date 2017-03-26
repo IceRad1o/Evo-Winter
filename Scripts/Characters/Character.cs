@@ -11,6 +11,10 @@ public class Character : RoomElement
     public AudioClip dyingSound;
     public AudioClip damagingSound;
 
+    //发射物
+    public GameObject[] missiles;
+
+
     //引用对象
     Animator anim;
     GameObject weaponObj;
