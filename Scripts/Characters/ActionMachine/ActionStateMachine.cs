@@ -4,7 +4,8 @@ using System.Collections;
 public class ActionStateMachine {
 
     int machineID;
-
+    int race;
+    int weapon;
     public int MachineID
     {
         get { return machineID; }
@@ -35,7 +36,7 @@ public class ActionStateMachine {
         set { character = value; }
     }
 
-    public ActionStateMachine()
+    public ActionStateMachine(int race=0,int weapon=0)
     {
        
         state = 0;
@@ -43,8 +44,9 @@ public class ActionStateMachine {
         intervalTime = 0.5f;
 
     }
-    public void CheckActionState(){
-
+    public void ChangeActionState(int race,int weapon){
+        this.race = race;
+        this.weapon = weapon;
     }
     public void CallActionState(){
         //Debug.Log("state:"+state);
@@ -138,7 +140,10 @@ public class ActionStateMachine {
 
     public virtual void J()
     {
-        character.GetComponent<Animator>().SetTrigger("AttackJ");
+        if(race==0&&weapon==0)
+            character.GetComponent<Animator>().SetTrigger("AttackJ");
+        else
+            character.GetComponent<Animator>().SetTrigger("AttackJ"+race+weapon);
        
 
 
@@ -156,7 +161,10 @@ public class ActionStateMachine {
     }
     public virtual void JJ()
     {
-        character.GetComponent<Animator>().SetTrigger("AttackJJ");
+        if (race == 0 && weapon == 0)
+            character.GetComponent<Animator>().SetTrigger("AttackJJ");
+        else
+            character.GetComponent<Animator>().SetTrigger("AttackJJ" + race + weapon);
   
     }
 
@@ -178,7 +186,10 @@ public class ActionStateMachine {
 
     public virtual void JJJ()
     {
-        character.GetComponent<Animator>().SetTrigger("AttackJJJ");
+        if (race == 0 && weapon == 0)
+            character.GetComponent<Animator>().SetTrigger("AttackJJJ");
+        else
+            character.GetComponent<Animator>().SetTrigger("AttackJJJ" + race + weapon);
         //state = 0;
     }
 
