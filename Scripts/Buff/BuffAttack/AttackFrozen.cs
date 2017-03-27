@@ -24,6 +24,8 @@ public class AttackFrozen : BuffAttack {
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
         prefabInstance.transform.parent = this.gameObject.GetComponent<CharacterSkin>().Weapon.transform;
+        prefabInstance.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+
     }
 
     // Use this for initialization

@@ -8,6 +8,13 @@ public class Buff : ExSubject
     protected GameObject prefabInstance;
     public GameObject effectPrefeb;
 
+    private string specialTag;
+    public string SpecialTag
+    {
+        get { return specialTag; }
+        set { specialTag = value; }
+    }
+
     protected string buffTag;
     private int buffID;
     public int BuffID

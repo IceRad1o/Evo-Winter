@@ -11,13 +11,15 @@ public class BuffAllDamage : BuffAura
         if (list.Length == 0) return;
         foreach (Character t in list)
        {
+           Debug.Log("fffffffffff");
            //表示这些buff只有enemy有效
            t.GetComponent<BuffManager>().CreateDifferenceBuff(AddBuffID*10+1);
        }
     }
 
-    public override void Create(int ID)
+    public override void Create(int ID, string spTag = "")
     {
+        Debug.Log("ffffffffffd");
         int[] part = {2, 8};
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
         AddBuffID = idPart[1];
@@ -34,7 +36,7 @@ public class BuffAllDamage : BuffAura
 
     public override void OnNotify(string msg)
     {
-        if (UtilManager.Instance.GetFieldFormMsg(msg, 0) == "Enter Room")
+        if (UtilManager.Instance.GetFieldFormMsg(msg, 0) == "EnterRoom")
         {
             Trigger();        
         }

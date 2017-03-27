@@ -39,7 +39,7 @@ public class BuffTiming : Buff {
     /// </summary>
     /// <param name="ID"></param>
     /// <param name="ob"></param>
-    public void CreateBuff(int ID, GameObject ob)
+    public void CreateBuff(int ID, GameObject ob, string spTag = "")
     {
         int[] part = { 2, 2};
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
@@ -47,11 +47,11 @@ public class BuffTiming : Buff {
         {
             case 1:
                 BuffChangeAttributeTemp newBuff1 = ob.AddComponent<BuffChangeAttributeTemp>();
-                newBuff1.Create(ID);
+                newBuff1.Create(ID,spTag);
                 break;
             case 2:
                 BuffChangeAttributeTemp newBuff2 = ob.AddComponent<BuffChangeAttributeTemp>();
-                newBuff2.Create(ID);
+                newBuff2.Create(ID, spTag);
                 break;
             case 0:
                 BuffInvincible newBuff3 = ob.AddComponent<BuffInvincible>();
@@ -78,7 +78,8 @@ public class BuffTiming : Buff {
 
 
 
-    public virtual void Create(int ID)  {
+    public virtual void Create(int ID, string spTag = "")
+    {
 
         
     }

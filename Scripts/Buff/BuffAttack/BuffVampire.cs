@@ -28,27 +28,20 @@ public class BuffVampire : BuffAttack
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
         prefabInstance.transform.parent = this.gameObject.GetComponent<CharacterSkin>().Weapon.transform;
+        prefabInstance.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+
     } 
 
 
     public override void OnNotify(string msg)
     {
-        if (UtilManager.Instance.MatchFiledFormMsg("Attck", msg, 0) != "Fail")
-            Trigger();
-        //test
-        //if (msg == "AttackHit")
-        if (msg == "AttackStart")
+
+        string bID = UtilManager.Instance.MatchFiledFormMsg("AttackHit", msg, 0);
+
+        if (bID == "Enemy") 
         {
-            Debug.Log("Get msg");
-            Trigger();
-        }
-        //need 房间结束消息
-        if (UtilManager.Instance.MatchFiledFormMsg("。。。。", msg, 0) != "Fail")
-        {
-            buffDuration--;
-            if (buffDuration <= 0 && effectDuration == 0)
-                DestroyBuff();
-        }
+            Trigger();       
+        }        
     }
 	
 }

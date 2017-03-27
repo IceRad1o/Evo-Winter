@@ -14,12 +14,29 @@ public class SkillManager : ExSubject
     public void CreateSkill(int ID) {
         if (ID == 1)
         {
-            Debug.Log("ggggggggg");
             Meteorite newSkill = this.gameObject.AddComponent<Meteorite>();
             newSkill.Create(ID);
-            skillList.Add(newSkill);        
+            skillList.Add(newSkill);
+            return;
         }
-        
+        if (ID >= 2 && ID <= 5)
+        {
+            new Elemix().CreateSkill(ID,this.gameObject);        
+        }
+        if (ID == 6)
+        {
+            WholeDamage newSkill = this.gameObject.AddComponent<WholeDamage>();
+            return;
+        }
+        if (ID == 7)
+        {
+            NamikazeMinato newSkill;
+            if (this.gameObject.GetComponent<NamikazeMinato>()==null)
+                newSkill = this.gameObject.AddComponent<NamikazeMinato>();
+            else
+                this.gameObject.GetComponent<NamikazeMinato>().Trigger();
+            return;
+        }
     }
 
     public void UseSkill_L() { 
@@ -33,8 +50,8 @@ public class SkillManager : ExSubject
         string bID = "";
 
 
-        bID = UtilManager.Instance.MatchFiledFormMsg("UseItem_Skill_ID", msg, 1);
-        if (bID != "Error")
+        bID = UtilManager.Instance.MatchFiledFormMsg("UseItem_Skill_ID", msg, 0);
+        if (bID != "Fail" && bID!="Error")
             CreateSkill(int.Parse(bID));
 
     }
@@ -44,6 +61,7 @@ public class SkillManager : ExSubject
     /// </summary>
     void Start()
     {
+        ItemManager.Instance.AddObserver(this);
         if (this.gameObject.tag=="Player") 
         {
             switch (this.gameObject.GetComponent<Character>().Race)
@@ -60,4 +78,5 @@ public class SkillManager : ExSubject
         }
 	
     }
+
 }

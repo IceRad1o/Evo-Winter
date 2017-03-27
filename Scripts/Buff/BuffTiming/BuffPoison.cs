@@ -12,7 +12,7 @@ public class BuffPoison : BuffTiming
     /// (B) 持续时间，（C）循环类型 (D)为时间
     /// </summary>
     /// <param name="ID"></param>
-    public override void Create(int ID)
+    public override void Create(int ID, string spTag = "")
     {
         int[] part = { 2, 2, 3 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
@@ -31,6 +31,8 @@ public class BuffPoison : BuffTiming
 
     public override void DestroyBuff()
     {
+        this.gameObject.GetComponent<Character>().RemoveObserver(this);
+        Debug.Log("Destroy");
         Destroy(prefabInstance);
         base.DestroyBuff();
     }
@@ -46,12 +48,14 @@ public class BuffPoison : BuffTiming
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
         prefabInstance.transform.parent = this.gameObject.transform;
+        prefabInstance.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public override void OnNotify(string msg)
     {
         if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "AttackStart") 
         {
+            Debug.Log("Trigger");
             Trigger();
         }
     }

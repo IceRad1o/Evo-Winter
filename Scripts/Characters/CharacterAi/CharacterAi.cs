@@ -18,7 +18,7 @@ public class CharacterAi : MonoBehaviour {
         
         if (character.Controllable != 0)
         {
-            Debug.Log("321");
+            //Debug.Log("321");
 
 
 
