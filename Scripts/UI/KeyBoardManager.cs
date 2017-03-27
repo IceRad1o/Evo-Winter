@@ -8,7 +8,7 @@ public class KeyBoardManager : MonoBehaviour {
 
     int keyDownNum;
     Vector3 direction;
-
+    public GameObject DamageSrc;
     void Start()
     {
         keyDownNum = 0;
@@ -37,7 +37,6 @@ public class KeyBoardManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.A))
         {
             direction= new Vector3(-1, 0, 0);
-           
             keyDownNum++;
         }
         if (Input.GetKeyDown(KeyCode.D))
@@ -90,8 +89,23 @@ public class KeyBoardManager : MonoBehaviour {
            Player.Instance.Character.State = 0;
         else
         {
+           // Debug.Log("122:");
             Player.Instance.Character.State = 1;
             Player.Instance.Character.Direction = direction;
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
+            {
+                Instantiate(DamageSrc, EnemyManager.Instance.EnemyList[i].transform.position, Quaternion.identity);
+                //EnemyManager.Instance.EnemyList[i].Health = 0;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Player.Instance.Character.Health = 10;
+        }
+
 	}
 }

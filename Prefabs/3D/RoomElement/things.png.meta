@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: cfdd9256fdb6bb24094d60ff544b6db3
-timeCreated: 1490187947
+timeCreated: 1490423492
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -23,6 +23,7 @@ TextureImporter:
     21300032: things_16
     21300034: things_17
     21300036: things_18
+    21300038: things_19
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -210,7 +211,7 @@ TextureImporter:
         width: 178
         height: 119
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -283,10 +284,10 @@ TextureImporter:
       name: things_16
       rect:
         serializedVersion: 2
-        x: 239
-        y: 72
-        width: 216
-        height: 145
+        x: 228
+        y: 127
+        width: 252
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -296,10 +297,10 @@ TextureImporter:
       name: things_17
       rect:
         serializedVersion: 2
-        x: 465
-        y: 56
-        width: 185
-        height: 120
+        x: 459
+        y: 96
+        width: 211
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,6 +314,19 @@ TextureImporter:
         y: 56
         width: 124
         height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: things_19
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 72
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

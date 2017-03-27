@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Missiles : RoomElement {
+public class Missiles : MonoBehaviour {
 
     //飞行距离
     private float flyDistance;
@@ -18,12 +18,13 @@ public class Missiles : RoomElement {
     //初始位置
     private Vector3 startPosition;
 
-    public override void Awake()
-    {
-        Debug.Log("Awake");
-        base.Awake();
-        RoomElementID = 0;
-    }
+
+    //public override void Awake()
+    //{
+    //    Debug.Log("Awake");
+    //    base.Awake();
+    //    RoomElementID = 0;
+    //}
 
     /// <summary>
     /// 构造函数
@@ -75,6 +76,12 @@ public class Missiles : RoomElement {
                 case 5://Z轴斜线
                     StartCoroutine(FlyPath5());
                     break;
+                case 6://上下圆环
+                    StartCoroutine(FlyPath6());
+                    break;
+                //case 7://对角圆环
+                //    StartCoroutine(FlyPath7());
+                //    break;
             }
         }
     }
@@ -94,7 +101,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -109,7 +116,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -146,7 +153,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -163,7 +170,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -175,7 +182,7 @@ public class Missiles : RoomElement {
     IEnumerator FlyPath3()
     {
         float speed = flySpeed / 100;
-        float ySpeed = 0.1f;
+        float ySpeed = 0.2f;
         float high = 4f;
         int arrive = 0;
         float xDistance;
@@ -209,7 +216,7 @@ public class Missiles : RoomElement {
             //结束
             else
             {
-                this.Destroy();
+                Destroy(this.gameObject);
                 break;
             }    
 
@@ -253,7 +260,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -277,7 +284,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -302,7 +309,7 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
@@ -317,14 +324,49 @@ public class Missiles : RoomElement {
                 }
                 else
                 {
-                    this.Destroy();
+                    Destroy(this.gameObject);
                     break;
                 }
             }
             yield return null;
         }
     }
+    //发射物飞行路径6, 上下圆环
+    IEnumerator FlyPath6()
+    {
+        int loop = 30;
+        float theta = 0;
+        float t = 0.1f;
+        float r = flyDistance / 10;
+        Vector3 startPosition;
+        penetrating = 1;
+        while (true)
+        {
+            if (theta<2*3.14*loop)
+            {
+                startPosition = Player.Instance.transform.position;
+                this.transform.position = new Vector3(startPosition.x + 2*r*Mathf.Sin(theta),
+                        startPosition.y + r * Mathf.Cos(theta),
+                        startPosition.y + r * Mathf.Cos(theta));
+                theta += t;
+                //Debug.Log("theta:" + theta + "     sin:" + Mathf.Sin(theta) + "     cos" + Mathf.Cos(theta));
+            }
+            else
+            {
+                Destroy(this.gameObject);
+                penetrating = 0;
+                break;
+            }
+            yield return null;
+        }
+    }
 
+    //发射物飞行路径7
+    //IEnumerator FlyPath7()
+    //{
+       
+    //   yield return null;
+    //}
 
     //碰撞检测
     private void OnTriggerEnter(Collider other)
@@ -332,12 +374,12 @@ public class Missiles : RoomElement {
         //Debug.Log("Missile碰撞标签：" + other.tag);
         if (other.tag == "Enemy")
         {
-            other.GetComponent<Enemy>().Health-=damage;
+            //other.GetComponent<Enemy>().Health-=damage;
             if (penetrating==0)
             {
                 //animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
-                Destroy();
+                Destroy(this.gameObject);
             }
         }
         if (other.tag == "Box")
@@ -347,13 +389,13 @@ public class Missiles : RoomElement {
             {
                 //animator.SetTrigger("MissileBomb");
                 StartCoroutine(Wait(0.2f));
-                Destroy();
+                Destroy(this.gameObject);
             }
         }
         if (other.tag == "Wall")
         {
             StartCoroutine(Wait(0.2f));
-            Destroy();
+            Destroy(this.gameObject);
         }
     }
 

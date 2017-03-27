@@ -11,6 +11,11 @@ public class Character : RoomElement
     public AudioClip dyingSound;
     public AudioClip damagingSound;
 
+    //发射物
+    public GameObject[] missiles;
+
+
+    //引用对象
     Animator anim;
     GameObject weaponObj;
     public Animator Anim
@@ -46,8 +51,9 @@ public class Character : RoomElement
 
     //扩展属性
     int invincible;
-    int faceDirection;
-
+    int faceDirection;//面朝向
+    private int isAlive;//<0 死透 =0 正在死 >0 活着
+    private int deadTime;
     public int FaceDirection
     {
         get { return faceDirection; }
@@ -55,8 +61,10 @@ public class Character : RoomElement
     }
     //附加属性
     private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
-
-
+    private int race;   //种族
+    private int weapon; //武器类型
+    private int sight;  //视野 影响可见范围,若玩家处于怪物的视野外则不会遭受攻击
+    private int camp;   //阵营 0=友方 1=敌方
     //init属性
     public int initialHealth;
     public int initialMoveSpeed;
@@ -66,9 +74,9 @@ public class Character : RoomElement
     public int initialHitRecover;
     public int initialLuck;
 
-
-   
-
+    private ActionStateMachine actionStateMachine;
+    private int canMove;    //能否移动
+    private int state;// 0=静止 1=移动
     public int Invincible
     {
         get { return invincible; }
@@ -100,7 +108,7 @@ public class Character : RoomElement
         }
     }
 
-    public int Health
+    public  int Health
     {
         get { return healthTmp; }
         set
@@ -309,15 +317,15 @@ public class Character : RoomElement
             if (value <= 0)
                 LuckIn = 0;
             else if (value == 1)
-                LuckIn = 0.05f;
+                LuckIn = 0.10f;
             else if (value == 2)
-                LuckIn = 0.09f;
-            else if (value == 3)
-                LuckIn = 0.13f;
-            else if (value == 4)
-                LuckIn = 0.17f;
-            else if (value >= 5)
                 LuckIn = 0.20f;
+            else if (value == 3)
+                LuckIn = 0.30f;
+            else if (value == 4)
+                LuckIn = 0.40f;
+            else if (value >= 5)
+                LuckIn = 0.50f;
             Notify("LuckChanged;"+tmp+";"+luckTmp);
         }
     }
@@ -345,7 +353,7 @@ public class Character : RoomElement
         }
     }
 
-    private int race;   //种族
+
 
     public int Race
     {
@@ -357,7 +365,7 @@ public class Character : RoomElement
             Notify("RaceChanged"+tmp+";"+race);
         }
     }
-    private int weapon; //武器类型
+ 
 
     public int Weapon
     {
@@ -370,7 +378,7 @@ public class Character : RoomElement
         }
     }
 
-    private int sight;  //视野 影响可见范围,若玩家处于怪物的视野外则不会遭受攻击
+
 
     public int Sight
     {
@@ -382,14 +390,8 @@ public class Character : RoomElement
         }
     }
 
-   
 
 
-    //NEED private SkillManager skillManager;
-    //NEED private BuffManager buffManager;
-
-    private int isAlive;//<0 死透 =0 正在死 >0 活着
-    private int deadTime;
     public int IsAlive
     {
         get { return isAlive; }
@@ -406,7 +408,7 @@ public class Character : RoomElement
 
         }
     }
-    private int camp;   //阵营 0=友方 1=敌方
+
 
     public int Camp
     {
@@ -419,7 +421,7 @@ public class Character : RoomElement
         }
     }
 
-    private ActionStateMachine actionStateMachine;
+
 
     public ActionStateMachine ActionStateMachine
     {
@@ -427,7 +429,7 @@ public class Character : RoomElement
         set { actionStateMachine = value; }
     }
 
-    private int canMove;    //能否移动
+
 
     //PROBLEM 值不停的在改变
     public int CanMove
@@ -441,7 +443,7 @@ public class Character : RoomElement
     }
 
 
-    private int state;// 0=静止 1=移动
+
 
     public int State
     {
@@ -587,23 +589,29 @@ public class Character : RoomElement
 
    public virtual void Start()
     {
-      
-        state = 0;
-        IsAlive = 1;
-        canMove = 1;
-        invincible = 0;
-        weapon = 0;
-        deadTime =50;
-        controllable = 1;
+        //初始化
+        state = 0;//静止
+        IsAlive = 1;//活着
+        canMove = 1;//可以移动
+        controllable = 1;//可以被控制
+        invincible = 0;//不无敌
+        weapon = 0;//默认近战武器
+        deadTime =50;//死亡延迟时间
+
+        weaponObj = this.GetComponent<Transform>().Find("BodyNode").Find("Body").Find("RightArmNode").Find("RightArm").Find("RightHandNode").Find("RightHand").Find("WeaponNode").gameObject;
+        anim = this.GetComponent<Animator>();
+       
+       //初始化基本属性
         Health = initialHealth;
         MoveSpeed = initialMoveSpeed;
         AttackSpeed = initialAttackSpeed;
         AttackDamage = initialAttackDamage;
         Luck = initialLuck;
         HitRecover = initialHitRecover;
-        weaponObj = this.GetComponent<Transform>().Find("BodyNode").Find("Body").Find("RightArmNode").Find("RightArm").Find("RightHandNode").Find("RightHand").Find("WeaponNode").gameObject;
+
+    
         AttackRange = initialAttackRange;
-        anim = this.GetComponent<Animator>();
+      
        
 
     }
@@ -614,7 +622,6 @@ public class Character : RoomElement
        if (isAlive == 0)
        {
            deadTime--;
-           //Debug.Log(deadTime);
        }
 
        if (deadTime == 0)
@@ -642,6 +649,8 @@ public class Character : RoomElement
 
     public void Awake()
     {
+        RoomElementID = 2000;
+
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;
         CharacterManager.Instance.CharacterList.Add(this);
@@ -662,9 +671,13 @@ public class Character : RoomElement
     /// <summary>
     /// 发送生成发射物的通知
     /// </summary>
-    public void NotifyMissile()
+    public void NotifyMissile(int type)
     {
-        Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + 1+";"+AttackRange);
+        //Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + type+";"+AttackRange);
+       // Notify("GenerateMissile;" + CharacterManager.Instance.CharacterList.IndexOf(this) + ";" + type );
+        GameObject missileInstance = Instantiate(missiles[0],transform.position, Quaternion.identity) as GameObject;
+        missileInstance.GetComponent<Missiles>().InitMissiles(7.5f, 5f, 0, faceDirection, 1, type);
+        missileInstance.GetComponent<Missiles>().Fly();
     }
 
     /// <summary>
@@ -681,9 +694,8 @@ public class Character : RoomElement
         else if (asi.IsName("Move"))
         {
             Anim.speed = moveSpeed*10;
-            //character.Anim.speed = character.MoveSpeed;
         }
-        else if (asi.IsName("Idle") )
+        else if (asi.IsName("Idle")||asi.IsName("Fall") )
         {
             Anim.speed = 1;
         }
@@ -712,6 +724,55 @@ public class Character : RoomElement
     }
 
 
+    public void changeCurrentMachine(int race,int weapon)
+    {
+        int machineID = race * 10 + weapon;
+        switch(machineID)
+        {
+            case 0:
+                actionStateMachine = new GnomeWarriorMachine();
+                actionStateMachine.Character = this;
+                break;
+            case 1:
+                actionStateMachine = new GnomeWarriorMachine();
+                actionStateMachine.Character = this;
+                break;
+            case 2:
+                break;
+            case 3:
+                actionStateMachine = new GnomeMagicianMachine();
+                actionStateMachine.Character = this;
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+            case 20:
+                break;
+            case 21:
+                break;
+            case 22:
+                break;
+            case 23:
+                break;
+            
+            case 30:
+                break;
+            case 31:
+                break;
+            case 32:
+                break;
+            case 33:
+                break;
+ 
+        }
+
+
+    }
 
 
 

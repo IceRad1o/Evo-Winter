@@ -27,6 +27,8 @@ public class RoomElementManager : ExUnitySingleton<RoomElementManager>
         {
             float direct = float.Parse(UtilManager.Instance.GetMsgField(msg, 1));
             int flyPath = int.Parse(UtilManager.Instance.GetMsgField(msg, 4));
+
+            Debug.Log("flypath;"+flyPath);
             int direction;
             if (Player.Instance.Character.FaceDirection > 0)
             {
