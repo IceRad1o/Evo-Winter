@@ -18,6 +18,7 @@ public class Character : RoomElement
     //引用对象
     Animator anim;
     GameObject weaponObj;
+    GameObject weaponObj2;
     public Animator Anim
     {
         get { return anim; }
@@ -109,7 +110,7 @@ public class Character : RoomElement
         }
     }
 
-    public  int Health
+    public new int Health 
     {
         get { return healthTmp; }
         set
@@ -258,6 +259,10 @@ public class Character : RoomElement
         {
             float tmp = attackDamage;
             attackDamage = value;
+           
+            GetComponent<CharacterSkin>().Weapon.GetComponent<HurtByContract>().damage =(int) attackDamage;
+            if(weapon==1)
+                GetComponent<CharacterSkin>().Weapon2.GetComponent<HurtByContract>().damage = (int)attackDamage;
             Notify("AttackDamageInChanged;"+tmp+";"+attackDamage);
         }
     }
@@ -268,7 +273,8 @@ public class Character : RoomElement
         {
              int tmp = attackDamageTmp;
             attackDamageTmp = value;
-            AttackDamageIn = attackRangeTmp;
+         
+            AttackDamageIn = attackDamageTmp;
             Notify("AttackDamageChanged;" + tmp + ";" + attackDamageTmp);
         }
     }
@@ -456,7 +462,7 @@ public class Character : RoomElement
             
                 if (CanMove == 0)// && value == 1)
                     return;
-                Debug.Log("current state:" + state + " to " + value);
+                //Debug.Log("current state:" + state + " to " + value);
                 state = value;
                 actionStateMachine.Push(4 * state);
             }
@@ -475,25 +481,52 @@ public class Character : RoomElement
             if (value == 0)
             {
                 weaponObj.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = false;
+                if(weapon==1)
+                    weaponObj2.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = false;
                 Notify("WeaponDontDmg");
             }
                
             else
             {
                 weaponObj.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = true;
+                if (weapon == 1)
+                    weaponObj2.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = true;
                 Notify("WeaponDmg");
             }
              
         }
     }
 
-    private int isWeaponHitAwary;//武器是否有击飞效果
+    private int beatDownLevel;//武器是否有击飞效果
 
-    public int IsWeaponHitAwary
+    public int BeatDownLevel
     {
-        get { return isWeaponHitAwary; }
-        set { isWeaponHitAwary = value; }
+        get { return beatDownLevel; }
+        set 
+        {
+            beatDownLevel = value;
+            weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevel = beatDownLevel;
+            if(weapon==1)
+                weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevel = beatDownLevel;
+        }
     }
+
+    private int beatBackLevel;//武器是否有击飞效果
+
+    public int BeatBackLevel
+    {
+        get { return beatBackLevel; }
+        set 
+        {
+            beatBackLevel = value;
+           // weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevel = 0;
+            weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel;
+            if (weapon == 1)
+                weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel;
+        }
+    }
+
+
 
     private int controllable;//是否受控制
 
@@ -592,17 +625,26 @@ public class Character : RoomElement
 
    public virtual void Start()
     {
+        weapon = RoomElementID % 10;
+        race = RoomElementID % 100 / 10;
+
         //初始化
         state = 0;//静止
         IsAlive = 1;//活着
         canMove = 1;//可以移动
         controllable = 1;//可以被控制
         invincible = 0;//不无敌
-        weapon = 0;//默认近战武器
+        //weapon = 0;//默认近战武器
         deadTime =50;//死亡延迟时间
         faceDirection = -1;
         direction =new Vector3(-1, 0, 0);
-        weaponObj = this.GetComponent<Transform>().Find("BodyNode").Find("Body").Find("RightArmNode").Find("RightArm").Find("RightHandNode").Find("RightHand").Find("WeaponNode").gameObject;
+        weaponObj =this.GetComponent<CharacterSkin>().WeaponNode;
+        //Debug.Log("REID:"+RoomElementID);
+        if (weapon == 1)
+        {
+           // Debug.Log(123);
+            weaponObj2 = this.GetComponent<CharacterSkin>().Weapon2Node;
+        }
         anim = this.GetComponent<Animator>();
        
        //初始化基本属性
@@ -613,10 +655,10 @@ public class Character : RoomElement
         Luck = initialLuck;
         HitRecover = initialHitRecover;
 
-    
+
         AttackRange = initialAttackRange;
-      
-       
+
+        Debug.Log("ii:"+initialAttackDamage);
 
     }
 
@@ -637,11 +679,10 @@ public class Character : RoomElement
 
     public virtual void FixedUpdate()
     {
-        Debug.Log("state:" + state);
+        //Debug.Log("state:" + state);
         if (state == 1&&controllable==1&&canMove==1)
         {
             Move();
-           // Debug.Log("233333333333");
         }
 
     }
@@ -654,17 +695,17 @@ public class Character : RoomElement
 
     public void Awake()
     {
-        RoomElementID = 2000;
+        //RoomElementID = 2001;
 
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;
         CharacterManager.Instance.CharacterList.Add(this);
 
-        Transform bodyNode = gameObject.transform.FindChild("BodyNode");
-        Transform body = gameObject.transform.FindChild("Body");
-        body.SetParent(bodyNode);
+        //Transform bodyNode = gameObject.transform.FindChild("BodyNode");
+        //Transform body = gameObject.transform.FindChild("Body");
+        //body.SetParent(bodyNode);
 
-        gameObject.AddComponent<HitAwary>();
+        //gameObject.AddComponent<HitAwary>();
     }
 
 
@@ -700,7 +741,13 @@ public class Character : RoomElement
     {
         if (weapon == 0)
         {
+          
+            this.GetComponent<CharacterSkin>().WeaponNode.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
+        }
+        if(weapon==1)
+        {
             weaponObj.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
+            weaponObj2.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
         }
 
     }
@@ -753,6 +800,7 @@ public class Character : RoomElement
         CanMove = 0;
         IsWeaponDmg = 1;
         Notify("AttackStart;" + name);
+
 
     }
 

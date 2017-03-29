@@ -125,6 +125,16 @@ public class KeyBoardManager : MonoBehaviour {
                 cheatPunish=0;
             }
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
+            {
+               // Destroy(EnemyManager.Instance.EnemyList[i].gameObject.GetComponent<CharacterAi>());
+                //EnemyManager.Instance.EnemyList[i].Health = 0;
+                EnemyManager.Instance.EnemyList[i].Controllable = 0;
+            }
+    
+        }
         if (Input.GetKeyDown(KeyCode.O))
         {
             

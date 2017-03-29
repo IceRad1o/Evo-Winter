@@ -66,6 +66,8 @@ public class ActionStateMachine {
         //Debug.Log("state:"+state);
         if (state < 0)
             return;
+
+        //若出现角色漂移,则去掉注释
         if (curState == "Idle" && state == 0)
             return;
 

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RoomElement : ExSubject {
 
-    int roomElementID;
+    public int roomElementID;
     /*
      * 0:发射物Missile
      * 1:箱子Box

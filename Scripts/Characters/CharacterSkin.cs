@@ -31,6 +31,8 @@ public class CharacterSkin : MonoBehaviour
     GameObject leftEarNode;
     GameObject rightEarNode;
     GameObject weaponNode;
+    GameObject weapon2Node;
+
 
     //皮肤型
     GameObject body;
@@ -55,7 +57,9 @@ public class CharacterSkin : MonoBehaviour
 
     //武器型
     GameObject weapon;
-    GameObject weaponPoint;
+    GameObject weapon2;
+
+  
     //Sprite
    public Sprite[] leftEarSprite;
    public Sprite[] rightEarSprite;
@@ -115,10 +119,14 @@ public class CharacterSkin : MonoBehaviour
 
 
 
-    void Start()
+    void Awake()
     {
+        Transform bodyNode1 = gameObject.transform.FindChild("BodyNode");
+        Transform body1 = gameObject.transform.FindChild("Body");
+        body1.SetParent(bodyNode1);
         bodyNode = gameObject.transform.Find("BodyNode").gameObject;
         body = bodyNode.transform.Find("Body").gameObject;
+        //body.transform.SetParent(bodyNode.transform);
         headNode = body.transform.Find("HeadNode").gameObject;
         head = headNode.transform.Find("Head").gameObject;
         leftEye = head.transform.Find("LeftEye").gameObject;
@@ -147,6 +155,15 @@ public class CharacterSkin : MonoBehaviour
         rightLeg = rightLegNode.transform.Find("RightLeg").gameObject;
         leftShoe = leftLeg.transform.Find("LeftShoe").gameObject;
         rightShoe = rightLeg.transform.Find("RightShoe").gameObject;
+
+
+        if (leftHand.transform.Find("WeaponNodeL") != null)
+        { 
+            weapon2Node = leftHand.transform.Find("WeaponNodeL").gameObject;
+            weapon2 = weapon2Node.transform.Find("Weapon").gameObject;
+        }
+
+
 
         NodeList.Add(bodyNode);
         NodeList.Add(headNode);
@@ -438,5 +455,17 @@ public class CharacterSkin : MonoBehaviour
         }
     }
 
+
+    public GameObject Weapon2Node
+    {
+        get { return weapon2Node; }
+        set { weapon2Node = value; }
+    }
+
+    public GameObject Weapon2
+    {
+        get { return weapon2; }
+        set { weapon2 = value; }
+    }
 
 }
