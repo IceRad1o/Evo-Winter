@@ -81,6 +81,16 @@ public class BuffAttack : Buff {
                 else
                     ob.GetComponent<AttackHitRecoverUp>().Probability++;
                 break;
+            case 7:
+                if (ob.GetComponent<AttackPoison>() == null)
+                {
+                    AttackPoison newBuff3 = ob.AddComponent<AttackPoison>();
+
+                    newBuff3.Create(ID);
+                }
+                else
+                    ob.GetComponent<AttackPoison>().Probability++;
+                break;
             default:
                 break;
         }
@@ -93,12 +103,12 @@ public class BuffAttack : Buff {
     {
         
         BuffID = ID;
-        int[] part = { 1,2, 2, 3, 1, 2 };
+        int[] part = { 2, 2, 3, 1, 2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
-        this.probability = idPart[3];
+        this.probability = idPart[2];
         this.effectDuration = idPart[4];        
         if (idPart[3] == 0)
-            this.buffDuration = idPart[5];
+            this.buffDuration = idPart[4];
 
         this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
 

@@ -19,11 +19,12 @@ public class BuffAura : BuffTiming {
     {
         int[] part = { 2, 2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
-        switch (idPart[1])
+        switch (idPart[0])
         {
-            case 1:
-                BuffChangeAttributeTemp newBuff1 = ob.AddComponent<BuffChangeAttributeTemp>();
-                newBuff1.Create(ID);
+            case 20:
+                BuffAllDamage newBuff3 = ob.gameObject.AddComponent<BuffAllDamage>();                
+                newBuff3.Create(ID);
+                ob.gameObject.GetComponent<BuffManager>().BuffList.Add(newBuff3);
                 break;
             case 2:
                 BuffChangeAttributeTemp newBuff2 = ob.AddComponent<BuffChangeAttributeTemp>();

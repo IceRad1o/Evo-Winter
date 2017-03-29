@@ -16,7 +16,7 @@ public class BuffManager : ExSubject
 
 
 
-    public void CreateBuff(int ID)
+    public void CreateBuff(int ID,string spTag="")
     {
         if (!judgeCreate)
             return;
@@ -43,26 +43,24 @@ public class BuffManager : ExSubject
                 new BuffAttack().CreateBuff(ID,this.gameObject);
                 break;
             case 11:
-                new BuffTiming().CreateBuff(ID, this.gameObject);
+                new BuffTiming().CreateBuff(ID, this.gameObject,spTag);
                 break;
 
             case 20:
-                BuffAllDamage newBuff3 = this.gameObject.AddComponent<BuffAllDamage>();                
-                newBuff3.Create(ID);
-                buffList.Add(newBuff3);
+                new BuffAura().CreateBuff(ID, this.gameObject);                
                 break;
             default:
                 break;
         }
     }
 
-    public void CreateDifferenceBuff(int ID)
+    public void CreateDifferenceBuff(int ID,string spTag="")
     {
         if (buffManagerTag == "Player" && ID % 10 == 0)
             judgeCreate = true;
         if (buffManagerTag == "Enemy" && ID % 10 == 1)
             judgeCreate = true;
-        CreateBuff(ID / 10);
+        CreateBuff(ID / 10,spTag);
 
     }
 

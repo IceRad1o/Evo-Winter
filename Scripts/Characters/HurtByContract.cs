@@ -6,7 +6,19 @@ using System.Collections;
 public class HurtByContract : MonoBehaviour
 {
     /// <summary>
-    /// 被伤害的对象
+    /// 碰撞体从属角色
+    /// </summary>
+    public Character ch1;
+    /// <summary>
+    /// 是否是武器
+    /// </summary>
+    public bool isWeapon;
+    /// <summary>
+    /// 是否自动生成标签
+    /// </summary>
+    public bool autoTag=true;
+    /// <summary>
+    /// 被伤害的对象的标签
     /// </summary>
     public string[] destTags;
     /// <summary>
@@ -31,6 +43,31 @@ public class HurtByContract : MonoBehaviour
     public GameObject hitPrefab;
 
 
+    void Start()
+    {
+        if(isWeapon)
+            ch1 = this.GetComponentInParent<Character>();
+        if(autoTag&&ch1!=null)
+        {
+            if(ch1.tag=="Player")
+            {
+                destTags=new string[]{"Enemy","Monster","Boss"};
+            }
+            else if(ch1.tag=="Enemy")
+            {
+                destTags = new string[] { "Player", "Friend"};
+            }
+            else if(ch1.tag=="Monster")
+            {
+                destTags = new string[] { "Player", "Friend" };
+            }
+            else if(ch1.tag=="Boss")
+            {
+                destTags = new string[] { "Player", "Friend" };
+            }
+        }
+    }
+
 
     /// <summary>
     /// 3D碰撞检测,对于不同物体有
@@ -47,27 +84,46 @@ public class HurtByContract : MonoBehaviour
                 Character ch = other.GetComponent<Character>();
                 if (ch.IsAlive < 0 || ch.Invincible == 1)
                     return;
+                //强制朝向受击方向
+                if(isWeapon)     
+                    ch.Direction = -ch1.Direction;
+
+                //减血
                 ch.Health -= damage;
-                if (beatBackLevel > 0)
+
+                //击倒
+                if (beatDownLevel > 0)
+                {
+                    ch.Fall();
+                    BeatDown b = ch.gameObject.AddComponent<BeatDown>();
+                    b.level = beatDownLevel;
+                    b.direction = ch.transform.position.x >= this.transform.position.x ? 1 : -1;
+                    //ch2.ActionStateMachine.Push(7);
+                }
+                //击退
+                else if (beatBackLevel > 0)
                 {
               
                     BeatBack b=ch.gameObject.AddComponent<BeatBack>();
                     b.level = beatBackLevel;
                     b.direction = ch.transform.position.x >= this.transform.position.x ? 1 : -1;
                 }
-                if (beatDownLevel > 0)
-                {
-                    
-                    BeatDown b = ch.gameObject.AddComponent<BeatDown>();
-                    b.level = beatDownLevel;
-                    b.direction = ch.transform.position.x >= this.transform.position.x ? 1 : -1;
-                }
+    
+                //产生受击特效
                 if(hitPrefab!=null)
                 {
-                    Instantiate(hitPrefab, this.transform.position, Quaternion.identity);
+                    if(isWeapon==false)
+                        Instantiate(hitPrefab, this.transform.position, Quaternion.identity);
+                    else
+                        Instantiate(hitPrefab, this.transform.Find("WeaponPoint").position, Quaternion.identity);
                 }
+                //销毁
                 if (isDestory != 0)
                     Destroy(gameObject);
+
+                //发送消息
+                if(ch1!=null)
+                  ch1.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
             }
         }
 

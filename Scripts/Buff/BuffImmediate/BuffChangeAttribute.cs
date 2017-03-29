@@ -70,7 +70,9 @@ public class BuffChangeAttribute : Buff
 
 
 
-    public void Create(int ID) {
+    public void Create(int ID)
+    {
+       
 
         //最后一位1表示值为负
         int[] part = { 3, 1, 1,1 };
