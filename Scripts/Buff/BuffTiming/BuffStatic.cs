@@ -11,7 +11,7 @@ public class BuffStatic : BuffTiming {
     /// (B) 持续时间，（C）循环类型 (D)为时间
     /// </summary>
     /// <param name="ID"></param>
-    public override void Create(int ID)
+    public override void Create(int ID, string spTag = "")
     {
         int[] part = { 2, 2, 3 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
@@ -30,6 +30,7 @@ public class BuffStatic : BuffTiming {
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
         prefabInstance.transform.parent = this.gameObject.transform;
+        prefabInstance.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public override void DestroyBuff()

@@ -35,7 +35,6 @@ public class SpeedUp : Skill {
     /// <param name="msg"></param>
     public override void OnNotify(string msg)
     {
-        //if (UtilManager.Instance.GetFieldFormMsg(msg, 0) == "AttackStart" && UtilManager.Instance.GetFieldFormMsg(msg, 1) == "L")
         if (UtilManager.Instance.MatchFiledFormMsg("AttackStart",msg,0)=="L")
         {
             if (State==0)

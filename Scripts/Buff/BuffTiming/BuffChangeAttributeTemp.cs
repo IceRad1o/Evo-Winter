@@ -25,13 +25,16 @@ public class BuffChangeAttributeTemp : BuffTiming {
     }
 
     /// <summary>
-    /// ××（F）××(E)×××(B)01(02)11
+    /// ××（F）××(E)××(B)01(02)11
     /// 改变属性的状态buff，01（加）02（减）(E)确定属性，(F)表示数
     /// (B) 持续时间，（C）循环类型 (D)为时间
     /// </summary>
     /// <param name="ID"></param>
-    public override void Create(int ID)
+    public override void Create(int ID, string spTag = "")
     {
+        Debug.Log("BuffChangeAttributeTemp   " + spTag);
+        SpecialTag = spTag;
+
         int[] part = { 2,2,2,2,2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
@@ -61,6 +64,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                     prefabInstance = Instantiate(pfb);
                     prefabInstance.transform.position = s;
                     prefabInstance.transform.parent = this.gameObject.transform;
+                    prefabInstance.transform.localScale = new Vector3(1, 1, 1);
                 }
                 break;
             case 3:
@@ -71,6 +75,15 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 break;
             case 5:
                 this.gameObject.GetComponent<Character>().AttackDamage += dValue;
+                if (dValue >= 0)
+                {
+                    GameObject pfb = Resources.Load("Buffs/AttackDamageUp") as GameObject;
+                    Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+                    prefabInstance = Instantiate(pfb);
+                    prefabInstance.transform.position = s;
+                    prefabInstance.transform.parent = this.gameObject.transform;
+                    prefabInstance.transform.localScale = new Vector3(1, 1, 1);
+                }
                 break;
             case 6:
                 this.gameObject.GetComponent<Character>().HitRecover += dValue;
@@ -81,6 +94,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                     prefabInstance = Instantiate(pfb);
                     prefabInstance.transform.position = s;
                     prefabInstance.transform.parent = this.gameObject.transform;
+                    prefabInstance.transform.localScale = new Vector3(1, 1, 1);
                 }
                 break;
             case 7:
@@ -110,5 +124,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
         StartCoroutine(delay(BuffDuration, 0));
 	}
 	
+
+    
 	
 }
