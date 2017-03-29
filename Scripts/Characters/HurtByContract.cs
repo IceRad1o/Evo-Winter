@@ -6,7 +6,7 @@ using System.Collections;
 public class HurtByContract : MonoBehaviour
 {
     /// <summary>
-    /// 被伤害的对象
+    /// 被伤害的对象的标签
     /// </summary>
     public string[] destTags;
     /// <summary>
@@ -56,10 +56,11 @@ public class HurtByContract : MonoBehaviour
                 }
                 if (beatDownLevel > 0)
                 {
-                    
+                    ch.Fall();
                     BeatDown b = ch.gameObject.AddComponent<BeatDown>();
                     b.level = beatDownLevel;
                     b.direction = ch.transform.position.x >= this.transform.position.x ? 1 : -1;
+                    //ch2.ActionStateMachine.Push(7);
                 }
                 if(hitPrefab!=null)
                 {

@@ -7,43 +7,50 @@ using System.Collections;
 public class KeyBoardManager : MonoBehaviour {
 
     int keyDownNum;
+
+
+
     Vector3 direction;
     public GameObject DamageSrc;
+    int cheatPunish;
     void Start()
     {
+        cheatPunish = 0;
         keyDownNum = 0;
         direction = new Vector3(0, 0, 0);
      
     }
     ///
+    bool isChanged = false;
 	void Update () {
-
+      
         //如果有触摸事件,则屏蔽键盘事件,否则键盘事件会干扰触摸事件
         if (MoveBall.Instance.IsPressed)
             return;
 
+       
         if (Input.GetKeyDown(KeyCode.W))
         {
             direction=new Vector3(0,1,0);
-        
-            keyDownNum++;
+            
+            keyDownNum++;isChanged=true;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             direction= new Vector3(0, -1, 0);
            
-            keyDownNum++;
+            keyDownNum++;isChanged=true;
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             direction= new Vector3(-1, 0, 0);
-            keyDownNum++;
+            keyDownNum++;isChanged=true;
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
             direction= new Vector3(1, 0, 0);
            
-             keyDownNum++;
+             keyDownNum++;isChanged=true;
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -68,30 +75,36 @@ public class KeyBoardManager : MonoBehaviour {
 
         if (Input.GetKeyUp(KeyCode.W) )
         {
-            keyDownNum--;
+            keyDownNum--;isChanged=true;
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
-            keyDownNum--;
+            keyDownNum--;isChanged=true;
         }
         if (Input.GetKeyUp(KeyCode.A) )
         {
-            keyDownNum--;
+            keyDownNum--;isChanged=true;
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            keyDownNum--;
+            keyDownNum--;isChanged=true;
         }
 
 
-
-        if (keyDownNum == 0)
-           Player.Instance.Character.State = 0;
-        else
+        if(isChanged)
         {
-           // Debug.Log("122:");
-            Player.Instance.Character.State = 1;
-            Player.Instance.Character.Direction = direction;
+            if (keyDownNum == 0)
+            { 
+                Player.Instance.Character.State = 0; 
+                // Debug.Log("keyboard:"); 
+            }
+            else
+            {
+               
+                Player.Instance.Character.State = 1;
+                Player.Instance.Character.Direction = direction;
+            }
+            isChanged = false;
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -101,9 +114,20 @@ public class KeyBoardManager : MonoBehaviour {
                 Instantiate(DamageSrc, EnemyManager.Instance.EnemyList[i].transform.position, Quaternion.identity);
                 //EnemyManager.Instance.EnemyList[i].Health = 0;
             }
+            cheatPunish++;
+            if(cheatPunish==10)
+            {
+                string []a={"Player"};
+                GameObject ds=Instantiate(DamageSrc, Player.Instance.transform.position, Quaternion.identity) as GameObject;
+                ds.GetComponent<HurtByContract>().destTags = a;
+                ds.GetComponent<HurtByContract>().damage = 1;
+                ds.GetComponent<HurtByContract>().beatDownLevel=2; 
+                cheatPunish=0;
+            }
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
+            
             Player.Instance.Character.Health = 10;
         }
 

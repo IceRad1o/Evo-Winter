@@ -95,6 +95,7 @@ public class Character : RoomElement
             float temp = health;
             if (value < health)
             {
+                state = 0;
                 actionStateMachine.Push(6);
             }
             health = value;
@@ -452,9 +453,10 @@ public class Character : RoomElement
         {
             if (state != value)
             {
-                //Debug.Log("current state:" + state + " to " + value);
-                if (CanMove == 0 && value == 1)
+            
+                if (CanMove == 0)// && value == 1)
                     return;
+                Debug.Log("current state:" + state + " to " + value);
                 state = value;
                 actionStateMachine.Push(4 * state);
             }
@@ -511,7 +513,7 @@ public class Character : RoomElement
         get { return direction; }
         set
         {
-            if (controllable == 0)
+            if (controllable == 0||canMove==0)
                 return;
             Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
             //Vector3 temp = gameObject.GetComponent<Transform>().localScale;
@@ -541,14 +543,15 @@ public class Character : RoomElement
 
     }
 
-    public virtual void Attack()
+    public virtual void Fall()
     {
-
+        state = 0;
+        actionStateMachine.Push(7);
     }
 
     public virtual void Die()
     {
-      
+        state = 0;
         actionStateMachine.Push(5);
         //isAlive = -1;
         CharacterManager.Instance.CharacterList.Remove(this);
@@ -567,7 +570,6 @@ public class Character : RoomElement
             return;
 
         state = 0;
-        CanMove = 0;
         actionStateMachine.Push(1);
     }
 
@@ -575,6 +577,7 @@ public class Character : RoomElement
     {
         if (controllable == 0)
             return;
+        state = 0;
         actionStateMachine.Push(2);
     }
 
@@ -582,7 +585,7 @@ public class Character : RoomElement
     {
         if (controllable == 0)
             return;
-
+        State = 0;
         actionStateMachine.Push(3);
 
     }
@@ -597,7 +600,8 @@ public class Character : RoomElement
         invincible = 0;//不无敌
         weapon = 0;//默认近战武器
         deadTime =50;//死亡延迟时间
-
+        faceDirection = -1;
+        direction =new Vector3(-1, 0, 0);
         weaponObj = this.GetComponent<Transform>().Find("BodyNode").Find("Body").Find("RightArmNode").Find("RightArm").Find("RightHandNode").Find("RightHand").Find("WeaponNode").gameObject;
         anim = this.GetComponent<Animator>();
        
@@ -633,10 +637,11 @@ public class Character : RoomElement
 
     public virtual void FixedUpdate()
     {
-        if (state == 1&&controllable==1)
+        Debug.Log("state:" + state);
+        if (state == 1&&controllable==1&&canMove==1)
         {
             Move();
-
+           // Debug.Log("233333333333");
         }
 
     }
@@ -685,24 +690,9 @@ public class Character : RoomElement
     /// </summary>
     public void UpdateAnimSpeed()
     {
-        AnimatorStateInfo asi = Anim.GetCurrentAnimatorStateInfo(0);
+     
+        actionStateMachine.UpdateAnimSpeed(Anim);
 
-        if (asi.IsName("AttackJ") || asi.IsName("AttackJJ") || asi.IsName("AttackJJJ") || asi.IsName("AttackK") || asi.IsName("AttackL"))
-        {
-            Anim.speed = AttackSpeedIn;
-        }
-        else if (asi.IsName("Move"))
-        {
-            Anim.speed = moveSpeed*10;
-        }
-        else if (asi.IsName("Idle")||asi.IsName("Fall") )
-        {
-            Anim.speed = 1;
-        }
-        else if(asi.IsName("Hurt"))
-        {
-            Anim.speed = hitRecover;
-        }
     }
 
 
@@ -715,64 +705,65 @@ public class Character : RoomElement
 
     }
 
+    //运动函数
     int lastFrames;
-    public void MoveBy(int lastFrames)
+    int moveRate;
+    public void MoveBy(int lastFramesAndRate)
     {
-  
-
-       this.gameObject.transform.position += direction*moveSpeed;
+        this.lastFrames = lastFramesAndRate % 1000;
+        this.moveRate = lastFramesAndRate / 1000;
+        StartCoroutine(MoveByCoroutine());
+       
     }
 
-
-    public void changeCurrentMachine(int race,int weapon)
+    IEnumerator MoveByCoroutine()
     {
-        int machineID = race * 10 + weapon;
-        switch(machineID)
-        {
-            case 0:
-                actionStateMachine = new GnomeWarriorMachine();
-                actionStateMachine.Character = this;
-                break;
-            case 1:
-                actionStateMachine = new GnomeWarriorMachine();
-                actionStateMachine.Character = this;
-                break;
-            case 2:
-                break;
-            case 3:
-                actionStateMachine = new GnomeMagicianMachine();
-                actionStateMachine.Character = this;
-                break;
-            case 10:
-                break;
-            case 11:
-                break;
-            case 12:
-                break;
-            case 13:
-                break;
-            case 20:
-                break;
-            case 21:
-                break;
-            case 22:
-                break;
-            case 23:
-                break;
-            
-            case 30:
-                break;
-            case 31:
-                break;
-            case 32:
-                break;
-            case 33:
-                break;
- 
+        while (lastFrames!=0)
+        {    
+            this.gameObject.transform.position += new Vector3(faceDirection,0,0) * moveSpeed*0.1f*moveRate;
+            lastFrames--;
+            yield return null;
         }
 
+    }
+
+    public void FlashBy(int lastFramesAndRate)
+    {
+        this.lastFrames = lastFramesAndRate % 1000;
+        this.moveRate = lastFramesAndRate / 1000;
+        StartCoroutine(FlashByCoroutine());
 
     }
+
+    IEnumerator FlashByCoroutine()
+    {
+        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        while (lastFrames != 0)
+        {
+
+            this.gameObject.transform.position +=new Vector3((faceDirection+direction.x)/2, direction.y,direction.z) * moveSpeed * 0.1f * moveRate;
+            lastFrames--;
+            yield return null;
+        }
+        this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+    }
+
+    public void AttackStart(string name)
+    {
+        CanMove = 0;
+        IsWeaponDmg = 1;
+        Notify("AttackStart;" + name);
+
+    }
+
+    public void AttackEnd(string name)
+    {
+        CanMove = 1;
+        IsWeaponDmg = 0;
+        Notify("AttackEnd;" + name);
+
+    }
+   
 
 
 
