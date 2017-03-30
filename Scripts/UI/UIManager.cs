@@ -143,7 +143,7 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "InitiativeItem_Energy_Number")
         {
             //TODO 改变主动道具的能量显示
-            itemButtonManager.SetEnergy(float.Parse(str[1]));
+            itemButtonManager.SetEnergy(int.Parse(str[1])/100);
         }
 
         //Player Msg

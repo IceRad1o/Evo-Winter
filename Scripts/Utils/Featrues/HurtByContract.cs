@@ -51,7 +51,7 @@ public class HurtByContract : MonoBehaviour
         {
             if(ch1.tag=="Player")
             {
-                destTags=new string[]{"Enemy","Monster","Boss"};
+                destTags=new string[]{"Enemy","Monster","Boss","RoomElement"};
             }
             else if(ch1.tag=="Enemy")
             {
@@ -82,31 +82,41 @@ public class HurtByContract : MonoBehaviour
             if(destTag==destTags[i])
             {
                 Character ch = other.GetComponent<Character>();
-                if (ch.IsAlive < 0 || ch.Invincible == 1)
-                    return;
-                //强制朝向受击方向
-                if(isWeapon)     
-                    ch.Direction = -ch1.Direction;
+                bool isCh;
+                if (ch != null)
+                {
+                    isCh = true;
+                    if (ch.IsAlive < 0 || ch.Invincible == 1)
+                        return;
+                    //强制朝向受击方向
+                    if (isWeapon)
+                        ch.Direction = -ch1.Direction;
 
-                //减血
-                ch.Health -= damage;
+                    //减血
+                    ch.Health -= damage;
+                }
+                else
+                    isCh = false;
+          
+        
 
                 //击倒
                 if (beatDownLevel > 0)
                 {
-                    ch.Fall();
-                    BeatDown b = ch.gameObject.AddComponent<BeatDown>();
+                    if(isCh)
+                         ch.Fall();
+                    BeatDown b = other.gameObject.AddComponent<BeatDown>();
                     b.level = beatDownLevel;
-                    b.direction = ch.transform.position.x >= this.transform.position.x ? 1 : -1;
+                    b.direction = other.transform.position.x >= this.transform.position.x ? 1 : -1;
                     //ch2.ActionStateMachine.Push(7);
                 }
                 //击退
                 else if (beatBackLevel > 0)
                 {
-              
-                    BeatBack b=ch.gameObject.AddComponent<BeatBack>();
+
+                    BeatBack b = other.gameObject.AddComponent<BeatBack>();
                     b.level = beatBackLevel;
-                    b.direction = ch.transform.position.x >= this.transform.position.x ? 1 : -1;
+                    b.direction = other.transform.position.x >= this.transform.position.x ? 1 : -1;
                 }
     
                 //产生受击特效
@@ -126,7 +136,7 @@ public class HurtByContract : MonoBehaviour
                     Destroy(gameObject);
 
                 //发送消息
-                if(ch1!=null)
+                if(ch1!=null&&isCh)
                     ch1.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()) + ";" + ch1.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(ch1));
             }
         }

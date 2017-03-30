@@ -713,7 +713,7 @@ public class Character : RoomElement
     {
         if (tag != "Player")
         {
-            this.RemoveAllObserver();
+            
             CharacterManager.Instance.CharacterList.Remove(this);  
             Destroy(this.gameObject);
         }

@@ -9,6 +9,8 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
 
     float curEnergy;
 
+ 
+
     /*DestroyDisposableItem
      *@Brief 销毁UI上的一次性道具
      */
@@ -52,6 +54,7 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
     {
         Debug.Log("s使用主动道具");
         ItemManager.Instance.UseInitiativeItem();
+  
         //NEED ItemManager.GetInstance().UseInitiativeItems();
 
     }
@@ -72,6 +75,18 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
         int delta = 100 * (int)(temp - curEnergy);
         curEnergy = temp;
         fillImg.GetComponent<Image>().fillAmount = value;
+        if (value == 1)
+        {
+            if(initiativeItemButton.gameObject.GetComponent<ScaleBy>()==null)
+            {
+                ScaleBy s = initiativeItemButton.gameObject.AddComponent<ScaleBy>();
+                s.Init(1f, new Vector3(0.2f, 0.2f, 0.2f), true, true, true);
+            }
+
+        }
+        else if (initiativeItemButton.GetComponent<ScaleBy>() != null)
+            initiativeItemButton.GetComponent<ScaleBy>().isLoop = false;
+
     }
 
 
