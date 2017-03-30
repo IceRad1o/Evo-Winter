@@ -24,7 +24,7 @@ public class ItemsTable {
      public int energy;
      public string itemName;
      public string itemIntro;
-     public string quality = "A";
+     public string quality;
     
     }
     
