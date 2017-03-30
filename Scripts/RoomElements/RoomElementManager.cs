@@ -25,27 +25,27 @@ public class RoomElementManager : ExUnitySingleton<RoomElementManager>
         //Debug.Log("REMmsg："+msg);
         if (content == "GenerateMissile")
         {
-            float direct = float.Parse(UtilManager.Instance.GetMsgField(msg, 1));
-            int flyPath = int.Parse(UtilManager.Instance.GetMsgField(msg, 4));
+            //float direct = float.Parse(UtilManager.Instance.GetMsgField(msg, 1));
+            //int flyPath = int.Parse(UtilManager.Instance.GetMsgField(msg, 4));
+          
+            //Debug.Log("flypath;"+flyPath);
+            //int direction;
+            //if (Player.Instance.Character.FaceDirection > 0)
+            //{
+            //    direction = 1;
+            //}
+            //else
+            //{
+            //    direction = -1;
+            //}
 
-            Debug.Log("flypath;"+flyPath);
-            int direction;
-            if (Player.Instance.Character.FaceDirection > 0)
-            {
-                direction = 1;
-            }
-            else
-            {
-                direction = -1;
-            }
 
 
-
-            GameObject missileInstance = Instantiate(missile[0], Player.Instance.Character.transform.position, Quaternion.identity) as GameObject;
+            //GameObject missileInstance = Instantiate(missile[0], Player.Instance.Character.transform.position, Quaternion.identity) as GameObject;
 
             //Debug.Log("Missile飞行路径:" +  flyPath);
-            missileInstance.GetComponent<Missiles>().InitMissiles(7.5f, 5f, 0, direction, 1, flyPath);
-            missileInstance.GetComponent<Missiles>().Fly();
+            //missileInstance.GetComponent<Missiles>().InitMissiles(7.5f, 5f, 0, direction, 1, flyPath);
+            //missileInstance.GetComponent<Missiles>().Fly();
         }
 
     }
