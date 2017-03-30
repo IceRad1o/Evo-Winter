@@ -76,14 +76,15 @@ public class BuffManager : ExSubject
 	
 	void Start () {
         //将ItemManager设为观察者
-        ItemManager.Instance.AddObserver(this);
-        Player.Instance.Character.AddObserver(this);
+        if (this.gameObject.tag == "Player")
+            ItemManager.Instance.AddObserver(this);
+        this.gameObject.GetComponent<Character>().AddObserver(this);
         Debug.Log(this.gameObject.tag);
         RoomManager.Instance.AddObserver(this);
         if (this.gameObject.tag == "Player")
             buffManagerTag = "Player";
         else
-            buffManagerTag = "Enemy";
+            buffManagerTag = "Monster";
 	}
 
 
@@ -99,7 +100,7 @@ public class BuffManager : ExSubject
             //Debug.Log("bID" + id);
             if (buffManagerTag == "Player" && id % 10 == 0)
                 judgeCreate = true;
-            if (buffManagerTag == "Enemy" && id % 10 == 1)
+            if (buffManagerTag == "Monster" && id % 10 == 1)
                 judgeCreate = true;
             CreateBuff(id/10);
         }
@@ -109,7 +110,7 @@ public class BuffManager : ExSubject
             CreateDifferenceBuff(100110);
         }
         //Debug.Log(UtilManager.Instance.GetFieldFormMsg(msg, -1));
-        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "EnterRoom"&&this.tag=="Player") 
+        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "EnterRoom" && buffManagerTag == "Player") 
         {
             playerHealth = this.gameObject.GetComponent<Character>().Health;
         }
