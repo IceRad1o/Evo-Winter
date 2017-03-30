@@ -24,6 +24,7 @@ public class ItemsTable {
      public int energy;
      public string itemName;
      public string itemIntro;
+     public string quality;
     
     }
     
@@ -369,6 +370,17 @@ public class ItemsTable {
         //item.itemIntro = "地狱和死人的统治者----哈得斯同时是掌管财富的神，掌管地下埋藏的宝藏";
         //itemsData.Add(item);
 
+        //item.ID = 1009;
+        //item.spriteArrayID = 8;
+        //item.type = 2;
+        //item.droping = 6;
+        //item.buffID = 0;
+        //item.skillID = 6;
+        //item.energy = 6;
+        //item.itemName = "神降：毁灭之神";
+        //item.itemIntro = "一本记载着神降书的禁忌之书，能对所有人造成巨大的伤害";
+        //itemsData.Add(item);
+
         //item.ID = 1054;
         //item.spriteArrayID = 8;
         //item.type = 2;
@@ -383,40 +395,27 @@ public class ItemsTable {
 //////////////////////////////////////////////////////////////////////
 
 
-        //item.ID = 1009;
-        //item.spriteArrayID = 8;
-        //item.type = 2;
-        //item.droping = 6;
-        //item.buffID = 0;
-        //item.skillID = 6;
-        //item.energy = 6;
-        //item.itemName = "神降：毁灭之神";
-        //item.itemIntro = "一本记载着神降书的禁忌之书，能对所有人造成巨大的伤害";
-        //itemsData.Add(item);
 
         item.ID = 1047;
         item.spriteArrayID = 8;
         item.type = 2;
         item.droping = 6;
         item.buffID = 0;
-        item.skillID = 7;
+        item.skillID = 8;
         item.energy = 0;
-        item.itemName = "飞雷神苦无";
-        item.itemIntro = "第一次使用,在当前位置安置一个苦无,第二次使用瞬移到苦无位置";
+        item.itemName = "任意门";
+        item.itemIntro = "向前闪现一段距离";
         itemsData.Add(item);
 
-        //item.ID = 1004;
-        //item.spriteArrayID = 3;
-        //item.type = 2;
-        //item.droping = 2;
-        //item.buffID = 1000010;
-        //item.buffID = 0;
-        //item.skillID = 5;
-        //item.energy = 6;
-        //item.itemName = "魔法之源";
-        //item.itemIntro = "传说是一个神降师使用的魔法珠，可以释放不同的法术";
+        //item.ID = 1052;
+        //item.spriteArrayID = 11;
+        //item.type = 1;
+        //item.droping = 6;
+        //item.buffID = 4010;
+        //item.skillID = 0;
+        //item.itemName = "时光回溯装置";
+        //item.itemIntro = "使自身的血量回复到进入所在房间时的血量";
         //itemsData.Add(item);
-
 
     }
 	

@@ -87,9 +87,13 @@ public class CharacterSkin : MonoBehaviour
     {
         int rand;
         //Ear
-        rand = Random.Range(0, leftEarSprite.Length);
-        leftEar.GetComponent<SpriteRenderer>().sprite = leftEarSprite[rand];
-        rightEar.GetComponent<SpriteRenderer>().sprite = rightEarSprite[rand];
+        if (leftEarSprite.Length>0)
+        {
+            rand = Random.Range(0, leftEarSprite.Length);
+            leftEar.GetComponent<SpriteRenderer>().sprite = leftEarSprite[rand];
+            rightEar.GetComponent<SpriteRenderer>().sprite = rightEarSprite[rand];
+        }
+
 
         //Eye
         rand = Random.Range(0, leftEyeSprite.Length);
@@ -97,8 +101,12 @@ public class CharacterSkin : MonoBehaviour
         rightEye.GetComponent<SpriteRenderer>().sprite = rightEyeSprite[rand];
 
         //Cap
-        rand = Random.Range(0, capSprite.Length);
-        cap.GetComponent<SpriteRenderer>().sprite = capSprite[rand];
+        if (capSprite.Length>0)
+        {
+            rand = Random.Range(0, capSprite.Length);
+            cap.GetComponent<SpriteRenderer>().sprite = capSprite[rand];
+        }
+  
 
         //Whiskers
         rand = Random.Range(0, whiskersSprite.Length);
@@ -108,10 +116,14 @@ public class CharacterSkin : MonoBehaviour
         rand = Random.Range(0, clothSprite.Length);
         cloth.GetComponent<SpriteRenderer>().sprite = clothSprite[rand];
 
-        //Shoe
-        rand = Random.Range(0, leftShoeSprite.Length);
-        leftShoe.GetComponent<SpriteRenderer>().sprite = leftShoeSprite[rand];
-        rightShoe.GetComponent<SpriteRenderer>().sprite = rightShoeSprite[rand];
+        if (leftShoeSprite.Length>0)
+        {
+            //Shoe
+            rand = Random.Range(0, leftShoeSprite.Length);
+            leftShoe.GetComponent<SpriteRenderer>().sprite = leftShoeSprite[rand];
+            rightShoe.GetComponent<SpriteRenderer>().sprite = rightShoeSprite[rand];
+        }
+
 
     }
 

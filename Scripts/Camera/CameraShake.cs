@@ -10,7 +10,7 @@ public class CameraShake : ExUnitySingleton<CameraShake>
     {
         Player.Instance.Character.AddObserver(this);
     }
-    void Shake()
+    public void Shake()
     {
         StartCoroutine("IEnumShakeCamera");
     }
@@ -46,8 +46,8 @@ public class CameraShake : ExUnitySingleton<CameraShake>
         while (count < time)
         {
             count += 1 * Time.smoothDeltaTime;
-            print(count);
-            vecRandom.x = vecOriginPos.x + Random.Range(-0.1f * shakeLevelX, 0.1f * shakeLevelX);
+            //print(count);
+            vecRandom.x = vecOriginPos.x + Random.Range(-0.03f * shakeLevelX, 0.03f * shakeLevelX);
             vecRandom.y = vecOriginPos.y + Random.Range(-0.05f*shakeLevelY, 0.05f*shakeLevelY); ;
             vecRandom.z = vecOriginPos.z;
             transform.position = vecRandom;

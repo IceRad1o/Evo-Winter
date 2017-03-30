@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BuffChangeAttribute : Buff
 {
+    GameObject pf1;
+
     /// <summary>
     /// 改变的差值
     /// </summary>
@@ -117,6 +119,19 @@ public class BuffChangeAttribute : Buff
                 dValue = -(int)this.gameObject.GetComponent<Character>().Health;
             else
                 DValue = 10 - (int)this.gameObject.GetComponent<Character>().Health;
+        }
+        //时间回溯装置
+        if (idPart[0] == 401)
+        {
+            attribute = 0;
+            dValue = this.gameObject.GetComponent<BuffManager>().PlayerHealth-this.gameObject.GetComponent<Character>().Health;
+
+            GameObject pfb = Resources.Load("Buffs/12") as GameObject;
+            Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+            GameObject pf1 = Instantiate(pfb);
+            pf1.transform.position = s;
+            pf1.transform.parent = this.gameObject.transform;
+            
         }
         this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
 
