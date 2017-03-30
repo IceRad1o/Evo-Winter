@@ -39,23 +39,23 @@ public class HurtByWeapon : MonoBehaviour
             //强制朝向受击方向
             ch2.Direction = -ch1.Direction;
             //是否有击飞击退效果
-            if (ch1.IsWeaponHitAwary != 0)
-            {
+            //if (ch1.IsWeaponHitAwary != 0)
+            //{
 
-                if (ch1.IsWeaponHitAwary == 1)
-                {
-                    ch2.GetComponent<HitAwary>().Init(0.3f, 0.15f, ch1.FaceDirection,0);
-                    ch2.GetComponent<HitAwary>().BeHitAwary();
-                    ch2.ActionStateMachine.Push(7);
-                }
-                if (ch1.IsWeaponHitAwary == 2)
-                {
-                    ch2.GetComponent<HitAwary>().Init(0.1f, 0.1f, ch1.FaceDirection,1);
-                    ch2.GetComponent<HitAwary>().BeHitAwary();
-                    //ch2.ActionStateMachine.Push(7);
-                }
+            //    if (ch1.IsWeaponHitAwary == 1)
+            //    {
+            //        ch2.GetComponent<HitAwary>().Init(0.3f, 0.15f, ch1.FaceDirection,0);
+            //        ch2.GetComponent<HitAwary>().BeHitAwary();
+            //        ch2.ActionStateMachine.Push(7);
+            //    }
+            //    if (ch1.IsWeaponHitAwary == 2)
+            //    {
+            //        ch2.GetComponent<HitAwary>().Init(0.1f, 0.1f, ch1.FaceDirection,1);
+            //        ch2.GetComponent<HitAwary>().BeHitAwary();
+            //        //ch2.ActionStateMachine.Push(7);
+            //    }
 
-            }
+            //}
             
 
             //发送命中敌人消息
