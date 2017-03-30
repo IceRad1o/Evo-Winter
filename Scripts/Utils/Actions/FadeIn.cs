@@ -7,7 +7,7 @@ using System.Collections;
 public class FadeIn : MonoBehaviour {
 
 
-    float time;
+    public float time=1.0f;
 
 
 	// Use this for initialization
@@ -19,7 +19,17 @@ public class FadeIn : MonoBehaviour {
     {
         float speed;
         int count = (int)time * 60 + 1;
-        //speed=this.GetComponent<Spri>
+        speed = 255.0f / count;
+
+        while(count--!=0)
+        {
+            SpriteRenderer[] renders = this.GetComponentsInChildren<SpriteRenderer>();
+            foreach(SpriteRenderer r in renders)
+            {
+                r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + speed);
+            }
+        }
+
         yield return null;
     }
 	
