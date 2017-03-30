@@ -38,6 +38,7 @@ public class RoomElement : ExSubject {
 
 	public virtual void Awake () {
         health = 1;
+        this.tag = "RoomElement";
         RoomElementManager.Instance.RoomElementList.Add(this);
 	}
 	
