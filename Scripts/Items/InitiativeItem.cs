@@ -15,7 +15,7 @@ public class InitiativeItem : Item{
     public int EnergyNow
     {
         get { return energyNow; }
-        set { energyNow = value; if (energyNow > energyMax) energyNow = energyMax; ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;"+energyNow); }
+        set { energyNow = value; if (energyNow > energyMax) energyNow = energyMax; ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;"+energyNow*100/energyMax); }
     }
 
     public ItemSprite itemSp;

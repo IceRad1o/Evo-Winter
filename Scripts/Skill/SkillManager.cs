@@ -49,7 +49,7 @@ public class SkillManager : ExSubject
     }
 
     public void UseSkill_L() { 
-    
+        
     
     }
 
