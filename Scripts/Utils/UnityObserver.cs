@@ -65,6 +65,12 @@ public class ExSubject:Subject
     {
         exObserverList.Remove(observer);
     }
+
+
+    public void RemoveAllObserver()
+    {
+        exObserverList.Clear();
+    }
     /// <summary>  
     /// 推送通知  
     /// </summary>  

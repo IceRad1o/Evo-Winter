@@ -587,7 +587,7 @@ public class Character : RoomElement
         state = 0;
         actionStateMachine.Push(5);
         //isAlive = -1;
-        CharacterManager.Instance.CharacterList.Remove(this);
+        
         Notify("Die;"+this.tag);
 
     }
@@ -712,7 +712,11 @@ public class Character : RoomElement
     public void Disappear()
     {
         if (tag != "Player")
+        {
+            this.RemoveAllObserver();
+            CharacterManager.Instance.CharacterList.Remove(this);  
             Destroy(this.gameObject);
+        }
     }
     /// <summary>
     /// 发送生成发射物的通知
