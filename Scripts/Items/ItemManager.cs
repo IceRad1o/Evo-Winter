@@ -53,7 +53,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
      *Param  includeingImm 随机生成的道具中是否含立即使用道具
      *Param  includeingIni 随机生成的道具中是否含主动道具
      */
-    public void CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false, bool trans = false)
+    public void CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false, bool trans = true)
     {
         int itemID = RandomItemID(itemsTable.GetItemsByType(includeingImm, includeingDis, includeingIni));
         System.Random random = new System.Random();
@@ -100,7 +100,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// <param name="boosDroping">bossDroping 随机生成的道具中是否含boss掉落</param>
     /// <param name="boxDroping">boxDroping 随机生成的道具中是否含宝箱掉落</param>
     /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
-    public void CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false, bool trans=false)
+    public void CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false, bool trans=true)
     {
         int itemID = RandomItemID(itemsTable.GetItemsByDoping(roomDroping, boosDroping, boxDroping));
         System.Random random = new System.Random();

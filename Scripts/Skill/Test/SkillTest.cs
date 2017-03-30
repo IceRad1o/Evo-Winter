@@ -9,7 +9,8 @@ public class SkillTest : MonoBehaviour {
     IEnumerator Test()
     {
         yield return new WaitForSeconds(0.0f);
-        this.gameObject.GetComponent<SkillManager>().CreateSkill(4);
+        this.gameObject.GetComponent<SkillManager>().CreateSkill(2);
+        this.gameObject.GetComponent<SkillManager>().CreateSkill(3);
 
 
     }
