@@ -6,7 +6,7 @@ public class Box : RoomElement
     private Animator animator;
     private bool isOpen;
     //NEED public AudioClip getBox;
-    //NEED public AudioClip openBox;
+    public AudioClip openBox;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -29,7 +29,7 @@ public class Box : RoomElement
         //打开宝箱的动画和声音
         animator.SetTrigger("OpenBox");
         isOpen = true;
-        //NEED SoundManager.instance.PlaySingle(openBox);   
+        SoundManager.Instance.PlaySoundEffect(openBox);  
         //NEED Item item=ItemManager.getInstance().GenerateItem();
         //item.transfrom.setParent(this.transform);
         
