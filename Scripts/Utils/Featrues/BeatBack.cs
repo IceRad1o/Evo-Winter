@@ -30,7 +30,7 @@ public class BeatBack : MonoBehaviour
     //发射物飞行路径1, 直线
     IEnumerator Fly()
     {
-        Debug.Log("enter bacjk");
+        //Debug.Log("enter bacjk");
         while (true)
         {
             if (flyDistance > 0)
