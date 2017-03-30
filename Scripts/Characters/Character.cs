@@ -658,7 +658,7 @@ public class Character : RoomElement
 
         AttackRange = initialAttackRange;
 
-        Debug.Log("ii:"+initialAttackDamage);
+        //Debug.Log("ii:"+initialAttackDamage);
 
     }
 
