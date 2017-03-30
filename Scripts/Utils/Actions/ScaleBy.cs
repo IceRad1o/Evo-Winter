@@ -34,6 +34,24 @@ public class ScaleBy : MonoBehaviour
     public bool isOnCanvas = false;
 
 
+    /// <summary>
+    /// 初始化缩放Action的参数
+    /// </summary>
+    /// <param name="time">持续时间</param>
+    /// <param name="destScale">缩放差值</param>
+    /// <param name="isReverse">是否反转,即缩放至目标值后是否缩放回原来值</param>
+    /// <param name="isLoop"> 是否循环缩放</param>
+    /// <param name="isOnCanvas">缩放对象是否为UI元素</param>
+    void Init(float time, Vector3 deltaScale, bool isReverse = true, bool isLoop = false, bool isOnCanvas = false)
+    {
+        this.time = time;
+        this.deltaScale = deltaScale;
+        this.isReverse = isReverse;
+        this.isLoop = isLoop;
+        this.isOnCanvas = isOnCanvas;
+    }
+
+
     void Start()
     {
 

@@ -14,26 +14,42 @@ public class ScaleTo : MonoBehaviour
     public float time = 1.0f;
 
     /// <summary>
-    /// 目标缩放值
+    /// 缩放目标值
     /// </summary>
     public Vector3 destScale = new Vector3();
 
     /// <summary>
-    /// 是否反转
+    /// 是否反转,即缩放至目标值后是否缩放回原来值
     /// </summary>
     public bool isReverse = true;
 
     /// <summary>
-    /// 是否循环
+    /// 是否循环缩放
     /// </summary>
     public bool isLoop = false;
 
     /// <summary>
-    /// 是否为UI元素
+    /// 缩放对象是否为UI元素
     /// </summary>
     public bool isOnCanvas = false;
 
 
+    /// <summary>
+    /// 初始化缩放Action的参数
+    /// </summary>
+    /// <param name="time">持续时间</param>
+    /// <param name="destScale">缩放目标值</param>
+    /// <param name="isReverse">是否反转,即缩放至目标值后是否缩放回原来值</param>
+    /// <param name="isLoop"> 是否循环缩放</param>
+    /// <param name="isOnCanvas">缩放对象是否为UI元素</param>
+    void Init(float time,Vector3 destScale,bool isReverse=true,bool isLoop=false,bool isOnCanvas=false)
+    {
+        this.time = time;
+        this.destScale = destScale;
+        this.isReverse = isReverse;
+        this.isLoop = isLoop;
+        this.isOnCanvas = isOnCanvas;
+    }
     void Start()
     {
 
