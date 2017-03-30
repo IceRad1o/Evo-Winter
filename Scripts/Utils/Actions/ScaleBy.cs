@@ -11,7 +11,7 @@ public class ScaleBy : MonoBehaviour
     /// <summary>
     /// 持续时间,运动开始后不可变更
     /// </summary>
-    public float time = 1.0f;
+    public float duration = 1.0f;
 
     /// <summary>
     /// 缩放差值
@@ -37,14 +37,14 @@ public class ScaleBy : MonoBehaviour
     /// <summary>
     /// 初始化缩放Action的参数
     /// </summary>
-    /// <param name="time">持续时间</param>
+    /// <param name="duration">持续时间</param>
     /// <param name="destScale">缩放差值</param>
     /// <param name="isReverse">是否反转,即缩放至目标值后是否缩放回原来值</param>
     /// <param name="isLoop"> 是否循环缩放</param>
     /// <param name="isOnCanvas">缩放对象是否为UI元素</param>
-    void Init(float time, Vector3 deltaScale, bool isReverse = true, bool isLoop = false, bool isOnCanvas = false)
+    void Init(float duration, Vector3 deltaScale, bool isReverse = true, bool isLoop = false, bool isOnCanvas = false)
     {
-        this.time = time;
+        this.duration = duration;
         this.deltaScale = deltaScale;
         this.isReverse = isReverse;
         this.isLoop = isLoop;
@@ -65,7 +65,7 @@ public class ScaleBy : MonoBehaviour
     IEnumerator IEnumScaleBy()
     {
         Vector3 speed;
-        int count = (int)time * 60 + 1;
+        int count = (int)duration * 60 + 1;
         speed = deltaScale / count;
         while (count-- != 0)
         {
@@ -74,7 +74,7 @@ public class ScaleBy : MonoBehaviour
         }
         if (isReverse)
         {
-            count = (int)time * 60 + 1;
+            count = (int)duration * 60 + 1;
             speed = deltaScale / count;
             while (count-- != 0)
             {
@@ -85,7 +85,7 @@ public class ScaleBy : MonoBehaviour
 
         while (isLoop )
         {
-            count = (int)time * 60 + 1;
+            count = (int)duration * 60 + 1;
             speed = deltaScale / count;
             while (count-- != 0)
             {
@@ -94,7 +94,7 @@ public class ScaleBy : MonoBehaviour
             }
             if (isReverse)
             {
-                count = (int)time * 60 + 1;
+                count = (int)duration * 60 + 1;
                 speed = deltaScale / count;
                 while (count-- != 0)
                 {
@@ -117,7 +117,7 @@ public class ScaleBy : MonoBehaviour
     IEnumerator IEnumUIScaleBy()
     {
         Vector3 speed;
-        int count = (int)time * 60 + 1;
+        int count = (int)duration * 60 + 1;
         speed = deltaScale / count;
         while (count-- != 0)
         {
@@ -126,7 +126,7 @@ public class ScaleBy : MonoBehaviour
         }
         if (isReverse)
         {
-            count = (int)time * 60 + 1;
+            count = (int)duration * 60 + 1;
             speed = deltaScale / count;
             while (count-- != 0)
             {
@@ -137,7 +137,7 @@ public class ScaleBy : MonoBehaviour
 
         while (isLoop && isReverse)
         {
-            count = (int)time * 60 + 1;
+            count = (int)duration * 60 + 1;
             speed = deltaScale / count;
             while (count-- != 0)
             {
@@ -146,7 +146,7 @@ public class ScaleBy : MonoBehaviour
             }
             if (isReverse)
             {
-                count = (int)time * 60 + 1;
+                count = (int)duration * 60 + 1;
                 speed = deltaScale / count;
                 while (count-- != 0)
                 {
