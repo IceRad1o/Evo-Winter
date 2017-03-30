@@ -127,7 +127,7 @@ public class HurtByContract : MonoBehaviour
 
                 //发送消息
                 if(ch1!=null)
-                  ch1.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()));
+                    ch1.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()) + ";" + ch1.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(ch1));
             }
         }
 
