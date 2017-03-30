@@ -37,6 +37,15 @@ public class SkillManager : ExSubject
                 this.gameObject.GetComponent<NamikazeMinato>().Trigger();
             return;
         }
+        if (ID == 8)
+        {
+            Twinkle newSkill;
+            if (this.gameObject.GetComponent<Twinkle>() == null)
+                newSkill = this.gameObject.AddComponent<Twinkle>();
+            else
+                this.gameObject.GetComponent<Twinkle>().Trigger();
+            return;
+        }
     }
 
     public void UseSkill_L() { 
@@ -61,7 +70,8 @@ public class SkillManager : ExSubject
     /// </summary>
     void Start()
     {
-        ItemManager.Instance.AddObserver(this);
+        if (this.tag=="Player")
+            ItemManager.Instance.AddObserver(this);
         if (this.gameObject.tag=="Player") 
         {
             switch (this.gameObject.GetComponent<Character>().Race)

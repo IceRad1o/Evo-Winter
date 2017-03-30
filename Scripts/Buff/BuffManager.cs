@@ -6,6 +6,15 @@ public class BuffManager : ExSubject
     private string buffManagerTag;
     bool judgeCreate=false;
 
+    int playerHealth;
+    //进入房间是玩家的生命
+    public int PlayerHealth
+    {
+        get { return playerHealth; }
+        set { playerHealth = value; }
+    }
+
+
     ArrayList buffList = new ArrayList();
     List<Buff> buffL = new List<Buff>();
     public ArrayList BuffList
@@ -70,6 +79,7 @@ public class BuffManager : ExSubject
         ItemManager.Instance.AddObserver(this);
         Player.Instance.Character.AddObserver(this);
         Debug.Log(this.gameObject.tag);
+        RoomManager.Instance.AddObserver(this);
         if (this.gameObject.tag == "Player")
             buffManagerTag = "Player";
         else
@@ -97,6 +107,11 @@ public class BuffManager : ExSubject
         if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "HealthChanged" && int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0)) - int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 1)) > 0 && UtilManager.Instance.GetFieldFormMsg(msg, 2) == "Player")
         {
             CreateDifferenceBuff(100110);
+        }
+        //Debug.Log(UtilManager.Instance.GetFieldFormMsg(msg, -1));
+        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "EnterRoom"&&this.tag=="Player") 
+        {
+            playerHealth = this.gameObject.GetComponent<Character>().Health;
         }
     }
 	
