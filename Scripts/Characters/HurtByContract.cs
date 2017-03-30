@@ -117,6 +117,10 @@ public class HurtByContract : MonoBehaviour
                     else
                         Instantiate(hitPrefab, this.transform.Find("WeaponPoint").position, Quaternion.identity);
                 }
+                CameraShake.Instance.shakeLevelX = 1;
+                CameraShake.Instance.shakeLevelY = 0;
+                CameraShake.Instance.time = 0.15f;
+                CameraShake.Instance.Shake();
                 //销毁
                 if (isDestory != 0)
                     Destroy(gameObject);

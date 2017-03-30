@@ -1,9 +1,16 @@
 fileFormatVersion: 2
 guid: 1c2f50e78c430b4449569147269385d4
-timeCreated: 1490613050
+timeCreated: 1490797357
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Vampire2_0
+    21300002: Vampire2_2
+    21300004: Vampire2_3
+    21300006: Vampire2_4
+    21300008: Vampire2_5
+    21300010: Vampire2_6
+    21300012: Vampire2_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -38,7 +45,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,7 +58,98 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Vampire2_0
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 502
+        width: 429
+        height: 731
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Vampire2_2
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 720
+        width: 611
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Vampire2_3
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 730
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Vampire2_4
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 487
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Vampire2_5
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 237
+        width: 551
+        height: 378
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Vampire2_6
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 134
+        width: 161
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Vampire2_7
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 111
+        width: 137
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
