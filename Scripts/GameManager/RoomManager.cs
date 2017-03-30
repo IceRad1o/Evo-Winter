@@ -22,6 +22,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     public int minEnemyNumber = 2;
     //房间类型
     private int roomType;
+    //宝箱房间号
     private int boxTypeRoom = 5;
     //行列
     private int rows = 3;
@@ -46,7 +47,14 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         get { return doorDirection; }
         set { doorDirection = value; }
     }
-
+    private Vector3 door0 = new Vector3(0f, 1.4f * 2f,  0f);
+    private Vector3 door1 = new Vector3(0f, -3.7f * 2f, 0f);
+    private Vector3 door2 = new Vector3(-11.8f, -1.46f * 2f, 0f);
+    private Vector3 door3 = new Vector3(11.8f,  -1.46f * 2f, 0f);
+    //单个物件长度
+    private int objLen = 10;
+    //宝箱位置
+    private int boxPos = 0;
 
     private Transform boardHolder;
     //列表ID:0 镜子
@@ -66,6 +74,17 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     private List<Vector3> settledPosition = new List<Vector3>();
 
 
+
+    void Start()
+    {
+        EnemyManager.Instance.AddObserver(this);
+    }
+
+
+
+
+
+
     //墙上物体位置向量
     /* 门Y:1.4       X最小间距2
      * 雕像Y：1.54   X最小间距2
@@ -80,32 +99,33 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         mirrorPosition.Clear();
         for (float x = -1 * columns; x < columns; x+=2f)
         {
-            mirrorPosition.Add(new Vector3(x, 1.8f*2f, 0f));
+
+            if (x != 0) mirrorPosition.Add(new Vector3(x, 1.8f * 2f, 0f));
         }
         //图片位置列表
         picturePosition.Clear();
         for (float x = -1 * columns; x < columns; x+=2f)
         {
-            picturePosition.Add(new Vector3(x, 2.0f*2f, 0f));
+            if (x != 0) picturePosition.Add(new Vector3(x, 2.0f * 2f, 0f));
         }
         //门位置列表
         doorPosition.Clear();
 
         if (doorDirection[0] == 1)
         {
-            doorPosition.Add(new Vector3(0f, 1.4f*2f, 0f));
+            doorPosition.Add(door0);
         }
         if (doorDirection[1] == 1)
         {
-            doorPosition.Add(new Vector3(0f, -3.7f*2f, 0f));
+            doorPosition.Add(door1);
         }
         if (doorDirection[2] == 1)
         {
-            doorPosition.Add(new Vector3(-11.8f, -1.46f*2f, 0f));
+            doorPosition.Add(door2);
         }
         if (doorDirection[3] == 1)
         {
-            doorPosition.Add(new Vector3(11.8f, -1.46f*2f, 0f));
+            doorPosition.Add(door3);
         }    
 
         //doorPosition.Add(new Vector3(x, 1.4f, 0f));
@@ -113,18 +133,18 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         //雕像位置列表
         for (float x = -1 * columns; x < columns; x += 2f)
         {
-            statuePosition.Add(new Vector3(x, 1.54f*2f, 0f));
+            if (x != 0) statuePosition.Add(new Vector3(x, 1.54f * 2f, 0f));
         }
 
         //爪子位置列表
         for (float x = -1 * columns; x < columns; x += 2f)
         {
-            clawPosition.Add(new Vector3(x, 0.79f*2f, 0f));
+            if (x != 0) clawPosition.Add(new Vector3(x, 0.79f * 2f, 0f));
         }
 
         //地上物体列表
         groundPosition.Clear();
-        for (float x = -1 * columns; x < columns; x+=1.5f)
+        for (float x = -1 * columns; x < columns; x+=2f)
         {
             for (float y = -1 * rows; y < 0; y+=2f)
             {
@@ -254,7 +274,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             Vector3 randomPosition = RandomPosition(3);
             if (roomType < boxTypeRoom || (roomX == CheckpointManager.Instance.rows - 1 && roomY == CheckpointManager.Instance.columns - 1))
             {
-                objectChoice = objectArray[Random.Range(9, objectArray.Length-1)];
+                objectChoice = objectArray[Random.Range(objLen, objectArray.Length-1)];
             }
 
             else//宝箱房
@@ -338,26 +358,26 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
         if (doorDirection[0] == 1)
         {
-            doorPosition.Add(new Vector3(0f, 1.4f*2f, 0f));
+            doorPosition.Add(door0);
         }
         if (doorDirection[1] == 1)
         {
-            doorPosition.Add(new Vector3(0f, -3.7f*2f, 0f));
+            doorPosition.Add(door1);
         }
         if (doorDirection[2] == 1)
         {
-            doorPosition.Add(new Vector3(-11.8f, -1.46f*2f, 0f));
+            doorPosition.Add(door2);
         }
         if (doorDirection[3] == 1)
         {
-            doorPosition.Add(new Vector3(11.8f, -1.46f*2f, 0f));
+            doorPosition.Add(door3);
         }    
     }
 
     //在最后一个房间生成楼梯
     void LayoutStair()
     {
-        Vector3 position = new Vector3(6f,0f,0f);
+        Vector3 position = new Vector3(12f,0f,0f);
         GameObject objectChoice = stair[0];
         GameObject roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
         roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
@@ -402,6 +422,31 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         //Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
         //Notify("EnterRoom;Unknow");
     }
+
+    //小怪数目为0,生成一个宝箱
+    public override void OnNotify(string msg)
+    {
+        string content = UtilManager.Instance.GetMsgField(msg, 0);
+        //string[] str = UtilManager.Instance.GetMsgFields(msg);
+        if (content == "ClearRoom")
+        {
+            //Debug.Log("CLEAR ROOM CLEAR ROOM");
+            Vector3 randomPosition = RandomPosition(3);
+            GameObject objectChoice = groundElements[boxPos];
+            GameObject roomElement = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
+            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     //加载确定场景 类型号tp,房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
     public void LoadScene(int tp,int x,int y,int[] dp,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ)
@@ -556,6 +601,15 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             roomElement.transform.localPosition = position;
                             //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
                             break;
+                        case 15:
+                            //Debug.Log("选中陷阱");
+                            //Trap Ground
+                            objectChoice = groundElements[9];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                            roomElement.transform.localPosition = position;
+                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+                            break;
                     }
                  
                 }
@@ -583,8 +637,5 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     }
 
 
-    void Start()
-    {
-       
-    }
+
 }

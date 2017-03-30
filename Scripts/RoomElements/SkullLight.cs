@@ -5,6 +5,7 @@ public class SkullLight : RoomElement {
 
     public Animator animator;
     private int isBroken;
+    public AudioClip putOut;
     public override void Awake()
     {
         base.Awake();
@@ -29,6 +30,7 @@ public class SkullLight : RoomElement {
         {
             if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isBroken == 0 && other.GetComponentInParent<Character>().Camp == 0)
             {
+                SoundManager.Instance.PlaySoundEffect(putOut);
                 if (Player.Instance.Character.FaceDirection < 0) animator.SetTrigger("destory");
                 else animator.SetTrigger("destory2");
                 isBroken = 1;
