@@ -42,7 +42,7 @@ public class ScaleBy : MonoBehaviour
     /// <param name="isReverse">是否反转,即缩放至目标值后是否缩放回原来值</param>
     /// <param name="isLoop"> 是否循环缩放</param>
     /// <param name="isOnCanvas">缩放对象是否为UI元素</param>
-    void Init(float duration, Vector3 deltaScale, bool isReverse = true, bool isLoop = false, bool isOnCanvas = false)
+    public void Init(float duration, Vector3 deltaScale, bool isReverse = true, bool isLoop = false, bool isOnCanvas = false)
     {
         this.duration = duration;
         this.deltaScale = deltaScale;
