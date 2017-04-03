@@ -235,7 +235,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// 改变主动道具能量
     /// </summary>
     public void IncreaseEnegy(int number) {
-        initiativeItem.EnergyNow = initiativeItem.EnergyNow + number;        
+        if (initiativeItem.ItemID != 0)
+            initiativeItem.EnergyNow = initiativeItem.EnergyNow + number;        
     }
     /// <summary>
     /// 使用主动道具
@@ -378,8 +379,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         //roomManager的消息
         if (msg == "LeaveRoom")
         {
-            Debug.Log("Leave");
-            DestoryAllItems();        
+            IncreaseEnegy(1);
+            DestoryAllItems();
         }
     }
 
@@ -421,20 +422,6 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         RoomManager.Instance.AddObserver(this);
         
     }
-
-    //private PlayerObserver playerObs = new PlayerObserver(); //Player的观察者
-    //internal PlayerObserver PlayerObs
-    //{
-    //    get { return playerObs; }
-    //    set { playerObs = value; }
-    //}
-    //private ItemObser itemObs = new ItemObser(); //Item的观察者
-    //internal ItemObser ItemObs
-    //{
-    //    get { return itemObs; }
-    //    set { itemObs = value; }
-    //}
-
 
     /********************************************************************/
     //工具，暂时放在这
@@ -532,82 +519,3 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
 }
 
-//class PlayerObserver : ExSubject
-//{
-//    public override void OnNotify(string msg)
-//    {
-//        string[] str = UtilManager.Instance.GetMsgFields(msg);
-//        if (str[0] == "AttackStart")
-//        {
-//            //Debug.Log("Get");
-//            //一次性道具的拾取                
-//            foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
-//            {
-//                Debug.Log("do");
-//                if (ItemManager.Instance.itemsDis == t && t.playerIn)
-//                {
-//                    ItemManager.Instance.AddDisposableItems(t);
-//                    Notify("Get_DisposableItem;" + t.ItemID);
-//                    t.DestroyDisposableItem();
-//                    break;
-//                }
-//            }
-//            //主动道具的拾取                
-//            foreach (InitiativeItem t in ItemManager.Instance.listInitiativeItem)
-//            {
-//                if (ItemManager.Instance.itemIni == t && t.PlayerIn)
-//                {
-//                    ItemManager.Instance.AddInitiativeItems(t);
-//                    Notify("Get_DisposableItem;" + t.ItemID);
-//                    t.Destroy();
-//                    break;
-//                }
-//            }
-//            //立即使用道具的拾取                
-//            foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
-//            {
-//                if (ItemManager.Instance.itemImm == t && t.playerIn)
-//                {
-//                    Notify("Get_ImmediatelyItem;" + t.ItemID);
-//                    t.Use();
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//}
-//class ItemObser : ExSubject
-//{
-//    public override void OnNotify(string msg)
-//    {
-//        int _id = 0;
-//        //获得一次性道具的消息检测
-//        string m = "Player_Get_DisposableItem";
-//        _id = ItemManager.Instance.GetIDofMSG(m, msg);
-//        if (_id != -1)
-//        {
-//            DisposableItem[] disItems;
-//            disItems = ItemManager.Instance.gameObject.GetComponents<DisposableItem>();
-//            foreach (DisposableItem t in ItemManager.Instance.listDisposableItem)
-//            {
-//                if (_id == t.GetID())
-//                {
-//                    ItemManager.Instance.itemsDis = t;
-//                }
-//            }
-//        }
-//        //获得立即使用道具的消息检测
-//        m = "Player_Leave_ImmediatelyItem";
-//        _id = ItemManager.Instance.GetIDofMSG(m, msg);
-//        if (_id != -1)
-//        {
-//            foreach (ImmediatelyItem t in ItemManager.Instance.listImmediatelyItem)
-//            {
-//                if (_id == t.GetID())
-//                {
-//                    ItemManager.Instance.itemImm = t;
-//                }
-//            }
-//        }
-//    }
-//}

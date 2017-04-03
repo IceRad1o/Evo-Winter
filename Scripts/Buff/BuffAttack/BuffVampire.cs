@@ -38,7 +38,7 @@ public class BuffVampire : BuffAttack
 
         string bID = UtilManager.Instance.MatchFiledFormMsg("AttackHit", msg, 0);
 
-        if (bID == "Enemy") 
+        if (bID == "Monster") 
         {
             Trigger();       
         }        
