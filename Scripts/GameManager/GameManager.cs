@@ -29,13 +29,24 @@ public class GameManager : ExUnitySingleton<GameManager>{
         if (loadOrNew == 1)
         {
             //设置关卡
+            //CheckpointManager.Instance.SetRowColumn(4,4);
             CheckpointManager.Instance.SetupCheckpoint();
             Notify("SetupCheckpoint;" + CheckpointManager.Instance.CheckpointNumber);
-            //设置房间0
-            RoomManager.Instance.SetupScene(CheckpointManager.Instance.roomList[0].type,
-                                    CheckpointManager.Instance.roomList[0].doorDirection,
-                                    CheckpointManager.Instance.roomList[0].roomX,
-                                    CheckpointManager.Instance.roomList[0].roomY);
+            //设置房间
+            int roomNumber = 0;
+            for (int i = 0; i < CheckpointManager.Instance.roomList.Count; i++)
+            {
+                if (CheckpointManager.Instance.roomList[i].type == -1)
+                {
+                    roomNumber = i;
+                    break;
+                }
+            }
+
+            RoomManager.Instance.SetupScene(CheckpointManager.Instance.roomList[roomNumber].type,
+                                    CheckpointManager.Instance.roomList[roomNumber].doorDirection,
+                                    CheckpointManager.Instance.roomList[roomNumber].roomX,
+                                    CheckpointManager.Instance.roomList[roomNumber].roomY);
             RoomManager.Instance.Notify("EnterRoom;Unknow");
         }
 

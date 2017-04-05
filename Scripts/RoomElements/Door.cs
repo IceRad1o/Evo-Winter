@@ -60,7 +60,7 @@ public class Door : RoomElement
                     {
                         pass = 1;
                         RoomManager.Instance.LoadScene(
-                            ProfileManager.Instance.Data.Map[(ProfileManager.Instance.Data.CurMapX-1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY * (CheckpointManager.Instance.rows)],
+                            ProfileManager.Instance.Data.Map[(ProfileManager.Instance.Data.CurMapX-1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY],
                             RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY,
                             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).doorDirection,
                             ProfileManager.Instance.Data.RoomElementRoomX,
@@ -69,12 +69,6 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementPosX,
                             ProfileManager.Instance.Data.RoomElementPosY,
                             ProfileManager.Instance.Data.RoomElementPosZ);
-
-                        //RoomManager.Instance.LoadEnemy(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY,
-                        //    ProfileManager.Instance.Data.EnemyID,
-                        //    ProfileManager.Instance.Data.EnemyPosX,
-                        //    ProfileManager.Instance.Data.EnemyPosY,
-                        //    ProfileManager.Instance.Data.EnemyPosZ);
 
                     }
                     break;
@@ -93,7 +87,7 @@ public class Door : RoomElement
                     {
                         pass = 1;
                         RoomManager.Instance.LoadScene(
-                            ProfileManager.Instance.Data.Map[(ProfileManager.Instance.Data.CurMapX+1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY * (CheckpointManager.Instance.rows)],
+                            ProfileManager.Instance.Data.Map[(ProfileManager.Instance.Data.CurMapX+1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY],
                             RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY,
                             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).doorDirection,
                             ProfileManager.Instance.Data.RoomElementRoomX,
@@ -102,7 +96,6 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementPosX,
                             ProfileManager.Instance.Data.RoomElementPosY,
                             ProfileManager.Instance.Data.RoomElementPosZ);
-
 
                     }                   
                     break;
@@ -122,7 +115,7 @@ public class Door : RoomElement
                         pass = 1;
                         Debug.Log("回左边:" + ProfileManager.Instance.Data.RoomElementRoomX[0] + " ");
                         RoomManager.Instance.LoadScene(
-                            ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY-1) * (CheckpointManager.Instance.rows)],
+                            ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY-1)],
                             RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1,
                             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).doorDirection,
                             ProfileManager.Instance.Data.RoomElementRoomX,
@@ -149,7 +142,7 @@ public class Door : RoomElement
                     {
                         pass = 1;
                         RoomManager.Instance.LoadScene(
-                            ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY+1) * (CheckpointManager.Instance.rows)], 
+                            ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY+1)], 
                             RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1,
                             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).doorDirection,
                             ProfileManager.Instance.Data.RoomElementRoomX,
