@@ -370,35 +370,35 @@ public class Missiles : MonoBehaviour {
     //}
 
     //碰撞检测
-    private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("Missile碰撞标签：" + other.tag);
-        if (other.tag == "Enemy")
-        {
-            //other.GetComponent<Enemy>().Health-=damage;
-            if (penetrating==0)
-            {
-                //animator.SetTrigger("MissileBomb");
-                StartCoroutine(Wait(0.2f));
-                Destroy(this.gameObject);
-            }
-        }
-        if (other.tag == "Box")
-        {
-            //other.GetComponent<Box>().OpenBox();
-            if (penetrating==0)
-            {
-                //animator.SetTrigger("MissileBomb");
-                StartCoroutine(Wait(0.2f));
-                Destroy(this.gameObject);
-            }
-        }
-        if (other.tag == "Wall")
-        {
-            StartCoroutine(Wait(0.2f));
-            Destroy(this.gameObject);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //Debug.Log("Missile碰撞标签：" + other.tag);
+    //    if (other.tag == "Enemy")
+    //    {
+    //        //other.GetComponent<Enemy>().Health-=damage;
+    //        if (penetrating==0)
+    //        {
+    //            //animator.SetTrigger("MissileBomb");
+    //            StartCoroutine(Wait(0.2f));
+    //            Destroy(this.gameObject);
+    //        }
+    //    }
+    //    if (other.tag == "Box")
+    //    {
+    //        //other.GetComponent<Box>().OpenBox();
+    //        if (penetrating==0)
+    //        {
+    //            //animator.SetTrigger("MissileBomb");
+    //            StartCoroutine(Wait(0.2f));
+    //            Destroy(this.gameObject);
+    //        }
+    //    }
+    //    if (other.tag == "Wall")
+    //    {
+    //        StartCoroutine(Wait(0.2f));
+    //        Destroy(this.gameObject);
+    //    }
+    //}
 
 
 
