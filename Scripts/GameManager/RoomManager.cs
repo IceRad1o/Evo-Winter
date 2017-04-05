@@ -160,15 +160,15 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         settledPosition.Add(new Vector3(5f, -6.2f, 0f));
         settledPosition.Add(new Vector3(-3.5f, -2.5f, 0f));
         settledPosition.Add(new Vector3(2.5f, -1.5f, 0f));
-        settledPosition.Add(new Vector3(-2.5f, -4.5f, 0f));
+        settledPosition.Add(new Vector3(-2.5f, -5.5f, 0f));
 
         settledPosition.Add(new Vector3(-10f, -0.5f, 0f));
         settledPosition.Add(new Vector3(-10f, -6.2f, 0f));
         settledPosition.Add(new Vector3(10f, -0.5f, 0f));
         settledPosition.Add(new Vector3(10f, -6.2f, 0f));
         settledPosition.Add(new Vector3(-7f, -2.5f, 0f));
-        settledPosition.Add(new Vector3(5f, -1.5f, 0f));
-        settledPosition.Add(new Vector3(-7f, -4.5f, 0f));
+        settledPosition.Add(new Vector3(0f, -3.5f, 0f));
+        settledPosition.Add(new Vector3(-7f, -5.5f, 0f));
 
 
     }
@@ -299,8 +299,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             GameObject objectChoice;
             Vector3 randomPosition = groundPosition[randomIndex];
             //groundPosition.RemoveAt(randomIndex);
-            if(roomType<boxTypeRoom){
-                objectChoice = objectArray[Random.Range(0, objectArray.Length-1)];
+            if(roomType<boxTypeRoom&&roomType!=-1){
+                objectChoice = objectArray[Random.Range(0, objectArray.Length)];
 
                 GameObject enemy = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
                 enemy.transform.SetParent(GameObject.Find("GroundElements").transform);
@@ -414,9 +414,12 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
 
-        if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
+        //if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
+        if(tp == -2)
         {
             LayoutStair();
+            //布局BOSS，测试小怪
+            LayoutEnemyAtRandom(enemys, minEnemyNumber+3, maxEnemyNumber+3);
         }
 
         //Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
@@ -605,6 +608,15 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             //Debug.Log("选中陷阱");
                             //Trap Ground
                             objectChoice = groundElements[9];
+                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+                            roomElement.transform.localPosition = position;
+                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+                            break;
+                        case 16:
+                            //Debug.Log("选中楼梯");
+                            //Stair Ground
+                            objectChoice =stair[0];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
                             roomElement.transform.localPosition = position;

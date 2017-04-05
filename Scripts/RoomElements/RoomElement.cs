@@ -21,6 +21,7 @@ public class RoomElement : ExSubject {
      * 13:杆Rod
      * 14:石头Stone
      * 15:陷阱Trap
+     * 16:楼梯Stair
      * */
     public int RoomElementID
     {

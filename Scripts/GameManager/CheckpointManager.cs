@@ -106,7 +106,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                         if (j + 1 < columns)
                             roomArray[i, j + 1] = 1;
                     }
-                    //9，10向下、向右和向左走
+                    //9向下、向右和向左走
                     else
                     {
                         if (i + 1 < rows)
@@ -182,14 +182,12 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         }
         return count;
     }
-
-    //void Start()
-    //{
-    //    roomArray=new int[rows,columns];
-    //    SetupCheckpoint();
-
-    //}
-
+    //设置关卡大小
+    public void SetRowColumn(int x, int y)
+    {
+        rows = x;
+        columns = y;
+    }
 
     //设置关卡
     public void SetupCheckpoint()
@@ -214,6 +212,20 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 }
             }
         }
+
+        //设置起始位置，类型-1
+        int startNum = Random.Range(4, roomList.Count - 4);
+        roomList[startNum].type = -1;
+        roomArray[roomList[startNum].roomX, roomList[startNum].roomY] = -1;
+        //设置BOSS位置，类型-2
+        int bossNum;
+        if (startNum > roomList.Count - startNum)
+            bossNum = Random.Range(0, startNum / 3);
+        else
+            bossNum = Random.Range(startNum + (roomList.Count - startNum) / 3 * 2, roomList.Count);
+        roomList[bossNum].type = -2;
+        roomArray[roomList[bossNum].roomX, roomList[bossNum].roomY] = -2;
+
         //输出房间布局
         string str = "";
         for (int i = 0; i < rows; i++)
@@ -250,13 +262,12 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 if (roomArray[i,j]>0)
                 {
                     int surroundRoomNumber = GetSurroundRoom(i, j);
-                    int type = Random.Range(0, 3);
-                    roomList.Add(new Room(type, i, j, surroundRoom, isPass[i*columns+j]));
+                    //int type = Random.Range(1, 6);
+                    roomList.Add(new Room(r[i * columns + j], i, j, surroundRoom, isPass[i * columns + j]));
                 }
 
             }
         }
-        
     
         //输出房间布局
         string str = "";

@@ -6,7 +6,7 @@ prefab通过Load方式加载，要将对应的文件夹拖到resources下
 道具掉落位置
 
 
-3.25
+3.25	hahaha
 关于道具的修改：
 1.吸血鬼的獠牙			减去debuff								理由：太弱了
 2.初秋的凝霜			将范围内减速改成制造迷雾减速			理由：哈哈哈
@@ -15,6 +15,13 @@ prefab通过Load方式加载，要将对应的文件夹拖到resources下
 
 道具的品质
 关于门：1.改变门的大小位置 2.改变门的出现时机
+
+
+4.3		hahaha
+关于道具的修改：
+1.罪恶之源				每种精华各25%							原先的50%错误了
+
+
 =======
 3.23 YYF
 IsFinite (m_CachedRange.first) && IsFinite (m_CachedRange.second) 动画有错误信息

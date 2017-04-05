@@ -46,6 +46,41 @@ public class SkillManager : ExSubject
                 this.gameObject.GetComponent<Twinkle>().Trigger();
             return;
         }
+        if (ID == 9)
+        {
+            AllStatic newSkill;
+            if (this.gameObject.GetComponent<AllStatic>() == null)
+                newSkill = this.gameObject.AddComponent<AllStatic>();
+            else
+                this.gameObject.GetComponent<AllStatic>().Trigger();
+            return;
+        }
+        if (ID == 10)
+        {
+            GroundMelody newSkill;
+            if (this.gameObject.GetComponent<GroundMelody>() == null)
+                newSkill = this.gameObject.AddComponent<GroundMelody>();
+            else
+                this.gameObject.GetComponent<GroundMelody>().Trigger();
+            return;
+        }
+        if (ID == 11)
+        {
+            DoubleEsscence newSkill;
+            if (this.gameObject.GetComponent<DoubleEsscence>() == null)
+                newSkill = this.gameObject.AddComponent<DoubleEsscence>();
+            else
+                this.gameObject.GetComponent<DoubleEsscence>().Trigger();
+            return;
+        }
+        if (ID == 402)
+        {
+            EnergyIncrease newSkill;
+            if (this.gameObject.GetComponent<EnergyIncrease>() == null)
+                newSkill = this.gameObject.AddComponent<EnergyIncrease>();
+            
+            return;
+        }
     }
 
     public void UseSkill_L() { 

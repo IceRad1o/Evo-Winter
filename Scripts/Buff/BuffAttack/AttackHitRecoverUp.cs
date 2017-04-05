@@ -30,7 +30,7 @@ public class AttackHitRecoverUp : BuffAttack
         string bID = "";
 
         bID = UtilManager.Instance.MatchFiledFormMsg("AttackHit", msg, 0);
-        if (bID == "Enemy")
+        if (bID == "Monster")
         {
             bID = UtilManager.Instance.MatchFiledFormMsg("AttackHit", msg, 1);
             enemyID = int.Parse(bID);
