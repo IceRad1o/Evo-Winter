@@ -773,14 +773,17 @@ public class Character : RoomElement
     {
         //Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + type+";"+AttackRange);
        // Notify("GenerateMissile;" + CharacterManager.Instance.CharacterList.IndexOf(this) + ";" + type );
+        int num = type / 100;
+        type = type % 100;
+
          GameObject missileInstance ;
         if(weapons.Length!=0)
-                missileInstance = Instantiate(missiles[0],weapons[0].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
+                missileInstance = Instantiate(missiles[0],weapons[num].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
         else
                 missileInstance = Instantiate(missiles[0], transform.position, Quaternion.identity) as GameObject;
         missileInstance.GetComponent<HurtByContract>().Init(AttackDamage, beatBackLevel, beatDownLevelX, beatDownLevelY, this, 1);
 
-        missileInstance.GetComponent<Missiles>().InitMissiles(6f, 6f, 0, faceDirection, 1, type);
+        missileInstance.GetComponent<Missiles>().InitMissiles(attackRange, attackSpeed);
         missileInstance.GetComponent<Missiles>().Fly();
     }
 
