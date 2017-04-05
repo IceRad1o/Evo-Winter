@@ -29,16 +29,10 @@ public class RoomElement : ExSubject {
         set { roomElementID = value; }
     }
 
-    int health;
 
-    public  int Health
-    {
-        get { return health; }
-        set { health = value; }
-    }
 
 	public virtual void Awake () {
-        health = 1;
+        //health = 1;
         this.tag = "RoomElement";
         RoomElementManager.Instance.RoomElementList.Add(this);
 	}

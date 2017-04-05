@@ -118,7 +118,7 @@ public class Character : RoomElement
         }
     }
 
-    public new int Health 
+    public  int Health 
     {
         get { return healthTmp; }
         set
@@ -773,14 +773,15 @@ public class Character : RoomElement
     {
         //Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + type+";"+AttackRange);
        // Notify("GenerateMissile;" + CharacterManager.Instance.CharacterList.IndexOf(this) + ";" + type );
-        int num = type / 100;
+        int missileIndex = type / 1000;
+        int num = type / 100%10;
         type = type % 100;
 
          GameObject missileInstance ;
         if(weapons.Length!=0)
-                missileInstance = Instantiate(missiles[0],weapons[num].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
+                missileInstance = Instantiate(missiles[missileIndex],weapons[num].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
         else
-                missileInstance = Instantiate(missiles[0], transform.position, Quaternion.identity) as GameObject;
+                missileInstance = Instantiate(missiles[missileIndex], transform.position, Quaternion.identity) as GameObject;
         missileInstance.GetComponent<HurtByContract>().Init(AttackDamage, beatBackLevel, beatDownLevelX, beatDownLevelY, this);
         missileInstance.GetComponent<Missiles>().direction = faceDirection;
         missileInstance.GetComponent<Missiles>().flyPath = type;
