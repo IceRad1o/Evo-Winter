@@ -4,21 +4,22 @@ using System.Collections;
 public class BeatDown : MonoBehaviour {
 
 
-    public int level;
+    public int levelX;
+    public int levelY=4;
     public float flySpeedX = 0.15f;
     public float flySpeedY = 2f;
     public float g = 1.2f;
-
+ 
     public int direction;
 
 
 
     void Start()
     {
-        if (level <= 0)
-            return;
-        flySpeedX = level * 0.1f;
-        //flySpeedX = level * 0.1f;
+        //if (levelX <= 0)
+          //  return;
+        flySpeedX = levelX * 0.1f;
+        flySpeedY= levelY * 0.5f;
         if (direction != 1 && direction != -1)
         {
             Debug.LogError("the direction is not correct!"+direction);

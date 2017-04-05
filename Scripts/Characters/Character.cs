@@ -14,6 +14,9 @@ public class Character : RoomElement
     //发射物
     public GameObject[] missiles;
 
+    //武器
+    public GameObject[] weapons;
+
 
     //引用对象
     Animator anim;
@@ -58,7 +61,12 @@ public class Character : RoomElement
     public int FaceDirection
     {
         get { return faceDirection; }
-        set { faceDirection = value; }
+        set 
+        {
+          
+   
+            faceDirection = value;
+        }
     }
     //附加属性
     private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
@@ -497,21 +505,44 @@ public class Character : RoomElement
         }
     }
 
-    private int beatDownLevel;//武器是否有击飞效果
+    private int beatDownLevelX;//武器是否有击飞效果
 
-    public int BeatDownLevel
+    public int BeatDownLevelX
     {
-        get { return beatDownLevel; }
+        get { return beatDownLevelX; }
         set 
         {
-            beatDownLevel = value;
-            weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevel = beatDownLevel;
+            beatDownLevelX = value;
+            weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX;
             if(weapon==1)
-                weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevel = beatDownLevel;
+                weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX;
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                weapons[i].GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX;
+            }
+        }
+    }
+    private int beatDownLevelY;//武器是否有击飞效果
+
+    public int BeatDownLevelY
+    {
+        get { return beatDownLevelY; }
+        set
+        {
+            beatDownLevelY = value;
+            weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY;
+            if (weapon == 1)
+                weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY;
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                weapons[i].GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY;
+            }
         }
     }
 
-    private int beatBackLevel;//武器是否有击飞效果
+
+
+    private int beatBackLevel;//武器是否有击退效果
 
     public int BeatBackLevel
     {
@@ -523,6 +554,11 @@ public class Character : RoomElement
             weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel;
             if (weapon == 1)
                 weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel;
+
+            for(int i=0;i<weapons.Length;i++)
+            {
+                weapons[i].GetComponent<HurtByContract>().beatBackLevel = beatBackLevel;
+            }
         }
     }
 
@@ -537,17 +573,28 @@ public class Character : RoomElement
     }
 
 
-
-
     private Vector3 direction;
+
+    private Vector3 directionAttempt;//试图的方向
+
+    public Vector3 DirectionAttempt
+    {
+        get { return directionAttempt; }
+        set { directionAttempt = value; }
+    }
+
+
 
     public Vector3 Direction
     {
         get { return direction; }
         set
         {
-            if (controllable == 0||canMove==0)
+            if (controllable == 0 || canMove == 0)
+            {
+                DirectionAttempt = value;
                 return;
+            }
             Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
             //Vector3 temp = gameObject.GetComponent<Transform>().localScale;
             if (value.x * temp.x > 0)
@@ -560,6 +607,7 @@ public class Character : RoomElement
             //gameObject.GetComponent<Transform>().localScale = temp;
 
             direction = value;
+            DirectionAttempt = value;
             if (direction.x > 0)
                 faceDirection = 1;
             else if (direction.x < 0)
@@ -725,8 +773,14 @@ public class Character : RoomElement
     {
         //Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + type+";"+AttackRange);
        // Notify("GenerateMissile;" + CharacterManager.Instance.CharacterList.IndexOf(this) + ";" + type );
-        GameObject missileInstance = Instantiate(missiles[0],transform.position, Quaternion.identity) as GameObject;
-        missileInstance.GetComponent<Missiles>().InitMissiles(7.5f, 5f, 0, faceDirection, 1, type);
+         GameObject missileInstance ;
+        if(weapons[0]!=null)
+                missileInstance = Instantiate(missiles[0],weapons[0].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
+        else
+                missileInstance = Instantiate(missiles[0], transform.position, Quaternion.identity) as GameObject;
+        missileInstance.GetComponent<HurtByContract>().Init(AttackDamage, beatBackLevel, beatDownLevelX, beatDownLevelY, this, 1);
+
+        missileInstance.GetComponent<Missiles>().InitMissiles(6f, 6f, 0, faceDirection, 1, type);
         missileInstance.GetComponent<Missiles>().Fly();
     }
 
@@ -761,8 +815,11 @@ public class Character : RoomElement
     int moveRate;
     public void MoveBy(int lastFramesAndRate)
     {
-        this.lastFrames = lastFramesAndRate % 1000;
         this.moveRate = lastFramesAndRate / 1000;
+        if (lastFramesAndRate < 0)
+            lastFramesAndRate = -lastFramesAndRate;
+        this.lastFrames = lastFramesAndRate % 1000;
+      
         StartCoroutine(MoveByCoroutine());
        
     }
@@ -780,6 +837,7 @@ public class Character : RoomElement
 
     public void FlashBy(int lastFramesAndRate)
     {
+
         this.lastFrames = lastFramesAndRate % 1000;
         this.moveRate = lastFramesAndRate / 1000;
         StartCoroutine(FlashByCoroutine());
@@ -792,7 +850,7 @@ public class Character : RoomElement
         while (lastFrames != 0)
         {
 
-            this.gameObject.transform.position +=new Vector3((faceDirection+direction.x)/2, direction.y,direction.z) * moveSpeed * 0.1f * moveRate;
+            this.gameObject.transform.position += new Vector3((faceDirection*2 + DirectionAttempt.x) / 3, DirectionAttempt.y, DirectionAttempt.z) * moveSpeed * 0.1f * moveRate;
             lastFrames--;
             yield return null;
         }

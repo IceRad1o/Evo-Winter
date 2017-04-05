@@ -32,7 +32,11 @@ public class HurtByContract : MonoBehaviour
     /// <summary>
     /// 击倒效果等级:>=0
     /// </summary>
-    public int beatDownLevel = 0;
+    public int beatDownLevelX = 0;
+    /// <summary>
+    /// 击倒效果等级:>=0
+    /// </summary>
+    public int beatDownLevelY = 0;
     /// <summary>
     /// 造成伤害后是否销毁
     /// </summary>
@@ -69,6 +73,17 @@ public class HurtByContract : MonoBehaviour
     }
 
 
+    public void Init(int damage,int beatBackLevel,int beatDownLevelX,int beatDownLevelY,Character ch,int isDestory)
+    {
+        this.damage = damage;
+        this.beatBackLevel=beatBackLevel;
+        this.beatDownLevelX = beatDownLevelX;
+        this.beatDownLevelY = beatDownLevelY;
+        this.ch1 = ch;
+        this.isDestory = isDestory;
+    }
+
+
     /// <summary>
     /// 3D碰撞检测,对于不同物体有
     /// </summary>
@@ -101,12 +116,13 @@ public class HurtByContract : MonoBehaviour
         
 
                 //击倒
-                if (beatDownLevel > 0)
+                if (beatDownLevelX > 0||beatDownLevelY>0)
                 {
                     if(isCh)
                          ch.Fall();
                     BeatDown b = other.gameObject.AddComponent<BeatDown>();
-                    b.level = beatDownLevel;
+                    b.levelX = beatDownLevelX;
+                    b.levelY = beatDownLevelY;
                     b.direction = other.transform.position.x >= this.transform.position.x ? 1 : -1;
                     //ch2.ActionStateMachine.Push(7);
                 }

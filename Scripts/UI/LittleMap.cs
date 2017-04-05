@@ -28,7 +28,7 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
     {
         rows = CheckpointManager.Instance.rows;
         columns = CheckpointManager.Instance.columns;
-
+   
         for (int i = 0; i < rows; i++)
             for (int j = 0; j <columns; j++)
             {

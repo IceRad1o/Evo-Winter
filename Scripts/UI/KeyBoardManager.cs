@@ -121,7 +121,8 @@ public class KeyBoardManager : MonoBehaviour {
                 GameObject ds=Instantiate(DamageSrc, Player.Instance.transform.position, Quaternion.identity) as GameObject;
                 ds.GetComponent<HurtByContract>().destTags = a;
                 ds.GetComponent<HurtByContract>().damage = 1;
-                ds.GetComponent<HurtByContract>().beatDownLevel=2; 
+                ds.GetComponent<HurtByContract>().beatDownLevelX=1;
+                ds.GetComponent<HurtByContract>().beatDownLevelY=4; 
                 cheatPunish=0;
             }
         }
