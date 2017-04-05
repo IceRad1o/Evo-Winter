@@ -783,7 +783,7 @@ public class Character : RoomElement
                 missileInstance = Instantiate(missiles[0], transform.position, Quaternion.identity) as GameObject;
         missileInstance.GetComponent<HurtByContract>().Init(AttackDamage, beatBackLevel, beatDownLevelX, beatDownLevelY, this, 1);
 
-        missileInstance.GetComponent<Missiles>().InitMissiles(6f, 6f, 0, faceDirection, 1, type);
+        missileInstance.GetComponent<Missiles>().InitMissiles(attackRange, attackSpeed);
         missileInstance.GetComponent<Missiles>().Fly();
     }
 
