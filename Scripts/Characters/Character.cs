@@ -781,10 +781,11 @@ public class Character : RoomElement
                 missileInstance = Instantiate(missiles[0],weapons[num].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
         else
                 missileInstance = Instantiate(missiles[0], transform.position, Quaternion.identity) as GameObject;
-        missileInstance.GetComponent<HurtByContract>().Init(AttackDamage, beatBackLevel, beatDownLevelX, beatDownLevelY, this, 1);
+        missileInstance.GetComponent<HurtByContract>().Init(AttackDamage, beatBackLevel, beatDownLevelX, beatDownLevelY, this);
         missileInstance.GetComponent<Missiles>().direction = faceDirection;
+        missileInstance.GetComponent<Missiles>().flyPath = type;
         missileInstance.GetComponent<Missiles>().InitMissiles(attackRange, attackSpeed);
-        missileInstance.GetComponent<Missiles>().Fly();
+  
     }
 
     /// <summary>
