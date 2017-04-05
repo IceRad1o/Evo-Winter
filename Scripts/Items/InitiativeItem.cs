@@ -77,8 +77,8 @@ public class InitiativeItem : Item{
         if (itemSkillID != 0)
             ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + itemSkillID);
 
-        energyNow = 0;
-        ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;" + energyNow);
+        EnergyNow = 0;
+        //ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;" + energyNow);
     }
 
 

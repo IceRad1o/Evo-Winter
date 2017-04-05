@@ -18,7 +18,9 @@ public class Esscence : RoomElement {
     void PlayerGet() 
     {
         Notify("Get_Esscence;" + esscenceID);
-        Destroy(gameObject);
+        UIManager.Instance.RemoveObserver(this);
+        Player.Instance.Character.RemoveObserver(this);
+        base.Destroy();
     }
 
 
@@ -59,7 +61,7 @@ public class Esscence : RoomElement {
     public override void OnNotify(string msg)
     {
         string[] str = UtilManager.Instance.GetMsgFields(msg);
-        if (str[0] == "AttackStart")
+        if (str[0] == "AttackStart" && playerIn)
         {
             PlayerGet();
         }

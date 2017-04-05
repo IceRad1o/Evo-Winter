@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Skill : ExSubject
 {
+    protected GameObject prefabInstance;
 
     /// <summary>
     /// 技能的ID

@@ -91,6 +91,16 @@ public class BuffAttack : Buff {
                 else
                     ob.GetComponent<AttackPoison>().Probability++;
                 break;
+            case 8:
+                if (ob.GetComponent<AttackSputtering>() == null)
+                {
+                    AttackSputtering newBuff3 = ob.AddComponent<AttackSputtering>();
+
+                    newBuff3.Create(ID);
+                }
+                else
+                    ob.GetComponent<AttackSputtering>().Probability++;
+                break;
             default:
                 break;
         }

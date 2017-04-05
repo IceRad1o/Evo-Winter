@@ -40,13 +40,10 @@ public class BuffManager : ExSubject
                 buffList.Add(newBuff);
                 break;
             case 2:
-                if (idPart[1] == 1)
-                {
-                    BuffCreateItem newBuff1 = this.gameObject.AddComponent<BuffCreateItem>();
-                    newBuff1.Create(ID);
-                    buffList.Add(newBuff1);
-                }  
 
+                BuffCreateItem newBuff1 = this.gameObject.AddComponent<BuffCreateItem>();
+                newBuff1.Create(ID);
+                buffList.Add(newBuff1);
                 break;
             case 10:
                 new BuffAttack().CreateBuff(ID,this.gameObject);
@@ -58,6 +55,11 @@ public class BuffManager : ExSubject
             case 20:
                 new BuffAura().CreateBuff(ID, this.gameObject);                
                 break;
+            case 30:
+                BuffShield newBuff2 = this.gameObject.AddComponent<BuffShield>();
+                newBuff2.Create(ID);
+                buffList.Add(newBuff2);
+                break;
             default:
                 break;
         }
@@ -67,7 +69,7 @@ public class BuffManager : ExSubject
     {
         if (buffManagerTag == "Player" && ID % 10 == 0)
             judgeCreate = true;
-        if (buffManagerTag == "Enemy" && ID % 10 == 1)
+        if (buffManagerTag == "Monster" && ID % 10 == 1)
             judgeCreate = true;
         CreateBuff(ID / 10,spTag);
 
@@ -79,7 +81,6 @@ public class BuffManager : ExSubject
         if (this.gameObject.tag == "Player")
             ItemManager.Instance.AddObserver(this);
         this.gameObject.GetComponent<Character>().AddObserver(this);
-        Debug.Log(this.gameObject.tag);
         RoomManager.Instance.AddObserver(this);
         if (this.gameObject.tag == "Player")
             buffManagerTag = "Player";
