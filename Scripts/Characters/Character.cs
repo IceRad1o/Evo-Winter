@@ -774,7 +774,7 @@ public class Character : RoomElement
         //Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + type+";"+AttackRange);
        // Notify("GenerateMissile;" + CharacterManager.Instance.CharacterList.IndexOf(this) + ";" + type );
          GameObject missileInstance ;
-        if(weapons[0]!=null)
+        if(weapons.Length!=0)
                 missileInstance = Instantiate(missiles[0],weapons[0].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
         else
                 missileInstance = Instantiate(missiles[0], transform.position, Quaternion.identity) as GameObject;
