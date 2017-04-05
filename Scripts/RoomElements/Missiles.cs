@@ -4,17 +4,20 @@ using System.Collections;
 public class Missiles : MonoBehaviour {
 
     //飞行距离
-    private float flyDistance;
+    public float flyDistance = 7.5f;
+    public int distanceLevel = 1;
+    public float distanceBuff = 1;
     //飞行速度
-    private float flySpeed;
+    public float flySpeed = 0.1f;
+    public int speedLevel = 1;
+    public float speedBuff = 1;
+
     //穿透性，0无，1有
-    private int penetrating;
+    public int penetrating = 0;
     //方向，-1左，1右
-    private int direction;
-    //伤害
-    private int damage;
+    public int direction;
     //飞行路径,0-N
-    private int flyPath;
+    public int flyPath = 1;
     //初始位置
     private Vector3 startPosition;
 
@@ -27,22 +30,14 @@ public class Missiles : MonoBehaviour {
     //}
 
     /// <summary>
-    /// 构造函数
+    /// 初始化倍数
     /// </summary>
     /// <param name="fd">飞行距离</param>
     /// <param name="fs">发射物飞行速度</param>
-    /// <param name="pe">穿透性</param>
-    /// <param name="dr">方向</param>
-    /// <param name="dm">伤害</param>
-    /// <param name="fp">飞行路径</param>
-    public void InitMissiles(float fd, float fs, int pe, int dr, int dm, int fp)
+    public void InitMissiles(int fd, int fs)
     {
-        flyDistance = fd;
-        flySpeed = fs;
-        penetrating = pe;
-        direction = dr;
-        damage = dm;
-        flyPath = fp;
+        distanceBuff = fd;
+        speedBuff = fs;
     }
 
     //发射物飞行
@@ -88,12 +83,13 @@ public class Missiles : MonoBehaviour {
     //发射物飞行路径1, 直线
     IEnumerator FlyPath1()
     {
-        float speed = flySpeed /30;
+        float speed = flySpeed * speedLevel * speedBuff;
+        float distance = flyDistance * distanceLevel * distanceBuff;
         while (true)
         {
             if (direction < 0)
             {
-                if (this.transform.position.x > (startPosition.x - flyDistance))
+                if (this.transform.position.x > (startPosition.x - distance))
                 {
                     this.transform.position = new Vector3(this.transform.position.x - speed, 
                         this.transform.position.y, 
@@ -108,7 +104,7 @@ public class Missiles : MonoBehaviour {
 
             if (direction > 0)
             {
-                if (this.transform.position.x < (startPosition.x + flyDistance))
+                if (this.transform.position.x < (startPosition.x + distance))
                 {
                     this.transform.position = new Vector3(this.transform.position.x + speed, 
                         this.transform.position.y, 
@@ -128,11 +124,13 @@ public class Missiles : MonoBehaviour {
     IEnumerator FlyPath2()
     {
         //X轴速度
-        float speed = flySpeed / 27;
+        float speed = flySpeed * speedLevel * speedBuff;
+        //飞行距离
+        float distance = flyDistance * distanceLevel * distanceBuff;
         //重力加速度
         float g = 1f;
         //Y轴速度
-        float v = 2f;
+        float v = 0.5f * g * distance / speed;
         //时间
         float t = 0;
 
@@ -142,7 +140,7 @@ public class Missiles : MonoBehaviour {
             //Debug.Log("旋转角：" + Mathf.Atan((v-g*t)/(speed))*10);
             if (direction < 0)
             {
-                if (this.transform.position.x > (startPosition.x - flyDistance))
+                if (this.transform.position.x > (startPosition.x - distance))
                 {
 
                     this.transform.rotation = Quaternion.Euler(0f, 0f, 180f-rotateTheta);
@@ -160,7 +158,7 @@ public class Missiles : MonoBehaviour {
 
             if (direction > 0)
             {
-                if (this.transform.position.x < (startPosition.x + flyDistance))
+                if (this.transform.position.x < (startPosition.x + distance))
                 {
                     this.transform.rotation = Quaternion.Euler(0f, 0f, rotateTheta);
                     this.transform.position = new Vector3(this.transform.position.x + speed, 
@@ -181,13 +179,13 @@ public class Missiles : MonoBehaviour {
     //发射物飞行路径3, 竖直下落
     IEnumerator FlyPath3()
     {
-        float speed = flySpeed / 100;
+        float speed = flySpeed * speedLevel * speedBuff;
         float ySpeed = 0.2f;
         float high = 4f;
         int arrive = 0;
         float xDistance;
-        if (direction < 0) xDistance = flyDistance * -1;
-        else xDistance = flyDistance;
+        if (direction < 0) xDistance = flyDistance * distanceLevel * distanceBuff * -1;
+        else xDistance = flyDistance * distanceLevel * distanceBuff;
 
         while (true)
         {
@@ -228,7 +226,7 @@ public class Missiles : MonoBehaviour {
     IEnumerator FlyPath4()
     {
         //X轴速度
-        float speed = flySpeed / 27;
+        float speed = flySpeed * speedLevel * speedBuff;
         //重力加速度
         float g = 1f;
         //Y轴速度
@@ -236,14 +234,14 @@ public class Missiles : MonoBehaviour {
         //时间
         float t = 0;
 
-        flyDistance = flyDistance / 2;
+        float distance = flyDistance * distanceLevel * distanceBuff;
         while (true)
         {
             float rotateTheta = Mathf.Atan((v - g * t) / (speed)) * 10;
             //Debug.Log("旋转角：" + Mathf.Atan((v-g*t)/(speed))*10);
             if (direction < 0)
             {
-                if (this.transform.position.x > (startPosition.x - flyDistance))
+                if (this.transform.position.x > (startPosition.x - distance))
                 {
                     this.transform.position = new Vector3(this.transform.position.x - speed,
                         this.transform.position.y,
@@ -267,7 +265,7 @@ public class Missiles : MonoBehaviour {
 
             if (direction > 0)
             {
-                if (this.transform.position.x < (startPosition.x + flyDistance))
+                if (this.transform.position.x < (startPosition.x + distance))
                 {
                     this.transform.position = new Vector3(this.transform.position.x + speed,
                         this.transform.position.y,
@@ -295,13 +293,14 @@ public class Missiles : MonoBehaviour {
     //发射物飞行路径5, Z轴斜线
     IEnumerator FlyPath5()
     {
-        float zSpeed = flySpeed / 100;
-        float speed = flySpeed / 30;
+        float speed = flySpeed * speedLevel * speedBuff;
+        float zSpeed = speed / 3;
+        float distance = flyDistance * distanceLevel * distanceBuff;
         while (true)
         {
             if (direction < 0)
             {
-                if (this.transform.position.x > (startPosition.x - flyDistance))
+                if (this.transform.position.x > (startPosition.x - distance))
                 {
                     this.transform.position = new Vector3(this.transform.position.x - speed,
                         this.transform.position.y + zSpeed,
@@ -316,7 +315,7 @@ public class Missiles : MonoBehaviour {
 
             if (direction > 0)
             {
-                if (this.transform.position.x < (startPosition.x + flyDistance))
+                if (this.transform.position.x < (startPosition.x + distance))
                 {
                     this.transform.position = new Vector3(this.transform.position.x + speed,
                         this.transform.position.y + zSpeed,
@@ -336,8 +335,8 @@ public class Missiles : MonoBehaviour {
     {
         int loop = 30;
         float theta = 0;
-        float t = 0.1f;
-        float r = flyDistance / 10;
+        float t = flySpeed * speedLevel * speedBuff;
+        float r = flyDistance * distanceLevel * distanceBuff / 10;
         Vector3 startPosition;
         penetrating = 1;
         while (true)
