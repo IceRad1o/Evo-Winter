@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Missiles : MonoBehaviour {
-
+    
+    //是否调用fly
+    private bool isFly = false;
     //飞行距离
     public float flyDistance = 7.5f;
     public int distanceLevel = 1;
@@ -34,10 +36,11 @@ public class Missiles : MonoBehaviour {
     /// </summary>
     /// <param name="fd">飞行距离</param>
     /// <param name="fs">发射物飞行速度</param>
-    public void InitMissiles(float fd, float fs)
+    public void InitMissiles(float fd, float fs, bool fly)
     {
         distanceBuff = fd;
         speedBuff = fs;
+        isFly = fly;
     }
 
     //发射物飞行
@@ -403,7 +406,7 @@ public class Missiles : MonoBehaviour {
 
 
 	void Start () {
-
+        if (isFly) Fly();
 	}
 	
 
