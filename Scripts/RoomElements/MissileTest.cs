@@ -50,7 +50,7 @@ public class MissileTest : MonoBehaviour {
             GameObject missileInstance = Instantiate(missile[choice], Player.Instance.Character.transform.position, Quaternion.identity) as GameObject;
 
             //Debug.Log("Missile飞行路径:" +  flyPath);
-            missileInstance.GetComponent<Missiles>().InitMissiles(distance*2 + 0.5f, 5f, penetrating, direction, 1, flyPath);
+            //missileInstance.GetComponent<Missiles>().InitMissiles(distance*2 + 0.5f, 5f, penetrating, direction, 1, flyPath);
             missileInstance.GetComponent<Missiles>().Fly();
         }
 
