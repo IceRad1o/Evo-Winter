@@ -34,7 +34,7 @@ public class Missiles : MonoBehaviour {
     /// </summary>
     /// <param name="fd">飞行距离</param>
     /// <param name="fs">发射物飞行速度</param>
-    public void InitMissiles(int fd, int fs)
+    public void InitMissiles(float fd, float fs)
     {
         distanceBuff = fd;
         speedBuff = fs;
