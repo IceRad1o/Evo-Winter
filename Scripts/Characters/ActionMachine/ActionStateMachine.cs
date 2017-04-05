@@ -97,33 +97,33 @@ public class ActionStateMachine {
             case 7:
                 Fall();
                 break;
-            case 11:
-                JJ();
-                break;
-            case 12:
-                JK();
-                break;
-            case 21:
-                KJ();
-                break;
-            case 22:
-                KK();
-                break;
-            case 111:
-                JJJ();
-                break;
-            case 112:
-                JJK();
-                break;
-            case 221:
-                KKJ();
-                break;
-            case 222:
-                KKK();
-                break;
-            case 1111:
-                JJJJ();
-                break;
+            //case 11:
+            //    JJ();
+            //    break;
+            //case 12:
+            //    JK();
+            //    break;
+            ////case 21:
+            //  //  KJ();
+            //   // break;
+            ////case 22:
+            //  //  KK();
+            // //   break;
+            //case 111:
+            //    JJJ();
+            //    break;
+            //case 112:
+            //    JJK();
+            //    break;
+            //case 221:
+            //    KKJ();
+            //    break;
+            //case 222:
+            //    KKK();
+            //    break;
+            //case 1111:
+            //    JJJJ();
+            //    break;
             default:
                 state = state % 10; //如果没有相应的状态与节点链对应,则表示进入的节点为新的节点链的首节点
                 //Debug.Log("1new:"+state);
@@ -149,19 +149,20 @@ public class ActionStateMachine {
         isFull = true;
   
         //如果时间大于状态机的响应时间,则新起一条链
-        if (Time.time > nextTime)
-            state = node;
+        //if (Time.time > nextTime)
+        //    state = node;
         
 
 
-        //如果链长度太大,则去掉前面无用节点 <异常处理>
-        else if (state > 100000)
-        {
-            Debug.Log("State:" + state + " is too big!");
-            state = state / 100;
-        }
-        else 
-            state = state * 10 + node;
+        ////如果链长度太大,则去掉前面无用节点 <异常处理>
+        //else if (state > 100000)
+        //{
+        //    Debug.Log("State:" + state + " is too big!");
+        //    state = state / 100;
+        //}
+        //else 
+        //    state = state * 10 + node;
+        state = node;
 
         nextTime = Time.time + intervalTime;
 
@@ -170,10 +171,9 @@ public class ActionStateMachine {
 
     public virtual void J()
     {
-        if(race==0&&weapon==0)
+
             character.GetComponent<Animator>().SetTrigger("AttackJ");
-        else
-            character.GetComponent<Animator>().SetTrigger("AttackJ"+race+weapon);
+
        
 
 
@@ -191,16 +191,14 @@ public class ActionStateMachine {
     }
     public virtual void JJ()
     {
-        if (race == 0 && weapon == 0)
             character.GetComponent<Animator>().SetTrigger("AttackJJ");
-        else
-            character.GetComponent<Animator>().SetTrigger("AttackJJ" + race + weapon);
+
   
     }
 
     public virtual void JK()
     {
-       // character.GetComponent<Animator>().SetTrigger("AttackJK");
+        character.GetComponent<Animator>().SetTrigger("AttackJK");
     }
 
     public virtual void KJ()
@@ -230,7 +228,7 @@ public class ActionStateMachine {
     }
     public virtual void JJK()
     {
-       // character.GetComponent<Animator>().SetTrigger("AttackJJK");
+        character.GetComponent<Animator>().SetTrigger("AttackJJK");
     }
 
     public virtual void KKJ()
