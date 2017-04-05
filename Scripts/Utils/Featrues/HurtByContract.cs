@@ -73,14 +73,14 @@ public class HurtByContract : MonoBehaviour
     }
 
 
-    public void Init(int damage,int beatBackLevel,int beatDownLevelX,int beatDownLevelY,Character ch,int isDestory)
+    public void Init(int damage,int beatBackLevel,int beatDownLevelX,int beatDownLevelY,Character ch)
     {
         this.damage = damage;
         this.beatBackLevel=beatBackLevel;
         this.beatDownLevelX = beatDownLevelX;
         this.beatDownLevelY = beatDownLevelY;
         this.ch1 = ch;
-        this.isDestory = isDestory;
+
     }
 
 
@@ -147,13 +147,18 @@ public class HurtByContract : MonoBehaviour
                 CameraShake.Instance.shakeLevelY = 0;
                 CameraShake.Instance.time = 0.15f;
                 CameraShake.Instance.Shake();
-                //销毁
-                if (isDestory != 0)
-                    Destroy(gameObject);
+        
 
                 //发送消息
                 if(ch1!=null&&isCh)
                     ch1.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()) + ";" + ch1.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(ch1));
+
+                //销毁
+                if (isDestory != 0)
+                {
+
+                    Destroy(gameObject);
+                }
             }
         }
 
