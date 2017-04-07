@@ -45,6 +45,13 @@ public class BuffChangeAttributeTemp : BuffTiming {
         else
             DValue = -idPart[4];
 
+        Trigger();
+        if (buffDuration!=0)
+            StartCoroutine(delay(BuffDuration, 0));
+        else
+            StartCoroutine(delay(10000, 0));
+
+
     }
 
 
@@ -128,9 +135,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
     }
  
 	void Start () {
-        Trigger();
-        DValue = -DValue;
-        StartCoroutine(delay(BuffDuration, 0));
+        
 	}
 	
 
