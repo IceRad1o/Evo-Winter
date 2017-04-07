@@ -53,7 +53,7 @@ public class MoveTo : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = (destPosition - this.transform.localPosition) / count;
@@ -64,7 +64,7 @@ public class MoveTo : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
                 while (count-- != 0)
@@ -94,7 +94,7 @@ public class MoveTo : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = (destPosition - this.GetComponent<RectTransform>().localPosition) / count;
@@ -106,7 +106,7 @@ public class MoveTo : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
 

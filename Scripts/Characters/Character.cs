@@ -269,8 +269,8 @@ public class Character : RoomElement
             attackDamage = value;
            
             GetComponent<CharacterSkin>().Weapon.GetComponent<HurtByContract>().damage =(int) attackDamage;
-            if(weapon==1)
-                GetComponent<CharacterSkin>().Weapon2.GetComponent<HurtByContract>().damage = (int)attackDamage;
+            //if(weapon==1&&race==0)
+               // GetComponent<CharacterSkin>().Weapon2.GetComponent<HurtByContract>().damage = (int)attackDamage;
             Notify("AttackDamageInChanged;"+tmp+";"+attackDamage);
         }
     }
@@ -488,17 +488,17 @@ public class Character : RoomElement
             isWeaponDmg = value;
             if (value == 0)
             {
-                weaponObj.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = false;
-                if(weapon==1)
-                    weaponObj2.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = false;
+                foreach (GameObject weapon in weapons)
+                    weapon.GetComponent<BoxCollider>().enabled =false;
+
                 Notify("WeaponDontDmg");
             }
                
             else
             {
-                weaponObj.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = true;
-                if (weapon == 1)
-                    weaponObj2.transform.Find("Weapon").GetComponent<BoxCollider>().enabled = true;
+                foreach (GameObject weapon in weapons)
+                    weapon.GetComponent<BoxCollider>().enabled = true;
+
                 Notify("WeaponDmg");
             }
              
@@ -514,8 +514,7 @@ public class Character : RoomElement
         {
             beatDownLevelX = value;
             weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX;
-            if(weapon==1)
-                weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX;
+
             for (int i = 0; i < weapons.Length; i++)
             {
                 weapons[i].GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX;
@@ -531,8 +530,7 @@ public class Character : RoomElement
         {
             beatDownLevelY = value;
             weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY;
-            if (weapon == 1)
-                weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY;
+
             for (int i = 0; i < weapons.Length; i++)
             {
                 weapons[i].GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY;
@@ -810,7 +808,7 @@ public class Character : RoomElement
         if(weapon==1)
         {
             weaponObj.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
-            weaponObj2.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
+            //weaponObj2.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
         }
 
     }

@@ -70,7 +70,7 @@ public class RotateTo : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = (destRotation - this.transform.localEulerAngles) / count;
@@ -81,7 +81,7 @@ public class RotateTo : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
 
@@ -112,7 +112,7 @@ public class RotateTo : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = (destRotation - this.GetComponent<RectTransform>().localEulerAngles) / count;
@@ -124,7 +124,7 @@ public class RotateTo : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
 

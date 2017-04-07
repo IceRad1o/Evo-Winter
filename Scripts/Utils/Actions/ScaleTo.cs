@@ -70,7 +70,7 @@ public class ScaleTo : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)((duration * 60) );
             if (count == 0)
                 count = 1;
             speed = (destScale - this.transform.localScale) / count;
@@ -81,7 +81,7 @@ public class ScaleTo : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)((duration * 60) );
                 if (count == 0)
                     count = 1;
 
@@ -114,7 +114,7 @@ public class ScaleTo : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)((duration * 60) );
             if (count == 0)
                 count = 1;
             speed = (destScale - this.GetComponent<RectTransform>().localScale) / count;
@@ -125,7 +125,7 @@ public class ScaleTo : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)((duration * 60) );
                 if (count == 0)
                     count = 1;
 
