@@ -40,7 +40,8 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <param name="s">精华生成的位置</param>
     public void CreateEsscence(int ID=5,Vector3 s= default(Vector3)) 
     {
-
+        if (s == new Vector3(0, 0, 0))
+            s = new Vector3(1, -1, -1);
         Esscence esscenceInstance = Instantiate(esscencePfb, s, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as Esscence;
         if (ID >= 0 && ID <= 3)
             esscenceInstance.Create(ID);

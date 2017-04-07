@@ -16,6 +16,7 @@ public class BuffStatic : BuffTiming {
         int[] part = { 2, 2, 3 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
+        SpecialTag = spTag;
         BuffDuration = idPart[2];
 
     }
@@ -23,19 +24,31 @@ public class BuffStatic : BuffTiming {
 
     public override void Trigger()
     {
-        Player.Instance.Character.CanMove = 0;
+        Player.Instance.Character.Controllable = 0;
 
-        GameObject pfb = Resources.Load("Buffs/Static") as GameObject;
-        Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
-        prefabInstance = Instantiate(pfb);
-        prefabInstance.transform.position = s;
-        prefabInstance.transform.parent = this.gameObject.transform;
-        prefabInstance.transform.localScale = new Vector3(1, 1, 1);
+        if (SpecialTag != "Skill_L")
+        {
+            GameObject pfb = Resources.Load("Buffs/Static") as GameObject;
+            Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+            prefabInstance = Instantiate(pfb);
+            prefabInstance.transform.position = s;
+            prefabInstance.transform.parent = this.gameObject.transform;
+            prefabInstance.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else 
+        {
+            GameObject pfb = Resources.Load("Buffs/dizzy") as GameObject;
+            Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+1, -1);
+            prefabInstance = Instantiate(pfb);
+            prefabInstance.transform.position = s;
+            prefabInstance.transform.parent = this.gameObject.transform;
+        
+        }
     }
 
     public override void DestroyBuff()
     {
-        Player.Instance.Character.CanMove = 1;
+        Player.Instance.Character.Controllable = 1;
         Destroy(prefabInstance);
         base.DestroyBuff();
     }
