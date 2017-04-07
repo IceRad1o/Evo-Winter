@@ -69,7 +69,7 @@ public class ScaleBy : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)((duration * 60) );
             if (count == 0)
                 count = 1;
             speed = deltaScale / count;
@@ -80,7 +80,7 @@ public class ScaleBy : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)((duration * 60) );
                 if (count == 0)
                     count = 1;
                 speed = deltaScale / count;
@@ -111,7 +111,7 @@ public class ScaleBy : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)((duration * 60) );
             if (count == 0)
                 count = 1;
             speed = deltaScale / count;
@@ -122,7 +122,7 @@ public class ScaleBy : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)((duration * 60) );
                 if (count == 0)
                     count = 1;
                 speed = deltaScale / count;

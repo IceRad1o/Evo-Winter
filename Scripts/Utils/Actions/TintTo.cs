@@ -70,7 +70,7 @@ public class TintTo : Action
         if (isDelay)
             yield return new WaitForSeconds(delayTime);
 
-        count = (int)duration * 60;
+        count = (int)(duration * 60) ;
         if (count == 0)
             count = 1;
          List<Vector4> speed=new List<Vector4>();
@@ -80,7 +80,7 @@ public class TintTo : Action
          }
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             while (count-- != 0)
@@ -97,7 +97,7 @@ public class TintTo : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
                 while (count-- != 0)
@@ -123,7 +123,7 @@ public class TintTo : Action
         if (isDelay)
             yield return new WaitForSeconds(delayTime);
 
-        count = (int)duration * 60;
+        count = (int)(duration * 60) ;
         if (count == 0)
             count = 1;
         List<Vector4> speed = new List<Vector4>();
@@ -133,7 +133,7 @@ public class TintTo : Action
         }
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             while (count-- != 0)
@@ -150,7 +150,7 @@ public class TintTo : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
                 while (count-- != 0)

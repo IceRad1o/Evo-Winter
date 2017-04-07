@@ -4,22 +4,22 @@ using System.Collections;
 public class Action : MonoBehaviour {
 
     /// <summary>
-    /// 是否为UI元素
+    /// 是否为UI元素,默认false
     /// </summary>
     public bool isOnCanvas = false;
 
     /// <summary>
-    /// 持续时间,运动开始后不可变更
+    /// 持续时间,运动开始后不可变更,默认1
     /// </summary>
     public float duration = 1.0f;
 
     /// <summary>
-    /// 是否重置初始值
+    /// 是否重置初始值,默认false
     /// </summary>
     public bool isReset = false;
 
     /// <summary>
-    /// 是否将初始值设为0;
+    /// 是否将初始值设为0,默认false
     /// </summary>
     public bool resetToZero = false;
 
@@ -29,17 +29,17 @@ public class Action : MonoBehaviour {
     public Vector4 resetValue;
 
     /// <summary>
-    /// 是否反转
+    /// 是否反转,默认false
     /// </summary>
     public bool isReverse = false;
 
     /// <summary>
-    /// 是否循环
+    /// 是否循环,默认false
     /// </summary>
     public bool isLoop = false;
     
     /// <summary>
-    /// 是否永久循环
+    /// 是否永久循环,默认false
     /// </summary>
     public bool loopForever = false;
 

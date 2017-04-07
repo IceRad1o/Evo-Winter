@@ -66,7 +66,7 @@ public class RotateBy : Action
 
         do
         {
-            count = (int)duration * 60 + 1;
+            count = (int)((duration * 60) ) + 1;
             speed = deltaRotation / count;
             while (count-- != 0)
             {
@@ -75,7 +75,7 @@ public class RotateBy : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)((duration * 60) ) + 1;
                 speed = deltaRotation / count;
                 while (count-- != 0)
                 {
@@ -104,7 +104,7 @@ public class RotateBy : Action
 
          do
         {
-            count = (int)duration * 60 + 1;
+            count = (int)((duration * 60) ) + 1;
             speed = deltaRotation / count;
             while (count-- != 0)
             {
@@ -113,7 +113,7 @@ public class RotateBy : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)((duration * 60) ) + 1;
                 speed = deltaRotation / count;
                 while (count-- != 0)
                 {
