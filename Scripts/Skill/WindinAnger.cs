@@ -5,7 +5,7 @@ public class WindinAnger : Skill {
 
     int enemyID;
 
-    protected override void Trigger()
+    public override void Trigger()
     {
         if (JudgeTrigger())
         {
@@ -13,7 +13,7 @@ public class WindinAnger : Skill {
         }
 
     }
-    protected override void Create(int ID)
+    public override void Create(int ID)
     {
         base.Create(ID);
         Probability = 100;
