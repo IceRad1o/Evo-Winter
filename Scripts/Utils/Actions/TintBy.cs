@@ -6,42 +6,15 @@ using System.Collections;
 /// 运动完毕后自动销毁
 /// YYF 3.30
 /// </summary>
-public class TintBy: MonoBehaviour
+public class TintBy: Action
 {
 
-    /// <summary>
-    /// 持续时间,运动开始后不可变更
-    /// </summary>
-    public float duration = 1.0f;
-
-    /// <summary>
-    /// 是否将颜色设为0;
-    /// </summary>
-    public bool resetToZero = false;
-
+   
     /// <summary>
     /// 差值
     /// </summary>
     public Vector4 deltaColor;
 
-    /// <summary>
-    /// 是否反转
-    /// </summary>
-    public bool isReverse = false;
-
-    /// <summary>
-    /// 是否循环
-    /// </summary>
-    public bool isLoop = false;
-
-
-    /// <summary>
-    /// 是否为UI元素
-    /// </summary>
-    public bool isOnCanvas = false;
-
-
-    int count;
     
     SpriteRenderer[] renders;
     Image[] images;
@@ -56,19 +29,28 @@ public class TintBy: MonoBehaviour
             if (renders == null)
                 return;
 
+            if (isReset)
+                foreach (SpriteRenderer r in renders)
+                {
+                    r.color = new Color(resetValue.x, resetValue.y, resetValue.z, resetValue.w);
+                }
             if (resetToZero)
                 foreach (SpriteRenderer r in renders)
                 {
                     r.color = new Color(0, 0, 0, 1);
                 }
-
-
             StartCoroutine(IEumTintBy());
         }
 
         else
         {
             images = this.GetComponentsInChildren<Image>();
+     
+            if (isReset)
+                foreach (Image r in images)
+                {
+                    r.color = new Color(resetValue.x, resetValue.y, resetValue.z, resetValue.w);
+                }
             if (resetToZero)
                 foreach (Image r in images)
                 {
@@ -81,6 +63,9 @@ public class TintBy: MonoBehaviour
 
     IEnumerator IEumTintBy()
     {
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
+
        Vector4 speed;
 
 
@@ -117,16 +102,17 @@ public class TintBy: MonoBehaviour
                     yield return null;
                 }
             }
-        } while (isLoop && isReverse);
+        }  while (isLoop && (--loopTimes > 0 || loopForever));
         Destroy(this);
     }
 
 
     IEnumerator IEumUITintBy()
     {
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
+
         Vector4 speed;
-
-
         do
         {
             count = (int)duration * 60 ;
@@ -159,7 +145,7 @@ public class TintBy: MonoBehaviour
                     yield return null;
                 }
             }
-        } while (isLoop && isReverse);
+        }  while (isLoop && (--loopTimes > 0 || loopForever));
         Destroy(this);
     }
 

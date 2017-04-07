@@ -7,45 +7,18 @@ using System.Collections;
 /// 运动完毕后自动销毁
 /// YYF 3.30
 /// </summary>
-public class TintTo : MonoBehaviour
+public class TintTo : Action
 {
 
-    /// <summary>
-    /// 持续时间,运动开始后不可变更
-    /// </summary>
-    public float duration = 1.0f;
-
-    /// <summary>
-    /// 是否将颜色设为0;
-    /// </summary>
-    public bool resetToZero = false;
-
-    public bool useResetColor=false;
-    public Vector4 resetColor =new Vector4(0, 0, 0, 0);
+  
 
     /// <summary>
     /// 差值
     /// </summary>
     public Vector4 destColor;
 
-    /// <summary>
-    /// 是否反转
-    /// </summary>
-    public bool isReverse = false;
+   
 
-    /// <summary>
-    /// 是否循环
-    /// </summary>
-    public bool isLoop = false;
-
-
-    /// <summary>
-    /// 是否为UI元素
-    /// </summary>
-    public bool isOnCanvas = false;
-
-
-    int count;
 
     SpriteRenderer[] renders;
     Image[] images;
@@ -66,10 +39,10 @@ public class TintTo : MonoBehaviour
                     r.color = new Color(0, 0, 0, 1);
                 }
 
-            if (useResetColor)
+            if (isReset)
                 foreach (SpriteRenderer r in renders)
                 {
-                    r.color = new Color(resetColor.x, resetColor.y, resetColor.z, resetColor.w);
+                    r.color = new Color(resetValue.x, resetValue.y, resetValue.z, resetValue.w);
                 }
             StartCoroutine(IEumTintTo());
         }
@@ -82,10 +55,10 @@ public class TintTo : MonoBehaviour
                 {
                     r.color = new Color(0, 0, 0, 1);
                 }
-            if (useResetColor)
+            if (isReset)
                 foreach (Image r in images)
                 {
-                    r.color = new Color(resetColor.x, resetColor.y, resetColor.z, resetColor.w);
+                    r.color = new Color(resetValue.x, resetValue.y, resetValue.z, resetValue.w);
                 }
             StartCoroutine(IEumUITintTo());
         }
@@ -94,6 +67,8 @@ public class TintTo : MonoBehaviour
 
     IEnumerator IEumTintTo()
     {
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
 
         count = (int)duration * 60;
         if (count == 0)
@@ -138,13 +113,16 @@ public class TintTo : MonoBehaviour
                     yield return null;
                 }
             }
-        } while (isLoop && isReverse);
+        }  while (isLoop && (--loopTimes > 0 || loopForever));
         Destroy(this);
     }
 
 
     IEnumerator IEumUITintTo()
     {
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
+
         count = (int)duration * 60;
         if (count == 0)
             count = 1;
@@ -187,7 +165,7 @@ public class TintTo : MonoBehaviour
                     yield return null;
                 }
             }
-        } while (isLoop && isReverse);
+        }  while (isLoop && (--loopTimes > 0 || loopForever));
         Destroy(this);
     }
 

@@ -38,6 +38,7 @@ public class StartAdventrue : MonoBehaviour {
     /// </summary>
     void OnStartAdventrue()
     {
+        Debug.Log(3432);
         PlayerPrefs.SetInt("isNew", isNew);
         PlayerPrefs.SetInt("mode", mode);
 

@@ -3,13 +3,17 @@ using System.Collections;
 /// <summary>
 /// 玩家类,即玩家的操控对象
 /// </summary>
-public class Player :ExUnitySingleton<Player>,IFly {
+public class Player :ExSubject,IFly {
 
     Character character;
 
     public Character Character
     {
-        get { return character; }
+        get { 
+            if(character==null)
+                character = GetComponent<Character>();
+            return character;
+        }
         set { character = value; }
     }
 
@@ -51,4 +55,42 @@ public class Player :ExUnitySingleton<Player>,IFly {
         character.Camp=data.Camp;
 
     }
+
+    private static Player _instance;
+    public static Player Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType(typeof(Player)) as Player;
+                if (_instance == null)
+                {
+                    GameObject obj = new GameObject();
+                    //obj.hideFlags = HideFlags.DontSave;  
+                    obj.hideFlags = HideFlags.HideAndDontSave;
+                    _instance = (Player)obj.AddComponent(typeof(Player));
+                }
+            }
+            return _instance;
+        }
+    }
+    public virtual void Awake()
+    {
+
+        //DontDestroyOnLoad(this.gameObject);
+
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+
+            Destroy(_instance);
+            _instance = this ;
+        }
+    }
+
+
 }

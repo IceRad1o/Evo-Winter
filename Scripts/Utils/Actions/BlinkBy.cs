@@ -6,34 +6,21 @@ using System.Collections;
 /// 运动完毕后自动销毁
 /// YYF 3.30
 /// </summary>
-public class BlinkBy : MonoBehaviour
+public class BlinkBy : Action
 {
 
+
     /// <summary>
-    /// 持续时间,运动开始后不可变更
-    /// </summary>
-    public float duration = 1.0f;
-    /// <summary>
-    /// 次数
+    /// 闪烁次数
     /// </summary>
     public float times;
 
-
-
     /// <summary>
-    /// 是否循环
+    /// 0为闪烁状态,1为真实状态
     /// </summary>
-    public bool isLoop = false;
-
-
-    /// <summary>
-    /// 是否为UI元素
-    /// </summary>
-    public bool isOnCanvas = false;
-
-
-    int count;
     bool flag = false;
+
+
     SpriteRenderer[] renders;
     Image[] images;
     void Start()
@@ -59,6 +46,9 @@ public class BlinkBy : MonoBehaviour
 
     IEnumerator IEumBlinkBy()
     {
+        if(isDelay)
+             yield return new WaitForSeconds(delayTime);
+
         int speed;
         count = (int)duration * 60;
         if (count == 0)
@@ -90,7 +80,7 @@ public class BlinkBy : MonoBehaviour
 
                 yield return null;
             }
-        } while (isLoop);
+        } while (isLoop&&(--loopTimes>0||loopForever));
 
         yield return null;
         foreach (SpriteRenderer r in renders)
@@ -104,6 +94,9 @@ public class BlinkBy : MonoBehaviour
 
     IEnumerator IEumUIBlinkBy()
     {
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
+
         int speed;
         count = (int)duration * 60;
         if (count == 0)
@@ -135,7 +128,7 @@ public class BlinkBy : MonoBehaviour
 
                 yield return null;
             }
-        } while (isLoop);
+        } while (isLoop && (--loopTimes > 0 || loopForever));
 
         yield return null;
         foreach (Image r in images)

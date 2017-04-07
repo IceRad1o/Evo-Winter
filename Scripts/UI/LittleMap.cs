@@ -21,7 +21,8 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
 	void Start () {
 
         InitLittleMap();
-        StartCoroutine(Timing());
+        UpdateLittleMap();
+     
 
 	}
    public  void InitLittleMap()
@@ -39,11 +40,7 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
             }
     }
 
-    IEnumerator Timing()
-    {
-        yield return new WaitForSeconds(1);
-        UpdateLittleMap();
-    }
+
     /// <summary>
     /// 更新小地图
     /// </summary>

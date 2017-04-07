@@ -6,7 +6,7 @@ using System.Collections;
 /// 运动完毕后自动销毁
 /// YYF 3.30
 /// </summary>
-public class FadeIn : MonoBehaviour
+public class FadeIn : Action
 {
 
     /// <summary>
@@ -14,29 +14,7 @@ public class FadeIn : MonoBehaviour
     /// </summary>
     public float duration = 1.0f;
 
-    /// <summary>
-    /// 是否将透明度设为0;
-    /// </summary>
-    public bool resetToZero = true;
 
-    /// <summary>
-    /// 是否反转
-    /// </summary>
-    public bool isReverse = false;
-
-    /// <summary>
-    /// 是否循环
-    /// </summary>
-    public bool isLoop = false;
-
-
-    /// <summary>
-    /// 是否为UI元素
-    /// </summary>
-    public bool isOnCanvas = false;
-
-
-    int count;
 
     SpriteRenderer[] renders;
     Image[] images;
@@ -48,6 +26,7 @@ public class FadeIn : MonoBehaviour
         if (!isOnCanvas)
         {
             renders = this.GetComponentsInChildren<SpriteRenderer>();
+
             if (renders == null)
                 return;
 
@@ -55,6 +34,12 @@ public class FadeIn : MonoBehaviour
                 foreach (SpriteRenderer r in renders)
                 {
                     r.color = new Color(r.color.r, r.color.g, r.color.b, 0);
+                }
+
+            if(isReset)
+                foreach (SpriteRenderer r in renders)
+                {
+                    r.color = new Color(r.color.r, r.color.g, r.color.b, resetValue.x);
                 }
 
 
@@ -69,6 +54,12 @@ public class FadeIn : MonoBehaviour
                 {
                     r.color = new Color(r.color.r, r.color.g, r.color.b, 0);
                 }
+            if (isReset)
+                foreach (Image r in images)
+                {
+                    r.color = new Color(r.color.r, r.color.g, r.color.b,resetValue.x);
+                }
+
             StartCoroutine(IEumUIFadeIn());
         }
 
@@ -76,12 +67,17 @@ public class FadeIn : MonoBehaviour
 
     IEnumerator IEumFadeIn()
     {
-        float speed;
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
 
+        float speed;
 
         do
         {
-            count = (int)duration * 60 + 1;
+
+            count = (int)duration * 60;
+            if (count == 0)
+                count = 1;
             speed = 1.0f / count;
             while (count-- != 0)
             {
@@ -94,7 +90,9 @@ public class FadeIn : MonoBehaviour
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)duration * 60;
+                if (count == 0)
+                    count = 1;
                 speed = 1.0f / count;
 
                 while (count-- != 0)
@@ -107,19 +105,24 @@ public class FadeIn : MonoBehaviour
                     yield return null;
                 }
             }
-        } while (isLoop&&isReverse);
+        } while (isLoop && (--loopTimes > 0 || loopForever));
         Destroy(this);
     }
 
 
     IEnumerator IEumUIFadeIn()
     {
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
+
         float speed;
 
 
         do
         {
-            count = (int)duration * 60 + 1;
+            count = (int)duration * 60;
+            if (count == 0)
+                count = 1;
             speed = 1.0f / count;
             while (count-- != 0)
             {
@@ -132,7 +135,9 @@ public class FadeIn : MonoBehaviour
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)duration * 60;
+                if (count == 0)
+                    count = 1;
                 speed = 1.0f / count;
 
                 while (count-- != 0)
@@ -145,7 +150,7 @@ public class FadeIn : MonoBehaviour
                     yield return null;
                 }
             }
-        } while (isLoop&&isReverse);
+        } while (isLoop && (--loopTimes > 0 || loopForever));
         Destroy(this);
     }
 

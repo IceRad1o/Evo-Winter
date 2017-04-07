@@ -6,32 +6,14 @@ using System.Collections;
 /// 运动完毕后自动销毁
 /// YYF 17.3.30
 /// </summary>
-public class RotateBy : MonoBehaviour
+public class RotateBy : Action
 {
-    /// <summary>
-    /// 持续时间,运动开始后不可变更
-    /// </summary>
-    public float duration = 1.0f;
+   
 
     /// <summary>
     /// 旋转差值
     /// </summary>
     public Vector3 deltaRotation= new Vector3();
-
-    /// <summary>
-    /// 是否反转
-    /// </summary>
-    public bool isReverse = true;
-
-    /// <summary>
-    /// 是否循环
-    /// </summary>
-    public bool isLoop = false;
-
-    /// <summary>
-    /// 是否为UI元素
-    /// </summary>
-    public bool isOnCanvas = false;
 
 
     /// <summary>
@@ -55,41 +37,40 @@ public class RotateBy : MonoBehaviour
     void Start()
     {
 
-
         if (!isOnCanvas)
+        {
+            if (isReset)
+                this.transform.localEulerAngles = new Vector3(resetValue.x, resetValue.y, resetValue.z);
+            if (resetToZero)
+                this.transform.localEulerAngles = new Vector3(0, 0, 0);
             StartCoroutine(IEnumRotateBy());
+        }
+
         else
+        {
+            if (isReset)
+                this.GetComponent<RectTransform>().localEulerAngles = new Vector3(resetValue.x, resetValue.y, resetValue.z);
+            if (resetToZero)
+                this.GetComponent<RectTransform>().localEulerAngles = new Vector3(0, 0, 0);
             StartCoroutine(IEnumUIRotateBy());
+        }
+ 
     }
 
     IEnumerator IEnumRotateBy()
     {
-        Vector3 speed;
-        int count = (int)duration * 60 + 1;
-        speed = deltaRotation / count;
-        while (count-- != 0)
-        {
-            this.transform.localEulerAngles  += speed;
-            yield return null;
-        }
-        if (isReverse)
-        {
-            count = (int)duration * 60 + 1;
-            speed = deltaRotation / count;
-            while (count-- != 0)
-            {
-                this.transform.localEulerAngles  -= speed;
-                yield return null;
-            }
-        }
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
 
-        while (isLoop)
+        Vector3 speed;
+
+        do
         {
             count = (int)duration * 60 + 1;
             speed = deltaRotation / count;
             while (count-- != 0)
             {
-                this.transform.localEulerAngles  += speed;
+                this.transform.localEulerAngles += speed;
                 yield return null;
             }
             if (isReverse)
@@ -98,11 +79,11 @@ public class RotateBy : MonoBehaviour
                 speed = deltaRotation / count;
                 while (count-- != 0)
                 {
-                    this.transform.localEulerAngles  -= speed;
+                    this.transform.localEulerAngles -= speed;
                     yield return null;
                 }
             }
-        }
+        } while (isLoop && (--loopTimes > 0 || loopForever));
 
         Destroy(this);
 
@@ -116,26 +97,12 @@ public class RotateBy : MonoBehaviour
     /// <returns></returns>
     IEnumerator IEnumUIRotateBy()
     {
-        Vector3 speed;
-        int count = (int)duration * 60 + 1;
-        speed = deltaRotation / count;
-        while (count-- != 0)
-        {
-            this.GetComponent<RectTransform>().localEulerAngles  += speed;
-            yield return null;
-        }
-        if (isReverse)
-        {
-            count = (int)duration * 60 + 1;
-            speed = deltaRotation / count;
-            while (count-- != 0)
-            {
-                this.GetComponent<RectTransform>().localEulerAngles  -= speed;
-                yield return null;
-            }
-        }
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
 
-        while (isLoop && isReverse)
+        Vector3 speed;
+
+         do
         {
             count = (int)duration * 60 + 1;
             speed = deltaRotation / count;
@@ -154,7 +121,7 @@ public class RotateBy : MonoBehaviour
                     yield return null;
                 }
             }
-        }
+        } while (isLoop && (--loopTimes > 0 || loopForever)) ;
         Destroy(this);
     }
 }
