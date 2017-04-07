@@ -6,32 +6,16 @@ using System.Collections;
 /// 运动完毕后自动销毁
 /// YYF 17.3.30
 /// </summary>
-public class MoveBy : MonoBehaviour
+public class MoveBy : Action
 {
-    /// <summary>
-    /// 持续时间,运动开始后不可变更
-    /// </summary>
-    public float duration = 1.0f;
+
 
     /// <summary>
     /// 距离
     /// </summary>
-    public Vector3 deltaPosition= new Vector3();
+    public Vector3 deltaPosition;
 
-    /// <summary>
-    /// 是否反转
-    /// </summary>
-    public bool isReverse = true;
 
-    /// <summary>
-    /// 是否循环
-    /// </summary>
-    public bool isLoop = false;
-
-    /// <summary>
-    /// 是否为UI元素
-    /// </summary>
-    public bool isOnCanvas = false;
 
 
     /// <summary>
@@ -64,28 +48,17 @@ public class MoveBy : MonoBehaviour
 
     IEnumerator IEnumMoveBy()
     {
-        Vector3 speed;
-        int count = (int)duration * 60 + 1;
-        speed = deltaPosition / count;
-        while (count-- != 0)
-        {
-            this.transform.localPosition += speed;
-            yield return null;
-        }
-        if (isReverse)
-        {
-            count = (int)duration * 60 + 1;
-            speed = deltaPosition / count;
-            while (count-- != 0)
-            {
-                this.transform.localPosition -= speed;
-                yield return null;
-            }
-        }
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
 
-        while (isLoop)
+        Vector3 speed;
+
+
+        do
         {
-            count = (int)duration * 60 + 1;
+            count = (int)duration * 60;
+            if (count == 0)
+                count = 1;
             speed = deltaPosition / count;
             while (count-- != 0)
             {
@@ -94,7 +67,9 @@ public class MoveBy : MonoBehaviour
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)duration * 60;
+                if (count == 0)
+                    count = 1;
                 speed = deltaPosition / count;
                 while (count-- != 0)
                 {
@@ -102,7 +77,7 @@ public class MoveBy : MonoBehaviour
                     yield return null;
                 }
             }
-        }
+        } while (isLoop && (--loopTimes > 0 || loopForever));
 
         Destroy(this);
 
@@ -116,28 +91,17 @@ public class MoveBy : MonoBehaviour
     /// <returns></returns>
     IEnumerator IEnumUIMoveBy()
     {
-        Vector3 speed;
-        int count = (int)duration * 60 + 1;
-        speed = deltaPosition / count;
-        while (count-- != 0)
-        {
-            this.GetComponent<RectTransform>().localPosition += speed;
-            yield return null;
-        }
-        if (isReverse)
-        {
-            count = (int)duration * 60 + 1;
-            speed = deltaPosition / count;
-            while (count-- != 0)
-            {
-                this.GetComponent<RectTransform>().localPosition -= speed;
-                yield return null;
-            }
-        }
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
 
-        while (isLoop && isReverse)
+        Vector3 speed;
+
+
+        do
         {
-            count = (int)duration * 60 + 1;
+            count = (int)duration * 60;
+            if (count == 0)
+                count = 1;
             speed = deltaPosition / count;
             while (count-- != 0)
             {
@@ -146,7 +110,9 @@ public class MoveBy : MonoBehaviour
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)duration * 60;
+                if (count == 0)
+                    count = 1;
                 speed = deltaPosition / count;
                 while (count-- != 0)
                 {
@@ -154,7 +120,7 @@ public class MoveBy : MonoBehaviour
                     yield return null;
                 }
             }
-        }
+        } while (isLoop && (--loopTimes > 0 || loopForever));
         Destroy(this);
     }
 }

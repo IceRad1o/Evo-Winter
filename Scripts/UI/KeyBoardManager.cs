@@ -106,7 +106,7 @@ public class KeyBoardManager : MonoBehaviour {
             }
             isChanged = false;
         }
-
+        //秒杀
         if (Input.GetKeyDown(KeyCode.P))
         {
             for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
@@ -126,6 +126,7 @@ public class KeyBoardManager : MonoBehaviour {
                 cheatPunish=0;
             }
         }
+        //静止
         if (Input.GetKeyDown(KeyCode.E))
         {
             for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
@@ -136,11 +137,18 @@ public class KeyBoardManager : MonoBehaviour {
             }
     
         }
+        //回血
         if (Input.GetKeyDown(KeyCode.O))
         {
             
             Player.Instance.Character.Health = 10;
         }
-
+        //
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            int a = Random.Range(0, 5);
+            int b = Random.Range(0, 2);
+            PlayerManager.Instance.InitPlayer(a+b*8);
+        }
 	}
 }

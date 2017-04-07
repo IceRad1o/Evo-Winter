@@ -6,7 +6,7 @@ using System.Collections;
 /// 运动完毕后自动销毁
 /// YYF 17.3.30
 /// </summary>
-public class RotateTo : MonoBehaviour
+public class RotateTo : Action
 {
     /// <summary>
     /// 持续时间,运动开始后不可变更
@@ -63,28 +63,16 @@ public class RotateTo : MonoBehaviour
 
     IEnumerator IEnumRotateTo()
     {
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
         Vector3 speed;
-        int count = (int)duration * 60 + 1;
-        speed = (destRotation - this.transform.localEulerAngles) / count;
-        while (count-- != 0)
-        {
-            this.transform.localEulerAngles += speed;
-            yield return null;
-        }
-        if (isReverse)
-        {
-            count = (int)duration * 60 + 1;
 
-            while (count-- != 0)
-            {
-                this.transform.localEulerAngles -= speed;
-                yield return null;
-            }
-        }
 
-        while (isLoop && isReverse)
+        do
         {
-            count = (int)duration * 60 + 1;
+            count = (int)duration * 60;
+            if (count == 0)
+                count = 1;
             speed = (destRotation - this.transform.localEulerAngles) / count;
             while (count-- != 0)
             {
@@ -93,7 +81,9 @@ public class RotateTo : MonoBehaviour
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)duration * 60;
+                if (count == 0)
+                    count = 1;
 
                 while (count-- != 0)
                 {
@@ -101,7 +91,7 @@ public class RotateTo : MonoBehaviour
                     yield return null;
                 }
             }
-        }
+        } while (isLoop && (--loopTimes > 0 || loopForever));
 
         Destroy(this);
 
@@ -115,29 +105,16 @@ public class RotateTo : MonoBehaviour
     /// <returns></returns>
     IEnumerator IEnumUIRotateTo()
     {
+        if (isDelay)
+            yield return new WaitForSeconds(delayTime);
+
         Vector3 speed;
-        int count = (int)duration * 60 + 1;
-        speed = (destRotation - this.GetComponent<RectTransform>().localEulerAngles) / count;
-        while (count-- != 0)
-        {
 
-            this.GetComponent<RectTransform>().localEulerAngles += speed;
-            yield return null;
-        }
-        if (isReverse)
+        do
         {
-            count = (int)duration * 60 + 1;
-
-            while (count-- != 0)
-            {
-                this.GetComponent<RectTransform>().localEulerAngles -= speed;
-                yield return null;
-            }
-        }
-
-        while (isLoop && isReverse)
-        {
-            count = (int)duration * 60 + 1;
+            count = (int)duration * 60;
+            if (count == 0)
+                count = 1;
             speed = (destRotation - this.GetComponent<RectTransform>().localEulerAngles) / count;
             while (count-- != 0)
             {
@@ -147,7 +124,9 @@ public class RotateTo : MonoBehaviour
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)duration * 60;
+                if (count == 0)
+                    count = 1;
 
                 while (count-- != 0)
                 {
@@ -155,7 +134,7 @@ public class RotateTo : MonoBehaviour
                     yield return null;
                 }
             }
-        }
+        } while (isLoop && (--loopTimes > 0 || loopForever));
 
         Destroy(this);
 
