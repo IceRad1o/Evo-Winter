@@ -54,7 +54,7 @@ public class Missiles : MonoBehaviour {
             }
             else
             {
-                this.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
             switch (flyPath)
             {
@@ -70,15 +70,15 @@ public class Missiles : MonoBehaviour {
                 case 4://水平抛物线
                     StartCoroutine(FlyPath4());
                     break;
-                case 5://Z轴斜线
+                case 5://Z轴上斜线
                     StartCoroutine(FlyPath5());
                     break;
                 case 6://上下圆环
                     StartCoroutine(FlyPath6());
                     break;
-                //case 7://对角圆环
-                //    StartCoroutine(FlyPath7());
-                //    break;
+                case 7://Z轴下斜线
+                    StartCoroutine(FlyPath7());
+                    break;
             }
         }
     }
@@ -137,7 +137,7 @@ public class Missiles : MonoBehaviour {
         while (true)
         {
             float rotateTheta = Mathf.Atan(100*(v-t)/(speed))*10;
-            Debug.Log("旋转角：" + Mathf.Atan(100*(v-t)/(speed))*10);
+            //Debug.Log("旋转角：" + Mathf.Atan(100*(v-t)/(speed))*10);
             if (direction < 0)
             {
                 if (this.transform.position.x > (startPosition.x - distance))
@@ -290,7 +290,7 @@ public class Missiles : MonoBehaviour {
         }
     }
 
-    //发射物飞行路径5, Z轴斜线
+    //发射物飞行路径5, Z轴上斜线
     IEnumerator FlyPath5()
     {
         float speed = flySpeed * speedBuff + speedLevel * 0.03f;
@@ -360,12 +360,46 @@ public class Missiles : MonoBehaviour {
         }
     }
 
-    //发射物飞行路径7
-    //IEnumerator FlyPath7()
-    //{
-       
-    //   yield return null;
-    //}
+    //发射物飞行路径7, Z轴下斜线
+    IEnumerator FlyPath7()
+    {
+        float speed = flySpeed * speedBuff + speedLevel * 0.03f;
+        float zSpeed = speed / 3;
+        float distance = flyDistance * distanceBuff + distanceLevel * 0.6f;
+        while (true)
+        {
+            if (direction < 0)
+            {
+                if (this.transform.position.x > (startPosition.x - distance))
+                {
+                    this.transform.position = new Vector3(this.transform.position.x - speed,
+                        this.transform.position.y - zSpeed,
+                        this.transform.position.z - zSpeed);
+                }
+                else
+                {
+                    Destroy(this.gameObject);
+                    break;
+                }
+            }
+
+            if (direction > 0)
+            {
+                if (this.transform.position.x < (startPosition.x + distance))
+                {
+                    this.transform.position = new Vector3(this.transform.position.x + speed,
+                        this.transform.position.y - zSpeed,
+                        this.transform.position.z - zSpeed);
+                }
+                else
+                {
+                    Destroy(this.gameObject);
+                    break;
+                }
+            }
+            yield return null;
+        }
+    }
 
     //碰撞检测
     //private void OnTriggerEnter(Collider other)
