@@ -71,7 +71,7 @@ public class TintBy: Action
 
         do
         {
-            count = (int)duration * 60 ;
+            count = (int)((duration * 60) ) ;
             if (count == 0)
                 count = 1;
             speed = deltaColor/ count;
@@ -87,7 +87,7 @@ public class TintBy: Action
           
             if (isReverse)
             {
-                count = (int)duration * 60 ;
+                count = (int)((duration * 60) ) ;
                 if (count == 0)
                     count = 1;
                 speed = deltaColor / count;
@@ -115,7 +115,7 @@ public class TintBy: Action
         Vector4 speed;
         do
         {
-            count = (int)duration * 60 ;
+            count = (int)((duration * 60) ) ;
             if (count == 0)
                 count = 1;
             speed = deltaColor / count;
@@ -130,7 +130,7 @@ public class TintBy: Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60 ;
+                count = (int)((duration * 60) ) ;
                 if (count == 0)
                     count = 1;
                 speed = deltaColor / count;

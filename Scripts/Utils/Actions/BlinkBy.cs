@@ -50,7 +50,7 @@ public class BlinkBy : Action
              yield return new WaitForSeconds(delayTime);
 
         int speed;
-        count = (int)duration * 60;
+        count = (int)(duration * 60) ;
         if (count == 0)
             count = 1;
         speed = (int)(count / times);
@@ -98,7 +98,7 @@ public class BlinkBy : Action
             yield return new WaitForSeconds(delayTime);
 
         int speed;
-        count = (int)duration * 60;
+        count = (int)(duration * 60) ;
         if (count == 0)
             count = 1;
         speed = (int)(count / times);

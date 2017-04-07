@@ -56,7 +56,7 @@ public class MoveBy : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = deltaPosition / count;
@@ -67,7 +67,7 @@ public class MoveBy : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
                 speed = deltaPosition / count;
@@ -99,7 +99,7 @@ public class MoveBy : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = deltaPosition / count;
@@ -110,7 +110,7 @@ public class MoveBy : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
                 speed = deltaPosition / count;

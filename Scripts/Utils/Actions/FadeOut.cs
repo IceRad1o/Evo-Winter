@@ -14,7 +14,7 @@ public class FadeOut : Action
     /// <summary>
     /// 是否将透明度设为1;
     /// </summary>
-    public bool resetToFull = true;
+    public bool resetToFull =false;
 
 
 
@@ -84,7 +84,7 @@ public class FadeOut : Action
 
         do
         {
-            count = (int)duration * 60 + 1;
+            count = (int)((duration * 60) ) + 1;
             speed = 1.0f / count;
             while (count-- != 0)
             {
@@ -97,7 +97,7 @@ public class FadeOut : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60 + 1;
+                count = (int)((duration * 60) ) + 1;
                 speed = 1.0f / count;
 
                 while (count-- != 0)
@@ -125,7 +125,7 @@ public class FadeOut : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = 1.0f / count;
@@ -140,7 +140,7 @@ public class FadeOut : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
                 speed = 1.0f / count;

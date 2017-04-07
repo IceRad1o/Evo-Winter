@@ -75,7 +75,7 @@ public class FadeIn : Action
         do
         {
 
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = 1.0f / count;
@@ -90,7 +90,7 @@ public class FadeIn : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
                 speed = 1.0f / count;
@@ -120,7 +120,7 @@ public class FadeIn : Action
 
         do
         {
-            count = (int)duration * 60;
+            count = (int)(duration * 60) ;
             if (count == 0)
                 count = 1;
             speed = 1.0f / count;
@@ -135,7 +135,7 @@ public class FadeIn : Action
             }
             if (isReverse)
             {
-                count = (int)duration * 60;
+                count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;
                 speed = 1.0f / count;
