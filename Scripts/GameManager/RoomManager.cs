@@ -154,21 +154,21 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
         //固定位置列表
         settledPosition.Clear();
-        settledPosition.Add(new Vector3(-5f, -0.5f, 0f));
-        settledPosition.Add(new Vector3(-5f, -6.2f, 0f));
-        settledPosition.Add(new Vector3(5f, -0.5f, 0f));
-        settledPosition.Add(new Vector3(5f, -6.2f, 0f));
-        settledPosition.Add(new Vector3(-3.5f, -2.5f, 0f));
-        settledPosition.Add(new Vector3(2.5f, -1.5f, 0f));
-        settledPosition.Add(new Vector3(-2.5f, -5.5f, 0f));
+        settledPosition.Add(new Vector3(-12f, -0.5f, 0f));
+        settledPosition.Add(new Vector3(-11f, -6.0f, 0f));
+        settledPosition.Add(new Vector3(-9f, -3f, 0f));
+        settledPosition.Add(new Vector3(-6f, -1.5f, 0f));
+        settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
+        settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
+        settledPosition.Add(new Vector3(-1f, -2.5f, 0f));
 
-        settledPosition.Add(new Vector3(-10f, -0.5f, 0f));
-        settledPosition.Add(new Vector3(-10f, -6.2f, 0f));
-        settledPosition.Add(new Vector3(10f, -0.5f, 0f));
-        settledPosition.Add(new Vector3(10f, -6.2f, 0f));
-        settledPosition.Add(new Vector3(-7f, -2.5f, 0f));
-        settledPosition.Add(new Vector3(0f, -3.5f, 0f));
-        settledPosition.Add(new Vector3(-7f, -5.5f, 0f));
+        settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
+        settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
+        settledPosition.Add(new Vector3(3.5f, -5.5f, 0f));
+        settledPosition.Add(new Vector3(6f, -3.5f, 0f));
+        settledPosition.Add(new Vector3(9f, -0.5f, 0f));
+        settledPosition.Add(new Vector3(9f, -6.5f, 0f));
+        settledPosition.Add(new Vector3(12f, -6.0f, 0f));
 
 
     }
