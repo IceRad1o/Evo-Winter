@@ -20,6 +20,15 @@ public class Esscence : RoomElement {
         Notify("Get_Esscence;" + esscenceID);
         UIManager.Instance.RemoveObserver(this);
         Player.Instance.Character.RemoveObserver(this);
+
+        GameObject pfb = Resources.Load("Buffs/devil") as GameObject;
+        Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+        pfb.GetComponent<SpriteRenderer>().sprite = spriteArray[esscenceID];
+        GameObject prefabInstance = Instantiate(pfb);
+        prefabInstance.transform.position = s;
+        prefabInstance.transform.parent = this.gameObject.transform;
+
+
         base.Destroy();
     }
 
