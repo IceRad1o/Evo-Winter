@@ -8,7 +8,7 @@ public class SkillManager : ExSubject
     /// false表示进入了冷却
     /// </summary>
     bool cd = true;
-    bool skill_L_Up = false;
+    bool skill_L_Up = true;
     /// <summary>
     /// 种族技能的升级
     /// </summary>

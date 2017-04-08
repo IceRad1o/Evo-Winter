@@ -77,7 +77,7 @@ public class Skill : ExSubject
     /// </summary>
     virtual public void Trigger() { }
 
-    virtual public void Create(int ID) { SkillID = ID; }
+    virtual public void Create(int ID) { SkillID = ID; this.gameObject.GetComponent<SkillManager>().SkillList.Add(this); }
     /// <summary>
     /// 延迟，用于技能的冷却等
     /// </summary>

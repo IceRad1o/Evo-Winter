@@ -15,16 +15,24 @@ public class EnergyIncrease : Skill {
 
     void Start() 
     {
-        RoomElementManager.Instance.AddObserver(this);    
+        RoomManager.Instance.AddObserver(this);    
     }
 
 
     public override void OnNotify(string msg)
     {
+        Debug.Log(msg);
         if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "LeaveRoom") 
         {
-            if ((int)Random.value * 100 < 50)
+            Debug.Log("LeaveRoom");
+            if ((int)Random.value * (100+this.GetComponent<Character>().Luck) < 50)
                 Trigger();        
         }
+    }
+
+    protected override void skillDestory()
+    {
+        RoomManager.Instance.RemoveObserver(this);
+        base.skillDestory();
     }
 }
