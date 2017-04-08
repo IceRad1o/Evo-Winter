@@ -25,8 +25,8 @@ public class Door : RoomElement
         //Debug.Log("DoorOnTiger" + other.tag + "    敌人数量：" + EnemyManager.Instance.EnemyList.Count);
         if (other.tag == "Player"&&EnemyManager.Instance.EnemyList.Count==0)
         {
-            CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);
-            //RoomManager.Instance.Notify("LeaveRoom");    
+            RoomManager.Instance.Notify("LeaveRoom");  
+            CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);             
             int roomDir = position;
             int pass = 0;
 
