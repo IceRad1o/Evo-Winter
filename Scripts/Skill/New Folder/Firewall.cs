@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Firewall : ExSubject
 {
-
+    bool recover=false;
     public List<GameObject> listEnemy = new List<GameObject>();
     public GameObject fire;
     public GameObject fireWall;
@@ -29,6 +29,15 @@ public class Firewall : ExSubject
         }
         listEnemy.Add(ob.gameObject);
         ob.gameObject.GetComponent<Character>().Health--;
+        if (!recover)
+        {
+            foreach(var item in CharacterManager.Instance.CharacterList.ToArray())
+	        {
+                if (item != null && item.tag== "Player")
+                    item.GetComponent<Character>().Health++;
+                recover = !recover;
+	        } 
+        }
 
         StartCoroutine(delay());
     

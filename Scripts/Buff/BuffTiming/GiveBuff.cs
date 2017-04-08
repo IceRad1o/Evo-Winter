@@ -9,7 +9,8 @@ public class GiveBuff : Buff {
 
     void Trigger()
     {
-        this.GetComponent<BuffManager>().CreateDifferenceBuff(BuffID*10+this.tag=="Player"?0:1,"Skill_L");
+        Debug.Log("ID:   " + giveBuffID * 10 + ((this.tag == "Player") ? 0 : 1));
+        this.GetComponent<BuffManager>().CreateDifferenceBuff(giveBuffID * 10 + ((this.tag == "Player") ? 0 : 1), "Skill_L");
         DestroyBuff();
     }
     
@@ -22,9 +23,9 @@ public class GiveBuff : Buff {
     /// </summary>
     /// <param name="buffID">要添加的buff</param>
     /// <param name="time">延迟时间*0.1f</param>
-    public void Create(int buffID,int time)
+    public void Create(int buff_ID,int time)
     {
-        giveBuffID = buffID;
+        giveBuffID = buff_ID;
         StartCoroutine(Delay(time));
     }
 

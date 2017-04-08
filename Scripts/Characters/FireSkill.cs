@@ -16,6 +16,7 @@ public class FireSkill : MonoBehaviour {
         //    StartCoroutine(IEnumFire2());
         //else if (type == 3)
         //    StartCoroutine(IEnumFire3());
+        this.GetComponent<Character>().Health--;
         Firewall s = Instantiate(fireWall, transform.position, Quaternion.identity) as Firewall;
         s.Create(type, GetComponent<Character>().FaceDirection);
     }

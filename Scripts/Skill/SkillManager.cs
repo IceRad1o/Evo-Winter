@@ -8,7 +8,7 @@ public class SkillManager : ExSubject
     /// false表示进入了冷却
     /// </summary>
     bool cd = true;
-    bool skill_L_Up = false;
+    bool skill_L_Up = true;
     /// <summary>
     /// 种族技能的升级
     /// </summary>
@@ -108,6 +108,11 @@ public class SkillManager : ExSubject
         if (bID != "Fail" && bID!="Error")
             CreateSkill(int.Parse(bID));
 
+        bID = UtilManager.Instance.MatchFiledFormMsg("AttackStart", msg, 0);
+        if (bID == "L")
+            UseSkill_L();
+
+
     }
 
     /// <summary>
@@ -115,8 +120,11 @@ public class SkillManager : ExSubject
     /// </summary>
     void Start()
     {
-        if (this.tag=="Player")
+        if (this.tag == "Player")
+        {
             ItemManager.Instance.AddObserver(this);
+            this.GetComponent<Character>().AddObserver(this);
+        }
     }
 
 
@@ -127,6 +135,7 @@ public class SkillManager : ExSubject
     /// </summary>
     public void UseSkill_L()
     {
+        Debug.Log("UseSkill_L");
         if (this.gameObject.tag == "Player" && cd)
         {
             switch (this.gameObject.GetComponent<Character>().Race)
@@ -136,7 +145,7 @@ public class SkillManager : ExSubject
                     {
                         //扣血
                         GiveBuff newSkill = this.gameObject.AddComponent<GiveBuff>();
-                        newSkill.Create(110001, 20);
+                        newSkill.Create(110001, 40);
                         //攻击+1
                         this.GetComponent<BuffManager>().CreateDifferenceBuff(1052001110);
                         //幸运-1
