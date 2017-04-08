@@ -76,7 +76,7 @@ public class BuffChangeAttribute : Buff
     {
        
 
-        //最后一位1表示值为负
+        //倒数第二位1表示值为负
         int[] part = { 3, 1, 1,1 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
         if (idPart[0] == 1) 

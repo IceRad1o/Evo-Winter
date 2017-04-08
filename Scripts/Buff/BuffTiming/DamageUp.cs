@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuffShield : BuffTiming
-{
+public class DamageUp : BuffTiming {
 
     GameObject prefabInstance, prefabInstance1;
 
-    int shieldHealth;
+    int dHealth;
+    bool isTrigger = false;
 
     /// <summary>
     /// </summary>
     /// <param name="ID"></param>
     public override void Create(int ID, string spTag = "")
     {
-        int[] part = { 2,3,2};
+        int[] part = { 2, 2, 3 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
-        shieldHealth = idPart[1];
-        buffDuration = idPart[2];
-        if (buffDuration != 0)
-            StartCoroutine(delay(buffDuration, 0));
+        SpecialTag = spTag;
+        BuffDuration = idPart[2];
 
         Debug.Log("shield");
         GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
@@ -33,12 +31,8 @@ public class BuffShield : BuffTiming
     public override void Trigger()
     {
         Debug.Log("Trigger");
-        shieldHealth--;
-        this.GetComponent<Character>().Health++;
-        if (shieldHealth == 0)
-            DestroyBuff();
 
-
+        this.gameObject.GetComponent<Character>().Health -= dHealth;
 
         GameObject pfb = Resources.Load("Buffs/AttackShield") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
@@ -59,12 +53,16 @@ public class BuffShield : BuffTiming
     {
         if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "HealthChanged" && int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0)) - int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 1)) > 0 && UtilManager.Instance.GetFieldFormMsg(msg, 2) == "Player")
         {
-            Trigger();
+            dHealth = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0)) - int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 1));
+            isTrigger = !isTrigger;
+            if (isTrigger)
+                Trigger();
         }
     }
 
     void Start()
     {
         this.gameObject.GetComponent<Character>().AddObserver(this);
+        StartCoroutine(delay(BuffDuration, 0, 0.5f));
     }
 }
