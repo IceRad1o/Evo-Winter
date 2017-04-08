@@ -8,7 +8,7 @@ public class SkillManager : ExSubject
     /// false表示进入了冷却
     /// </summary>
     bool cd = true;
-    bool skill_L_Up = true;
+    bool skill_L_Up = false;
     /// <summary>
     /// 种族技能的升级
     /// </summary>
@@ -227,31 +227,35 @@ public class SkillManager : ExSubject
                     {
                         //晕眩
                         GiveBuff newSkill = this.gameObject.AddComponent<GiveBuff>();
-                        newSkill.Create(604111, 100);
+                        newSkill.Create(60411, 100);
                         //速度+1
                         this.GetComponent<BuffManager>().CreateDifferenceBuff(1021001110);
                         //进入Cd
                         cd = !cd;
                         StartCoroutine(Cd(130));
+
+                        
                     }
                     else
                     {
                         //晕眩
                         GiveBuff newSkill = this.gameObject.AddComponent<GiveBuff>();
-                        newSkill.Create(604111, 100);
+                        newSkill.Create(60411, 100);
                         //速度+1
                         this.GetComponent<BuffManager>().CreateDifferenceBuff(1021001110);
                         //隐身
                         TintBy new1=this.gameObject.AddComponent<TintBy>();
-                        new1.deltaColor=new Vector4(0, 0, 0, 0.5f);
+                        new1.deltaColor=new Vector4(0, 0, 0, -0.5f);
                         new1.duration = 0.5f;
                         TintBy new2 = this.gameObject.AddComponent<TintBy>();
                         new2.deltaColor = new Vector4(0, 0, 0, 0.5f);
                         new2.duration = 0.5f;
+                        new2.isDelay = true;
                         new2.delayTime = 10f;
                         //进入Cd
                         cd = !cd;
                         StartCoroutine(Cd(130));
+
                     }
                     break;
                 default:

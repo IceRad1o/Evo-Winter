@@ -63,7 +63,7 @@ public class BuffTiming : Buff {
                 break;
             case 4:
                 BuffStatic newBuff5 = ob.AddComponent<BuffStatic>();
-                newBuff5.Create(ID);
+                newBuff5.Create(ID, spTag);
                 break;
             case 5:
                 BuffPoison newBuff6 = ob.AddComponent<BuffPoison>();
