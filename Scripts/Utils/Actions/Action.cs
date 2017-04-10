@@ -32,7 +32,12 @@ public class Action : MonoBehaviour {
     /// 是否反转,默认false
     /// </summary>
     public bool isReverse = false;
+    /// <summary>
+    /// 是否延迟反转,默认false
+    /// </summary>
+    public bool isReverseDelay = false;
 
+    public float reverseDelayTime ;
     /// <summary>
     /// 是否循环,默认false
     /// </summary>
@@ -67,7 +72,10 @@ public class Action : MonoBehaviour {
 
 
 
+    public void Init1(float duration)
+    {
 
+    }
 
 
 }
