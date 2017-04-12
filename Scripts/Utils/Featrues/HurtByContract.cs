@@ -57,6 +57,10 @@ public class HurtByContract : MonoBehaviour
             {
                 destTags=new string[]{"Enemy","Monster","Boss","RoomElement"};
             }
+            else if (ch1.tag == "Friend")
+            {
+                destTags = new string[] { "Enemy", "Monster", "Boss", "RoomElement" };
+            }
             else if(ch1.tag=="Enemy")
             {
                 destTags = new string[] { "Player", "Friend"};
