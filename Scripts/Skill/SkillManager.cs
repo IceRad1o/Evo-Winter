@@ -87,12 +87,95 @@ public class SkillManager : ExSubject
                 this.gameObject.GetComponent<DoubleEsscence>().Trigger();
             return;
         }
+
+        /***************************************************************/
+        //矮人的精华技能
+        if (ID == 101)
+        {
+            Sleep newSkill;
+            if (this.gameObject.GetComponent<Sleep>() == null)
+                newSkill = this.gameObject.AddComponent<Sleep>();
+
+            return;
+        }
+        if (ID == 103)
+        {
+            AllSleep newSkill;
+            if (this.gameObject.GetComponent<AllSleep>() == null)
+                newSkill = this.gameObject.AddComponent<AllSleep>();
+
+            return;
+        }
+        if (ID == 105)
+        {
+            GiveShield newSkill;
+            if (this.gameObject.GetComponent<GiveShield>() == null)
+                newSkill = this.gameObject.AddComponent<GiveShield>();
+
+            return;
+        }
+        /***************************************************************/
+        //狼人的精华技能
+        if (ID == 201)
+        {
+            Bloodthirsty newSkill;
+            if (this.gameObject.GetComponent<Bloodthirsty>() == null)
+                newSkill = this.gameObject.AddComponent<Bloodthirsty>();
+
+            return;
+        }
+        if (ID == 203)
+        {
+            Rage newSkill;
+            if (this.gameObject.GetComponent<Rage>() == null)
+                newSkill = this.gameObject.AddComponent<Rage>();
+
+            return;
+        }
+        if (ID == 205)
+        {
+            WindinAnger newSkill;
+            if (this.gameObject.GetComponent<WindinAnger>() == null)
+                newSkill = this.gameObject.AddComponent<WindinAnger>();
+
+            return;
+        }
+        /***************************************************************/
+        //吸血鬼的精华技能
+        if (ID == 301)
+        {
+            this.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(07100);
+            return;
+        }
+        if (ID == 302)
+        {
+            this.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(10001100);
+            return;
+        }
+        /***************************************************************/
+        //地精的精华技能
         if (ID == 402)
         {
             EnergyIncrease newSkill;
             if (this.gameObject.GetComponent<EnergyIncrease>() == null)
                 newSkill = this.gameObject.AddComponent<EnergyIncrease>();
             
+            return;
+        }
+        if (ID == 403)
+        {
+            Greedy newSkill;
+            if (this.gameObject.GetComponent<Greedy>() == null)
+                newSkill = this.gameObject.AddComponent<Greedy>();
+
+            return;
+        }
+        if (ID == 404)
+        {
+            Occupy newSkill;
+            if (this.gameObject.GetComponent<Occupy>() == null)
+                newSkill = this.gameObject.AddComponent<Occupy>();
+
             return;
         }
     }

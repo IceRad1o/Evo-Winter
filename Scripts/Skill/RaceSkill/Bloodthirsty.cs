@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Bloodthirsty : Skill {
     int damage = 0;
-    public int damageMax = 4;
+    public int damageMax = 10;
 
 
 

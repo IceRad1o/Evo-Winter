@@ -56,9 +56,14 @@ public class BuffManager : ExSubject
                 new BuffAura().CreateBuff(ID, this.gameObject);                
                 break;
             case 30:
-                BuffShield newBuff2 = this.gameObject.AddComponent<BuffShield>();
-                newBuff2.Create(ID);
-                buffList.Add(newBuff2);
+                BuffShield newBuff2;
+                if (this.gameObject.GetComponent<BuffShield>() == null)
+                {
+                    newBuff2 = this.gameObject.AddComponent<BuffShield>();
+                    newBuff2.Create(ID);
+                    buffList.Add(newBuff2);
+                }
+                
                 break;
             default:
                 break;
