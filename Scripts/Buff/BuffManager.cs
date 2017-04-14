@@ -93,7 +93,18 @@ public class BuffManager : ExSubject
         }
         return list.ToArray();
     }
-	
+
+    public void LoadBuff()
+    {
+        string[] strBuff={" "," "} ;
+        for (int i = 0; i < strBuff.Length; i++)
+        {
+            CreateDifferenceBuff(int.Parse(UtilManager.Instance.GetFieldFormMsg(strBuff[i], 0))*10,"time;"+UtilManager.Instance.GetFieldFormMsg(strBuff[i], 1));
+        }
+    
+    }
+
+
 	void Start () {
         //将ItemManager设为观察者
         if (this.gameObject.tag == "Player")
