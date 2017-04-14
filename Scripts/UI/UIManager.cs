@@ -112,8 +112,9 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "Player_Get_DisposableItem" || str[0] == "Player_Get_InitiativeItem" || str[0] == "Player_Get_ImmediatelyItem")
         {
             //TODO 显示道具信息
-          
-            UIManager.Instance.popup.SetItemDetailPopup(ItemManager.Instance.itemsTable.GetItemName(int.Parse(str[1])),ItemManager.Instance.itemsTable.GetItemIntro(int.Parse(str[1])));
+
+            UIManager.Instance.popup.SetItemDetailPopup(
+                    ItemManager.Instance.itemsTable.GetItemName(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemIntro(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemType(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemQuality(int.Parse(str[1])));
             UIManager.Instance.popup.itemDetailPopup.SetActive(true);
         }
         if (str[0] == "Player_Leave_DisposableItem" || str[0] == "Player_Leave_InitiativeItem" || str[0] == "Player_Leave_ImmediatelyItem")

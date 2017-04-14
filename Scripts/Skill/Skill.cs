@@ -77,7 +77,7 @@ public class Skill : ExSubject
     /// </summary>
     virtual public void Trigger() { }
 
-    virtual public void Create(int ID) { SkillID = ID; }
+    virtual public void Create(int ID) { SkillID = ID; this.gameObject.GetComponent<SkillManager>().SkillList.Add(this); }
     /// <summary>
     /// 延迟，用于技能的冷却等
     /// </summary>
@@ -91,7 +91,7 @@ public class Skill : ExSubject
     /// <summary>
     /// 技能脚本的销毁
     /// </summary>
-    virtual protected void skillDestory(){
+    virtual public void skillDestory(){
         this.gameObject.GetComponent<SkillManager>().SkillList.Remove(this);
         Destroy(this); 
     

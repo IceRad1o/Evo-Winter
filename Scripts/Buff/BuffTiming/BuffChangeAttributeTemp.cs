@@ -32,7 +32,6 @@ public class BuffChangeAttributeTemp : BuffTiming {
     /// <param name="ID"></param>
     public override void Create(int ID, string spTag = "")
     {
-        Debug.Log("BuffChangeAttributeTemp   " + spTag);
         SpecialTag = spTag;
 
         int[] part = { 2,2,2,2,2 };

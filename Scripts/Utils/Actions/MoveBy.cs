@@ -26,7 +26,7 @@ public class MoveBy : Action
     /// <param name="isReverse">是否反转,即至目标值后是否回原来值</param>
     /// <param name="isLoop"> 是否循环</param>
     /// <param name="isOnCanvas">对象是否为UI元素</param>
-    void Init(float duration, Vector3 deltaPosition, bool isReverse = true, bool isLoop = false, bool isOnCanvas = false)
+    public void Init(float duration, Vector3 deltaPosition, bool isReverse = true, bool isLoop = false, bool isOnCanvas = false)
     {
         this.duration = duration;
         this.deltaPosition = deltaPosition;
@@ -67,6 +67,9 @@ public class MoveBy : Action
             }
             if (isReverse)
             {
+                if (isReverseDelay)
+                    yield return new WaitForSeconds(reverseDelayTime);
+
                 count = (int)(duration * 60) ;
                 if (count == 0)
                     count = 1;

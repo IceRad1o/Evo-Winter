@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BuffStatic : BuffTiming {
 
-    GameObject prefabInstance;
+
 
     /// <summary>
     /// ××（F）××(E)×××(B)01(02)11
@@ -25,7 +25,7 @@ public class BuffStatic : BuffTiming {
     public override void Trigger()
     {
         Player.Instance.Character.Controllable = 0;
-
+        Debug.Log(SpecialTag);
         if (SpecialTag != "Skill_L")
         {
             GameObject pfb = Resources.Load("Buffs/Static") as GameObject;

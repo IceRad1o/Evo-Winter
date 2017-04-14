@@ -9,7 +9,7 @@ public class GiveBuff : Buff {
 
     void Trigger()
     {
-        Debug.Log("ID:   " + giveBuffID * 10 + ((this.tag == "Player") ? 0 : 1));
+        Debug.Log("ID:   " + (giveBuffID * 10 +((this.tag == "Player") ? 0 : 1)));
         this.GetComponent<BuffManager>().CreateDifferenceBuff(giveBuffID * 10 + ((this.tag == "Player") ? 0 : 1), "Skill_L");
         DestroyBuff();
     }

@@ -56,9 +56,14 @@ public class BuffManager : ExSubject
                 new BuffAura().CreateBuff(ID, this.gameObject);                
                 break;
             case 30:
-                BuffShield newBuff2 = this.gameObject.AddComponent<BuffShield>();
-                newBuff2.Create(ID);
-                buffList.Add(newBuff2);
+                BuffShield newBuff2;
+                if (this.gameObject.GetComponent<BuffShield>() == null)
+                {
+                    newBuff2 = this.gameObject.AddComponent<BuffShield>();
+                    newBuff2.Create(ID);
+                    buffList.Add(newBuff2);
+                }
+                
                 break;
             default:
                 break;
@@ -75,18 +80,54 @@ public class BuffManager : ExSubject
 
     }
 
-	
+    /// <summary>
+    /// 保存buff的信息
+    /// </summary>
+    /// <returns></returns>
+    public string[] SavingBuff()
+    {
+        List<string> list = new List<string>();
+        foreach (var item in this.GetComponents<Buff>())
+        {
+            list.Add(item.SaveBuff());
+        }
+        return list.ToArray();
+    }
+
+    public void LoadBuff()
+    {
+        string[] strBuff={" "," "} ;
+        for (int i = 0; i < strBuff.Length; i++)
+        {
+            CreateDifferenceBuff(int.Parse(UtilManager.Instance.GetFieldFormMsg(strBuff[i], 0))*10,"time;"+UtilManager.Instance.GetFieldFormMsg(strBuff[i], 1));
+        }
+    
+    }
+
+
 	void Start () {
         //将ItemManager设为观察者
         if (this.gameObject.tag == "Player")
+        {
             ItemManager.Instance.AddObserver(this);
+            int loadOrNew = PlayerPrefs.GetInt("isNew", 1);
+            if (loadOrNew != 1)
+            { 
+                
+            }
+        }
         this.gameObject.GetComponent<Character>().AddObserver(this);
         RoomManager.Instance.AddObserver(this);
         if (this.gameObject.tag == "Player")
             buffManagerTag = "Player";
         else
             buffManagerTag = "Monster";
+
+
+
 	}
+    
+
 
 
     public override void OnNotify(string msg)

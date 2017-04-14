@@ -58,6 +58,23 @@ public class Character : RoomElement
     int faceDirection;//面朝向
     private int isAlive;//<0 死透 =0 正在死 >0 活着
     private int deadTime;
+
+
+    int beatDownBuff = 0;//击飞buff
+
+    public int BeatDownBuff
+    {
+        get { return beatDownBuff; }
+        set { beatDownBuff = value; }
+    }
+    int beatBackBuff = 0;//击退buff
+
+    public int BeatBackBuff
+    {
+        get { return beatBackBuff; }
+        set { beatBackBuff = value; }
+    }
+
     public int FaceDirection
     {
         get { return faceDirection; }
@@ -513,11 +530,11 @@ public class Character : RoomElement
         set 
         {
             beatDownLevelX = value;
-            weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX;
+           // weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX+beatDownBuff;
 
             for (int i = 0; i < weapons.Length; i++)
             {
-                weapons[i].GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX;
+                weapons[i].GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX + beatDownBuff;
             }
         }
     }
@@ -529,11 +546,11 @@ public class Character : RoomElement
         set
         {
             beatDownLevelY = value;
-            weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY;
+            //weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY+beatDownBuff;
 
             for (int i = 0; i < weapons.Length; i++)
             {
-                weapons[i].GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY;
+                weapons[i].GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY + beatDownBuff;
             }
         }
     }
@@ -549,13 +566,13 @@ public class Character : RoomElement
         {
             beatBackLevel = value;
            // weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevel = 0;
-            weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel;
-            if (weapon == 1)
-                weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel;
+            //weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel + beatBackBuff;
+           // if (weapon == 1)
+           //     weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel+beatBackBuff;
 
             for(int i=0;i<weapons.Length;i++)
             {
-                weapons[i].GetComponent<HurtByContract>().beatBackLevel = beatBackLevel;
+                weapons[i].GetComponent<HurtByContract>().beatBackLevel = beatBackLevel + beatBackBuff;
             }
         }
     }
@@ -635,6 +652,8 @@ public class Character : RoomElement
         //isAlive = -1;
         
         Notify("Die;"+this.tag);
+        StartCoroutine(Disappear());
+       // Destroy(this.gameObject);
 
     }
 
@@ -755,8 +774,9 @@ public class Character : RoomElement
     }
 
 
-    public void Disappear()
+    public IEnumerator Disappear()
     {
+        yield return new WaitForSeconds(3f);
         if (tag != "Player")
         {
             
@@ -765,7 +785,7 @@ public class Character : RoomElement
         }
     }
     /// <summary>
-    /// 发送生成发射物的通知
+    /// 发送生成发射物的通知 X X XX
     /// </summary>
     public void NotifyMissile(int type)
     {

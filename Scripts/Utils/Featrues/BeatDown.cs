@@ -16,8 +16,12 @@ public class BeatDown : MonoBehaviour {
 
     void Start()
     {
-        //if (levelX <= 0)
-          //  return;
+        if (levelX < 0)
+            return;
+        if (levelY < 0)
+            return;
+        if (levelX == 0 && levelY == 0)
+            return;
         flySpeedX = levelX * 0.1f;
         flySpeedY= levelY * 0.5f;
         if (direction != 1 && direction != -1)

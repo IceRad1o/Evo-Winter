@@ -11,7 +11,6 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
         get { return esscenceNumber; }
         set { esscenceNumber = value; }
     }
-    List<List<int>> skillList=new List<List<int>>();
 
     public bool doubleEsscence=false;
 
@@ -19,18 +18,12 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     int skillEsscence=0;
 
     int[,] skillArray = {    
-                        { 0, 1, 2, 3, 4 },
-                        { 0, 1, 2, 3, 4 },
-                        { 0, 1, 2, 3, 4 },
-                        { 0, 1, 2, 3, 4 }
+                        { 101, 1, 103, 3, 105 },
+                        { 201, 1, 203, 3, 205 },
+                        { 301, 302, 2, 3, 4 },
+                        { 0, 402, 403, 404, 4 }
                         }; 
-    
-    int[,] skillTable = {    
-                        { 0, 0, 0, 0, 0 },
-                        { 0, 0, 0, 0, 0 }, 
-                        { 0, 0, 0, 0, 0 }, 
-                        { 0, 0, 0, 0, 0 } 
-                        }; 
+   
     
 
     /// <summary>
@@ -115,7 +108,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <returns></returns>
     private int AddSkill(int ID) 
     {
-        Debug.Log("dddddddddddd");
+        Notify("AddEsscenceSkill;"+ID);
         return 0;
     }
     /// <summary>
@@ -125,7 +118,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <returns></returns>
     private int RemoveSkill(int ID)
     {
-        Debug.Log("ssss");
+        Notify("RemoveEsscenceSkill;" + ID);
         return 0;
     }
 
@@ -134,8 +127,6 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
         for (int i = 0; i <= 3; i++)
         {
             esscenceNumber.Add(0);
-            List<int> newlist = new List<int>();
-            skillList.Add(newlist);
         }
         GetRandomArray();
     }
@@ -161,6 +152,19 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
         }
         Debug.Log(s);
     }
+
+    public void SwitchEsscence(int type)
+    {
+        for (int i=1;i<6;i++)
+            if (esscenceNumber[skillEsscence]==i * (i + 1) / 2)
+                RemoveSkill(skillArray[skillEsscence, i - 1]);
+        for (int i = 1; i < 6; i++)
+            if (esscenceNumber[type] == i * (i + 1) / 2)
+                RemoveSkill(skillArray[type, i - 1]);
+
+        skillEsscence = type;
+    }
+
 
 
     public override void OnNotify(string msg)

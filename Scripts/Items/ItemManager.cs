@@ -380,7 +380,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         if (msg == "LeaveRoom")
         {
             IncreaseEnegy(1);
-            DestoryAllItems();
+            //DestoryAllItems();
         }
     }
 
