@@ -8,6 +8,8 @@ public class Buff : ExSubject
     protected GameObject prefabInstance;
     public GameObject effectPrefeb;
 
+    protected System.DateTime oldTime=System.DateTime.Now;
+
     private string specialTag;
     public string SpecialTag
     {
@@ -66,6 +68,13 @@ public class Buff : ExSubject
         
         this.gameObject.GetComponent<BuffManager>().BuffList.Remove(this);
         Destroy(this);  
+    }
+
+    virtual public string SaveBuff()
+    {
+        System.DateTime nowTime = System.DateTime.Now;
+        Debug.Log("sub     :" + ((oldTime.Minute - nowTime.Minute) * 60 + oldTime.Second - nowTime.Second));
+        return "saving;" + BuffID + ";" + ((oldTime.Minute - nowTime.Minute) * 60 + oldTime.Second - nowTime.Second);
     }
 
 	

@@ -80,18 +80,43 @@ public class BuffManager : ExSubject
 
     }
 
+    /// <summary>
+    /// 保存buff的信息
+    /// </summary>
+    /// <returns></returns>
+    public string[] SavingBuff()
+    {
+        List<string> list = new List<string>();
+        foreach (var item in this.GetComponents<Buff>())
+        {
+            list.Add(item.SaveBuff());
+        }
+        return list.ToArray();
+    }
 	
 	void Start () {
         //将ItemManager设为观察者
         if (this.gameObject.tag == "Player")
+        {
             ItemManager.Instance.AddObserver(this);
+            int loadOrNew = PlayerPrefs.GetInt("isNew", 1);
+            if (loadOrNew != 1)
+            { 
+                
+            }
+        }
         this.gameObject.GetComponent<Character>().AddObserver(this);
         RoomManager.Instance.AddObserver(this);
         if (this.gameObject.tag == "Player")
             buffManagerTag = "Player";
         else
             buffManagerTag = "Monster";
+
+
+
 	}
+    
+
 
 
     public override void OnNotify(string msg)
