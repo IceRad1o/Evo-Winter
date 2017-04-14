@@ -63,6 +63,11 @@ public class BuffShield : BuffTiming
         }
     }
 
+    public override string SaveBuff()
+    {
+        return base.SaveBuff()+";"+shieldHealth;
+    }
+
     void Start()
     {
         this.gameObject.GetComponent<Character>().AddObserver(this);
