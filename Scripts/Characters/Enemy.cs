@@ -15,13 +15,13 @@ public class Enemy : Character{
 
     public override void Die()
     {
-        base.Die();
+        
         EnemyManager.Instance.EnemyList.Remove(this);
       
         if (EnemyManager.Instance.EnemyList.Count == 0)
         {
             EnemyManager.Instance.Notify("ClearRoom");
         }
-        
+        base.Die();
     }
 }
