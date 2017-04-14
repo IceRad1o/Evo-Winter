@@ -30,3 +30,7 @@ IsFinite (m_CachedRange.first) && IsFinite (m_CachedRange.second) 动画有错误信息
 1.击飞依然会动
 2.移动中无法发射飞行物,等停止移动才会发,使用强制优先级
 
+4.13
+1.宝箱太难打开
+2.道具太难捡起来
+3.吸血鬼法师技能回血多于1格的问题

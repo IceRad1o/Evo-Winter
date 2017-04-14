@@ -19,7 +19,7 @@ public class Popup : UnitySingleton<Popup> {
 
 
 
-    public void SetItemDetailPopup(string itemName,string itemIntro)
+    public void SetItemDetailPopup(string itemName,string itemIntro,int itemType,string itemQuality)
     {
         itemDetailPopupTitle.GetComponent<Text>().text = itemName;
         itemDetailPopupText.GetComponent<Text>().text = itemIntro;

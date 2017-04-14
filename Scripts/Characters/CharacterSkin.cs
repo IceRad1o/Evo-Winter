@@ -128,16 +128,14 @@ public class CharacterSkin : MonoBehaviour
     }
 
 
-
-
-
-    void Awake()
+    public void SetSkin()
     {
         Transform bodyNode1 = gameObject.transform.FindChild("BodyNode");
         Transform body1 = gameObject.transform.FindChild("Body");
         body1.SetParent(bodyNode1);
         bodyNode = gameObject.transform.Find("BodyNode").gameObject;
         body = bodyNode.transform.Find("Body").gameObject;
+        //body.transform.position = new Vector3(0, -1.96f, 0);
         //body.transform.SetParent(bodyNode.transform);
         headNode = body.transform.Find("HeadNode").gameObject;
         head = headNode.transform.Find("Head").gameObject;
@@ -170,13 +168,13 @@ public class CharacterSkin : MonoBehaviour
 
 
         if (leftHand.transform.Find("WeaponNodeL") != null)
-        { 
+        {
             weapon2Node = leftHand.transform.Find("WeaponNodeL").gameObject;
             weapon2 = weapon2Node.transform.Find("Weapon").gameObject;
         }
 
 
-
+        NodeList.Clear();
         NodeList.Add(bodyNode);
         NodeList.Add(headNode);
         NodeList.Add(leftArmNode);
@@ -189,6 +187,7 @@ public class CharacterSkin : MonoBehaviour
         NodeList.Add(rightEarNode);
         NodeList.Add(weaponNode);
 
+        SkinList.Clear();
         SkinList.Add(body);
         SkinList.Add(head);
         SkinList.Add(leftArm);
@@ -200,6 +199,7 @@ public class CharacterSkin : MonoBehaviour
         SkinList.Add(leftEar);
         SkinList.Add(rightEar);
 
+        DecorationList.Clear();
         DecorationList.Add(leftEye);
         DecorationList.Add(rightEye);
         DecorationList.Add(cap);
@@ -208,6 +208,12 @@ public class CharacterSkin : MonoBehaviour
         DecorationList.Add(leftShoe);
         DecorationList.Add(rightShoe);
 
+    }
+
+
+    void Awake()
+    {
+        SetSkin();
 
         //RandomSkinColor();
         RandomDecoration();
