@@ -17,7 +17,7 @@ public class GiveShield : Skill {
             this.GetComponent<BuffManager>().CreateDifferenceBuff(3300);
     }
 
-    protected override void skillDestory()
+    public override void skillDestory()
     {
         this.gameObject.GetComponent<Character>().RemoveObserver(this);
         base.skillDestory();

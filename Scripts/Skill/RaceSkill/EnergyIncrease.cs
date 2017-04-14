@@ -35,7 +35,7 @@ public class EnergyIncrease : Skill {
         }
     }
 
-    protected override void skillDestory()
+    public override void skillDestory()
     {
         RoomManager.Instance.RemoveObserver(this);
         base.skillDestory();

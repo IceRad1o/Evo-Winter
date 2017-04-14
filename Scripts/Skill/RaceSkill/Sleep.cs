@@ -13,7 +13,7 @@ public class Sleep : Skill {
     }
 
 
-    protected override void skillDestory()
+    public override void skillDestory()
     {
         Player.Instance.Character.RemoveObserver(this);
         RoomManager.Instance.RemoveObserver(this);

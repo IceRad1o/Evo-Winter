@@ -23,7 +23,7 @@ public class Occupy : Skill {
         }
     }
 
-    protected override void skillDestory()
+    public override void skillDestory()
     {
         itemUsingNumber = 0;
 

@@ -91,7 +91,7 @@ public class Skill : ExSubject
     /// <summary>
     /// 技能脚本的销毁
     /// </summary>
-    virtual protected void skillDestory(){
+    virtual public void skillDestory(){
         this.gameObject.GetComponent<SkillManager>().SkillList.Remove(this);
         Destroy(this); 
     

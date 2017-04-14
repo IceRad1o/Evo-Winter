@@ -25,7 +25,7 @@ public class Greedy : Skill {
         }
     }
 
-    protected override void skillDestory()
+    public override void skillDestory()
     {
         itemUsingNumber = 0;
         this.GetComponent<Character>().Luck -= addLuck;

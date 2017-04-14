@@ -26,7 +26,7 @@ public class Rage : Skill {
     
     }
 
-    protected override void skillDestory()
+    public override void skillDestory()
     {
         foreach (var item in this.GetComponents<BuffChangeAttributeTemp>())
         {

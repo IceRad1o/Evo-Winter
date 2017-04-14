@@ -179,7 +179,103 @@ public class SkillManager : ExSubject
             return;
         }
     }
-   
+
+
+
+    public void RemoveSkill(int ID)
+    {
+        /***************************************************************/
+        //矮人的精华技能
+        if (ID == 101)
+        {
+            if (this.gameObject.GetComponent<Sleep>() != null)
+                this.gameObject.AddComponent<Sleep>().skillDestory();
+
+            return;
+        }
+        if (ID == 103)
+        {
+            if (this.gameObject.GetComponent<AllSleep>() != null)
+                this.gameObject.AddComponent<AllSleep>().skillDestory();
+
+            return;
+        }
+        if (ID == 105)
+        {
+
+            if (this.gameObject.GetComponent<GiveShield>() != null)
+                this.gameObject.AddComponent<GiveShield>().skillDestory();
+
+            return;
+        }
+        /***************************************************************/
+        //狼人的精华技能
+        if (ID == 201)
+        {
+            if (this.gameObject.GetComponent<Bloodthirsty>() == null)
+                this.gameObject.AddComponent<Bloodthirsty>().skillDestory();
+
+            return;
+        }
+        if (ID == 203)
+        {
+            if (this.gameObject.GetComponent<Rage>() == null)
+                this.gameObject.AddComponent<Rage>().skillDestory();
+
+            return;
+        }
+        if (ID == 205)
+        {
+            if (this.gameObject.GetComponent<WindinAnger>() == null)
+                this.gameObject.AddComponent<WindinAnger>().skillDestory();
+
+            return;
+        }
+        /***************************************************************/
+        //吸血鬼的精华技能
+        if (ID == 301)
+        {
+            foreach (var item in this.gameObject.GetComponents<AttackPoison>())
+            {
+                if (item != null)
+                    item.DestroyBuff();
+            }
+            return;
+        }
+        if (ID == 302)
+        {
+            foreach (var item in this.gameObject.GetComponents<BuffVampire>())
+            {
+                if (item != null)
+                    item.DestroyBuff();
+            }
+            return;
+        }
+        /***************************************************************/
+        //地精的精华技能
+        if (ID == 402)
+        {
+            if (this.gameObject.GetComponent<EnergyIncrease>() == null)
+                this.gameObject.AddComponent<EnergyIncrease>().skillDestory();
+
+            return;
+        }
+        if (ID == 403)
+        {
+            if (this.gameObject.GetComponent<Greedy>() == null)
+                this.gameObject.AddComponent<Greedy>().skillDestory();
+
+            return;
+        }
+        if (ID == 404)
+        {
+            if (this.gameObject.GetComponent<Occupy>() == null)
+                this.gameObject.AddComponent<Occupy>().skillDestory();
+
+            return;
+        }
+        
+    }
 
 
     public override void OnNotify(string msg)
@@ -190,6 +286,14 @@ public class SkillManager : ExSubject
         bID = UtilManager.Instance.MatchFiledFormMsg("UseItem_Skill_ID", msg, 0);
         if (bID != "Fail" && bID!="Error")
             CreateSkill(int.Parse(bID));
+
+        bID = UtilManager.Instance.MatchFiledFormMsg("AddEsscenceSkill", msg, 0);
+        if (bID != "Fail" && bID != "Error")
+            CreateSkill(int.Parse(bID));
+
+        bID = UtilManager.Instance.MatchFiledFormMsg("RemoveEsscenceSkill", msg, 0);
+        if (bID != "Fail" && bID != "Error")
+            RemoveSkill(int.Parse(bID));
 
         bID = UtilManager.Instance.MatchFiledFormMsg("AttackStart", msg, 0);
         if (bID == "L")
@@ -207,6 +311,7 @@ public class SkillManager : ExSubject
         {
             ItemManager.Instance.AddObserver(this);
             this.GetComponent<Character>().AddObserver(this);
+            EsscenceManager.Instance.AddObserver(this);
         }
     }
 

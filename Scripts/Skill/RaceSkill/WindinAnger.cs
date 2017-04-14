@@ -28,7 +28,7 @@ public class WindinAnger : Skill {
 
     }
 
-    protected override void skillDestory()
+    public override void skillDestory()
     {
         Destroy(prefabInstance);
         Destroy(gameObject);
