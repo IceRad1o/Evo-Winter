@@ -13,6 +13,7 @@ public class BuffManager : ExSubject
         get { return playerHealth; }
         set { playerHealth = value; }
     }
+    
 
 
     ArrayList buffList = new ArrayList();
@@ -27,6 +28,8 @@ public class BuffManager : ExSubject
 
     public void CreateBuff(int ID,string spTag="")
     {
+        Debug.Log("buffID   :" + ID + "   " + spTag);
+
         if (!judgeCreate)
             return;
         judgeCreate = false;
@@ -72,6 +75,8 @@ public class BuffManager : ExSubject
 
     public void CreateDifferenceBuff(int ID,string spTag="")
     {
+        Debug.Log("buffID   :" + ID +"   "+ spTag);
+
         if (buffManagerTag == "Player" && ID % 10 == 0)
             judgeCreate = true;
         if (buffManagerTag == "Monster" && ID % 10 == 1)
@@ -86,7 +91,11 @@ public class BuffManager : ExSubject
     /// <returns></returns>
     public string[] SavingBuff()
     {
+        /// <summary>
+        /// 临时存Buff
+        /// </summary>
         List<string> list = new List<string>();
+
         foreach (var item in this.GetComponents<Buff>())
         {
             list.Add(item.SaveBuff());
@@ -96,12 +105,26 @@ public class BuffManager : ExSubject
 
     public void LoadBuff()
     {
-        string[] strBuff={" "," "} ;
+        string[] strBuff={""," "};
+
         for (int i = 0; i < strBuff.Length; i++)
         {
             CreateDifferenceBuff(int.Parse(UtilManager.Instance.GetFieldFormMsg(strBuff[i], 0))*10,"time;"+UtilManager.Instance.GetFieldFormMsg(strBuff[i], 1));
+            
         }
     
+    }
+
+    public void LoadBuff(string[] str)
+    {
+        string[] strBuff = str;
+        Debug.Log("strBuff.Length     " + strBuff.Length);
+        for (int i = 0; i < strBuff.Length; i++)
+        {
+            Debug.Log("strBuff   :" + strBuff[i]);
+            CreateDifferenceBuff(int.Parse(UtilManager.Instance.GetFieldFormMsg(strBuff[i], 0)) * 10, "time;" + UtilManager.Instance.GetFieldFormMsg(strBuff[i], 1));
+        }
+
     }
 
 

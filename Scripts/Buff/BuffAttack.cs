@@ -21,7 +21,7 @@ public class BuffAttack : Buff {
             return false;
     }
 
-    public void CreateBuff(int ID,GameObject ob)
+    public void CreateBuff(int ID,GameObject ob,string spTag="")
     {
         int[] part = { 2,2, 3, 1,2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);

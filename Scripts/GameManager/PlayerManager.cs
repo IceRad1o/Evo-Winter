@@ -19,8 +19,17 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             Instantiate(players[ID], Vector3.zero, Quaternion.identity);
         else
         {
+            //保存原有buff;
+            Debug.Log("Race    :" + Player.Instance.Character.Race);
+            string[] strBuff = Player.Instance.GetComponent<BuffManager>().SavingBuff();
+            Debug.Log("buff  :" + strBuff);
             //删除原来人物,生成新人物
             Instantiate(players[ID], Player.Instance.transform.position, Quaternion.identity);
+
+            Debug.Log("Race    :" + Player.Instance.Character.Race);
+            //为新建人物增加buff
+            Player.Instance.GetComponent<BuffManager>().LoadBuff(strBuff);
+
             return;
             //保留原有人物
            Animator anim= Player.Instance.GetComponent<Animator>();
