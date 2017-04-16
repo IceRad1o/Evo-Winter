@@ -28,10 +28,11 @@ public class BuffManager : ExSubject
 
     public void CreateBuff(int ID,string spTag="")
     {
-        Debug.Log("buffID   :" + ID + "   " + spTag);
+
 
         if (!judgeCreate)
             return;
+
         judgeCreate = false;
         int[] part={2,2};
         int[] idPart = UtilManager.Instance.DecomposeID(ID,part);
@@ -75,7 +76,6 @@ public class BuffManager : ExSubject
 
     public void CreateDifferenceBuff(int ID,string spTag="")
     {
-        Debug.Log("buffID   :" + ID +"   "+ spTag);
 
         if (buffManagerTag == "Player" && ID % 10 == 0)
             judgeCreate = true;
@@ -118,10 +118,10 @@ public class BuffManager : ExSubject
     public void LoadBuff(string[] str)
     {
         string[] strBuff = str;
-        Debug.Log("strBuff.Length     " + strBuff.Length);
+        //Debug.Log("strBuff.Length     " + strBuff.Length);
         for (int i = 0; i < strBuff.Length; i++)
         {
-            Debug.Log("strBuff   :" + strBuff[i]);
+            //Debug.Log("strBuff   :" + strBuff[i]);
             CreateDifferenceBuff(int.Parse(UtilManager.Instance.GetFieldFormMsg(strBuff[i], 0)) * 10, "time;" + UtilManager.Instance.GetFieldFormMsg(strBuff[i], 1));
         }
 
@@ -129,6 +129,7 @@ public class BuffManager : ExSubject
 
 
 	void Start () {
+
         //将ItemManager设为观察者
         if (this.gameObject.tag == "Player")
         {
@@ -149,8 +150,15 @@ public class BuffManager : ExSubject
 
 
 	}
-    
 
+
+    void Awake()
+    {
+        if (this.gameObject.tag == "Player")
+            buffManagerTag = "Player";
+        else
+            buffManagerTag = "Monster";
+    }
 
 
     public override void OnNotify(string msg)

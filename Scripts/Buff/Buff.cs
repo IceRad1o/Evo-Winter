@@ -73,7 +73,7 @@ public class Buff : ExSubject
     virtual public string SaveBuff()
     {
         System.DateTime nowTime = System.DateTime.Now;
-        Debug.Log("sub     :" + ((oldTime.Minute - nowTime.Minute) * 60 + oldTime.Second - nowTime.Second));
+        //Debug.Log("sub     :" + ((oldTime.Minute - nowTime.Minute) * 60 + oldTime.Second - nowTime.Second));
         return "saving;" + BuffID + ";" + ((oldTime.Minute - nowTime.Minute) * 60 + oldTime.Second - nowTime.Second);
     }
 
