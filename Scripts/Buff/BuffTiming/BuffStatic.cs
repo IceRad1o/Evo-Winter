@@ -38,7 +38,7 @@ public class BuffStatic : BuffTiming {
         else 
         {
             GameObject pfb = Resources.Load("Buffs/dizzy") as GameObject;
-            Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+1, -1);
+            Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+2, -1);
             prefabInstance = Instantiate(pfb);
             prefabInstance.transform.position = s;
             prefabInstance.transform.parent = this.gameObject.transform;

@@ -390,7 +390,7 @@ public class SkillManager : ExSubject
                                 item.GetComponent<BuffManager>().CreateDifferenceBuff(1021002111);
                             }
                         }
-                        //伤害翻倍
+                        //收到伤害翻倍
                         this.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(2006110);
                         //进入Cd
                         cd = !cd;
