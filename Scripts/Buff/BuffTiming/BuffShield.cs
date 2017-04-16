@@ -18,6 +18,11 @@ public class BuffShield : BuffTiming
 
         shieldHealth = idPart[1];
         buffDuration = idPart[2];
+        if (UtilManager.Instance.GetFieldFormMsg(spTag, -1) == "saving")
+        {
+            buffDuration -= int.Parse(UtilManager.Instance.GetFieldFormMsg(spTag, 1));
+            shieldHealth = int.Parse(UtilManager.Instance.GetFieldFormMsg(spTag, 2));
+        }
         if (buffDuration != 0)
             StartCoroutine(delay(buffDuration, 0));
 
@@ -61,6 +66,14 @@ public class BuffShield : BuffTiming
         {
             Trigger();
         }
+    }
+    /// <summary>
+    /// 重写，增加盾的生命
+    /// </summary>
+    /// <returns></returns>
+    public override string SaveBuff()
+    {
+        return base.SaveBuff()+";"+shieldHealth;
     }
 
     void Start()

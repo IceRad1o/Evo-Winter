@@ -417,7 +417,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
     void Start()
     {
-        Player.Instance.Character.AddObserver(this);
+        Player.Instance.AddObserver(this);  
         this.AddObserver(UIManager.Instance.ItemObserver);
         RoomManager.Instance.AddObserver(this);
         
