@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1e5dcf80b5f919c4c889fbf414c1f48e
-timeCreated: 1491550136
+timeCreated: 1492347219
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -11,6 +11,8 @@ TextureImporter:
     21300008: weapon2_4
     21300010: weapon2_5
     21300012: weapon2_6
+    21300014: weapon2_7
+    21300016: weapon2_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -145,6 +147,32 @@ TextureImporter:
         y: 127
         width: 382
         height: 319
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: weapon2_7
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 610
+        width: 321
+        height: 333
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: weapon2_8
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 1199
+        width: 214
+        height: 179
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
