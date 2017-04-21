@@ -21,7 +21,7 @@ public class BuffAttack : Buff {
             return false;
     }
 
-    public void CreateBuff(int ID,GameObject ob)
+    public void CreateBuff(int ID,GameObject ob,string spTag="")
     {
         int[] part = { 2,2, 3, 1,2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
@@ -82,8 +82,10 @@ public class BuffAttack : Buff {
                     ob.GetComponent<AttackHitRecoverUp>().Probability++;
                 break;
             case 7:
+                //Debug.Log("Test Race BuffAttack :" + ob.GetComponent<Character>().Race)
                 if (ob.GetComponent<AttackPoison>() == null)
                 {
+
                     AttackPoison newBuff3 = ob.AddComponent<AttackPoison>();
 
                     newBuff3.Create(ID);

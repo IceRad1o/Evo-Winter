@@ -402,8 +402,9 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     
     
     }
+    
 
-
+   
     //初始化参数
     void Awake() {
 
@@ -417,7 +418,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
     void Start()
     {
-        Player.Instance.AddObserver(this);  
+        Player.Instance.Character.AddObserver(this);
         this.AddObserver(UIManager.Instance.ItemObserver);
         RoomManager.Instance.AddObserver(this);
         
