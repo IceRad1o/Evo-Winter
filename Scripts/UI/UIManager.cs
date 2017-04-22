@@ -175,7 +175,7 @@ public class UIManager : ExUnitySingleton<UIManager>
             int id = int.Parse(str[1]);
             int a = id / 100;
             int b = id % 100;
-            UIManager.Instance.popup.ShowEsscencePopup(Esscence.esscenceSkillSprite[a,b], Esscence.esscenceSkillName[a,b], Esscence.esscenceSkillDescribe[a, b]);
+            UIManager.Instance.popup.ShowEsscencePopup(new Esscence().esscenceSkillSprite[(a-1)*5+b], Esscence.esscenceSkillName[a,b], Esscence.esscenceSkillDescribe[a, b]);
         }
 
         //Player Msg
