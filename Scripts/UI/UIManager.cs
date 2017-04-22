@@ -23,12 +23,12 @@ public class UIManager : ExUnitySingleton<UIManager>
     {
         get { return littleMap; }
     }
-    private PlayerInfo playerInfo;  //玩家信息
+    //private PlayerInfo playerInfo;  //玩家信息
 
-    public PlayerInfo PlayerInfo
-    {
-        get { return playerInfo; }
-    }
+    //public PlayerInfo PlayerInfo
+    //{
+    //    get { return playerInfo; }
+    //}
     private PlayerHealth playerHealth;  //玩家血量
 
     public PlayerHealth PlayerHealth
@@ -70,7 +70,7 @@ public class UIManager : ExUnitySingleton<UIManager>
     void Start()
     {
         littleMap = LittleMap.Instance;
-        playerInfo = PlayerInfo.Instance;
+        //playerInfo = PlayerInfo.Instance;
         playerHealth = PlayerHealth.Instance;
         esscencesDisplayer = EsscencesDisplayer.Instance;
         popup = Popup.Instance;
@@ -152,7 +152,7 @@ public class UIManager : ExUnitySingleton<UIManager>
             //TODO 显示道具信息
             int id = int.Parse(str[1]);
             UIManager.Instance.popup.SetItemDetailPopup(
-                    Esscence.esscenceName[id],Esscence.esscenceDescrible[id],Esscence.esscenceType[id], "S+");
+                    Esscence.esscenceName[id],Esscence.esscenceDescrible[id],3, "S+");
             UIManager.Instance.popup.itemDetailPopup.SetActive(true);
         }
         if (str[0] == "Player_Leave_Esscence")
@@ -175,7 +175,11 @@ public class UIManager : ExUnitySingleton<UIManager>
             int id = int.Parse(str[1]);
             int a = id / 100;
             int b = id % 100;
-            UIManager.Instance.popup.ShowEsscencePopup(new Esscence().esscenceSkillSprite[(a-1)*5+b], Esscence.esscenceSkillName[a,b], Esscence.esscenceSkillDescribe[a, b]);
+
+            Sprite x = Esscence.esscenceSprite[(a - 1) * 5 + b];
+            string y = Esscence.esscenceSkillName[1, 1];
+            string z = Esscence.esscenceSkillDescribe[a, b];//Error OutOfRange，吃傲慢精华时报错
+            UIManager.Instance.popup.ShowEsscencePopup(x, y, z);
         }
 
         //Player Msg

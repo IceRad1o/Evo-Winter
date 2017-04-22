@@ -9,15 +9,7 @@ using System.Collections;
 public class FadeIn : Action
 {     
 
-    public enum TestEnum
-    {
-        Enum1=0,
-        Enum2=1,
-    }
 
-    public FadeIn.TestEnum te{get;set;}
-    [SerializeField]
-    public FadeIn.TestEnum te2;
 
     Text  [] texts;
 
@@ -99,7 +91,9 @@ public class FadeIn : Action
 
                 }
                 yield return null;
-            }
+            } 
+            if (isReverseDelay)
+                yield return new WaitForSeconds(reverseDelayTime);
             if (isReverse)
             {
                 count = (int)(duration * 60) ;
@@ -143,8 +137,14 @@ public class FadeIn : Action
                     r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + speed);
 
                 }
+                foreach (Text r in texts)
+                {
+                    r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + speed);
+                }
                 yield return null;
             }
+            if (isReverseDelay)
+                yield return new WaitForSeconds(reverseDelayTime);
             if (isReverse)
             {
                 count = (int)(duration * 60) ;
@@ -158,6 +158,10 @@ public class FadeIn : Action
                     {
                         r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a - speed);
 
+                    }
+                    foreach (Text r in texts)
+                    {
+                        r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a - speed);
                     }
                     yield return null;
                 }
