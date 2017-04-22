@@ -14,6 +14,12 @@ public class Popup : UnitySingleton<Popup> {
     GameObject itemDetailPopupQuality;
 
 
+    public GameObject esscencePopup;
+    GameObject esscencePopupSprite;
+    GameObject esscencePopupName;
+    GameObject esscencePopupDescribe;
+
+
 	// Use this for initialization
 	void Start () {
         itemDetailPopupTitle = itemDetailPopup.GetComponent<RectTransform>().Find("Title").gameObject;
@@ -49,4 +55,23 @@ public class Popup : UnitySingleton<Popup> {
         itemDetailPopupType.GetComponent<Text>().text = ""+typeStr[itemType];
         itemDetailPopupQuality.GetComponent<Text>().text = "" + itemQuality;
     }
+
+    public void ShowEsscencePopup(Sprite sp,string name,string desc)
+    {
+        esscencePopup.SetActive(true);
+        esscencePopupSprite.GetComponent<Image>().sprite = sp;
+        esscencePopupName.GetComponent<Text>().text = name;
+        esscencePopupDescribe.GetComponent<Text>().text = desc;
+
+        FadeIn a=esscencePopup.AddComponent<FadeIn>();
+        a.isReverse = true;
+        a.isReset = true;
+        a.isOnCanvas = true;
+        a.resetToZero = true;
+        a.isReverseDelay = true;
+        a.reverseDelayTime = 1f;
+
+    }
+
+
 }
