@@ -150,9 +150,9 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "Player_Get_Esscence")
         {
             //TODO 显示道具信息
-
+            int id = int.Parse(str[1]);
             UIManager.Instance.popup.SetItemDetailPopup(
-                    ItemManager.Instance.itemsTable.GetItemName(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemIntro(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemType(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemQuality(int.Parse(str[1])));
+                    Esscence.esscenceName[id],Esscence.esscenceDescrible[id],Esscence.esscenceType[id], "S+");
             UIManager.Instance.popup.itemDetailPopup.SetActive(true);
         }
         if (str[0] == "Player_Leave_Esscence")
@@ -166,10 +166,17 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "Get_Esscence")//玩家拾取一次性道具
         {
             UIManager.Instance.popup.itemDetailPopup.SetActive(false);
-            
+           
             //UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
         }
 
+        if(str[0]=="AddEsscenceSkill")
+        {
+            int id = int.Parse(str[1]);
+            int a = id / 100;
+            int b = id % 100;
+            UIManager.Instance.popup.ShowEsscencePopup(new Esscence().esscenceSkillSprite[(a-1)*5+b], Esscence.esscenceSkillName[a,b], Esscence.esscenceSkillDescribe[a, b]);
+        }
 
         //Player Msg
 
