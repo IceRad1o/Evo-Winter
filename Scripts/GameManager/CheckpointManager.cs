@@ -38,7 +38,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 
 
     //关卡号1-5
-    private int checkpointNumber = 1;
+    private int checkpointNumber = 0;
     public int CheckpointNumber
     {
         get { return checkpointNumber; }
