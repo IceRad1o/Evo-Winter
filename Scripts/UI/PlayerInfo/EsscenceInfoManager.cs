@@ -5,11 +5,18 @@ using System.Collections.Generic;
 public class EsscenceInfo
 {
     public string name;
-    public string decrition;
+    public string desc;
     public Sprite sprite;
     public int type;
     public int id;
-
+    public void init(string name,string desc,Sprite sprite,int type,int id)
+    {
+        this.name=name;
+        this.desc=desc;
+        this.sprite=sprite;
+        this.type=type;
+        this.id=id;
+    }
 }
 
 public class EsscenceInfoManager : ExUnitySingleton<EsscenceInfoManager>

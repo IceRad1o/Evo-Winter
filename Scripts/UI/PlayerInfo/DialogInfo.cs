@@ -31,6 +31,8 @@ public class DialogInfo : ExUnitySingleton<DialogInfo>
 
     public void RandomDialog()
     {
+        if (dialogs == null)
+            return;
         if (dialogs.Length < 1)
             return;
 
