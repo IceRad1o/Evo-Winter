@@ -46,8 +46,8 @@ public class DialogInfo : ExUnitySingleton<DialogInfo>
    
         rand= Random.Range(0, list.Count);
         //Debug.Log("Dialog:" + rand + ";" + list.Count + CheckpointManager.Instance.CheckpointNumber);
-        DialogContent.GetComponent<Text>().text = dialogs[rand].content;
-        DialogPeople.GetComponent<Text>().text ="--"+ dialogs[rand].people;
+        DialogContent.GetComponent<Text>().text = dialogs[list[rand]].content;
+        DialogPeople.GetComponent<Text>().text ="--"+ dialogs[list[rand]].people;
 
       // if( CheckpointManager.Instance.CheckpointNumber)
     }
