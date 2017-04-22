@@ -11,7 +11,6 @@ public class SkillTest : MonoBehaviour {
 
         oldTime = System.DateTime.Now;
 
-        Debug.Log("asd  :" + System.DateTime.Now);
         
 	}
     IEnumerator Test()

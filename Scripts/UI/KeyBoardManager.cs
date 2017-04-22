@@ -146,9 +146,48 @@ public class KeyBoardManager : MonoBehaviour {
         //
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            int a = Random.Range(0, 5);
-            int b = Random.Range(0, 2);
-            PlayerManager.Instance.InitPlayer(a+b*8);
+            RandomCharacter();
         }
 	}
+
+    public void RemoveAi()
+    {
+        for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
+        {
+            // Destroy(EnemyManager.Instance.EnemyList[i].gameObject.GetComponent<CharacterAi>());
+            //EnemyManager.Instance.EnemyList[i].Health = 0;
+            EnemyManager.Instance.EnemyList[i].Controllable = 0;
+        }
+    }
+
+    public void KillAll()
+    {
+         for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
+            {
+                Instantiate(DamageSrc, EnemyManager.Instance.EnemyList[i].transform.position, Quaternion.identity);
+                //EnemyManager.Instance.EnemyList[i].Health = 0;
+            }
+            cheatPunish++;
+            if (cheatPunish == 10)
+            {
+                string[] a = { "Player" };
+                GameObject ds = Instantiate(DamageSrc, Player.Instance.transform.position, Quaternion.identity) as GameObject;
+                ds.GetComponent<HurtByContract>().destTags = a;
+                ds.GetComponent<HurtByContract>().damage = 1;
+                ds.GetComponent<HurtByContract>().beatDownLevelX = 1;
+                ds.GetComponent<HurtByContract>().beatDownLevelY = 4;
+                cheatPunish = 0;
+            }
+    }
+    public void FullHealth() {
+        Player.Instance.Character.Health = 10;
+    }
+
+    public void RandomCharacter()
+    {
+        int a = Random.Range(0, 16);
+        int b = Random.Range(0, 2);
+        PlayerManager.Instance.InitPlayer(a );
+    }
+
 }

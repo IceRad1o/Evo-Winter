@@ -38,7 +38,7 @@ public class BeatDown : MonoBehaviour {
         //时间
         float t = 0;
         float posY = this.transform.position.y;
-        Debug.Log("enter");
+        //Debug.Log("enter");
         while (true)
         {
             if (flySpeedY > 0.5f * g * t || t == 0)

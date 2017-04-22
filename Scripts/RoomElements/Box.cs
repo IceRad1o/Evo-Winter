@@ -41,10 +41,15 @@ public class Box : RoomElement
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("箱子碰撞物标签：" + other.tag);
-        if (other.tag == "Weapon")
+        if (other.tag == "Weapon" )
             if (other.GetComponentInParent<Character>().IsWeaponDmg>0&&isOpen==false&& other.GetComponentInParent<Character>().Camp==0)
             {
                 OpenBox();
             }
+
+        if (other.tag == "Player")
+        {
+            OpenBox();
+        }
     }
 }

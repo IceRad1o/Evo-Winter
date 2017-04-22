@@ -402,8 +402,9 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     
     
     }
+    
 
-
+   
     //初始化参数
     void Awake() {
 
