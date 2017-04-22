@@ -81,6 +81,7 @@ public class UIManager : ExUnitySingleton<UIManager>
         Player.Instance.Character.AddObserver(this);
         RoomManager.Instance.AddObserver(this);
         ItemManager.Instance.AddObserver(this);
+        EsscenceManager.Instance.AddObserver(this);
     }
 
 
@@ -92,11 +93,9 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "EnterRoom")
         {
             littleMap.UpdateLittleMap();
+            DialogInfo.Instance.RandomDialog();
         }
-        if (str[0] == "EnterRoom")
-        {
-            littleMap.UpdateLittleMap();
-        }
+ 
 
 
         if (str[0] == "MapComplete")
@@ -147,10 +146,53 @@ public class UIManager : ExUnitySingleton<UIManager>
             itemButtonManager.SetEnergy(int.Parse(str[1])/100);
         }
 
+        //Esscence
+        if (str[0] == "Player_Get_Esscence")
+        {
+            //TODO 显示道具信息
+
+            UIManager.Instance.popup.SetItemDetailPopup(
+                    ItemManager.Instance.itemsTable.GetItemName(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemIntro(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemType(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemQuality(int.Parse(str[1])));
+            UIManager.Instance.popup.itemDetailPopup.SetActive(true);
+        }
+        if (str[0] == "Player_Leave_Esscence")
+        {
+
+            //TODO 取消显示道具信息
+            UIManager.Instance.popup.itemDetailPopup.SetActive(false);
+
+        }
+
+        if (str[0] == "Get_Esscence")//玩家拾取一次性道具
+        {
+            UIManager.Instance.popup.itemDetailPopup.SetActive(false);
+            
+            //UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
+        }
+
+
         //Player Msg
 
         if (str[0]== "HealthChanged")
             UIManager.Instance.playerHealth.Health = (int)Player.Instance.Character.Health;
+        if (str[0] == "AttackDamageChanged")
+            AttriInfo.Instance.Atk = Player.Instance.Character.AttackDamage;
+        if (str[0] == "AttackSpeedChangedChanged")
+            AttriInfo.Instance.Atk = Player.Instance.Character.AttackSpeed;
+        if (str[0] == "AttackRangeChanged")
+            AttriInfo.Instance.Atk = Player.Instance.Character.AttackRange;
+        if (str[0] == "HitRecoverChanged")
+            AttriInfo.Instance.Atk = Player.Instance.Character.HitRecover;
+        if (str[0] == "LuckChanged")
+            AttriInfo.Instance.Atk = Player.Instance.Character.Luck;
+        if (str[0] == "MoveSpeedChanged")
+            AttriInfo.Instance.Atk = Player.Instance.Character.MoveSpeed;
+
+        if (str[0] == "RaceChanged")
+            CreerInfo.Instance.SetRace(int.Parse(str[2]));
+        if (str[0] == "WeaponChanged")
+            CreerInfo.Instance.SetCreer(int.Parse(str[2]));
+
     }
 
 
