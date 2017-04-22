@@ -7,14 +7,19 @@ using System.Collections;
 /// YYF 3.30
 /// </summary>
 public class FadeIn : Action
-{
+{     
 
-    /// <summary>
-    /// 持续时间,运动开始后不可变更
-    /// </summary>
-    public float duration = 1.0f;
+    public enum TestEnum
+    {
+        Enum1=0,
+        Enum2=1,
+    }
 
+    public FadeIn.TestEnum te{get;set;}
+    [SerializeField]
+    public FadeIn.TestEnum te2;
 
+    Text  [] texts;
 
     SpriteRenderer[] renders;
     Image[] images;
@@ -49,17 +54,24 @@ public class FadeIn : Action
         else
         {
             images = this.GetComponentsInChildren<Image>();
+            texts = this.GetComponentsInChildren<Text>();
             if (resetToZero)
-                foreach (Image r in images)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, 0);
-                }
-            if (isReset)
-                foreach (Image r in images)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b,resetValue.x);
-                }
+            {
 
+                resetValue.x = 0;
+                isReset = true;
+            }
+            if (isReset)
+            {
+                foreach (Image r in images)
+                {
+                    r.color = new Color(r.color.r, r.color.g, r.color.b, resetValue.x);
+                }
+                foreach (Text r in texts)
+                {
+                    r.color = new Color(r.color.r, r.color.g, r.color.b, resetValue.x);
+                }
+            }
             StartCoroutine(IEumUIFadeIn());
         }
 
