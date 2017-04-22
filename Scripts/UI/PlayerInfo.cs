@@ -12,7 +12,7 @@ public class PlayerInfo : UnitySingleton<PlayerInfo> {
     /// </summary>
     public void Display()
     {
-        playerInfoBg.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -20,19 +20,16 @@ public class PlayerInfo : UnitySingleton<PlayerInfo> {
     /// </summary>
     public void Undisplay()
     {
-
+        gameObject.SetActive(false);
     }
 
-     public GameObject playerInfoBg; //玩家信息
+
 
 
 
 	void Start () {
-        playerInfoBg.SetActive(false);
+        gameObject.SetActive(false);
 	}
 
 
-	void Update () {
-	
-	}
 }
