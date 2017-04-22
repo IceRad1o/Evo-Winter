@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class Missiles : MonoBehaviour {
-    
     //是否调用fly
     public bool isFly = true;
     //飞行距离

@@ -20,6 +20,7 @@ public class RoomElementManager : ExUnitySingleton<RoomElementManager>
 
     public override void OnNotify(string msg)
     {
+        
         string content = UtilManager.Instance.GetMsgField(msg, 0);
         string [] str = UtilManager.Instance.GetMsgFields(msg);
         //Debug.Log("REMmsg："+msg);
