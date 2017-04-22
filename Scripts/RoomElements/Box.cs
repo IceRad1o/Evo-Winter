@@ -29,15 +29,20 @@ public class Box : RoomElement
         //打开宝箱的动画和声音
         animator.SetTrigger("OpenBox");
         isOpen = true;
-        SoundManager.Instance.PlaySoundEffect(openBox);  
+        SoundManager.Instance.PlaySoundEffect(openBox);
         //NEED Item item=ItemManager.getInstance().GenerateItem();
         //item.transfrom.setParent(this.transform);
-        
-        ItemManager.Instance.ItemsTransform = this.transform;
-        
-        ItemManager.Instance.CreateItemDrop(false, false, true);
-    }
 
+        if (Random.value * 100 < 90)
+            EsscenceManager.Instance.CreateEsscence((int)(Random.value * 4), this.transform.position);
+        else
+        {
+            ItemManager.Instance.ItemsTransform = this.transform;
+
+            ItemManager.Instance.CreateItemDrop(false, false, true);
+
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("箱子碰撞物标签：" + other.tag);

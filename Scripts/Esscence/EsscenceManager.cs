@@ -18,10 +18,10 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     int skillEsscence=0;
 
     int[,] skillArray = {    
-                        { 101, 1, 103, 3, 105 },
-                        { 201, 1, 203, 3, 205 },
-                        { 301, 302, 2, 3, 4 },
-                        { 0, 402, 403, 404, 4 }
+                        { 101, 101, 103, 103, 105 },
+                        { 201, 201, 203, 203, 205 },
+                        { 301, 302, 302, 302, 302 },
+                        { 402, 402, 403, 404, 404 }
                         }; 
    
     
@@ -48,7 +48,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <param name="ID"></param>
     public void AddEsscence(int ID) 
     {
-
+        Debug.Log("Add Esscence ID:" + ID);
         esscenceNumber[ID]++;
         for (int i = 1; i <= 5; i++)
             if (esscenceNumber[ID] == i * (i + 1) / 2)
@@ -108,7 +108,8 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <returns></returns>
     private int AddSkill(int ID) 
     {
-        Notify("AddEsscenceSkill;"+ID);
+        if (ID>100)
+            Notify("AddEsscenceSkill;"+ID);
         return 0;
     }
     /// <summary>
@@ -174,6 +175,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
         {
             AddEsscence(int.Parse(str[1]));
         }
+        
     }
 
 

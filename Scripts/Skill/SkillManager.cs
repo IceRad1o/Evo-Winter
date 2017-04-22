@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SkillManager : ExSubject
-{   
+{
+    string SkillManagerTag;
     /// <summary>
     /// false表示进入了冷却
     /// </summary>
@@ -86,6 +87,16 @@ public class SkillManager : ExSubject
             else
                 this.gameObject.GetComponent<DoubleEsscence>().Trigger();
             return;
+        }
+
+        if (ID == 501)
+        { 
+            RaceSkillUp newSkill;
+            if (this.gameObject.GetComponent<RaceSkillUp>() == null)
+                newSkill = this.gameObject.AddComponent<RaceSkillUp>();
+            else
+                this.gameObject.GetComponent<RaceSkillUp>().Trigger();
+            return; 
         }
 
         /***************************************************************/
@@ -315,7 +326,16 @@ public class SkillManager : ExSubject
         }
     }
 
-
+    public void DestoryManager()
+    {
+        if (this.tag == "Player")
+        {
+            ItemManager.Instance.RemoveObserver(this);
+            this.GetComponent<Character>().RemoveObserver(this);
+            EsscenceManager.Instance.RemoveObserver(this);
+        }
+        //Destroy(this);
+    }
 
 
     /// <summary>
@@ -323,7 +343,7 @@ public class SkillManager : ExSubject
     /// </summary>
     public void UseSkill_L()
     {
-        Debug.Log("UseSkill_L");
+        //Debug.Log("UseSkill_L    " + SkillManagerTag);
         if (this.gameObject.tag == "Player" && cd)
         {
             switch (this.gameObject.GetComponent<Character>().Race)
@@ -460,5 +480,10 @@ public class SkillManager : ExSubject
     {
         yield return new WaitForSeconds(time * 0.1f);
         cd = !cd;
+    }
+
+    void Awake()
+    {
+        SkillManagerTag = ""+this.gameObject.GetComponent<Character>().RoomElementID; 
     }
 }
