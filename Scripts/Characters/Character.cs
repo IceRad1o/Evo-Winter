@@ -690,8 +690,6 @@ public class Character : RoomElement
 
    public virtual void Start()
     {
-        weapon = RoomElementID % 10;
-        race = RoomElementID % 100 / 10;
 
         //初始化
         state = 0;//静止
@@ -765,6 +763,9 @@ public class Character : RoomElement
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;
         CharacterManager.Instance.CharacterList.Add(this);
+        weapon = RoomElementID % 10;
+   
+        race = RoomElementID % 100 / 10;
 
         //Transform bodyNode = gameObject.transform.FindChild("BodyNode");
         //Transform body = gameObject.transform.FindChild("Body");
@@ -794,7 +795,7 @@ public class Character : RoomElement
         int missileIndex = type / 1000;
         int num = type / 100%10;
         type = type % 100;
-        Debug.Log(missileIndex + ":" + num);
+        //Debug.Log(missileIndex + ":" + num);
          GameObject missileInstance ;
         if(weapons.Length!=0)
                 missileInstance = Instantiate(missiles[missileIndex],weapons[num].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;

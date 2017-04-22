@@ -65,7 +65,14 @@ public class ExSubject:Subject
     {
         exObserverList.Remove(observer);
     }
-
+    /// <summary>
+    /// 获得所有的观察者
+    /// </summary>
+    /// <returns></returns>
+    public ExSubject[] GetAllObserver() 
+    {
+        return exObserverList.ToArray();
+    }
 
     public void RemoveAllObserver()
     {

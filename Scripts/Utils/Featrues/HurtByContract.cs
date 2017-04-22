@@ -108,7 +108,7 @@ public class HurtByContract : MonoBehaviour
                     if (ch.IsAlive < 0 || ch.Invincible == 1)
                         return;
                     //强制朝向受击方向
-                    if (isWeapon)
+                    if (isWeapon&&ch!=null&&ch1!=null)
                         ch.Direction = -ch1.Direction;
 
                     //减血
