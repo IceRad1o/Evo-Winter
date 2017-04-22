@@ -20,9 +20,13 @@ public class AttackSputtering : BuffAttack {
 
             foreach (var item in CharacterManager.Instance.CharacterList)
             {
-                if (item != null && item != CharacterManager.Instance.CharacterList[enemyID] && item.tag != "Player")
-                    //item.GetComponent<Character>().Health-=this.GetComponent<Character>().AttackDamage;
-                    item.GetComponent<Character>().Health -= 10;
+                if (item != null && item != CharacterManager.Instance.CharacterList[enemyID] && item.tag == "Monster")
+                {
+                    var i = (item.transform.position.x - CharacterManager.Instance.CharacterList[enemyID].gameObject.transform.position.x) * (item.transform.position.x - CharacterManager.Instance.CharacterList[enemyID].gameObject.transform.position.x) + (item.transform.position.y - CharacterManager.Instance.CharacterList[enemyID].gameObject.transform.position.y) * (item.transform.position.y - CharacterManager.Instance.CharacterList[enemyID].gameObject.transform.position.y);
+                    if (i <= 16)
+                        item.GetComponent<Character>().Health-=this.GetComponent<Character>().AttackDamage;
+                    //item.GetComponent<Character>().Health -= 10;
+                }
             }
         }
 
@@ -30,7 +34,7 @@ public class AttackSputtering : BuffAttack {
     protected override void Create(int ID)
     {
         base.Create(ID);
-        Probability = 100;
+        Probability = 10;
 
         //添加特效
         GameObject pfb = Resources.Load("Buffs/Attack/AttackStatic") as GameObject;
