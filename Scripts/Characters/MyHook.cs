@@ -15,7 +15,7 @@ public class MyHook : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("tag    :" + other.tag);
+        //Debug.Log("tag    :" + other.tag);
 
         if (isWork)
             return;

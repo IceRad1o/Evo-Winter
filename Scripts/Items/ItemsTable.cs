@@ -292,7 +292,7 @@ public class ItemsTable {
         item.spriteArrayID = 7;
         item.type = 0;
         item.droping = 2;
-        item.buffID = 410001200;
+        item.buffID = 110001200;
         item.skillID = 0;
         item.quality = "A";
         item.itemName = "尼伯龙根的指环";

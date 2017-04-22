@@ -17,7 +17,7 @@ public class Attacklethal : BuffAttack
     protected override void Create(int ID)
     {
         base.Create(ID);
-        Probability = 100;
+        Probability = 10;
 
         //添加特效
         GameObject pfb = Resources.Load("Buffs/Attack/Attacklethal") as GameObject;
