@@ -21,11 +21,15 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             Instantiate(players[ID], Vector3.zero, Quaternion.identity);
         else
         {
+            
 
-            Player.Instance.gameObject.SetActive(false);
+            //Player.Instance.gameObject.SetActive(false);
+            Player.Instance.gameObject.GetComponent<BuffManager>().DestoryManager();
+            Player.Instance.gameObject.GetComponent<SkillManager>().DestoryManager();
             //保存原有buff
             var strBuff = Player.Instance.GetComponent<BuffManager>().SavingBuff();
             var observer = Player.Instance.GetComponent<Character>().GetAllObserver();
+            Destroy(Player.Instance.gameObject);
 
             //删除原来人物,生成新人物
             Instantiate(players[ID], Player.Instance.transform.position, Quaternion.identity);

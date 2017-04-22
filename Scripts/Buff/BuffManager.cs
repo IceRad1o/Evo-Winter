@@ -128,6 +128,23 @@ public class BuffManager : ExSubject
     }
 
 
+    public void DestoryManager()
+    {
+        if (this.tag == "Player")
+        {
+            ItemManager.Instance.RemoveObserver(this);
+
+            Debug.Log("Len   " + this.gameObject.GetComponent<Character>().GetAllObserver().Length);
+            this.gameObject.GetComponent<Character>().RemoveObserver(this);
+            Debug.Log("Len   " + this.gameObject.GetComponent<Character>().GetAllObserver().Length);
+
+            
+            RoomManager.Instance.RemoveObserver(this);
+        }
+        //Destroy(this);
+    }
+
+
 	void Start () {
 
         //将ItemManager设为观察者
