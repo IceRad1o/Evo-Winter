@@ -31,6 +31,8 @@ public class Bottle1 : RoomElement
             {
                 HitBottle();
             }
+		if(other.tag == "Missile")
+			HitBottle();
     }
 
     void HitBottle()

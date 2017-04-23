@@ -52,7 +52,7 @@ public class Box : RoomElement
                 OpenBox();
             }
 
-        if (other.tag == "Player")
+		if (other.tag == "Player"||other.tag=="Missile")
         {
             OpenBox();
         }

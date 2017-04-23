@@ -47,7 +47,7 @@ public class Door : RoomElement
                 case 0:
                     //进入上侧房间   
                     Debug.Log("进上xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(0f, -5f, 0f);
+                    Player.Instance.Character.transform.position = new Vector3(0f, -7.3f, 0f);
                     if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).pass == 0)
                     {
 

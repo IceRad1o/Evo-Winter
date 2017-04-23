@@ -40,6 +40,13 @@ public class SkullLight : RoomElement {
                 
             }
         }
+		if (other.tag == "Missile") 
+		{
+			if(other.transform.position.x - this.transform.position.x>0)
+				animator.SetTrigger("destory");
+			else
+				animator.SetTrigger("destory2");
+		}
 
     }
 

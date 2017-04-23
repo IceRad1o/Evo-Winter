@@ -35,8 +35,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
             pass = ps;
         }
     }
-
-
+		
     //关卡号1-5
     private int checkpointNumber = 0;
     public int CheckpointNumber
@@ -205,7 +204,8 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 if (roomArray[i,j]>0)
                 {
                     int surroundRoomNumber = GetSurroundRoom(i, j);
-                    int type = Random.Range(1, 6);
+					//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
+                    int type = Random.Range(1, 15);
                     roomList.Add(new Room(type, i, j, surroundRoom, 0));
                     k++;
                     roomArray[i, j] = type;
@@ -232,7 +232,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         {
             for (int j = 0; j < columns; j++)
             {
-                str += roomArray[i, j].ToString();
+                str += roomArray[i, j].ToString()+" ";
             }
             str += "\n";
         }
