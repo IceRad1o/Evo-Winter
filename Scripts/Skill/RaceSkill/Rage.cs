@@ -8,10 +8,11 @@ public class Rage : Skill {
 
     public override void Trigger()
     {
+        Debug.Log("Rage Trigger");
         if (this.GetComponent<Character>().Health <= 3 && !isTrigger)
         {
             isTrigger = !isTrigger;
-            this.GetComponent<BuffManager>().CreateDifferenceBuff(1050002110, "Rage");
+            this.GetComponent<BuffManager>().CreateDifferenceBuff(1050001110, "Rage");
         }
         if (this.GetComponent<Character>().Health >= 4 && isTrigger)
         {
@@ -45,12 +46,21 @@ public class Rage : Skill {
         Trigger();
     }
 
+    void Start()
+    {
+        Player.Instance.Character.AddObserver(this);
+    }
 
     public override void OnNotify(string msg)
     {
+        //Debug.Log(msg);
         if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "HealthChanged"  && UtilManager.Instance.GetFieldFormMsg(msg, 2) == "Player")
         {
             Trigger();
         }
     }
+
+
+    
+
 }
