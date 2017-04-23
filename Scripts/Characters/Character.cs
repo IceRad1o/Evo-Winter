@@ -862,15 +862,18 @@ public class Character : RoomElement
     public void FlashBy(int lastFramesAndRate)
     {
 
-        this.lastFrames = lastFramesAndRate % 1000;
         this.moveRate = lastFramesAndRate / 1000;
+        if (lastFramesAndRate < 0)
+            lastFramesAndRate = -lastFramesAndRate;
+        this.lastFrames = lastFramesAndRate % 1000;
+      
         StartCoroutine(FlashByCoroutine());
 
     }
 
     IEnumerator FlashByCoroutine()
     {
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
         while (lastFrames != 0)
         {
 
@@ -878,7 +881,7 @@ public class Character : RoomElement
             lastFrames--;
             yield return null;
         }
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        this.gameObject.GetComponent<BoxCollider>().enabled =true;
     }
 
     public void AttackStart(string name)
