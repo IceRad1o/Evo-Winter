@@ -4,12 +4,12 @@ using System.Collections;
 public class FogChangeAttribute : MonoBehaviour {
 
     public int buffID;
+    public string triggerTag="Monster";
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Monster")
         {
-            Debug.Log("Fag Trigger");
             other.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(buffID, "Fag");
         }
 
@@ -17,17 +17,17 @@ public class FogChangeAttribute : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == triggerTag)
         {
             if ((buffID / 10) % 100 == 11)
             {
-                Debug.Log("Fag Leave");
+                //Debug.Log("Fag Leave");
                 foreach (var item in other.gameObject.GetComponents<BuffChangeAttributeTemp>())
                 {
-                    Debug.Log("Fag Judge "+item.SpecialTag);
+                    //Debug.Log("Fag Judge "+item.SpecialTag);
                     if (item.SpecialTag == "Fag")
                     {
-                        Debug.Log("Fag Dess");
+                        //Debug.Log("Fag Dess");
                         item.DestroyBuff();
                     }
                 }

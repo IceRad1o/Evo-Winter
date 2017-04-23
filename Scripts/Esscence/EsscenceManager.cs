@@ -56,18 +56,34 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     {
         Debug.Log("Add Esscence ID:" + ID);
         esscenceNumber[ID]++;
-        if (ID==Player.Instance.GetComponent<Character>().Race)
-            for (int i = 1; i <= 5; i++)
-                if (esscenceNumber[ID] == i * (i + 1) / 2)
-                    AddSkill(skillArray[skillEsscence,i-1]);
-
+        for (int i = 1; i <= 5; i++)
+            if (esscenceNumber[ID] == i * (i + 1) / 2)
+            {
+                int skillID = skillArray[skillEsscence, i - 1];
+                if (skillGet[skillID / 100 - 1, skillID % 100 - 1] == 0)
+                {
+                    Notify("GetEsscenceSkill;" + skillID);
+                    skillGet[skillID / 100 - 1, skillID % 100 - 1] = 1;
+                }
+                if (ID == Player.Instance.GetComponent<Character>().Race)
+                    AddSkill(skillArray[skillEsscence, i - 1]);
+            }
         if (doubleEsscence)
         {
             esscenceNumber[ID]++;
-            if (ID == Player.Instance.GetComponent<Character>().Race)
-                for (int i = 1; i <= 5; i++)
-                    if (esscenceNumber[ID] == i * (i + 1) / 2)
-                        AddSkill(skillArray[skillEsscence, i - 1]);  
+            for (int i = 1; i <= 5; i++)
+                if (esscenceNumber[ID] == i * (i + 1) / 2)
+                {
+                    int skillID = skillArray[skillEsscence, i - 1];
+                    if (skillGet[skillID / 100 - 1, skillID % 100 - 1] == 0)
+                    {
+                        Notify("GetEsscenceSkill;" + skillID);
+                        skillGet[skillID / 100 - 1, skillID % 100 - 1] = 1;
+                    }
+                    if (ID == Player.Instance.GetComponent<Character>().Race)
+                        AddSkill(skillID);
+                }
+                
       
         }
     }
@@ -116,12 +132,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <returns></returns>
     private int AddSkill(int ID) 
     {
-        Notify("AddEsscenceSkill;" + ID);
-        if (skillGet[ID / 100 - 1, ID % 100 - 1] == 0)
-        {
-            Notify("GetEsscenceSkill;" + ID);
-            skillGet[ID / 100 - 1, ID % 100 - 1] = 1;
-        }
+        Notify("AddEsscenceSkill;" + ID);        
         return 0;
     }
     /// <summary>
