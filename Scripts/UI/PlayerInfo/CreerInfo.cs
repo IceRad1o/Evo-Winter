@@ -4,10 +4,10 @@ using System.Collections;
 
 public class CreerInfo : ExUnitySingleton<CreerInfo> {
 
-    GameObject phote;
-    GameObject creer;
-    GameObject name;
-
+    public GameObject phote;
+    public GameObject creer;
+    public  GameObject name;
+    public GameObject photeText;
 	// Use this for initialization
 	void Start () {
         phote = gameObject.transform.Find("Phote").gameObject;
@@ -24,16 +24,16 @@ public class CreerInfo : ExUnitySingleton<CreerInfo> {
         switch (id)
         {
             case 0:
-                phote.transform.Find("Text").gameObject.GetComponent<Text>().text = "Gnome";
+                photeText.GetComponent<Text>().text = "Gnome";
                 break;
             case 1:
-                phote.transform.Find("Text").gameObject.GetComponent<Text>().text = "Pygmy";
+                photeText.GetComponent<Text>().text = "Pygmy";
                 break;
             case 2:
-                phote.transform.Find("Text").gameObject.GetComponent<Text>().text = "Vampire";
+                photeText.GetComponent<Text>().text = "Vampire";
                 break;
             case 3:
-                phote.transform.Find("Text").gameObject.GetComponent<Text>().text = "lycan";
+                photeText.GetComponent<Text>().text = "lycan";
                 break;
             default:
                 break;
