@@ -8,7 +8,8 @@ public class FogChangeAttribute : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Monster")
+        Debug.Log("Enter    :" + other.tag);
+        if (other.tag == triggerTag)
         {
             other.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(buffID, "Fag");
         }
@@ -21,13 +22,13 @@ public class FogChangeAttribute : MonoBehaviour {
         {
             if ((buffID / 10) % 100 == 11)
             {
-                //Debug.Log("Fag Leave");
+                Debug.Log("Fag Leave");
                 foreach (var item in other.gameObject.GetComponents<BuffChangeAttributeTemp>())
                 {
-                    //Debug.Log("Fag Judge "+item.SpecialTag);
+                    Debug.Log("Fag Judge "+item.SpecialTag);
                     if (item.SpecialTag == "Fag")
                     {
-                        //Debug.Log("Fag Dess");
+                        Debug.Log("Fag Dess");
                         item.DestroyBuff();
                     }
                 }
