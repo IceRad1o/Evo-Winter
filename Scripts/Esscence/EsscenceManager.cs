@@ -59,10 +59,11 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
         for (int i = 1; i <= 5; i++)
             if (esscenceNumber[ID] == i * (i + 1) / 2)
             {
-                if (skillGet[ID / 100 - 1, ID % 100 - 1] == 0)
+                int skillID = skillArray[skillEsscence, i - 1];
+                if (skillGet[skillID / 100 - 1, skillID % 100 - 1] == 0)
                 {
-                    Notify("GetEsscenceSkill;" + ID);
-                    skillGet[ID / 100 - 1, ID % 100 - 1] = 1;
+                    Notify("GetEsscenceSkill;" + skillID);
+                    skillGet[skillID / 100 - 1, skillID % 100 - 1] = 1;
                 }
                 if (ID == Player.Instance.GetComponent<Character>().Race)
                     AddSkill(skillArray[skillEsscence, i - 1]);
@@ -73,13 +74,14 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
             for (int i = 1; i <= 5; i++)
                 if (esscenceNumber[ID] == i * (i + 1) / 2)
                 {
-                    if (skillGet[ID / 100 - 1, ID % 100 - 1] == 0)
+                    int skillID = skillArray[skillEsscence, i - 1];
+                    if (skillGet[skillID / 100 - 1, skillID % 100 - 1] == 0)
                     {
-                        Notify("GetEsscenceSkill;" + ID);
-                        skillGet[ID / 100 - 1, ID % 100 - 1] = 1;
+                        Notify("GetEsscenceSkill;" + skillID);
+                        skillGet[skillID / 100 - 1, skillID % 100 - 1] = 1;
                     }
                     if (ID == Player.Instance.GetComponent<Character>().Race)
-                        AddSkill(skillArray[skillEsscence, i - 1]);
+                        AddSkill(skillID);
                 }
                 
       

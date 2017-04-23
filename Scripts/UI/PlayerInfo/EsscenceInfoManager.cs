@@ -29,18 +29,26 @@ public class EsscenceInfoManager : ExUnitySingleton<EsscenceInfoManager>
     public GameObject skillIcon;
     public GameObject[] esscenceIcons;
     // Use this for initialization
-    void Start()
+
+    void Awake()
     {
         for (int i = 0; i < esscenceTypeNum; i++)
         {
             infos[i] = new List<EsscenceInfo>();
         }
+    }
+
+    void Start()
+    {
+   
 
 
         for (int i = 0; i < esscenceTypeNum; i++)
         {
             for (int j = 0; j < esscenceEachNum; j++)
             {
+                Debug.Log(skillIcon);
+                Debug.Log(esscenceIcons[i].transform);
                 GameObject a = Instantiate(skillIcon, esscenceIcons[i].transform,true) as GameObject;
                 a.transform.localPosition = new Vector3(0, -(j + 1) * 80, 0);
                 iconList.Add(a);
@@ -52,7 +60,10 @@ public class EsscenceInfoManager : ExUnitySingleton<EsscenceInfoManager>
     public void Add(EsscenceInfo eInfo)
     {
         Debug.Log("tttt:"+eInfo.type);
-        Debug.Log(infos[eInfo.type]);
+        //if(infos[eInfo.type]==null)
+        //{
+        //    infos[eInfo.type] = new List<EsscenceInfo>();
+        //}
         infos[eInfo.type].Add(eInfo);
         iconList[esscenceEachNum * (eInfo.type - 1) + infos[eInfo.type].Count - 1].GetComponent<Image>().sprite = eInfo.sprite;
 
