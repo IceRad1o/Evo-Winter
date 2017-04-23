@@ -33,14 +33,22 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
 
             //删除原来人物,生成新人物
             Instantiate(players[ID], Player.Instance.transform.position, Quaternion.identity);
-            Player.Instance.AddObserver(CameraShake.Instance);
-            Player.Instance.AddObserver(UIManager.Instance);//
+            //Player.Instance.AddObserver(CameraShake.Instance);
+            //Player.Instance.AddObserver(UIManager.Instance);//
             //加载原有buff
             Player.Instance.GetComponent<BuffManager>().LoadBuff(strBuff);
             foreach (var item in observer)
             {
                 Player.Instance.GetComponent<Character>().AddObserver(item);
             }
+
+
+
+
+
+
+
+             Player.Instance.Character.Notify("RaceChanged;0;"+Player.Instance.Character.Race);
 
             return;
            

@@ -49,7 +49,7 @@ public class EsscenceInfoManager : ExUnitySingleton<EsscenceInfoManager>
     }
 
 
-    void Add(EsscenceInfo eInfo)
+    public void Add(EsscenceInfo eInfo)
     {
         infos[eInfo.type].Add(eInfo);
         iconList[esscenceEachNum * (eInfo.type - 1) + infos[eInfo.type].Count - 1].GetComponent<Image>().sprite = eInfo.sprite;

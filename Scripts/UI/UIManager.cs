@@ -180,6 +180,10 @@ public class UIManager : ExUnitySingleton<UIManager>
             string y = Esscence.esscenceSkillName[1, 1];
             string z = Esscence.esscenceSkillDescribe[a, b];//Error OutOfRange，吃傲慢精华时报错
             UIManager.Instance.popup.ShowEsscencePopup(x, y, z);
+
+            EsscenceInfo esscence=new EsscenceInfo();
+            esscence.init(y, z, x, a, id);
+            EsscenceInfoManager.Instance.Add(esscence);
         }
 
         //Player Msg

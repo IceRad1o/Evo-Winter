@@ -903,8 +903,12 @@ public class Character : RoomElement
         Notify("AttackEnd;" + name);
 
     }
-   
 
+
+    public void StopPushState()
+    {
+        actionStateMachine.isStoped = true;
+    }
 
 
 }

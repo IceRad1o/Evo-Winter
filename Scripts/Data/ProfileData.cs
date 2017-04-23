@@ -280,6 +280,19 @@ public class ProfileData
         }
     }
 
+    private int[] roomElementState;
+
+    public int[] RoomElementState
+    {
+        get { return roomElementState; }
+        set {
+            roomElementState = value;
+            PlayerPrefsX.SetIntArray("roomElementRoomState", roomElementState);
+        }
+    }
+
+
+
     //buff数据
     int[] buffsID;
 
