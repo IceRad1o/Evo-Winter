@@ -170,10 +170,10 @@ public class UIManager : ExUnitySingleton<UIManager>
             //UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
         }
 
-        if(str[0]=="AddEsscenceSkill")
+        if(str[0]=="GetEsscenceSkill")
         {
             int id = int.Parse(str[1]);
-            Debug.Log("Skill_ID   :" + id +"        "+msg);
+            //Debug.Log("Skill_ID   :" + id +"        "+msg);
             int a = id / 100-1;
             int b = id % 100-1;
 
@@ -181,6 +181,10 @@ public class UIManager : ExUnitySingleton<UIManager>
             string y = Esscence.esscenceSkillName[a, b];
             string z = Esscence.esscenceSkillDescribe[a, b];//Error OutOfRange，吃傲慢精华时报错
             UIManager.Instance.popup.ShowEsscencePopup(x, y, z);
+
+            EsscenceInfo esscence=new EsscenceInfo();
+            esscence.init(y, z, x, a, id);
+            EsscenceInfoManager.Instance.Add(esscence);
         }
 
         //Player Msg
