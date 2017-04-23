@@ -15,7 +15,7 @@ public class UnitySingleton<T> : MonoBehaviour
                 {
                     GameObject obj = new GameObject();
                     //obj.hideFlags = HideFlags.DontSave;  
-                    obj.hideFlags = HideFlags.HideAndDontSave;
+                   // obj.hideFlags = HideFlags.HideAndDontSave;
                     _instance = (T)obj.AddComponent(typeof(T));
                     
                 }
@@ -33,7 +33,7 @@ public class UnitySingleton<T> : MonoBehaviour
         }
         else
         {
-           
+            //Debug.LogError("111");
             Destroy(gameObject);
         }
     }
@@ -58,7 +58,7 @@ public class ExUnitySingleton<T> : ExSubject
                 {
                     GameObject obj = new GameObject();
                     //obj.hideFlags = HideFlags.DontSave;  
-                    obj.hideFlags = HideFlags.HideAndDontSave;
+                    //obj.hideFlags = HideFlags.HideAndDontSave;
                     _instance = (T)obj.AddComponent(typeof(T));
                 }
             }
@@ -76,6 +76,7 @@ public class ExUnitySingleton<T> : ExSubject
         }
         else
         {
+            //Debug.LogError("111");
             Destroy(gameObject);
             if (_instance == null)
                 Debug.Log("Test Itstance  null");

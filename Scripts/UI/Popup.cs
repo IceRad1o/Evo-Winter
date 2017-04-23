@@ -26,6 +26,11 @@ public class Popup : UnitySingleton<Popup> {
         itemDetailPopupText= itemDetailPopup.GetComponent<RectTransform>().Find("Text").gameObject;
         itemDetailPopupType= itemDetailPopup.GetComponent<RectTransform>().Find("Type").gameObject;
         itemDetailPopupQuality = itemDetailPopup.GetComponent<RectTransform>().Find("Quality").gameObject;
+
+
+        esscencePopupSprite = esscencePopup.GetComponent<RectTransform>().Find("Image").gameObject;
+        esscencePopupName= esscencePopup.GetComponent<RectTransform>().Find("Title").gameObject;
+        esscencePopupDescribe = esscencePopup.GetComponent<RectTransform>().Find("Text").gameObject;
 	}
 
 
@@ -35,7 +40,7 @@ public class Popup : UnitySingleton<Popup> {
        
         //D级 灰色 C级绿色 B级蓝色 A级紫色 S级 橙色 S+级 红色 6级
         string[] colorStr = new string[6] { "color=grey", "color=lime", "color=cyan", "color=#FF00FFFF", "color=orange", "color=red" };
-        string []typeStr=new string[3]{"被动道具","消耗品","主动道具"};
+        string []typeStr=new string[4]{"被动道具","消耗品","主动道具","欲望精华"};
         int quality=0;
         if (itemQuality == "D")
             quality = 0;
@@ -69,7 +74,7 @@ public class Popup : UnitySingleton<Popup> {
         a.isOnCanvas = true;
         a.resetToZero = true;
         a.isReverseDelay = true;
-        a.reverseDelayTime = 1f;
+        a.reverseDelayTime = 2f;
 
     }
 

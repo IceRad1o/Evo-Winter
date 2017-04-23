@@ -4,7 +4,7 @@ using System.Collections;
 /// 傀儡,接受玩家发送的消息,进行攻击
 /// TODO 画连接线
 /// </summary>
-public class Puppet : ExUnitySingleton<Puppet> {
+public class Puppet : ExSubject {
 
     public GameObject owner;
     Vector3 posOffset;
@@ -17,6 +17,12 @@ public class Puppet : ExUnitySingleton<Puppet> {
 
     public override void OnNotify(string msg)
     {
+        if (owner == null)
+        {
+
+       
+            return;
+        }
         base.OnNotify(msg);
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         if(str[0]=="AttackStart")
@@ -35,7 +41,12 @@ public class Puppet : ExUnitySingleton<Puppet> {
 	// Update is called once per frame
     void Update()
     {
+        if (owner == null)
+        {
 
+            Destroy(gameObject);
+            return;
+        }
         if (this.GetComponent<Character>().Controllable == 0 || this.GetComponent<Character>().CanMove == 0)
             return;
         Vector3 destPos = owner.transform.position;

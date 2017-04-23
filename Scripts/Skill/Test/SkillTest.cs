@@ -18,8 +18,10 @@ public class SkillTest : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
         //this.gameObject.GetComponent<SkillManager>().CreateSkill(402);
         //this.gameObject.GetComponent<SkillManager>().CreateSkill(3);
-        System.DateTime nowTime=System.DateTime.Now;
-        Debug.Log("sub     :" + ((oldTime.Minute - nowTime.Minute)*60+oldTime.Second-nowTime.Second));
+        EsscenceManager.Instance.CreateEsscence(3);
+        EsscenceManager.Instance.CreateEsscence(3);
+        EsscenceManager.Instance.CreateEsscence(3);
+        EsscenceManager.Instance.CreateEsscence(3);
     }
 	
 }

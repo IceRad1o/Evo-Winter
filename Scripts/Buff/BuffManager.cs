@@ -134,9 +134,7 @@ public class BuffManager : ExSubject
         {
             ItemManager.Instance.RemoveObserver(this);
 
-            Debug.Log("Len   " + this.gameObject.GetComponent<Character>().GetAllObserver().Length);
             this.gameObject.GetComponent<Character>().RemoveObserver(this);
-            Debug.Log("Len   " + this.gameObject.GetComponent<Character>().GetAllObserver().Length);
 
             
             RoomManager.Instance.RemoveObserver(this);

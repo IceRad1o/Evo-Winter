@@ -7,7 +7,7 @@ public class ActionStateMachine {
     int race;
     int weapon;
     bool isFull;
-
+    public bool isStoped = false;
     public bool IsFull
     {
         get { return isFull; }
@@ -136,15 +136,21 @@ public class ActionStateMachine {
 
     /*
      *@brief 将节点压入状态机 
-     *1=j,2=k,3=l,0=静止,4=移动,5=死亡
+     *1=j,2=k,3=l,0=静止,4=移动,5=死亡,6受伤,7
      */
     public void Push(int node)
     {
+        if (isStoped)
+            return;
+
        // Debug.Log("push" + node);
         //TODO 如果链已接受到下一个状态节点,且还未进入下一个状态节点,则不再接受新的节点
         //由于unity自带的动作有缓存,貌似还不要紧
-        if (isFull&&(node!=7))
+        if (isFull&&(node!=7&&node!=5&&node!=6))
             return;
+
+
+
 
         isFull = true;
   

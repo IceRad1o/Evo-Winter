@@ -82,4 +82,12 @@ public class RougeLycanJ : MonoBehaviour {
 		Player.Instance.Character.Direction = new Vector3 (Player.Instance.Character.FaceDirection * -1f, 0, 0);
 		Player.Instance.Character.CanMove = 0;
 	}
+
+
+    public void TurnDirection()
+    {
+        Player.Instance.Character.CanMove = 1;
+        Player.Instance.Character.Direction = new Vector3(Player.Instance.Character.FaceDirection * -1f, 0, 0);
+        Player.Instance.Character.CanMove = 0;
+    }
 }

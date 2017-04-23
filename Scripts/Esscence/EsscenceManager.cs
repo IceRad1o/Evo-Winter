@@ -17,12 +17,18 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
 
     int skillEsscence=0;
 
-    int[,] skillArray = {    
-                        { 101, 101, 103, 103, 105 },
+    int[,] skillArray = {   
+                        { 102, 102, 103, 104, 104 },
                         { 201, 201, 203, 203, 205 },
                         { 301, 302, 302, 302, 302 },
-                        { 402, 402, 403, 404, 404 }
-                        }; 
+                        { 401, 401, 403, 403, 405 }
+                        };
+    int[,] skillGet ={
+                    { 0, 0, 0, 0, 0 },
+                    { 0, 0, 0, 0, 0 },
+                    { 0, 0, 0, 0, 0 },
+                    { 0, 0, 0, 0, 0 }
+                    };
    
     
 
@@ -50,16 +56,18 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     {
         Debug.Log("Add Esscence ID:" + ID);
         esscenceNumber[ID]++;
-        for (int i = 1; i <= 5; i++)
-            if (esscenceNumber[ID] == i * (i + 1) / 2)
-                AddSkill(skillArray[skillEsscence,i-1]);
+        if (ID==Player.Instance.GetComponent<Character>().Race)
+            for (int i = 1; i <= 5; i++)
+                if (esscenceNumber[ID] == i * (i + 1) / 2)
+                    AddSkill(skillArray[skillEsscence,i-1]);
 
         if (doubleEsscence)
         {
             esscenceNumber[ID]++;
-            for (int i = 1; i <= 5; i++)
-                if (esscenceNumber[ID] == i * (i + 1) / 2)
-                    AddSkill(skillArray[skillEsscence, i - 1]);  
+            if (ID == Player.Instance.GetComponent<Character>().Race)
+                for (int i = 1; i <= 5; i++)
+                    if (esscenceNumber[ID] == i * (i + 1) / 2)
+                        AddSkill(skillArray[skillEsscence, i - 1]);  
       
         }
     }
@@ -108,8 +116,12 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <returns></returns>
     private int AddSkill(int ID) 
     {
-        if (ID>100)
-            Notify("AddEsscenceSkill;"+ID);
+        Notify("AddEsscenceSkill;" + ID);
+        if (skillGet[ID / 100 - 1, ID % 100 - 1] == 0)
+        {
+            Notify("GetEsscenceSkill;" + ID);
+            skillGet[ID / 100 - 1, ID % 100 - 1] = 1;
+        }
         return 0;
     }
     /// <summary>
@@ -123,14 +135,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
         return 0;
     }
 
-    void Start() 
-    {
-        for (int i = 0; i <= 3; i++)
-        {
-            esscenceNumber.Add(0);
-        }
-        GetRandomArray();
-    }
+   
 
     void GetRandomArray()
     {
@@ -161,12 +166,20 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
                 RemoveSkill(skillArray[skillEsscence, i - 1]);
         for (int i = 1; i < 6; i++)
             if (esscenceNumber[type] == i * (i + 1) / 2)
-                RemoveSkill(skillArray[type, i - 1]);
+                AddSkill(skillArray[type, i - 1]);
 
         skillEsscence = type;
     }
 
-
+    void Start()
+    {
+        for (int i = 0; i <= 3; i++)
+        {
+            esscenceNumber.Add(0);
+        }
+        GetRandomArray();
+        skillEsscence = Player.Instance.GetComponent<Character>().Race;
+    }
 
     public override void OnNotify(string msg)
     {
