@@ -24,7 +24,7 @@ public class StartAdventrue : MonoBehaviour {
     /// </summary>
     int canLoad;
 
-
+    public AudioClip clickSound;
 	void Start () {
         Button btn = this.GetComponent<Button>();
         btn.onClick.AddListener(OnStartAdventrue);
@@ -38,7 +38,7 @@ public class StartAdventrue : MonoBehaviour {
     /// </summary>
     void OnStartAdventrue()
     {
-        Debug.Log(3432);
+        SoundManager.Instance.PlaySoundEffect(clickSound);
         PlayerPrefs.SetInt("isNew", isNew);
         PlayerPrefs.SetInt("mode", mode);
 

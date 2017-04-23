@@ -68,6 +68,7 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
      */
     public void SetSoundEffectVolume(float volume)
     {
+  
         efxSource.volume = volume;
         Notify("EfxVolumeChanged;" + volume);
     }
@@ -77,6 +78,7 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
      */
     public void PauseBackGroundMusic()
     {
+   
         musicSource.Pause();
     }
 
@@ -85,6 +87,7 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
      */
     public void PauseSoundEffect()
     {
+ 
         efxSource.Pause();
     }
 
@@ -93,6 +96,7 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
      */
     public void ResumeBackGroundMusic()
     {
+ 
         musicSource.UnPause();
     }
 
@@ -101,6 +105,7 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
      */
     public void ResumeSoundEffect()
     {
+ 
         efxSource.UnPause();
     }
 
@@ -110,7 +115,27 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
 
     private AudioSource musicSource;    //音乐源
 
-    private static SoundManager instance = null;  //单例
+    private int isVolumeOn = 0;
+
+    public int IsVolumeOn
+    {
+        get { return isVolumeOn; }
+        set { 
+            
+            isVolumeOn = value; 
+            if(isVolumeOn==0)
+            {
+                musicSource.enabled = false;
+                efxSource.enabled = false;
+            }
+            else
+            {
+                musicSource.enabled = true;
+                efxSource.enabled = true;
+            }
+            Notify("IsVolumeOnChanged;" + isVolumeOn);
+        }
+    }
 
     
 
@@ -123,5 +148,11 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
         
         //musicSource.volume = PreferenceManager.Instance.Data.BackGroundMusicVolume;
        // efxSource.volume = PreferenceManager.Instance.Data.SoundEffectVolume;
+    }
+
+    void Start()
+    {
+        isVolumeOn = PreferenceManager.Instance.Data.IsVolumeOn;
+
     }
 }
