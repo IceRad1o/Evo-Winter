@@ -101,7 +101,7 @@ public class SkillManager : ExSubject
 
         /***************************************************************/
         //矮人的精华技能
-        if (ID == 101)
+        if (ID == 201)
         {
             Sleep newSkill;
             if (this.gameObject.GetComponent<Sleep>() == null)
@@ -109,7 +109,7 @@ public class SkillManager : ExSubject
 
             return;
         }
-        if (ID == 103)
+        if (ID == 203)
         {
             AllSleep newSkill;
             if (this.gameObject.GetComponent<AllSleep>() == null)
@@ -117,7 +117,7 @@ public class SkillManager : ExSubject
 
             return;
         }
-        if (ID == 105)
+        if (ID == 205)
         {
             GiveShield newSkill;
             if (this.gameObject.GetComponent<GiveShield>() == null)
@@ -127,7 +127,7 @@ public class SkillManager : ExSubject
         }
         /***************************************************************/
         //狼人的精华技能
-        if (ID == 201)
+        if (ID == 401)
         {
             Bloodthirsty newSkill;
             if (this.gameObject.GetComponent<Bloodthirsty>() == null)
@@ -135,7 +135,7 @@ public class SkillManager : ExSubject
 
             return;
         }
-        if (ID == 203)
+        if (ID == 403)
         {
             Rage newSkill;
             if (this.gameObject.GetComponent<Rage>() == null)
@@ -143,7 +143,7 @@ public class SkillManager : ExSubject
 
             return;
         }
-        if (ID == 205)
+        if (ID == 405)
         {
             WindinAnger newSkill;
             if (this.gameObject.GetComponent<WindinAnger>() == null)
@@ -165,7 +165,7 @@ public class SkillManager : ExSubject
         }
         /***************************************************************/
         //地精的精华技能
-        if (ID == 402)
+        if (ID == 102)
         {
             EnergyIncrease newSkill;
             if (this.gameObject.GetComponent<EnergyIncrease>() == null)
@@ -173,7 +173,7 @@ public class SkillManager : ExSubject
             
             return;
         }
-        if (ID == 403)
+        if (ID == 103)
         {
             Greedy newSkill;
             if (this.gameObject.GetComponent<Greedy>() == null)
@@ -181,7 +181,7 @@ public class SkillManager : ExSubject
 
             return;
         }
-        if (ID == 404)
+        if (ID == 104)
         {
             Occupy newSkill;
             if (this.gameObject.GetComponent<Occupy>() == null)

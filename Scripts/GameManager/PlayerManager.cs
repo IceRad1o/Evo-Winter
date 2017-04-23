@@ -41,6 +41,7 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             {
                 Player.Instance.GetComponent<Character>().AddObserver(item);
             }
+            EsscenceManager.Instance.SwitchEsscence(Player.Instance.GetComponent<Character>().Race);
 
             return;
            

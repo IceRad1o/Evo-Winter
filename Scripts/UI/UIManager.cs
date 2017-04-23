@@ -173,11 +173,12 @@ public class UIManager : ExUnitySingleton<UIManager>
         if(str[0]=="AddEsscenceSkill")
         {
             int id = int.Parse(str[1]);
-            int a = id / 100;
-            int b = id % 100;
+            Debug.Log("Skill_ID   :" + id +"        "+msg);
+            int a = id / 100-1;
+            int b = id % 100-1;
 
-            Sprite x = Esscence.esscenceSprite[(a - 1) * 5 + b];
-            string y = Esscence.esscenceSkillName[1, 1];
+            Sprite x = Esscence.esscenceSprite[a * 5 + b];
+            string y = Esscence.esscenceSkillName[a, b];
             string z = Esscence.esscenceSkillDescribe[a, b];//Error OutOfRange，吃傲慢精华时报错
             UIManager.Instance.popup.ShowEsscencePopup(x, y, z);
         }
