@@ -170,10 +170,10 @@ public class UIManager : ExUnitySingleton<UIManager>
             //UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
         }
 
-        if(str[0]=="AddEsscenceSkill")
+        if(str[0]=="GetEsscenceSkill")
         {
             int id = int.Parse(str[1]);
-            Debug.Log("Skill_ID   :" + id +"        "+msg);
+            //Debug.Log("Skill_ID   :" + id +"        "+msg);
             int a = id / 100-1;
             int b = id % 100-1;
 

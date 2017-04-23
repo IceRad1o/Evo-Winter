@@ -24,7 +24,7 @@ public class EsscenceInfoManager : ExUnitySingleton<EsscenceInfoManager>
     const int esscenceTypeNum = 4;
     const int esscenceEachNum = 4;
 
-    List<EsscenceInfo>[] infos = new List<EsscenceInfo>[esscenceTypeNum];
+    public List<EsscenceInfo>[] infos = new List<EsscenceInfo>[esscenceTypeNum];
     List<GameObject> iconList = new List<GameObject>();
     public GameObject skillIcon;
     public GameObject[] esscenceIcons;
@@ -51,6 +51,8 @@ public class EsscenceInfoManager : ExUnitySingleton<EsscenceInfoManager>
 
     public void Add(EsscenceInfo eInfo)
     {
+        Debug.Log("tttt:"+eInfo.type);
+        Debug.Log(infos[eInfo.type]);
         infos[eInfo.type].Add(eInfo);
         iconList[esscenceEachNum * (eInfo.type - 1) + infos[eInfo.type].Count - 1].GetComponent<Image>().sprite = eInfo.sprite;
 
