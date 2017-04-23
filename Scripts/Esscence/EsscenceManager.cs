@@ -22,7 +22,13 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
                         { 201, 201, 203, 203, 205 },
                         { 301, 302, 302, 302, 302 },
                         { 401, 401, 403, 403, 405 }
-                        }; 
+                        };
+    int[,] skillGet ={
+                    { 0, 0, 0, 0, 0 },
+                    { 0, 0, 0, 0, 0 },
+                    { 0, 0, 0, 0, 0 },
+                    { 0, 0, 0, 0, 0 }
+                    };
    
     
 
@@ -110,8 +116,12 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <returns></returns>
     private int AddSkill(int ID) 
     {
-        if (ID>100)
-            Notify("AddEsscenceSkill;"+ID);
+        Notify("AddEsscenceSkill;" + ID);
+        if (skillGet[ID / 100 - 1, ID % 100 - 1] == 0)
+        {
+            Notify("GetEsscenceSkill;" + ID);
+            skillGet[ID / 100 - 1, ID % 100 - 1] = 1;
+        }
         return 0;
     }
     /// <summary>
