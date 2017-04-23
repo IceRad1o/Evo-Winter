@@ -84,6 +84,15 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 break;
             case 3:
                 this.gameObject.GetComponent<Character>().AttackSpeed += dValue;
+                if (dValue >= 0)
+                {
+                    GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
+                    Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+                    prefabInstance = Instantiate(pfb);
+                    prefabInstance.transform.position = s;
+                    prefabInstance.transform.parent = this.gameObject.transform;
+                    prefabInstance.transform.localScale = new Vector3(1, 1, 1);
+                }
                 break;
             case 4:
                 this.gameObject.GetComponent<Character>().AttackRange += dValue;

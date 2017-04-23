@@ -18,6 +18,7 @@ public class WindinAnger : Skill {
         base.Create(ID);
         Probability = 100;
 
+        Debug.Log("WindinAnger Create");
         //添加特效
         GameObject pfb = Resources.Load("Buffs/Attack/AttackStatic") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
@@ -35,10 +36,10 @@ public class WindinAnger : Skill {
         //base.skillDestory();
     }
 
-    // Use this for initialization
     void Start()
     {
-
+        Player.Instance.Character.AddObserver(this);
+ 
     }
 
     public override void OnNotify(string msg)
