@@ -30,8 +30,13 @@ public class BuffVampire : BuffAttack
         prefabInstance.transform.parent = this.gameObject.GetComponent<CharacterSkin>().Weapon.transform;
         prefabInstance.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-    } 
+    }
 
+    public override void DestroyBuff()
+    {
+        Destroy(prefabInstance);
+        base.DestroyBuff();
+    }
 
     public override void OnNotify(string msg)
     {

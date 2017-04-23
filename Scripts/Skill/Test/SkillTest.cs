@@ -16,12 +16,13 @@ public class SkillTest : MonoBehaviour {
     IEnumerator Test()
     {
         yield return new WaitForSeconds(1.0f);
-        //this.gameObject.GetComponent<SkillManager>().CreateSkill(402);
+        //this.gameObject.GetComponent<SkillManager>().CreateSkill(4);
         //this.gameObject.GetComponent<SkillManager>().CreateSkill(3);
-        EsscenceManager.Instance.CreateEsscence(3);
-        EsscenceManager.Instance.CreateEsscence(3);
-        EsscenceManager.Instance.CreateEsscence(3);
-        EsscenceManager.Instance.CreateEsscence(3);
+        EsscenceManager.Instance.CreateEsscence(2);
+        EsscenceManager.Instance.CreateEsscence(2);
+        EsscenceManager.Instance.CreateEsscence(2);
+        EsscenceManager.Instance.CreateEsscence(2);
+        EsscenceManager.Instance.CreateEsscence(2);
     }
 	
 }

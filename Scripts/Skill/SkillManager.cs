@@ -293,7 +293,6 @@ public class SkillManager : ExSubject
     {
         string bID = "";
 
-
         bID = UtilManager.Instance.MatchFiledFormMsg("UseItem_Skill_ID", msg, 0);
         if (bID != "Fail" && bID!="Error")
             CreateSkill(int.Parse(bID));
@@ -486,6 +485,7 @@ public class SkillManager : ExSubject
 
     void Awake()
     {
-        SkillManagerTag = ""+this.gameObject.GetComponent<Character>().RoomElementID; 
+        SkillManagerTag = ""+this.gameObject.GetComponent<Character>().RoomElementID;
+        //EsscenceManager.Instance.AddObserver(this);
     }
 }

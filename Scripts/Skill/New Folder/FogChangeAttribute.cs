@@ -4,12 +4,13 @@ using System.Collections;
 public class FogChangeAttribute : MonoBehaviour {
 
     public int buffID;
+    public string triggerTag="Monster";
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        Debug.Log("Enter    :" + other.tag);
+        if (other.tag == triggerTag)
         {
-            Debug.Log("Fag Trigger");
             other.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(buffID, "Fag");
         }
 
@@ -17,7 +18,7 @@ public class FogChangeAttribute : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == triggerTag)
         {
             if ((buffID / 10) % 100 == 11)
             {

@@ -63,8 +63,10 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 break;
             case 2:
                 this.gameObject.GetComponent<Character>().MoveSpeed += dValue;
+
                 if (dValue >= 0)
                 {
+                    Debug.Log("Speed UP");
                     GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
                     Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
                     prefabInstance = Instantiate(pfb);
@@ -139,6 +141,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
     public override void DestroyBuff()
     {
         dValue = -dValue;
+        Destroy(prefabInstance);
         switch (attribute)
         {
             case 0:
@@ -146,24 +149,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 break;
             case 2:
                 this.gameObject.GetComponent<Character>().MoveSpeed += dValue;
-                if (dValue >= 0)
-                {
-                    GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
-                    Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
-                    prefabInstance = Instantiate(pfb);
-                    prefabInstance.transform.position = s;
-                    prefabInstance.transform.parent = this.gameObject.transform;
-                    prefabInstance.transform.localScale = new Vector3(1, 1, 1);
-                }
-                if (dValue <= 0)
-                {
-                    GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
-                    Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
-                    prefabInstance = Instantiate(pfb);
-                    prefabInstance.transform.position = s;
-                    prefabInstance.transform.parent = this.gameObject.transform;
-                    prefabInstance.transform.localScale = new Vector3(1, 1, 1);
-                }
+                
                 break;
             case 3:
                 this.gameObject.GetComponent<Character>().AttackSpeed += dValue;
@@ -173,27 +159,11 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 break;
             case 5:
                 this.gameObject.GetComponent<Character>().AttackDamage += dValue;
-                if (dValue >= 0)
-                {
-                    GameObject pfb = Resources.Load("Buffs/AttackDamageUp") as GameObject;
-                    Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
-                    prefabInstance = Instantiate(pfb);
-                    prefabInstance.transform.position = s;
-                    prefabInstance.transform.parent = this.gameObject.transform;
-                    prefabInstance.transform.localScale = new Vector3(1, 1, 1);
-                }
+                
                 break;
             case 6:
                 this.gameObject.GetComponent<Character>().HitRecover += dValue;
-                if (dValue >= 0)
-                {
-                    GameObject pfb = Resources.Load("Buffs/HitRecoverUp") as GameObject;
-                    Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
-                    prefabInstance = Instantiate(pfb);
-                    prefabInstance.transform.position = s;
-                    prefabInstance.transform.parent = this.gameObject.transform;
-                    prefabInstance.transform.localScale = new Vector3(1, 1, 1);
-                }
+                
                 break;
             case 7:
                 this.gameObject.GetComponent<Character>().Spasticity += dValue;

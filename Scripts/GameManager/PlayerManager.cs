@@ -41,7 +41,9 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             {
                 Player.Instance.GetComponent<Character>().AddObserver(item);
             }
-            EsscenceManager.Instance.SwitchEsscence(Player.Instance.GetComponent<Character>().Race);
+            //切换精华，延迟0.1
+            StartCoroutine(SwitchEsscence(Player.Instance.GetComponent<Character>().Race));
+            
 
 
 
@@ -86,5 +88,10 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
 
     }
 
+    IEnumerator SwitchEsscence(int race)
+    {
+        yield return new WaitForSeconds(0.1f);
+        EsscenceManager.Instance.SwitchEsscence(Player.Instance.GetComponent<Character>().Race);
+    }
 
 }
