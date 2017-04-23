@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class BoxTest1 : MonoBehaviour
@@ -7,7 +8,6 @@ public class BoxTest1 : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-
         StartCoroutine(Test());
     }
 

@@ -17,13 +17,16 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         }
     }
 
+	//房间类型枚举,房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
+	public enum RmType {Boss = -2, Start, Non, Box, Shop, Altar, Normal};
+
     //最大最小敌人数量
     public int maxEnemyNumber = 5;
     public int minEnemyNumber = 2;
     //房间类型
     private int roomType;
-    //宝箱房间号
-    private int boxTypeRoom = 5;
+	//宝箱房间号//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
+    private int boxTypeRoom = 1;
     //行列
     private int rows = 3;
     private int columns = 12;
@@ -48,9 +51,9 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         set { doorDirection = value; }
     }
     private Vector3 door0 = new Vector3(0f, 1.4f * 2f,  0f);
-    private Vector3 door1 = new Vector3(0f, -3.7f * 2f, 0f);
-    private Vector3 door2 = new Vector3(-11.8f, -1.46f * 2f, 0f);
-    private Vector3 door3 = new Vector3(11.8f,  -1.46f * 2f, 0f);
+    private Vector3 door1 = new Vector3(0f, -4.7f * 2f, 0f);
+    private Vector3 door2 = new Vector3(-12.8f, -1.46f * 2f, 0f);
+    private Vector3 door3 = new Vector3(12.8f,  -1.46f * 2f, 0f);
     //单个物件长度
     private int objLen = 10;
     //宝箱位置
@@ -272,16 +275,26 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         {
             GameObject objectChoice;
             Vector3 randomPosition = RandomPosition(3);
-            if (roomType < boxTypeRoom || (roomX == CheckpointManager.Instance.rows - 1 && roomY == CheckpointManager.Instance.columns - 1))
-            {
-                objectChoice = objectArray[Random.Range(objLen, objectArray.Length-1)];
-            }
+			//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
+			//宝箱房
+			if (roomType == (int)RmType.Box) {
+				objectCount--;
+				objectChoice = objectArray [objectArray.Length - 1];
+			} 
+			//商店，暂时用obj14
+			else if (roomType == (int)RmType.Shop) {
+				objectChoice = objectArray [14];
+			}
+			//祭坛，暂时用obj10
+			else if (roomType == (int)RmType.Altar) {
+				objectChoice = objectArray [10];
+			} 
+			//其他
+			else if(roomType >= (int)RmType.Normal){
+				objectChoice = objectArray[Random.Range(objLen, objectArray.Length-1)];
+			}
+			else objectChoice = objectArray[Random.Range(objLen, objectArray.Length-1)];
 
-            else//宝箱房
-            {
-                objectCount--;
-                objectChoice = objectArray[objectArray.Length - 1];
-            }
             GameObject roomElement = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
             //房间物件存入列表
@@ -299,7 +312,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             GameObject objectChoice;
             Vector3 randomPosition = groundPosition[randomIndex];
             //groundPosition.RemoveAt(randomIndex);
-            if(roomType<boxTypeRoom&&roomType!=-1){
+			if(roomType >= (int)RmType.Normal||roomType == (int)RmType.Boss){
                 objectChoice = objectArray[Random.Range(0, objectArray.Length)];
 
                 GameObject enemy = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
@@ -331,7 +344,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             {
                 GameObject objectChoice;
                 if (i == 1) objectChoice = doors[0];
-                else objectChoice = doors[1];
+				else if(i == 0)objectChoice = doors[1];
+				else objectChoice = doors[2];
                 
                 GameObject roomElement = Instantiate(objectChoice, doorPosition[j], Quaternion.identity) as GameObject;
                 roomElement.GetComponent<Door>().SetPosition(i);
