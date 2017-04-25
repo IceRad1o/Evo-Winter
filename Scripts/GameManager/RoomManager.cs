@@ -17,9 +17,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         }
     }
 
+	//音乐
+	public AudioClip[] BackgroundMusic;
+
 	//房间类型枚举,房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
 	public enum RmType {Boss = -2, Start, Non, Box, Shop, Altar, Normal};
-
     //最大最小敌人数量
     public int maxEnemyNumber = 5;
     public int minEnemyNumber = 2;
@@ -38,8 +40,16 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     public GameObject[] groundElements;
     public GameObject[] doors;
     public GameObject[] stair;
+	//宁静类物品
+	public GameObject[] peace;
+	//恐怖类物品
+	public GameObject[] terror;
+	//功能类物品
+	public GameObject[] function;
     //小怪
     public GameObject[] enemys;
+	//Boss
+	public GameObject[] boss;
     //房间坐标位置
     public int roomX;
     public int roomY;
@@ -292,6 +302,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 			//其他
 			else if(roomType >= (int)RmType.Normal){
 				objectChoice = objectArray[Random.Range(objLen, objectArray.Length-1)];
+				//objectChoice = peace[Random.Range(0, peace.Length)];
 			}
 			else objectChoice = objectArray[Random.Range(objLen, objectArray.Length-1)];
 
@@ -344,8 +355,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             {
                 GameObject objectChoice;
                 if (i == 1) objectChoice = doors[0];
-				else if(i == 0)objectChoice = doors[1];
-				else objectChoice = doors[2];
+				else if(i == 0) objectChoice = doors[1];
+				else if((i == 2 && CheckpointManager.Instance.GetNextRoom(roomX,roomY-1).type==-2)
+					||(i == 3 && CheckpointManager.Instance.GetNextRoom(roomX,roomY+1).type==-2)) 
+					objectChoice = doors[2];
+				else objectChoice = doors[3];
                 
                 GameObject roomElement = Instantiate(objectChoice, doorPosition[j], Quaternion.identity) as GameObject;
                 roomElement.GetComponent<Door>().SetPosition(i);
@@ -433,8 +447,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         {
             LayoutStair();
             //布局BOSS，测试小怪
-            LayoutEnemyAtRandom(enemys, minEnemyNumber+3, maxEnemyNumber+3);
+            LayoutEnemyAtRandom(boss, 1, 1);
+            SoundManager.Instance.PlayBackGroundMusic(BackgroundMusic[1]);
         }
+        else
+            SoundManager.Instance.PlayBackGroundMusic(BackgroundMusic[0]);
 
         //Debug.Log("lIST" + RoomElementManager.Instance.RoomElementList[0].RoomElementID);
         //Notify("EnterRoom;Unknow");

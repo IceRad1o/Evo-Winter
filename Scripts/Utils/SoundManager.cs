@@ -17,6 +17,8 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
      */
     public void PlayBackGroundMusic(AudioClip clip,bool loop=true)
     {
+        if (musicSource.clip == clip)
+            return;
         musicSource.loop = loop;
         musicSource.clip = clip;
         musicSource.Play();
@@ -29,6 +31,7 @@ public class SoundManager : ExUnitySingleton<SoundManager> {
     */
     public void PlaySoundEffect(AudioClip clip,bool loop=false)
     {
+   
         efxSource.loop = loop;
         efxSource.clip = clip;
         efxSource.Play();

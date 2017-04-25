@@ -29,6 +29,9 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             //保存原有buff
             var strBuff = Player.Instance.GetComponent<BuffManager>().SavingBuff();
             var observer = Player.Instance.GetComponent<Character>().GetAllObserver();
+
+            var attris = Player.Instance.Character.GetAttris();
+
             Destroy(Player.Instance.gameObject);
 
             //删除原来人物,生成新人物
@@ -36,12 +39,19 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             //Player.Instance.AddObserver(CameraShake.Instance);
             //Player.Instance.AddObserver(UIManager.Instance);//
             //加载原有buff
+           
             Player.Instance.GetComponent<BuffManager>().LoadBuff(strBuff);
             foreach (var item in observer)
             {
                 Player.Instance.GetComponent<Character>().AddObserver(item);
             }
-            EsscenceManager.Instance.SwitchEsscence(Player.Instance.GetComponent<Character>().Race);
+            Debug.Log("1:"+Player.Instance.Character.Health);
+            Debug.Log("2:"+attris[0]);
+            Player.Instance.Character.LoadAttris(attris);
+            Debug.Log("3:" + Player.Instance.Character.Health);
+            //切换精华，延迟0.1
+            StartCoroutine(SwitchEsscence(Player.Instance.GetComponent<Character>().Race));
+            
 
 
 
@@ -86,5 +96,10 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
 
     }
 
+    IEnumerator SwitchEsscence(int race)
+    {
+        yield return new WaitForSeconds(0.1f);
+        EsscenceManager.Instance.SwitchEsscence(Player.Instance.GetComponent<Character>().Race);
+    }
 
 }

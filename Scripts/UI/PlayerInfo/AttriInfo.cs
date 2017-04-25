@@ -11,7 +11,13 @@ public class AttriInfo : ExUnitySingleton<AttriInfo> {
     {
         get { return atk; }
         set { atk = value;
-        values[0].GetComponent<Text>().text = "" + value;
+        for (int i = 0; i < 5; i++)
+        {
+            if (i < atk)
+                atkStars[i].SetActive(true);
+            else
+                atkStars[i].SetActive(false);
+        }
         }
     }
     int spd;
@@ -20,7 +26,13 @@ public class AttriInfo : ExUnitySingleton<AttriInfo> {
     {
         get { return spd; }
         set { spd = value;
-        values[1].GetComponent<Text>().text = "" + value;
+        for (int i = 0; i < 5; i++)
+        {
+            if (i < spd)
+                spdStars[i].SetActive(true);
+            else
+                spdStars[i].SetActive(false);
+        }
         
         }
     }
@@ -30,7 +42,13 @@ public class AttriInfo : ExUnitySingleton<AttriInfo> {
     {
         get { return rng; }
         set { rng = value;
-        values[2].GetComponent<Text>().text = "" + value;
+        for (int i = 0; i < 5; i++)
+        {
+            if (i < rng)
+                rngStars[i].SetActive(true);
+            else
+                rngStars[i].SetActive(false);
+        }
         }
     }
     int mov;
@@ -39,7 +57,13 @@ public class AttriInfo : ExUnitySingleton<AttriInfo> {
     {
         get { return mov; }
         set { mov = value;
-        values[3].GetComponent<Text>().text = "" + value;
+        for (int i = 0; i < 5; i++)
+        {
+            if (i < mov)
+                movStars[i].SetActive(true);
+            else
+                movStars[i].SetActive(false);
+        }
         }
     }
     int fhr;
@@ -48,7 +72,13 @@ public class AttriInfo : ExUnitySingleton<AttriInfo> {
     {
         get { return fhr; }
         set { fhr = value;
-        values[4].GetComponent<Text>().text = "" + value;
+        for (int i = 0; i < 5; i++)
+        {
+            if (i < fhr)
+                fhrStars[i].SetActive(true);
+            else
+                fhrStars[i].SetActive(false);
+        }
         }
     }
     int luk;
@@ -59,12 +89,24 @@ public class AttriInfo : ExUnitySingleton<AttriInfo> {
         set 
         { 
             
-            luk = value;
-            values[5].GetComponent<Text>().text = ""+value;
+           luk = value;
+           for(int i=0;i<5;i++)
+           {
+               if(i<luk)
+                    lukStars[i].SetActive(true);
+               else
+                   lukStars[i].SetActive(false);
+           }
         }
     }
 
-    public GameObject[] values;
+    public GameObject[] atkStars;
+    public GameObject[] spdStars;
+    public GameObject[] rngStars;
+    public GameObject[] movStars;
+    public GameObject[] fhrStars;
+    public GameObject[] lukStars;
+
 	// Use this for initialization
 	void Start () {
         Init();

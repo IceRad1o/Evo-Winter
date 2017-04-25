@@ -54,19 +54,18 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <param name="ID"></param>
     public void AddEsscence(int ID) 
     {
-        Debug.Log("Add Esscence ID:" + ID);
         esscenceNumber[ID]++;
         for (int i = 1; i <= 5; i++)
             if (esscenceNumber[ID] == i * (i + 1) / 2)
             {
-                int skillID = skillArray[skillEsscence, i - 1];
+                int skillID = skillArray[ID, i - 1];
                 if (skillGet[skillID / 100 - 1, skillID % 100 - 1] == 0)
                 {
                     Notify("GetEsscenceSkill;" + skillID);
                     skillGet[skillID / 100 - 1, skillID % 100 - 1] = 1;
                 }
                 if (ID == Player.Instance.GetComponent<Character>().Race)
-                    AddSkill(skillArray[skillEsscence, i - 1]);
+                    AddSkill(skillID);
             }
         if (doubleEsscence)
         {
@@ -74,7 +73,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
             for (int i = 1; i <= 5; i++)
                 if (esscenceNumber[ID] == i * (i + 1) / 2)
                 {
-                    int skillID = skillArray[skillEsscence, i - 1];
+                    int skillID = skillArray[ID, i - 1];
                     if (skillGet[skillID / 100 - 1, skillID % 100 - 1] == 0)
                     {
                         Notify("GetEsscenceSkill;" + skillID);
@@ -121,8 +120,8 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
             if (esscenceNumber[j] > 0)
                 break;
         }
-        esscenceNumber[j]--;
-        esscenceNumber[i]++;
+        RemoveEsscence(j);
+        AddEsscence(i);
         Debug.Log("i:   " + i + "  j:   " + j);
     }
     /// <summary>
@@ -132,7 +131,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
     /// <returns></returns>
     private int AddSkill(int ID) 
     {
-        Notify("AddEsscenceSkill;" + ID);        
+        Notify("AddEsscenceSkill;" + ID);
         return 0;
     }
     /// <summary>
@@ -172,11 +171,12 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
 
     public void SwitchEsscence(int type)
     {
+        //Debug.Log("type  :" + type + "    esscenceNumber  :" + esscenceNumber[type]);
         for (int i=1;i<6;i++)
-            if (esscenceNumber[skillEsscence]==i * (i + 1) / 2)
+            if (esscenceNumber[skillEsscence]>=i * (i + 1) / 2)
                 RemoveSkill(skillArray[skillEsscence, i - 1]);
         for (int i = 1; i < 6; i++)
-            if (esscenceNumber[type] == i * (i + 1) / 2)
+            if (esscenceNumber[type] >= i * (i + 1) / 2)
                 AddSkill(skillArray[type, i - 1]);
 
         skillEsscence = type;

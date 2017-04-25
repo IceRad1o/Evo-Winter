@@ -28,8 +28,14 @@ public class BuffAttack : Buff {
         switch (idPart[1])
         {
             case 1:
-                BuffVampire newBuff = ob.AddComponent<BuffVampire>();
-                newBuff.Create(ID);
+                if (ob.GetComponent<BuffVampire>() == null)
+                {
+                    BuffVampire newBuff1 = ob.AddComponent<BuffVampire>();
+
+                    newBuff1.Create(ID);
+                }
+                else
+                    ob.GetComponent<BuffVampire>().Probability++;
                 break;
             case 2:
                 if (ob.GetComponent<AttackSpeedDown>() == null)

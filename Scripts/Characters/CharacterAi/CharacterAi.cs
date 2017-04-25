@@ -10,7 +10,7 @@ public class CharacterAi : MonoBehaviour
     public float attackRange=1f;//攻击范围
     //  public float 
     protected Character tar;//目标
-
+    bool getTarget=false;
     void Start()
     {
         character = GetComponent<Character>();
@@ -29,7 +29,7 @@ public class CharacterAi : MonoBehaviour
   
 
             //TODO 根据sight决定视野范围
-            float leastDistance = 500;
+            float leastDistance = 25;
             if (tag == "Friend"||tag=="Player")
             {
                 foreach (Enemy en in EnemyManager.Instance.EnemyList)
@@ -57,6 +57,15 @@ public class CharacterAi : MonoBehaviour
             Vector3 destPos =tar.transform.position;
             Vector3 srcPos = transform.position;
             Vector3 offset = destPos - srcPos;
+
+            if (offset.sqrMagnitude > leastDistance&&getTarget==false)
+            {
+                character.State = 0;
+                return;
+
+            }
+
+            getTarget = true;
             if (Random.value < attackAbility)
             {
                 if (offset.x < attackRange && offset.x > -attackRange && offset.y < 0.3 && offset.y > -0.3)

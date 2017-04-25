@@ -34,7 +34,7 @@ public class ThirdHand : MonoBehaviour {
         {
             if (isBack)
             {
-                thirdHandChain.transform.localScale = new Vector3(thirdHandChain.transform.localScale.x - 0.4f , thirdHandChain.transform.localScale.y, thirdHandChain.transform.localScale.z);
+                thirdHandChain.transform.localScale = new Vector3(thirdHandChain.transform.localScale.x - 0.8f , thirdHandChain.transform.localScale.y, thirdHandChain.transform.localScale.z);
                 count-=2;
              
             }
@@ -48,7 +48,7 @@ public class ThirdHand : MonoBehaviour {
                 if (thirdHandChaw.GetComponent<MyHook>().isWork == true)
                     isBack = true;
                 count++;
-                thirdHandChain.transform.localScale = new Vector3(thirdHandChain.transform.localScale.x + 0.2f, thirdHandChain.transform.localScale.y, thirdHandChain.transform.localScale.z);
+                thirdHandChain.transform.localScale = new Vector3(thirdHandChain.transform.localScale.x + 0.4f, thirdHandChain.transform.localScale.y, thirdHandChain.transform.localScale.z);
             }
 
 

@@ -9,13 +9,26 @@ using System.Collections;
 public class Phote : UnitySingleton<Phote>
 {
 
+    public GameObject grid;
+    public GameObject phote;
 
+
+    public GameObject hardTag;
+    public GameObject dangerTag;
+
+
+    public Sprite[] gridSprite;
+    public Sprite[] photeSprite;
+
+
+    public AudioClip clickSound;
     /*OnDisplayPlayerAttributes
      *@Brief 显示玩家详细信息界面
      */
     public void OnDisplayPlayerAttributes()
     {
-        Debug.Log("You have clicked the  phote!");
+      //  Debug.Log("You have clicked the  phote!");
+        SoundManager.Instance.PlaySoundEffect(clickSound);
         PlayerInfo.Instance.Display();
     }
 
@@ -26,8 +39,29 @@ public class Phote : UnitySingleton<Phote>
      */
     public void SetPhote(int type)
     {
-
+       // Debug.Log("type:" + type);
+        grid.GetComponent<Image>().sprite = gridSprite[type];
+        phote.GetComponent<Image>().sprite = photeSprite[type];
     }
+
+    /// <summary>
+    /// 困难游戏模式
+    /// </summary>
+    /// <param name="isHard"></param>
+    public void SetHardGameMode(bool isHard)
+    {
+        hardTag.SetActive(isHard);
+    }
+
+    /// <summary>
+    /// Player血量很少
+    /// </summary>
+    /// <param name="isInDanger"></param>
+    public void SetInDanger(bool isInDanger)
+    {
+        dangerTag.SetActive(isInDanger);
+    }
+
 
     public Button photeButton;  //头像按钮
 
@@ -38,10 +72,6 @@ public class Phote : UnitySingleton<Phote>
     }
 
 
-    void Update()
-    {
-
-    }
 
 
     //初始化头像
@@ -51,6 +81,9 @@ public class Phote : UnitySingleton<Phote>
 
         Button photeBtn = photeButton.GetComponent<Button>();
         photeBtn.onClick.AddListener(OnDisplayPlayerAttributes);
+        int type = Player.Instance.Character.Race;
+        grid.GetComponent<Image>().sprite = gridSprite[type];
+        phote.GetComponent<Image>().sprite = photeSprite[type];
     }
 
 }

@@ -25,12 +25,31 @@ public class StartAdventrue : MonoBehaviour {
     int canLoad;
 
     public AudioClip clickSound;
+    public GameObject modeInDevelopingDialog;
+    public GameObject dark;
 	void Start () {
         Button btn = this.GetComponent<Button>();
-        btn.onClick.AddListener(OnStartAdventrue);
-        canLoad=PlayerPrefs.GetInt("canLoad",0);
-        if (canLoad == 0&&tag=="ContinueButton")
-            gameObject.SetActive(false);
+        canLoad = PlayerPrefs.GetInt("canLoad", 0);
+
+        if (mode == 0)
+        {
+            btn.onClick.AddListener(OnStartAdventrue);
+            if (canLoad == 0 )
+            {
+                if (tag == "ContinueButton")
+                    gameObject.SetActive(false);
+                else
+                    gameObject.transform.localPosition = new Vector3(0, -68, 0);
+            }
+                
+        }
+        else if (mode == 1)
+            btn.onClick.AddListener(OnStartBook);
+        else if (mode == 2)
+            btn.onClick.AddListener(OnStartAward);
+   
+
+
 	}
 	
     /// <summary>
@@ -41,11 +60,21 @@ public class StartAdventrue : MonoBehaviour {
         SoundManager.Instance.PlaySoundEffect(clickSound);
         PlayerPrefs.SetInt("isNew", isNew);
         PlayerPrefs.SetInt("mode", mode);
-
-        SceneManager.LoadScene("Scenes/Formal/AdventureScene");
+        dark.SetActive(true);
+        SceneManager.LoadSceneAsync("Scenes/Formal/AdventureScene");
 
     }
 
+     void OnStartBook()
+    {
+        SoundManager.Instance.PlaySoundEffect(clickSound);
+        Instantiate(modeInDevelopingDialog, this.transform.parent, false);
+    }
 
+     void OnStartAward()
+     {
+         SoundManager.Instance.PlaySoundEffect(clickSound);
+         Instantiate(modeInDevelopingDialog, this.transform.parent,false);
+     }
 
 }

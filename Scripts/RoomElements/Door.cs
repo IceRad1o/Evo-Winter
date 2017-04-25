@@ -30,16 +30,7 @@ public class Door : RoomElement
             int roomDir = position;
             int pass = 0;
 
-            //for (int i = 0; i < ProfileManager.Instance.Data.RoomElementID.Length; i++)
-            //{
-            //    Debug.Log("ID:" + ProfileManager.Instance.Data.RoomElementID[i]);
-            //    Debug.Log("posX:" + ProfileManager.Instance.Data.RoomElementPosX[i]);
-            //    Debug.Log("roomX:" + ProfileManager.Instance.Data.RoomElementRoomX[i]);
-            //    Debug.Log("roomY:" + ProfileManager.Instance.Data.RoomElementRoomY[i]);
-            //    Debug.Log("\n");
-            //}
-
-
+			//yield return(WaitForSeconds (1f));
 
             switch (roomDir)
             {
@@ -102,7 +93,7 @@ public class Door : RoomElement
                 case 2:
                     //进入左侧房间
                     Debug.Log("进左xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(10.5f, -2f, 0f);
+                    Player.Instance.Character.transform.position = new Vector3(10.5f, -4f, 0f);
                     if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).pass == 0)
                     {
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).type,
@@ -130,7 +121,7 @@ public class Door : RoomElement
                 case 3:
                     //进入右侧房间
                     Debug.Log("进右xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(-10.5f, -2f, 0f);
+                    Player.Instance.Character.transform.position = new Vector3(-10.5f, -4f, 0f);
                     if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).pass == 0)
                     {
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).type,

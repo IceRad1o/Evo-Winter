@@ -95,8 +95,11 @@ public class UIManager : ExUnitySingleton<UIManager>
             littleMap.UpdateLittleMap();
             DialogInfo.Instance.RandomDialog();
         }
- 
 
+        if (str[0] == "SetupCheckpoint")
+        {
+            
+        }
 
         if (str[0] == "MapComplete")
             littleMap.InitLittleMap();
@@ -190,25 +193,48 @@ public class UIManager : ExUnitySingleton<UIManager>
 
         //Player Msg
 
-        if (str[0]== "HealthChanged")
-            UIManager.Instance.playerHealth.Health = (int)Player.Instance.Character.Health;
+        if (str[0] == "HealthChanged")
+        {
+            int health = Player.Instance.Character.Health;
+            UIManager.Instance.playerHealth.Health = health;
+            if(health==1)
+                 Phote.Instance.SetInDanger(true);
+            else
+                Phote.Instance.SetInDanger(false);
+        }
         if (str[0] == "AttackDamageChanged")
             AttriInfo.Instance.Atk = Player.Instance.Character.AttackDamage;
-        if (str[0] == "AttackSpeedChangedChanged")
-            AttriInfo.Instance.Atk = Player.Instance.Character.AttackSpeed;
+        if (str[0] == "AttackSpeedChanged")
+            AttriInfo.Instance.Spd = Player.Instance.Character.AttackSpeed;
         if (str[0] == "AttackRangeChanged")
-            AttriInfo.Instance.Atk = Player.Instance.Character.AttackRange;
+            AttriInfo.Instance.Rng = Player.Instance.Character.AttackRange;
         if (str[0] == "HitRecoverChanged")
-            AttriInfo.Instance.Atk = Player.Instance.Character.HitRecover;
+            AttriInfo.Instance.Fhr = Player.Instance.Character.HitRecover;
         if (str[0] == "LuckChanged")
-            AttriInfo.Instance.Atk = Player.Instance.Character.Luck;
+            AttriInfo.Instance.Luk = Player.Instance.Character.Luck;
         if (str[0] == "MoveSpeedChanged")
-            AttriInfo.Instance.Atk = Player.Instance.Character.MoveSpeed;
+        {
+            AttriInfo.Instance.Mov = Player.Instance.Character.MoveSpeed;
+           // Debug.Log("ui:" + AttriInfo.Instance.Mov);
+        }
+    
 
         if (str[0] == "RaceChanged")
-            CreerInfo.Instance.SetRace(int.Parse(str[2]));
+        { 
+            CreerInfo.Instance.SetRace(Player.Instance.Character.Race);
+            Phote.Instance.SetPhote(Player.Instance.Character.Race);
+        }
         if (str[0] == "WeaponChanged")
-            CreerInfo.Instance.SetCreer(int.Parse(str[2]));
+            CreerInfo.Instance.SetCreer(Player.Instance.Character.Weapon);
+
+        if(str[0]=="HardMode")
+        {
+            Phote.Instance.SetHardGameMode(true);
+        }
+        if (str[0] == "SimpleMode")
+        {
+            Phote.Instance.SetHardGameMode(false);
+        }
 
     }
 

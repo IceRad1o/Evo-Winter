@@ -33,7 +33,7 @@ public class Box : RoomElement
         //NEED Item item=ItemManager.getInstance().GenerateItem();
         //item.transfrom.setParent(this.transform);
 
-        if (Random.value * 100 < 90)
+        if (Random.value * 100 < 20)
             EsscenceManager.Instance.CreateEsscence((int)(Random.value * 4), this.transform.position);
         else
         {
