@@ -79,8 +79,9 @@ public class ImmediatelyItem : Item{
     }
 
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;

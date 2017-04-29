@@ -118,15 +118,15 @@ public class DisposableItem : Item{
         }
     }
     // Use this for initialization
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         //获取图片数组
         //itemSprite = itemSp.SpriteArray;
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }
-
 
     
 }

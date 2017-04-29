@@ -42,7 +42,15 @@ public class Laser : MonoBehaviour {
         else
         {
             this.gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-            //direction_Scale=
+
+            foreach (var item in EnemyManager.Instance.EnemyList.ToArray())
+            {
+                if (item != null && item.tag == "Boss")
+                {
+                    //-1朝左，1朝右
+                    direction_Scale = item.GetComponent<Character>().FaceDirection;
+                }
+            }
             StartCoroutine(ChangeScale());
         }
            
@@ -51,6 +59,8 @@ public class Laser : MonoBehaviour {
     IEnumerator ChangeScale()
     {
         yield return new WaitForSeconds(interval_Scale);
+
+
         
     
     }
