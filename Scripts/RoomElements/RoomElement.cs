@@ -22,6 +22,9 @@ public class RoomElement : ExSubject {
      * 14:石头Stone
      * 15:陷阱Trap
      * 16:楼梯Stair
+     * 17:祭坛一Altar1
+     * 18:祭坛二Altar2
+     * 19:商店Shop
      * */
     public int RoomElementID
     {

@@ -46,6 +46,10 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 	public GameObject[] terror;
 	//功能类物品
 	public GameObject[] function;
+	//祭坛房间
+	public GameObject[] altar;
+	//商店
+	public GameObject[] shop;
     //小怪
     public GameObject[] enemys;
 	//Boss
@@ -173,11 +177,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         settledPosition.Add(new Vector3(-6f, -1.5f, 0f));
         settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
         settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
-        settledPosition.Add(new Vector3(-1f, -2.5f, 0f));
+        settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
 
         settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
         settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
-        settledPosition.Add(new Vector3(3.5f, -5.5f, 0f));
+        settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
         settledPosition.Add(new Vector3(6f, -3.5f, 0f));
         settledPosition.Add(new Vector3(9f, -0.5f, 0f));
         settledPosition.Add(new Vector3(9f, -6.5f, 0f));
@@ -291,13 +295,39 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 				objectCount--;
 				objectChoice = objectArray [objectArray.Length - 1];
 			} 
-			//商店，暂时用obj14
+			//商店
 			else if (roomType == (int)RmType.Shop) {
-				objectChoice = objectArray [14];
+				// 地摊摊主
+				objectCount = -1;
+				randomPosition = new Vector3 (0, -2f, -2f);
+				objectChoice = shop [Random.Range (0, shop.Length)];
+				//道具
+				for (int j = 0; j < 5; j++) {
+					ItemManager.Instance.ItemsTransform.position = new Vector3(
+						Random.Range(-6,6), Random.Range(-2,-6), 0f);
+					ItemManager.Instance.CreateItemDrop(false, false, true);
+				}
+
 			}
-			//祭坛，暂时用obj10
+			//祭坛
 			else if (roomType == (int)RmType.Altar) {
-				objectChoice = objectArray [10];
+				//主祭坛
+				objectCount = -1;
+				randomPosition = new Vector3 (0, -2f, -2f);
+				objectChoice = altar [Random.Range (0, altar.Length)];
+				//祭坛其他摆设
+				GameObject elseChoice;
+				Vector3 elsePosition;
+				//摆设1
+				elseChoice = terror [Random.Range (0, terror.Length)];
+				elsePosition = new Vector3 (-7f, -1.5f, -1.5f);
+				GameObject altarElse1 = Instantiate(elseChoice, elsePosition, Quaternion.identity) as GameObject;
+				altarElse1.transform.SetParent(GameObject.Find("GroundElements").transform);
+				//摆设2
+				elseChoice = terror [Random.Range (0, terror.Length)];
+				elsePosition = new Vector3 (7f, -1.5f, -1.5f);
+				GameObject altarElse2 = Instantiate(elseChoice, elsePosition, Quaternion.identity) as GameObject;
+				altarElse2.transform.SetParent(GameObject.Find("GroundElements").transform);
 			} 
 			//其他
 			else if(roomType >= (int)RmType.Normal){
@@ -653,6 +683,30 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             roomElement.transform.localPosition = position;
                             //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
                             break;
+						case 17:
+							//Debug.Log("选中祭坛1");
+							//Altar1
+							objectChoice =altar[0];
+							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							break;
+						case 18:
+							//Debug.Log("选中祭坛1");
+							//Altar1
+							objectChoice =altar[1];
+							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							break;
+						case 19:
+							//Debug.Log("选中商店");
+							//Altar1
+							objectChoice =shop[0];
+							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							break;
                     }
                  
                 }
