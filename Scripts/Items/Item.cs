@@ -66,4 +66,10 @@ public class Item : RoomElement {
         Destroy(gameObject);    
     }
 
+    public override void Awake()
+    {
+        base.Awake();
+        roomElementID = 1000;
+    }
+
 }
