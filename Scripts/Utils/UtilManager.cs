@@ -132,4 +132,40 @@ public class UtilManager : UnitySingleton<UtilManager>
     }
 
 
+
+    public void CreateEffcet(GameObject prefabInstance, Vector3 pos = new Vector3())
+    {
+        if (prefabInstance == null )
+            return;
+        prefabInstance.transform.position = pos;
+    }
+
+    public void CreateEffcet(GameObject prefabInstance, GameObject ob, Vector3 deviation = new Vector3())
+    {
+        if (prefabInstance == null || ob==null)
+            return;
+        Vector3 s = new Vector3(ob.gameObject.transform.position.x + deviation.x, ob.gameObject.transform.position.y + deviation.y, ob.gameObject.transform.position.z + deviation.z);
+        Vector3 Scale = prefabInstance.transform.localScale;
+        prefabInstance.transform.position = s;
+        prefabInstance.transform.parent = ob.gameObject.transform;
+        prefabInstance.transform.localScale = Scale;
+    
+    }
+
+
+    public GameObject CreateEffcet(string pfbPath, GameObject ob, Vector3 deviation = default(Vector3))
+    {
+        if (pfbPath == "" || ob == null)
+            return null;
+        GameObject pfb = Resources.Load(pfbPath) as GameObject;
+        Vector3 s = new Vector3(ob.gameObject.transform.position.x + deviation.x, ob.gameObject.transform.position.y + deviation.y, ob.gameObject.transform.position.z + deviation.z);
+        GameObject prefabInstance = Instantiate(pfb);
+        Vector3 Scale = prefabInstance.transform.localScale;
+        prefabInstance.transform.position = s;
+        prefabInstance.transform.parent = ob.gameObject.transform;
+        prefabInstance.transform.localScale = Scale;
+
+        return prefabInstance;
+
+    }
 }

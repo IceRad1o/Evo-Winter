@@ -485,7 +485,7 @@ public class SkillManager : ExSubject
 
     void Awake()
     {
-        SkillManagerTag = ""+this.gameObject.GetComponent<Character>().RoomElementID;
+        SkillManagerTag = ""+this.gameObject.tag;
         //EsscenceManager.Instance.AddObserver(this);
     }
 }

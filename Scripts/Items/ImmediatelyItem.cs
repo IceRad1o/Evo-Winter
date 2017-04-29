@@ -65,6 +65,7 @@ public class ImmediatelyItem : Item{
      */
     public void Create(int ID)
     {
+        RoomElementID = ID;
         ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
 
