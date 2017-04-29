@@ -27,7 +27,7 @@ public class InitiativeItem : Item{
      */
     public void Create(int ID)
     {
-
+        RoomElementID = ID;
         CreateScript(ID);
         spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
 
