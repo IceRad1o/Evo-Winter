@@ -75,7 +75,7 @@ public class Popup : UnitySingleton<Popup> {
         a.resetToZero = true;
         a.isReverseDelay = true;
         a.reverseDelayTime = 2f;
-
+        a.destValue.x = 1;
     }
 
 

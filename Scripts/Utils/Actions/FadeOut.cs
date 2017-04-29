@@ -11,10 +11,7 @@ public class FadeOut : Action
 
 
 
-    /// <summary>
-    /// 是否将透明度设为1;
-    /// </summary>
-    public bool resetToFull =false;
+
 
 
 

@@ -47,7 +47,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
                                     CheckpointManager.Instance.roomList[roomNumber].doorDirection,
                                     CheckpointManager.Instance.roomList[roomNumber].roomX,
                                     CheckpointManager.Instance.roomList[roomNumber].roomY);
-            RoomManager.Instance.Notify("EnterRoom;Unknow");
+            RoomManager.Instance.Notify("EnterRoom;Unknow;" + CheckpointManager.Instance.roomList[roomNumber].type);
         }
 
         else

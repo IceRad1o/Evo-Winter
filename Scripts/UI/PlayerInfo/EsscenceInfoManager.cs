@@ -45,7 +45,7 @@ public class EsscenceInfoManager : ExUnitySingleton<EsscenceInfoManager>
                 // Debug.Log(skillIcon);
 
                 GameObject a = Instantiate(skillIcon, esscenceIcons[i].transform, true) as GameObject;
-                a.transform.localPosition = new Vector3(0, -(j + 1) * 80, 0);
+                a.transform.localPosition = new Vector3((j + 1.2f) * 90, 0, 0);
                 iconList.Add(a);
             }
         }
@@ -71,7 +71,7 @@ public class EsscenceInfoManager : ExUnitySingleton<EsscenceInfoManager>
 
         int a = esscenceEachNum * (eInfo.type );
         int b = infos[eInfo.type].Count-1;
-        Debug.Log("位于" + a + "排" + b + "列");
+       // Debug.Log("位于" + a + "排" + b + "列");
         iconList[a + b].GetComponent<Image>().sprite = eInfo.sprite;
 
 

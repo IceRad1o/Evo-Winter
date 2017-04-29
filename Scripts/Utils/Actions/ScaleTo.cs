@@ -123,6 +123,8 @@ public class ScaleTo : Action
                 this.GetComponent<RectTransform>().localScale += speed;
                 yield return null;
             }
+            if (isReverseDelay)
+                yield return new WaitForSeconds(reverseDelayTime);
             if (isReverse)
             {
                 count = (int)((duration * 60) );

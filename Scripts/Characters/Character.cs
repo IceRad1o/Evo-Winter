@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class Character : RoomElement
 {
     //音频
@@ -187,7 +187,7 @@ public class Character : RoomElement
             float temp = 0;
             
             if (value <= 0)
-                temp = 0f;
+                temp = 0.025f;
             else if (value == 1)
                 temp = 0.05f;
             else if (value == 2)
@@ -223,7 +223,7 @@ public class Character : RoomElement
         {
             float temp = 0;
             if (value <= 0)
-                temp = 0f;
+                temp = 0.025f;
             else  if (value == 1)
                 temp = 0.5f;
             else if (value == 2)
@@ -323,13 +323,13 @@ public class Character : RoomElement
             hitRecoverTmp = value;
             
             if (value <= 0)
-                HitRecoverIn = 1f;
+                HitRecoverIn = 0.5f;
             else if (value == 1)
-                HitRecoverIn = 1.5f;
+                HitRecoverIn = 1f;
             else if (value == 2)
-                HitRecoverIn = 2f;
+                HitRecoverIn = 1.7f;
             else if (value == 3)
-                HitRecoverIn = 2.5f;
+                HitRecoverIn = 2.4f;
             else if (value == 4)
                 HitRecoverIn = 3f;
             else if (value >= 5)
@@ -691,40 +691,37 @@ public class Character : RoomElement
    public virtual void Start()
     {
 
-        //初始化
-        state = 0;//静止
-        IsAlive = 1;//活着
-        canMove = 1;//可以移动
-        controllable = 1;//可以被控制
-        invincible = 0;//不无敌
-        //weapon = 0;//默认近战武器
-        deadTime =50;//死亡延迟时间
-        faceDirection = -1;
-        direction =new Vector3(-1, 0, 0);
-        weaponObj =this.GetComponent<CharacterSkin>().WeaponNode;
-        //Debug.Log("REID:"+RoomElementID);
-        if (weapon == 1)
-        {
-           // Debug.Log(123);
-            weaponObj2 = this.GetComponent<CharacterSkin>().Weapon2Node;
-        }
-        anim = this.GetComponent<Animator>();
-       
-       //初始化基本属性
-        Health = initialHealth;
-        MoveSpeed = initialMoveSpeed;
-        AttackSpeed = initialAttackSpeed;
-        AttackDamage = initialAttackDamage;
-        Luck = initialLuck;
-        HitRecover = initialHitRecover;
+      
 
-
-        AttackRange = initialAttackRange;
-
-        //Debug.Log("ii:"+initialAttackDamage);
+    
 
     }
+   void init()
+   {
+       //初始化
+       state = 0;//静止
+       IsAlive = 1;//活着
+       canMove = 1;//可以移动
+       controllable = 1;//可以被控制
+       invincible = 0;//不无敌
+       //weapon = 0;//默认近战武器
+       deadTime = 50;//死亡延迟时间
+       faceDirection = -1;
+       direction = new Vector3(-1, 0, 0);
 
+       anim = this.GetComponent<Animator>();
+
+       //初始化基本属性
+       Health = initialHealth;
+       MoveSpeed = initialMoveSpeed;
+       AttackSpeed = initialAttackSpeed;
+       AttackDamage = initialAttackDamage;
+       Luck = initialLuck;
+       HitRecover = initialHitRecover;
+
+
+       AttackRange = initialAttackRange;
+   }
 
    void Update()
    {
@@ -766,7 +763,7 @@ public class Character : RoomElement
         weapon = RoomElementID % 10;
    
         race = RoomElementID % 100 / 10;
-
+        init();
         //Transform bodyNode = gameObject.transform.FindChild("BodyNode");
         //Transform body = gameObject.transform.FindChild("Body");
         //body.SetParent(bodyNode);
@@ -821,15 +818,19 @@ public class Character : RoomElement
 
     public void ChangeWeaponRange()
     {
-        if (weapon == 0)
-        {
+        //if (weapon == 0)
+        //{
           
-            this.GetComponent<CharacterSkin>().WeaponNode.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
-        }
-        if(weapon==1)
+        //    this.GetComponent<CharacterSkin>().WeaponNode.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
+        //}
+        //if(weapon==1)
+        //{
+        //    weaponObj.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
+        //    //weaponObj2.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
+        //}
+        for(int i=0;i<weapons.Length;i++)
         {
-            weaponObj.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
-            //weaponObj2.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
+            weapons[i].transform.parent.localScale = new Vector3(attackRange, attackRange, attackRange);
         }
 
     }
@@ -844,6 +845,7 @@ public class Character : RoomElement
             lastFramesAndRate = -lastFramesAndRate;
         this.lastFrames = lastFramesAndRate % 1000;
       
+        //移速修正,因为攻速可能会导致动画变短
         StartCoroutine(MoveByCoroutine());
        
     }
@@ -905,10 +907,41 @@ public class Character : RoomElement
     }
 
 
+    /// <summary>
+    /// 当执行死亡动画开始时调用,以防诈尸
+    /// </summary>
     public void StopPushState()
     {
         actionStateMachine.isStoped = true;
     }
+
+    public int[] GetAttris()
+    {
+        List<int> attrilist = new List<int>();
+        attrilist.Add(Health);
+        attrilist.Add(AttackDamage);
+        attrilist.Add(AttackSpeed);
+        attrilist.Add(AttackRange);
+        attrilist.Add(MoveSpeed);
+        attrilist.Add(HitRecover);
+        attrilist.Add(Luck);
+        attrilist.Add(FaceDirection);
+        return attrilist.ToArray();
+    }
+
+    public void LoadAttris(int[] attris)
+    {
+        Health = attris[0];
+        AttackDamage = attris[1];
+        AttackSpeed = attris[2];
+        AttackRange = attris[3];
+        MoveSpeed = attris[4];
+        HitRecover = attris[5];
+        Luck = attris[6];
+
+        Direction = new Vector3(attris[7], 0, 0);
+    }
+    
 
 
 }

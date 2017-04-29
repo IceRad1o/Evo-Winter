@@ -18,7 +18,7 @@ public class PreferenceManager : ExUnitySingleton<PreferenceManager> {
     }
 
 
-    void Start()
+    void Awake()
     {
         InitData();
         
@@ -36,5 +36,7 @@ public class PreferenceManager : ExUnitySingleton<PreferenceManager> {
             data.BackGroundMusicVolume = float.Parse(str[1]);
         if (str[0] == "EfxVolumeChanged")
             data.SoundEffectVolume = float.Parse(str[1]);
+        if (str[0] == "IsVolumeOnChanged")
+            data.IsVolumeOn = int.Parse(str[1]);
     }
 }

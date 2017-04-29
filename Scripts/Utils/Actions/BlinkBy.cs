@@ -23,6 +23,7 @@ public class BlinkBy : Action
 
     SpriteRenderer[] renders;
     Image[] images;
+    Text[] texts;
     void Start()
     {
 
@@ -37,7 +38,8 @@ public class BlinkBy : Action
         else
         {
             images = this.GetComponentsInChildren<Image>();
-            if (images == null)
+           texts = this.GetComponentsInChildren<Text>();
+            if (images == null&&texts==null)
                 return;
             StartCoroutine(IEumUIBlinkBy());
         }
@@ -116,12 +118,22 @@ public class BlinkBy : Action
                         {
                             r.color = new Color(r.color.r, r.color.g, r.color.b, 0);
                         }
+                        foreach (Text r in texts)
+                        {
+                            r.color = new Color(r.color.r, r.color.g, r.color.b, 0);
+                        }
                     }
                     else
+                    {
                         foreach (Image r in images)
                         {
                             r.color = new Color(r.color.r, r.color.g, r.color.b, 1);
                         }
+                        foreach (Text r in texts)
+                        {
+                            r.color = new Color(r.color.r, r.color.g, r.color.b, 1);
+                        }
+                    }
 
                     flag = !flag;
                 }

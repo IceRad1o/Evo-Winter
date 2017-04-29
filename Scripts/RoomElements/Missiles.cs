@@ -13,6 +13,7 @@ public class Missiles : MonoBehaviour {
     public int speedLevel = 1;
     public float speedBuff = 1;
 
+    [HideInInspector]
     //穿透性，0无，1有
     public int penetrating = 0;
     //方向，-1左，1右

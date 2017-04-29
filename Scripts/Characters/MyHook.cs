@@ -34,7 +34,10 @@ public class MyHook : MonoBehaviour {
 
     void Update()
     {
-        if(isWork)
-            tar.transform.position = this.transform.position+offset;
+        if (isWork)
+        {
+            if(tar!=null)
+                tar.transform.position = this.transform.position + offset;
+        } 
     }
 }

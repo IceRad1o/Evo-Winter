@@ -42,6 +42,8 @@ public class CreerInfo : ExUnitySingleton<CreerInfo> {
 
     public void SetCreer(int id)
     {
+        /*缺少美术资源*/
+        return;
         switch (id)
         {
             case 0:

@@ -25,9 +25,20 @@ public class PreferenceData  {
         }
     }
 
+    private int isVolumeOn;
+
+    public int IsVolumeOn
+    {
+        get { return isVolumeOn; }
+        set {
+            isVolumeOn = value;
+            PlayerPrefs.SetInt("isVolumeOn", isVolumeOn);
+        }
+    }
+
     public void Init(){
         backGroundMusicVolume = PlayerPrefs.GetFloat("backGroundMusicVolume",1.0f);
         soundEffectVolume=PlayerPrefs.GetFloat("soundEffectVolume",1.0f);
-        
+        isVolumeOn = PlayerPrefs.GetInt("isVolumeOn", 1);
     }
 }

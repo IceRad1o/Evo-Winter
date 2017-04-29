@@ -12,6 +12,7 @@ public class KeyBoardManager : MonoBehaviour {
 
     Vector3 direction;
     public GameObject DamageSrc;
+    public GameObject box;
     int cheatPunish;
     void Start()
     {
@@ -148,6 +149,23 @@ public class KeyBoardManager : MonoBehaviour {
         {
             RandomCharacter();
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GetBox();
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            AddAttackSpeed();
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!PlayerInfo.Instance.gameObject.activeInHierarchy)
+                PlayerInfo.Instance.Display();
+            else
+                PlayerInfo.Instance.Undisplay();
+        }
+
 	}
 
     public void RemoveAi()
@@ -189,5 +207,18 @@ public class KeyBoardManager : MonoBehaviour {
         int b = Random.Range(0, 2);
         PlayerManager.Instance.InitPlayer(a );
     }
+
+
+    public void GetBox()
+    {
+        Instantiate(box, Player.Instance.transform.position, Quaternion.identity);
+    }
+
+    public void AddAttackSpeed()
+    {
+        Player.Instance.Character.AttackSpeed += 1;
+        Player.Instance.Character.MoveSpeed += 1;
+    }
+
 
 }

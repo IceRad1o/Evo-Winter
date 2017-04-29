@@ -10,7 +10,7 @@ public class iTweenTest : MonoBehaviour {
 	void Start () {
         Hashtable args = new Hashtable();
         args.Add("time", 2f);//设置动画实现消耗时间   time 一定不要写错
-        args.Add("easeType", iTween.EaseType.easeInQuad);//设置动感播放类型 这个是线形运动 也就是匀速 默认 是加速减速
+        args.Add("easeType", iTween.EaseType.easeInQuad);//设置动感播放类型 //这个是线形运动 也就是匀速 默认 是加速减速
         args.Add("x", -20);
         args.Add("y", 0);
         args.Add("z", 0);
