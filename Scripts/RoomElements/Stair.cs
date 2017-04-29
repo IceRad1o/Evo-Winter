@@ -36,7 +36,8 @@ public class Stair : RoomElement {
             RoomManager.Instance.SetupScene(CheckpointManager.Instance.roomList[roomNumber].type,
                                     CheckpointManager.Instance.roomList[roomNumber].doorDirection,
                                     CheckpointManager.Instance.roomList[roomNumber].roomX,
-                                    CheckpointManager.Instance.roomList[roomNumber].roomY);
+                                    CheckpointManager.Instance.roomList[roomNumber].roomY,
+									CheckpointManager.Instance.roomList[roomNumber].roomSize);
 
             RoomManager.Instance.Notify("EnterRoom;Unknow");
         }

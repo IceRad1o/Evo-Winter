@@ -45,7 +45,8 @@ public class Door : RoomElement
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).type,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).doorDirection,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomX,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomY);
+                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomY,
+									CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomSize);
                     }
                     else
                     {
@@ -59,7 +60,8 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementID,
                             ProfileManager.Instance.Data.RoomElementPosX,
                             ProfileManager.Instance.Data.RoomElementPosY,
-                            ProfileManager.Instance.Data.RoomElementPosZ);
+                            ProfileManager.Instance.Data.RoomElementPosZ,
+							CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomSize);
 
                     }
                     break;
@@ -72,7 +74,8 @@ public class Door : RoomElement
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).type,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).doorDirection,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomX,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomY);
+                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomY,
+									CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomSize);
                     }
                     else
                     {
@@ -86,7 +89,8 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementID,
                             ProfileManager.Instance.Data.RoomElementPosX,
                             ProfileManager.Instance.Data.RoomElementPosY,
-                            ProfileManager.Instance.Data.RoomElementPosZ);
+                            ProfileManager.Instance.Data.RoomElementPosZ,
+							CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomSize);
 
                     }                   
                     break;
@@ -99,7 +103,8 @@ public class Door : RoomElement
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).type,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).doorDirection,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomX,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomY);
+                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomY,
+									CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomSize);
                     }
                     else
                     {
@@ -114,7 +119,8 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementID,
                             ProfileManager.Instance.Data.RoomElementPosX,
                             ProfileManager.Instance.Data.RoomElementPosY,
-                            ProfileManager.Instance.Data.RoomElementPosZ);
+                            ProfileManager.Instance.Data.RoomElementPosZ,
+							CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomSize);
 
                     }
                     break;
@@ -127,7 +133,8 @@ public class Door : RoomElement
                         RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).type,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).doorDirection,
                                     CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomX,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomY);
+                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomY,
+									CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomSize);
                     }
                     else
                     {
@@ -141,7 +148,8 @@ public class Door : RoomElement
                             ProfileManager.Instance.Data.RoomElementID,
                             ProfileManager.Instance.Data.RoomElementPosX,
                             ProfileManager.Instance.Data.RoomElementPosY,
-                            ProfileManager.Instance.Data.RoomElementPosZ);
+                            ProfileManager.Instance.Data.RoomElementPosZ,
+							CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomSize);
 
                     }
                     break;

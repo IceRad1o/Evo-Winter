@@ -46,14 +46,15 @@ public class GameManager : ExUnitySingleton<GameManager>{
             RoomManager.Instance.SetupScene(CheckpointManager.Instance.roomList[roomNumber].type,
                                     CheckpointManager.Instance.roomList[roomNumber].doorDirection,
                                     CheckpointManager.Instance.roomList[roomNumber].roomX,
-                                    CheckpointManager.Instance.roomList[roomNumber].roomY);
+                                    CheckpointManager.Instance.roomList[roomNumber].roomY,
+									CheckpointManager.Instance.roomList[roomNumber].roomSize);
             RoomManager.Instance.Notify("EnterRoom;Unknow;" + CheckpointManager.Instance.roomList[roomNumber].type);
         }
 
         else
         {
             //ProfileManager.Instance.Data.CurMapX;
-            CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsMapPassed);
+			CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsMapPassed, ProfileManager.Instance.Data.RoomSize);
 
             RoomManager.Instance.LoadScene(
                 ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns)+ProfileManager.Instance.Data.CurMapY * (CheckpointManager.Instance.rows)],
@@ -64,7 +65,8 @@ public class GameManager : ExUnitySingleton<GameManager>{
                 ProfileManager.Instance.Data.RoomElementID,
                 ProfileManager.Instance.Data.RoomElementPosX,
                 ProfileManager.Instance.Data.RoomElementPosY,
-                ProfileManager.Instance.Data.RoomElementPosZ);
+                ProfileManager.Instance.Data.RoomElementPosZ,
+				CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).roomSize);
 
 
             

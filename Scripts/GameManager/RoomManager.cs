@@ -29,6 +29,13 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     private int roomType;
 	//宝箱房间号//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
     private int boxTypeRoom = 1;
+	//房间大小，1小，2中，3大
+	private int roomSize = 3;
+	public int RoomSize
+	{
+		get { return roomSize; }
+		set { roomSize = value; }
+	}
     //行列
     private int rows = 3;
     private int columns = 12;
@@ -460,8 +467,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
     }
 
-    //设置场景,类型号，门位置,房间x，房间y
-    public void SetupScene(int tp, int[] dp, int x, int y)
+    //设置场景,类型号，门位置,房间x，房间y，房间大小r
+	public void SetupScene(int tp, int[] dp, int x, int y,int r)
     {
         ClearAll();
         SetDoorDierction(dp);
@@ -471,6 +478,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
+		roomSize = r;
 
         //if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
         if(tp == -2)
@@ -512,8 +520,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
 
 
-    //加载确定场景 类型号tp,房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
-    public void LoadScene(int tp,int x,int y,int[] dp,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ)
+    //加载确定场景 类型号tp,房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[],房间大小roomS
+	public void LoadScene(int tp,int x,int y,int[] dp,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ,int roomS)
     {
         //Debug.Log("LoadScene进入" + x + ";" + y);
         ClearAll();
@@ -526,6 +534,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         {
             LayoutStair();
         }
+		roomSize = roomS;
 
         int count = 0;
         for (int i = 0; i < roomX.Length; i++)

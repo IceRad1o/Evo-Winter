@@ -19,13 +19,21 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         public int roomY;
         //门位置
         public int[] doorDirection = new int[4];
+		//房间大小，1小，2中，3大
+		public int roomSize = 3;
+		public int RoomSize
+		{
+			get { return roomSize; }
+			set { roomSize = value; }
+		}
         //构造函数
-        public Room(int tp, int x, int y,int[] doorDir,int ps)
+		public Room(int tp, int x, int y,int[] doorDir,int ps, int rs)
         {
             pass = ps;
             type = tp;
             roomX = x;
             roomY = y;
+			roomSize = rs;
             for (int i = 0; i < 4;i++ )
                 doorDirection[i] = doorDir[i];
         }
@@ -206,7 +214,16 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                     int surroundRoomNumber = GetSurroundRoom(i, j);
 					//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
                     int type = Random.Range(1, 15);
-                    roomList.Add(new Room(type, i, j, surroundRoom, 0));
+					//设置房间大小
+					int rmSize;
+					if (type == 1)
+						rmSize = 1;
+					else if (type == 2)
+						rmSize = 2;
+					else
+						rmSize = Random.Range(1,3);
+					//添加房间类
+					roomList.Add(new Room(type, i, j, surroundRoom, 0, rmSize));
                     k++;
                     roomArray[i, j] = type;
                 }
@@ -241,7 +258,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 
 
     //载入关卡
-    public void LoadCheckpoint(int[] r, int[] isPass)
+	public void LoadCheckpoint(int[] r, int[] isPass, int []rms)
     {
         roomList.Clear();
         CheckpointNumber++;
@@ -263,7 +280,8 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 {
                     int surroundRoomNumber = GetSurroundRoom(i, j);
                     //int type = Random.Range(1, 6);
-                    roomList.Add(new Room(r[i * columns + j], i, j, surroundRoom, isPass[i * columns + j]));
+					roomList.Add(new Room
+						(r[i * columns + j], i, j, surroundRoom, isPass[i * columns + j],rms[i * columns + j]));
                 }
 
             }
