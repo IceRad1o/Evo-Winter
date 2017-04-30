@@ -44,7 +44,7 @@ public class Skill : ExSubject
     /// <summary>
     /// 技能状态，表示是否进入冷却,0表示在CD,1表示未进CD
     /// </summary>
-    private int state;
+    private int state=1;
     public int State
     {
         get { return state; }
@@ -83,6 +83,7 @@ public class Skill : ExSubject
         //判断是否进入cd
         if (state==0)
             return;
+
         //进入cd，若是无cd，则cd=0，state立即=1，等于未进
         state = 0;
         StartCoroutine(InCd());

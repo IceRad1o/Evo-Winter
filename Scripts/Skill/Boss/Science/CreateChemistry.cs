@@ -8,7 +8,6 @@ public class CreateChemistry : Skill {
     {
         base.Trigger();
         Cd = 5;
-
         UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Chemistry", this.gameObject.transform.position);       
     }
     

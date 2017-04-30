@@ -162,6 +162,9 @@ public class UtilManager : UnitySingleton<UtilManager>
         GameObject prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = pos;
 
+
+
+
         return prefabInstance;
 
     }
