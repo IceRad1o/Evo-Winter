@@ -133,18 +133,20 @@ public class UtilManager : UnitySingleton<UtilManager>
 
 
 
-    public void CreateEffcet(GameObject prefabInstance, Vector3 pos = new Vector3())
+    public void CreateEffcet(GameObject pfb, Vector3 pos = new Vector3())
     {
-        if (prefabInstance == null )
+        if (pfb == null)
             return;
+        GameObject prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = pos;
     }
 
-    public void CreateEffcet(GameObject prefabInstance, GameObject ob, Vector3 deviation = new Vector3())
+    public void CreateEffcet(GameObject pfb, GameObject ob, Vector3 deviation = new Vector3())
     {
-        if (prefabInstance == null || ob==null)
+        if (pfb == null || ob==null)
             return;
         Vector3 s = new Vector3(ob.gameObject.transform.position.x + deviation.x, ob.gameObject.transform.position.y + deviation.y, ob.gameObject.transform.position.z + deviation.z);
+        GameObject prefabInstance = Instantiate(pfb);
         Vector3 Scale = prefabInstance.transform.localScale;
         prefabInstance.transform.position = s;
         prefabInstance.transform.parent = ob.gameObject.transform;
@@ -152,6 +154,20 @@ public class UtilManager : UnitySingleton<UtilManager>
     
     }
 
+    public GameObject CreateEffcet(string pfbPath, Vector3 pos = default(Vector3))
+    {
+        if (pfbPath == "" )
+            return null;
+        GameObject pfb = Resources.Load(pfbPath) as GameObject;
+        GameObject prefabInstance = Instantiate(pfb);
+        prefabInstance.transform.position = pos;
+
+
+
+
+        return prefabInstance;
+
+    }
 
     public GameObject CreateEffcet(string pfbPath, GameObject ob, Vector3 deviation = default(Vector3))
     {

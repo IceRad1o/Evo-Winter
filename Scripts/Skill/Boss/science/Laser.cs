@@ -78,9 +78,10 @@ public class Laser : MonoBehaviour {
     IEnumerator DestroyLaser()
     {
         yield return new WaitForSeconds(destroyDelay);
-        //destroyEffect.gameObject.transform.position = this.gameObject.transform.position;
-        //destroyEffect.gameObject.transform.localScale = this.gameObject.transform.localScale;
-        //UtilManager.Instance.CreateEffcet(destroyEffect, destroyEffect.transform.position);
+        GameObject prefabInstance = Instantiate(destroyEffect);
+        prefabInstance.gameObject.transform.position = this.gameObject.transform.position;
+        prefabInstance.gameObject.transform.localScale = this.gameObject.transform.localScale;
+        UtilManager.Instance.CreateEffcet(prefabInstance, prefabInstance.transform.position);
         Destroy(this.gameObject);
     }
 
@@ -89,16 +90,8 @@ public class Laser : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            int sum = 0;
-            sum+=Player.Instance.GetComponent<Character>().MoveSpeed;
-            sum += Player.Instance.GetComponent<Character>().MoveSpeed;
-            sum += Player.Instance.GetComponent<Character>().AttackSpeed;
-            sum += Player.Instance.GetComponent<Character>().Luck;
-            sum += Player.Instance.GetComponent<Character>().HitRecover;
-
-            sum-=5;
-            int[] number={1,1,1,1,1};
-            //for (int i=1;i)
+            Debug.Log("Laser Trigger   ");
+            other.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(7110);
         }
 
     }

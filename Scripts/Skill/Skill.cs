@@ -42,9 +42,9 @@ public class Skill : ExSubject
         set { probability = value; }
     }
     /// <summary>
-    /// 技能状态，表示是否进入冷却
+    /// 技能状态，表示是否进入冷却,0表示在CD,1表示未进CD
     /// </summary>
-    private int state;
+    private int state=1;
     public int State
     {
         get { return state; }
@@ -67,7 +67,7 @@ public class Skill : ExSubject
     {
         //创建random的实例
         System.Random random = new System.Random();
-        if (random.Next(100) <= probability)
+        if (random.Next(100) >= probability)
             return true;
         else
             return false;
@@ -75,7 +75,19 @@ public class Skill : ExSubject
     /// <summary>
     /// 技能的触发
     /// </summary>
-    virtual public void Trigger() { }
+    virtual public void Trigger() 
+    {
+        //概率，判断是否满足，如果非概率触发，因为probability=0，一定触发
+        if (!JudgeTrigger())
+            return;
+        //判断是否进入cd
+        if (state==0)
+            return;
+
+        //进入cd，若是无cd，则cd=0，state立即=1，等于未进
+        state = 0;
+        StartCoroutine(InCd());
+    }
 
     virtual public void Create(int ID) { SkillID = ID; this.gameObject.GetComponent<SkillManager>().SkillList.Add(this); }
     /// <summary>
@@ -83,10 +95,19 @@ public class Skill : ExSubject
     /// </summary>
     /// <param name="time">延迟的时间</param>
     /// <returns></returns>
-    virtual protected IEnumerator delay(float time)
+    virtual protected IEnumerator DelayTrigger(float time)
     {
         yield return new WaitForSeconds(time);
         Trigger();
+    }
+    /// <summary>
+    /// 进入CD
+    /// </summary>
+    /// <returns></returns>
+    virtual public IEnumerator InCd()
+    {
+        yield return new WaitForSeconds(Cd);
+        state = 1;
     }
     /// <summary>
     /// 技能脚本的销毁

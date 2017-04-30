@@ -73,6 +73,10 @@ public class BuffTiming : Buff {
                 DamageUp newBuff7 = ob.AddComponent<DamageUp>();
                 newBuff7.Create(ID);
                 break;
+            case 7:
+                AttributeRandom newBuff8 = ob.AddComponent<AttributeRandom>();
+                newBuff8.Create(ID);
+                break;
 
             default:
                 break;

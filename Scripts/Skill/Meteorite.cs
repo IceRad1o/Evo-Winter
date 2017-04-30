@@ -9,7 +9,7 @@ public class Meteorite : Skill {
         SkillID = ID;
         LeadingTime = 0.0f;
         Cd = 10.0f;
-        StartCoroutine(delay(1.0f));
+        StartCoroutine(DelayTrigger(1.0f));
     }
 
     public override void Trigger()
@@ -22,7 +22,7 @@ public class Meteorite : Skill {
 
 
 
-        StartCoroutine(delay(Cd));
+        StartCoroutine(DelayTrigger(Cd));
 
     }
     /// <summary>
