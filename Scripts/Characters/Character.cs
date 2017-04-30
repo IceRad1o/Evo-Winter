@@ -135,7 +135,7 @@ public class Character : RoomElement
         }
     }
 
-    public  int Health 
+    public virtual int Health 
     {
         get { return healthTmp; }
         set
@@ -149,12 +149,13 @@ public class Character : RoomElement
 
             int temp = healthTmp;
             healthTmp = value;
-            if (Health < 0)
-                HealthIn = value;
-            else if (Health > 10)
-                HealthIn = 10;
-            else
-                HealthIn = value;
+            //if (Health < 0)
+            //    HealthIn = value;
+            //else if (Health > 10)
+            //    HealthIn = 10;
+            //else
+            //    HealthIn = value;
+            HealthIn = value;
             Notify("HealthChanged;" + temp + ";" + healthTmp + ";"+this.tag);
 
         }
@@ -284,8 +285,9 @@ public class Character : RoomElement
         {
             float tmp = attackDamage;
             attackDamage = value;
-           
-            GetComponent<CharacterSkin>().Weapon.GetComponent<HurtByContract>().damage =(int) attackDamage;
+            foreach (GameObject weapon in weapons)
+                weapon.GetComponent<HurtByContract>().damage = (int)attackDamage;
+            //GetComponent<CharacterSkin>().Weapon.GetComponent<HurtByContract>().damage =(int) attackDamage;
             //if(weapon==1&&race==0)
                // GetComponent<CharacterSkin>().Weapon2.GetComponent<HurtByContract>().damage = (int)attackDamage;
             Notify("AttackDamageInChanged;"+tmp+";"+attackDamage);
