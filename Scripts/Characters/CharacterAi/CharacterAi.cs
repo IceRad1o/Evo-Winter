@@ -99,4 +99,31 @@ public class CharacterAi : MonoBehaviour
 
 
     }
+
+
+    public void SetIdle()
+    {
+        character.State = 0;
+    }
+
+    public void SetMove()
+    {
+        character.State = 1;
+    }
+
+
+    public void SetDirection()
+    {
+        tar = Player.Instance.Character;
+        Vector3 destPos = tar.transform.position;
+        Vector3 srcPos = transform.position;
+        Vector3 offset = destPos - srcPos;
+        offset.Normalize();
+        if(!character)
+            character = GetComponent<Character>();
+        character.Direction = offset;
+      //Vector3 a=GetComponent<BehaviorDesigner.Runtime.BehaviorTree>().GetVariable("Distance");
+       
+    }
+
 }

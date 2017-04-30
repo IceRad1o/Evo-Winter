@@ -11,6 +11,8 @@ namespace BehaviorDesigner.Runtime.Tasks
     [TaskIcon("{SkinColor}ReflectionIcon.png")]
     public class InvokeMethod : Action
     {
+        [Tooltip("Store the result of the invoke call")]
+        public SharedVariable storeResult;
         [Tooltip("The GameObject to invoke the method on")]
         public SharedGameObject targetGameObject;
         [Tooltip("The component to invoke the method on")]
@@ -25,8 +27,7 @@ namespace BehaviorDesigner.Runtime.Tasks
         public SharedVariable parameter3;
         [Tooltip("The fourth parameter of the method")]
         public SharedVariable parameter4;
-        [Tooltip("Store the result of the invoke call")]
-        public SharedVariable storeResult;
+
 
         public override TaskStatus OnUpdate()
         {
