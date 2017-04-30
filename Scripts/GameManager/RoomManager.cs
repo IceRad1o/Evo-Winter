@@ -61,6 +61,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     public GameObject[] enemys;
 	//Boss
 	public GameObject[] boss;
+
     //房间坐标位置
     public int roomX;
     public int roomY;
@@ -71,10 +72,17 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         get { return doorDirection; }
         set { doorDirection = value; }
     }
+	//大房间的门
     private Vector3 door0 = new Vector3(0f, 1.4f * 2f,  0f);
     private Vector3 door1 = new Vector3(0f, -4.7f * 2f, 0f);
     private Vector3 door2 = new Vector3(-12.8f, -1.46f * 2f, 0f);
     private Vector3 door3 = new Vector3(12.8f,  -1.46f * 2f, 0f);
+	//中房间的左右门
+	private Vector3 door22 = new Vector3(-8.8f, -1.46f * 2f, 0f);
+	private Vector3 door32 = new Vector3(8.8f,  -1.46f * 2f, 0f);
+	//小房间的左右门
+	private Vector3 door23 = new Vector3(-5.8f, -1.46f * 2f, 0f);
+	private Vector3 door33 = new Vector3(5.8f,  -1.46f * 2f, 0f);
     //单个物件长度
     private int objLen = 10;
     //宝箱位置
@@ -93,21 +101,15 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     private List<Vector3> statuePosition = new List<Vector3>();
     //列表ID:5 爪子
     private List<Vector3> clawPosition = new List<Vector3>();
-
     //列表ID:6 固定位置
     private List<Vector3> settledPosition = new List<Vector3>();
-
 
 
     void Start()
     {
         EnemyManager.Instance.AddObserver(this);
     }
-
-
-
-
-
+		
 
     //墙上物体位置向量
     /* 门Y:1.4       X最小间距2
@@ -145,11 +147,15 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         }
         if (doorDirection[2] == 1)
         {
-            doorPosition.Add(door2);
+			if(roomSize == 1) doorPosition.Add(door23);
+			else if(roomSize == 2) doorPosition.Add(door22);
+            else doorPosition.Add(door2);
         }
         if (doorDirection[3] == 1)
         {
-            doorPosition.Add(door3);
+			if(roomSize == 1) doorPosition.Add(door33);
+			else if(roomSize == 2) doorPosition.Add(door32);
+            else doorPosition.Add(door3);
         }    
 
         //doorPosition.Add(new Vector3(x, 1.4f, 0f));
@@ -178,22 +184,44 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
         //固定位置列表
         settledPosition.Clear();
-        settledPosition.Add(new Vector3(-12f, -0.5f, 0f));
-        settledPosition.Add(new Vector3(-11f, -6.0f, 0f));
-        settledPosition.Add(new Vector3(-9f, -3f, 0f));
-        settledPosition.Add(new Vector3(-6f, -1.5f, 0f));
-        settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
-        settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
-        settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
-
-        settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
-        settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
-        settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
-        settledPosition.Add(new Vector3(6f, -3.5f, 0f));
-        settledPosition.Add(new Vector3(9f, -0.5f, 0f));
-        settledPosition.Add(new Vector3(9f, -6.5f, 0f));
-        settledPosition.Add(new Vector3(12f, -6.0f, 0f));
-
+		switch (roomSize)
+		{
+		case 1://小房间
+			settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
+			settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
+			settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
+			settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
+			settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
+			settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
+			break;
+		case 2://中房间
+			settledPosition.Add(new Vector3(-6f, -1.5f, 0f));
+			settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
+			settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
+			settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
+			settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
+			settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
+			settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
+			settledPosition.Add(new Vector3(6f, -3.5f, 0f));
+			break;
+		case 3://大房间
+			settledPosition.Add(new Vector3(-12f, -0.5f, 0f));
+			settledPosition.Add(new Vector3(-11f, -6.0f, 0f));
+			settledPosition.Add(new Vector3(-9f, -3f, 0f));
+			settledPosition.Add(new Vector3(-6f, -1.5f, 0f));
+			settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
+			settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
+			settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
+			settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
+			settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
+			settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
+			settledPosition.Add(new Vector3(6f, -3.5f, 0f));
+			settledPosition.Add(new Vector3(9f, -0.5f, 0f));
+			settledPosition.Add(new Vector3(9f, -6.5f, 0f));
+			settledPosition.Add(new Vector3(12f, -6.0f, 0f));
+			break;
+		}
+       
 
     }
 
@@ -294,6 +322,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         int objectCount = Random.Range(minimum, maximum);
         for (int i = 0; i < objectCount; i++)
         {
+			if (roomSize < 3)
+				objectCount--;
             GameObject objectChoice;
             Vector3 randomPosition = RandomPosition(3);
 			//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
@@ -311,7 +341,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 				//道具
 				for (int j = 0; j < 5; j++) {
 					ItemManager.Instance.ItemsTransform.position = new Vector3(
-						Random.Range(-6,6), Random.Range(-2,-6), 0f);
+						Random.Range(-3,3), Random.Range(-2,-6), 0f);
 					ItemManager.Instance.CreateItemDrop(false, false, true);
 				}
 
@@ -406,7 +436,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                 j++;
             }
         }
-    }
+    }		
 
     //设置房间位置
     void SetRoomXY(int x, int y, int tp)
@@ -417,7 +447,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     }
 
     //特定生成函数中门位置
-    void InitDoorList()
+	void InitDoorList(int x, int y)
     {
         doorPosition.Clear();
 
@@ -431,18 +461,34 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         }
         if (doorDirection[2] == 1)
         {
-            doorPosition.Add(door2);
+			if (CheckpointManager.Instance.GetNextRoom (x, y).roomSize == 1)
+				doorPosition.Add (door23);
+			else if (CheckpointManager.Instance.GetNextRoom (x, y).roomSize == 2)
+				doorPosition.Add (door22);
+			else
+				doorPosition.Add (door2);
         }
         if (doorDirection[3] == 1)
         {
-            doorPosition.Add(door3);
+			if (CheckpointManager.Instance.GetNextRoom (x, y).roomSize == 1)
+				doorPosition.Add (door33);
+			else if (CheckpointManager.Instance.GetNextRoom (x, y).roomSize == 2)
+				doorPosition.Add (door32);
+			else
+				doorPosition.Add (door3);
         }    
     }
 
     //在最后一个房间生成楼梯
     void LayoutStair()
     {
-        Vector3 position = new Vector3(12f,0f,0f);
+		Vector3 position;
+		if(roomSize == 1)
+        	position = new Vector3(5f,0f,0f);
+		else if(roomSize == 2)
+			position = new Vector3(8f,0f,0f);
+		else 
+			position = new Vector3(12f,0f,0f);
         GameObject objectChoice = stair[0];
         GameObject roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
         roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
@@ -470,6 +516,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     //设置场景,类型号，门位置,房间x，房间y，房间大小r
 	public void SetupScene(int tp, int[] dp, int x, int y,int r)
     {
+		roomSize = r;
         ClearAll();
         SetDoorDierction(dp);
         InitialiseList();
@@ -478,7 +525,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
-		roomSize = r;
+		GameManager.Instance.LayoutWall (x, y);
 
         //if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
         if(tp == -2)
@@ -527,9 +574,10 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         ClearAll();
 
         SetDoorDierction(dp);
-        InitDoorList();
+		InitDoorList(x, y);
         SetRoomXY(x, y, tp);
-        LayoutDoor();
+		LayoutDoor();
+		GameManager.Instance.LayoutWall (x, y);
         if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
         {
             LayoutStair();
