@@ -325,6 +325,10 @@ public class SkillManager : ExSubject
             this.GetComponent<Character>().AddObserver(this);
             EsscenceManager.Instance.AddObserver(this);
         }
+        if (this.tag == "Boss")
+        {
+            this.gameObject.AddComponent<BossSkillManager>();
+        }
     }
 
     public void DestoryManager()
