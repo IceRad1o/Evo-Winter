@@ -94,7 +94,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             //Item
             List<int> tempID = new List<int>();
             List<int> temp2 = new List<int>();
-
+			List<int> temp3 = new List<int>();
             if (ItemManager.Instance.itemInitiative!=null)
                 data.ItemEnergy = ItemManager.Instance.itemInitiative.EnergyNow;
        
@@ -146,17 +146,20 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
                     {
                         tempID.Add(1);
                         temp2.Add(CheckpointManager.Instance.GetNextRoom(i, j).pass);
+						temp3.Add(CheckpointManager.Instance.GetNextRoom(i, j).RoomSize);
                     }
                     else
                     {
                         tempID.Add(0);
                         temp2.Add(0);
+						temp3.Add(0);
                     }
                     
                 }
                 
             data.Map = tempID.ToArray();
             data.IsMapPassed = temp2.ToArray();
+			data.RoomSize = temp3.ToArray();
             data.CurLevel = CheckpointManager.Instance.CheckpointNumber;
             data.CurMapX = RoomManager.Instance.roomX;
             data.CurMapY = RoomManager.Instance.roomY;
