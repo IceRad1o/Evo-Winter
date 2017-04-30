@@ -10,13 +10,17 @@ public class Boss :Enemy{
     public float HealthPercent
     {
         get { return healthPercent; }
-        set { healthPercent = value; }
+        set { 
+            healthPercent = value;
+            Notify("HealthPercent;" + healthPercent);
+        }
     }
     public override void Start()
     {
         base.Start();
         this.tag = "Boss";
-     
+        this.AddObserver(BossHealthBar.Instance);
+        Notify("BossAppear");
         //EnemyManager.Instance.EnemyList.Add(this);
     }
 
@@ -30,7 +34,7 @@ public class Boss :Enemy{
         set
         {
             base.Health = value;
-            healthPercent =1.0f* Health / initialHealth;
+            HealthPercent =1.0f* Health / initialHealth;
 
 
         }
