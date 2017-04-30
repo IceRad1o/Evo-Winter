@@ -16,12 +16,17 @@ public class BossSkillManager : ExSubject{
 
     public void CreateSkill(int ID)
     {
+        Debug.Log("ID   :" + ID);
+
         //科学怪人的技能生成，触发
         if (ID == 500)
         {
             CreateLaser newSkill;
             if (this.gameObject.GetComponent<CreateLaser>() == null)
+            {
                 newSkill = this.gameObject.AddComponent<CreateLaser>();
+                newSkill.Create(ID);
+            }
             else
                 this.gameObject.GetComponent<CreateLaser>().Trigger();
             return;
@@ -31,7 +36,10 @@ public class BossSkillManager : ExSubject{
         {
             CreateChemistry newSkill;
             if (this.gameObject.GetComponent<CreateChemistry>() == null)
+            {
                 newSkill = this.gameObject.AddComponent<CreateChemistry>();
+                newSkill.Create(ID);
+            }
             else
                 this.gameObject.GetComponent<CreateChemistry>().Trigger();
             return;
@@ -41,7 +49,10 @@ public class BossSkillManager : ExSubject{
         {
             CreateScratch newSkill;
             if (this.gameObject.GetComponent<CreateScratch>() == null)
+            {
                 newSkill = this.gameObject.AddComponent<CreateScratch>();
+                newSkill.Create(ID);
+            }
             else
                 this.gameObject.GetComponent<CreateScratch>().Trigger();
             return;
@@ -59,11 +70,13 @@ public class BossSkillManager : ExSubject{
 
     public override void OnNotify(string msg)
     {
+        //Debug.Log(msg);
+
         string bID = "";
 
         bID = UtilManager.Instance.MatchFiledFormMsg("BossSkill", msg, 0);
         if (bID != "Fail" && bID != "Error")
-            CreateSkill(int.Parse(bID)+BossID*100);
+            CreateSkill(int.Parse(bID)+BossID*100+500);
 
     }
 
@@ -72,14 +85,14 @@ public class BossSkillManager : ExSubject{
     /// </summary>
     void Start()
     {
-        Player.Instance.GetComponent<Character>().AddObserver(this);
-        BossID = this.gameObject.GetComponent<Character>().RoomElementID - 250;
+        this.gameObject.GetComponent<Character>().AddObserver(this);
+        BossID = this.gameObject.GetComponent<Character>().RoomElementID - 2050;
 
     }
 
     public void DestoryManager()
     {
-        Player.Instance.GetComponent<Character>().RemoveObserver(this);
+        this.gameObject.GetComponent<Character>().RemoveObserver(this);
     }
 
     void Awake()
