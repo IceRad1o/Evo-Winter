@@ -16,7 +16,14 @@ public class ProfileData
     }
     int[] map;
     int[] isMapPassed;
-
+	int[] roomSize;
+	public int[] RoomSize
+	{
+		get { return roomSize; }
+		set { roomSize = value; 
+			PlayerPrefsX.SetIntArray("roomSize", roomSize);
+			}
+	}
     public int[] IsMapPassed
     {
         get { return isMapPassed; }

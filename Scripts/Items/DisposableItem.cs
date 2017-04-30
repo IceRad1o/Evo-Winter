@@ -54,7 +54,7 @@ public class DisposableItem : Item{
      */
     public void Create(int ID)
     {
-
+        RoomElementID = ID;
         CreateScript(ID);
         spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
 
@@ -71,15 +71,14 @@ public class DisposableItem : Item{
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
         ItemID = ID;
     }
-    /*@Destroy
-     *@Brief 销毁该实例
-     */
-    public void DestroyDisposableItem()
+    /// <summary>
+    /// 销毁实例
+    /// </summary>
+    public override void Destroy()
     {
-
         ItemManager.Instance.listDisposableItem.Remove(this);
-        //发送消息，一次性道具销毁
-        Destroy(gameObject);
+
+        base.Destroy();
     }
 
     public override void DestroyScript()
@@ -118,15 +117,15 @@ public class DisposableItem : Item{
         }
     }
     // Use this for initialization
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         //获取图片数组
         //itemSprite = itemSp.SpriteArray;
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }
-
 
     
 }

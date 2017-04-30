@@ -3,14 +3,11 @@ using System.Collections;
 
 public class SkillTest : MonoBehaviour {
 
-    System.DateTime oldTime;
+    public GameObject pfb;
 
 	void Start () {
         if(this.tag=="Player")
             StartCoroutine(Test());
-
-        oldTime = System.DateTime.Now;
-
         
 	}
     IEnumerator Test()
@@ -18,11 +15,8 @@ public class SkillTest : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
         //this.gameObject.GetComponent<SkillManager>().CreateSkill(4);
         //this.gameObject.GetComponent<SkillManager>().CreateSkill(3);
-        EsscenceManager.Instance.CreateEsscence(2);
-        EsscenceManager.Instance.CreateEsscence(2);
-        EsscenceManager.Instance.CreateEsscence(2);
-        EsscenceManager.Instance.CreateEsscence(2);
-        EsscenceManager.Instance.CreateEsscence(2);
+
+        UtilManager.Instance.CreateEffcet(pfb);
     }
 	
 }

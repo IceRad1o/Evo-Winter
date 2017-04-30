@@ -139,7 +139,49 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
     }
 
-    
+    /// <summary>
+    /// 创建一个道具
+    /// </summary>
+    /// <param name="ID">要创建道具的ID</param>
+    /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
+    public void CreateItemID(int ID, bool trans = true)
+    {
+        System.Random random = new System.Random();
+        int itemID = ID;
+        if (itemsTable.GetItemType(itemID) == 1)
+        {
+            DisposableItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
+            else
+                itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
+
+            itemInstance.Create(itemID);
+
+        }
+        if (itemsTable.GetItemType(itemID) == 0)
+        {
+            ImmediatelyItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
+            else
+                itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
+            itemInstance.Create(itemID);
+
+        }
+        if (itemsTable.GetItemType(itemID) == 2)
+        {
+            InitiativeItem itemInstance;
+            if (trans)
+                itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
+            else
+                itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
+            itemInstance.Create(itemID);
+
+        }
+    }
+
+
     /****************************************************************************************/
     //一次性道具
     /// <summary>
@@ -291,7 +333,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 {
                     AddDisposableItems(t);
                     Notify("Get_DisposableItem;" + t.ItemID);
-                    t.DestroyDisposableItem();
+                    t.Destroy();
                     break;
                 }
             }
@@ -394,11 +436,11 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// </summary>
     public void DestoryAllItems() {
         for (int i = 0; i < listDisposableItem.Count; i++)
-            listDisposableItem[i].DestroyDisposableItem();
+            listDisposableItem[i].Destroy();
         for (int i = 0; i < listImmediatelyItem.Count; i++)
-            listImmediatelyItem[i].DestoryItem();
+            listImmediatelyItem[i].Destroy();
         for (int i = 0; i < listInitiativeItem.Count; i++)
-            listInitiativeItem[i].DestoryItem();
+            listInitiativeItem[i].Destroy();
     
     
     }

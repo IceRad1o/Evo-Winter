@@ -408,7 +408,8 @@ public class SkillManager : ExSubject
                         {
                             if (item != null && item.tag == "Monster")
                             {
-                                item.GetComponent<BuffManager>().CreateDifferenceBuff(1021002111);
+                                                                                                                                 //1021002111
+                                item.GetComponent<BuffManager>().CreateDifferenceBuff((item.GetComponent<Character>().MoveSpeed/2)*1000000000+21002111);
                             }
                         }
                         //收到伤害翻倍
@@ -485,7 +486,7 @@ public class SkillManager : ExSubject
 
     void Awake()
     {
-        SkillManagerTag = ""+this.gameObject.GetComponent<Character>().RoomElementID;
+        SkillManagerTag = ""+this.gameObject.tag;
         //EsscenceManager.Instance.AddObserver(this);
     }
 }

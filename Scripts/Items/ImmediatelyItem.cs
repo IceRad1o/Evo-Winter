@@ -65,6 +65,7 @@ public class ImmediatelyItem : Item{
      */
     public void Create(int ID)
     {
+        RoomElementID = ID;
         ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
 
@@ -78,8 +79,9 @@ public class ImmediatelyItem : Item{
     }
 
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         playerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;

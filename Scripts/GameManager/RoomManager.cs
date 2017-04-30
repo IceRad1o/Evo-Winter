@@ -29,6 +29,13 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     private int roomType;
 	//宝箱房间号//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
     private int boxTypeRoom = 1;
+	//房间大小，1小，2中，3大
+	private int roomSize = 3;
+	public int RoomSize
+	{
+		get { return roomSize; }
+		set { roomSize = value; }
+	}
     //行列
     private int rows = 3;
     private int columns = 12;
@@ -46,6 +53,10 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 	public GameObject[] terror;
 	//功能类物品
 	public GameObject[] function;
+	//祭坛房间
+	public GameObject[] altar;
+	//商店
+	public GameObject[] shop;
     //小怪
     public GameObject[] enemys;
 	//Boss
@@ -173,11 +184,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         settledPosition.Add(new Vector3(-6f, -1.5f, 0f));
         settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
         settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
-        settledPosition.Add(new Vector3(-1f, -2.5f, 0f));
+        settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
 
         settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
         settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
-        settledPosition.Add(new Vector3(3.5f, -5.5f, 0f));
+        settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
         settledPosition.Add(new Vector3(6f, -3.5f, 0f));
         settledPosition.Add(new Vector3(9f, -0.5f, 0f));
         settledPosition.Add(new Vector3(9f, -6.5f, 0f));
@@ -291,13 +302,39 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 				objectCount--;
 				objectChoice = objectArray [objectArray.Length - 1];
 			} 
-			//商店，暂时用obj14
+			//商店
 			else if (roomType == (int)RmType.Shop) {
-				objectChoice = objectArray [14];
+				// 地摊摊主
+				objectCount = -1;
+				randomPosition = new Vector3 (0, -2f, -2f);
+				objectChoice = shop [Random.Range (0, shop.Length)];
+				//道具
+				for (int j = 0; j < 5; j++) {
+					ItemManager.Instance.ItemsTransform.position = new Vector3(
+						Random.Range(-6,6), Random.Range(-2,-6), 0f);
+					ItemManager.Instance.CreateItemDrop(false, false, true);
+				}
+
 			}
-			//祭坛，暂时用obj10
+			//祭坛
 			else if (roomType == (int)RmType.Altar) {
-				objectChoice = objectArray [10];
+				//主祭坛
+				objectCount = -1;
+				randomPosition = new Vector3 (0, -2f, -2f);
+				objectChoice = altar [Random.Range (0, altar.Length)];
+				//祭坛其他摆设
+				GameObject elseChoice;
+				Vector3 elsePosition;
+				//摆设1
+				elseChoice = terror [Random.Range (0, terror.Length)];
+				elsePosition = new Vector3 (-7f, -1.5f, -1.5f);
+				GameObject altarElse1 = Instantiate(elseChoice, elsePosition, Quaternion.identity) as GameObject;
+				altarElse1.transform.SetParent(GameObject.Find("GroundElements").transform);
+				//摆设2
+				elseChoice = terror [Random.Range (0, terror.Length)];
+				elsePosition = new Vector3 (7f, -1.5f, -1.5f);
+				GameObject altarElse2 = Instantiate(elseChoice, elsePosition, Quaternion.identity) as GameObject;
+				altarElse2.transform.SetParent(GameObject.Find("GroundElements").transform);
 			} 
 			//其他
 			else if(roomType >= (int)RmType.Normal){
@@ -430,8 +467,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
     }
 
-    //设置场景,类型号，门位置,房间x，房间y
-    public void SetupScene(int tp, int[] dp, int x, int y)
+    //设置场景,类型号，门位置,房间x，房间y，房间大小r
+	public void SetupScene(int tp, int[] dp, int x, int y,int r)
     {
         ClearAll();
         SetDoorDierction(dp);
@@ -441,6 +478,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         LayoutWallAtRandom(wallElements, wallElementsCount.minimum, wallElementsCount.maximum);
         LayoutGroundAtRandom(groundElements, groundElementsCount.minimum, groundElementsCount.maximum);
         LayoutDoor();
+		roomSize = r;
 
         //if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
         if(tp == -2)
@@ -482,8 +520,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 
 
 
-    //加载确定场景 类型号tp,房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
-    public void LoadScene(int tp,int x,int y,int[] dp,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ)
+    //加载确定场景 类型号tp,房间号xy,门位置 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[],房间大小roomS
+	public void LoadScene(int tp,int x,int y,int[] dp,int[] roomX,int[] roomY,int[] id,float[] posiX,float[] posiY,float[] posiZ,int roomS)
     {
         //Debug.Log("LoadScene进入" + x + ";" + y);
         ClearAll();
@@ -496,6 +534,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         {
             LayoutStair();
         }
+		roomSize = roomS;
 
         int count = 0;
         for (int i = 0; i < roomX.Length; i++)
@@ -653,6 +692,30 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                             roomElement.transform.localPosition = position;
                             //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
                             break;
+						case 17:
+							//Debug.Log("选中祭坛1");
+							//Altar1
+							objectChoice =altar[0];
+							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							break;
+						case 18:
+							//Debug.Log("选中祭坛1");
+							//Altar1
+							objectChoice =altar[1];
+							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							break;
+						case 19:
+							//Debug.Log("选中商店");
+							//Altar1
+							objectChoice =shop[0];
+							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							break;
                     }
                  
                 }
