@@ -61,9 +61,9 @@ public class Item : RoomElement {
             Debug.Log("No Sprite");
         return iSprite;
     }
-
-    virtual public void DestoryItem() {
-        Destroy(gameObject);    
+    public override void Destroy()
+    {
+        base.Destroy();
     }
 
     public override void Awake()

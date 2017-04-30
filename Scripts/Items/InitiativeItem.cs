@@ -46,17 +46,19 @@ public class InitiativeItem : Item{
         energyNow = energyMax;
         ItemID = ID;
     }
-
-    /*@Destroy
-     *@Brief 销毁该实例
-     */
-    public void Destroy()
+    /// <summary>
+    /// 销毁实例
+    /// </summary>
+    public override void Destroy()
     {
         ItemManager.Instance.listInitiativeItem.Remove(this);
-        
-        Destroy(gameObject);
+
+        base.Destroy();
     }
 
+    /// <summary>
+    /// 销毁该脚本
+    /// </summary>
     public override void DestroyScript()
     {
         //发送消息，一次性道具销毁

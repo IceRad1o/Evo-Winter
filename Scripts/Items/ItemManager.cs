@@ -333,7 +333,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 {
                     AddDisposableItems(t);
                     Notify("Get_DisposableItem;" + t.ItemID);
-                    t.DestroyDisposableItem();
+                    t.Destroy();
                     break;
                 }
             }
@@ -436,11 +436,11 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// </summary>
     public void DestoryAllItems() {
         for (int i = 0; i < listDisposableItem.Count; i++)
-            listDisposableItem[i].DestroyDisposableItem();
+            listDisposableItem[i].Destroy();
         for (int i = 0; i < listImmediatelyItem.Count; i++)
-            listImmediatelyItem[i].DestoryItem();
+            listImmediatelyItem[i].Destroy();
         for (int i = 0; i < listInitiativeItem.Count; i++)
-            listInitiativeItem[i].DestoryItem();
+            listInitiativeItem[i].Destroy();
     
     
     }

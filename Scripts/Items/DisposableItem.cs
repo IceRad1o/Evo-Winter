@@ -71,15 +71,14 @@ public class DisposableItem : Item{
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
         ItemID = ID;
     }
-    /*@Destroy
-     *@Brief 销毁该实例
-     */
-    public void DestroyDisposableItem()
+    /// <summary>
+    /// 销毁实例
+    /// </summary>
+    public override void Destroy()
     {
-
         ItemManager.Instance.listDisposableItem.Remove(this);
-        //发送消息，一次性道具销毁
-        Destroy(gameObject);
+
+        base.Destroy();
     }
 
     public override void DestroyScript()
