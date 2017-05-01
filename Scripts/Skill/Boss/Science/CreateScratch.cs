@@ -8,7 +8,7 @@ public class CreateScratch : Skill {
         base.Trigger();
         Cd = 1;
 
-        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Scratch", Player.Instance.transform.position);
+        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Scratch", transform.position+new Vector3(GetComponent<Character>().FaceDirection,0,0));
     }
 
 
