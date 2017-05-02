@@ -57,7 +57,42 @@ public class BossSkillManager : ExSubject{
                 this.gameObject.GetComponent<CreateScratch>().Trigger();
             return;
         }
-
+        if (ID == 503)
+        {
+            Distortion newSkill;
+            if (this.gameObject.GetComponent<Distortion>() == null)
+            {
+                newSkill = this.gameObject.AddComponent<Distortion>();
+                newSkill.Create(ID);
+            }
+            else
+                this.gameObject.GetComponent<Distortion>().Trigger();
+            return;
+        }
+        if (ID == 504)
+        {
+            Blast newSkill;
+            if (this.gameObject.GetComponent<Blast>() == null)
+            {
+                newSkill = this.gameObject.AddComponent<Blast>();
+                newSkill.Create(ID);
+            }
+            else
+                this.gameObject.GetComponent<Blast>().Trigger();
+            return;
+        }
+        if (ID == 506)
+        {
+            Mud newSkill;
+            if (this.gameObject.GetComponent<Mud>() == null)
+            {
+                newSkill = this.gameObject.AddComponent<Mud>();
+                newSkill.Create(ID);
+            }
+            else
+                this.gameObject.GetComponent<Mud>().Trigger();
+            return;
+        }
 
     }
 

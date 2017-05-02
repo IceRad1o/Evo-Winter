@@ -36,6 +36,7 @@ public class Meteorite : Skill {
 
         yield return new WaitForSeconds(time - 1.0f);
         GameObject pfb = Resources.Load("Skill/Aim") as GameObject;
+        pfb.AddComponent<ChangeScale>();
         GameObject prefabInstance = Instantiate(pfb, new Vector3(s.x, s.z, s.z), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as GameObject;
 
 

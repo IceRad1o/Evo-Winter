@@ -81,6 +81,8 @@ public class BuffManager : ExSubject
             judgeCreate = true;
         if (buffManagerTag == "Monster" && ID % 10 == 1)
             judgeCreate = true;
+        if (buffManagerTag == "Boss" && ID % 10 == 2)
+            judgeCreate = true;
         CreateBuff(ID / 10,spTag);
 
     }
@@ -159,8 +161,10 @@ public class BuffManager : ExSubject
         RoomManager.Instance.AddObserver(this);
         if (this.gameObject.tag == "Player")
             buffManagerTag = "Player";
-        else
+        if (this.gameObject.tag == "Monster")
             buffManagerTag = "Monster";
+        if (this.gameObject.tag == "Boss")
+            buffManagerTag = "Boss";
 
 
 
@@ -171,8 +175,10 @@ public class BuffManager : ExSubject
     {
         if (this.gameObject.tag == "Player")
             buffManagerTag = "Player";
-        else
+        if (this.gameObject.tag == "Monster")
             buffManagerTag = "Monster";
+        if (this.gameObject.tag == "Boss")
+            buffManagerTag = "Boss";
     }
 
 
