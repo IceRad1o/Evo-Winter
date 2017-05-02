@@ -7,18 +7,19 @@ public class Chemistry : MonoBehaviour {
     public string attackTag;
     GameObject[] pfb = new GameObject[6];
     public Enemy pfb_enemy;
-
+    public Vector3 targetPos;
     private void OnTriggerEnter(Collider other)
     {
 
         Debug.Log("Enter    :" + other.tag);
+
         if (other.tag == attackTag)
         {
             var random=new System.Random((int)System.DateTime.Now.Second);
             int result = (int)(random.Next(6));
             //判断人物与化合物爆炸的距离
             Vector3 pos = this.gameObject.transform.position;
-            Vector3 posJudge = Player.Instance.gameObject.transform.position;
+            Vector3 posJudge = targetPos;
             var i = (pos.x - posJudge.x) * (pos.x - posJudge.x) + (pos.y - posJudge.y) * (pos.y - posJudge.y);
             //爆炸
             if (result == 0)
@@ -77,7 +78,7 @@ public class Chemistry : MonoBehaviour {
 
     public virtual void Start()
     {
-        this.gameObject.AddComponent<MoveTo>().destPosition = Player.Instance.transform.position;
+        this.gameObject.AddComponent<MoveTo>().destPosition = targetPos;
 
     }
 }

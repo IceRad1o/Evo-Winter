@@ -57,6 +57,7 @@ public class Laser : MonoBehaviour {
                 {
                     //-1朝左，1朝右
                     direction_Scale = item.GetComponent<Character>().FaceDirection;
+                    Debug.Log("D     " + direction_Scale);
                 }
             }
             StartCoroutine(ChangeScale());
@@ -90,8 +91,8 @@ public class Laser : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            Debug.Log("Laser Trigger   ");
             other.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(7110);
+            other.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(604110, "Skill_L");
         }
 
     }
@@ -101,6 +102,15 @@ public class Laser : MonoBehaviour {
 
     // Use this for initialization
 	void Start () {
+        foreach (var item in EnemyManager.Instance.EnemyList.ToArray())
+        {
+            if (item != null && item.tag == "Boss")
+            {
+                //-1朝左，1朝右
+                direction_Scale = item.GetComponent<Character>().FaceDirection;
+            }
+        }
+
         StartCoroutine(ChangeScale());
         StartCoroutine(DestroyLaser());
     }

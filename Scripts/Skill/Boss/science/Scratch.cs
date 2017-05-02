@@ -23,7 +23,8 @@ public class Scratch : MonoBehaviour {
             {
                 if (item != null && item.tag == "Boss")
                 {
-                    item.GetComponent<Character>().Health++;
+                    if(item.Health>=item.initialHealth)
+                        item.GetComponent<Character>().Health++;
                     UtilManager.Instance.CreateEffcet(prefabInstanceRecovery, other.gameObject);
                 }
             }

@@ -3,12 +3,15 @@ using System.Collections;
 
 public class CreateLaser : Skill {
 
+    public float CdBuff = 1;
     public override void Trigger()
     {
+      
+        Cd = 8*CdBuff;
         base.Trigger();
-        Cd = 4;
-
-        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Laser", this.gameObject.transform.position);
+        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Laser", this.gameObject.transform.position+new Vector3(0,0.5f,0));
+        
+        
     }
 
 
