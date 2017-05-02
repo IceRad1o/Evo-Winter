@@ -64,7 +64,7 @@ public class Chemistry : MonoBehaviour {
             {
                 if (pfb[5] != null)
                     UtilManager.Instance.CreateEffcet(pfb[5], other.gameObject.transform.position);
-                Enemy em = Instantiate(pfb_enemy) as Enemy;
+                Enemy em = Instantiate(pfb_enemy,transform.position,Quaternion.identity) as Enemy;
             
             }
 
@@ -75,7 +75,7 @@ public class Chemistry : MonoBehaviour {
 
     }
 
-    void Start()
+    public virtual void Start()
     {
         this.gameObject.AddComponent<MoveTo>().destPosition = Player.Instance.transform.position;
 
