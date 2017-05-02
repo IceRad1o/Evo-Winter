@@ -66,6 +66,7 @@ public class UIManager : ExUnitySingleton<UIManager>
         get { return itemButtonManager; }
     }
 
+    public GameObject dark;
 
     void Start()
     {
@@ -94,15 +95,16 @@ public class UIManager : ExUnitySingleton<UIManager>
         {
             littleMap.UpdateLittleMap();
             DialogInfo.Instance.RandomDialog();
+            Instantiate(dark, this.transform.parent,false);
         }
 
         if (str[0] == "SetupCheckpoint")
         {
-            
+            Instantiate(dark, this.transform.parent);
         }
 
         if (str[0] == "MapComplete")
-            littleMap.InitLittleMap();
+            ;// littleMap.InitLittleMap();
 
 
         //ItemManager Msg

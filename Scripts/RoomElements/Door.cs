@@ -5,7 +5,8 @@ public class Door : RoomElement
 {
     //门的位置，0上，1下，2左，3右
     private int position;
-
+	//判断是否进入过房间
+	int pass = 0;
     public override void Awake()
     {
         base.Awake();
@@ -28,147 +29,111 @@ public class Door : RoomElement
             RoomManager.Instance.Notify("LeaveRoom");  
             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);             
             int roomDir = position;
-            int pass = 0;
-
+			int rmX;
+			int rmY;
+			int map;
 			//yield return(WaitForSeconds (1f));
 
             switch (roomDir)
             {
                     
-                case 0:
+				case 0:
                     //进入上侧房间   
-                    Debug.Log("进上xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(0f, -7.3f, 0f);
-                    if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).pass == 0)
-                    {
-
-                        RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).type,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).doorDirection,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomX,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomY,
-									CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomSize);
-                    }
-                    else
-                    {
-                        pass = 1;
-                        RoomManager.Instance.LoadScene(
-                            ProfileManager.Instance.Data.Map[(ProfileManager.Instance.Data.CurMapX-1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY],
-                            RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY,
-                            CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).doorDirection,
-                            ProfileManager.Instance.Data.RoomElementRoomX,
-                            ProfileManager.Instance.Data.RoomElementRoomY,
-                            ProfileManager.Instance.Data.RoomElementID,
-                            ProfileManager.Instance.Data.RoomElementPosX,
-                            ProfileManager.Instance.Data.RoomElementPosY,
-                            ProfileManager.Instance.Data.RoomElementPosZ,
-							CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX - 1, RoomManager.Instance.roomY).roomSize);
-
-                    }
+					Debug.Log ("进上xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
+					Player.Instance.Character.transform.position = new Vector3 (0f, -7.3f, 0f);
+					rmX = RoomManager.Instance.roomX - 1;
+					rmY = RoomManager.Instance.roomY;
+					map = (ProfileManager.Instance.Data.CurMapX - 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY;
+					SetOrLoad (rmX, rmY, map);
                     break;
-                case 1:
+				case 1:
                     //进入下侧房间
-                    Debug.Log("进下xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(0f, -0.8f, 0f);
-                    if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).pass == 0)
-                    {
-                        RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).type,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).doorDirection,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomX,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomY,
-									CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomSize);
-                    }
-                    else
-                    {
-                        pass = 1;
-                        RoomManager.Instance.LoadScene(
-                            ProfileManager.Instance.Data.Map[(ProfileManager.Instance.Data.CurMapX+1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY],
-                            RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY,
-                            CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).doorDirection,
-                            ProfileManager.Instance.Data.RoomElementRoomX,
-                            ProfileManager.Instance.Data.RoomElementRoomY,
-                            ProfileManager.Instance.Data.RoomElementID,
-                            ProfileManager.Instance.Data.RoomElementPosX,
-                            ProfileManager.Instance.Data.RoomElementPosY,
-                            ProfileManager.Instance.Data.RoomElementPosZ,
-							CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX + 1, RoomManager.Instance.roomY).roomSize);
-
-                    }                   
+					Debug.Log ("进下xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
+					Player.Instance.Character.transform.position = new Vector3 (0f, -0.8f, 0f);
+					rmX = RoomManager.Instance.roomX + 1;
+					rmY = RoomManager.Instance.roomY;
+					map = (ProfileManager.Instance.Data.CurMapX + 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY;
+					SetOrLoad (rmX, rmY, map);                 
                     break;
-                case 2:
+				case 2:
                     //进入左侧房间
-                    Debug.Log("进左xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(10.5f, -4f, 0f);
-                    if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).pass == 0)
-                    {
-                        RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).type,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).doorDirection,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomX,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomY,
-									CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomSize);
-                    }
-                    else
-                    {
-                        pass = 1;
-                        Debug.Log("回左边:" + ProfileManager.Instance.Data.RoomElementRoomX[0] + " ");
-                        RoomManager.Instance.LoadScene(
-                            ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY-1)],
-                            RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1,
-                            CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).doorDirection,
-                            ProfileManager.Instance.Data.RoomElementRoomX,
-                            ProfileManager.Instance.Data.RoomElementRoomY,
-                            ProfileManager.Instance.Data.RoomElementID,
-                            ProfileManager.Instance.Data.RoomElementPosX,
-                            ProfileManager.Instance.Data.RoomElementPosY,
-                            ProfileManager.Instance.Data.RoomElementPosZ,
-							CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY - 1).roomSize);
-
-                    }
+					Debug.Log ("进左xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
+					//Player.Instance.Character.transform.position = new Vector3 (10.5f, -4f, 0f);
+					rmX = RoomManager.Instance.roomX;
+					rmY = RoomManager.Instance.roomY - 1;
+					map = ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY - 1);
+					SetOrLoad (rmX, rmY, map);
+					if(CheckpointManager.Instance.GetNextRoom(rmX,rmY).roomSize == 1) 
+						Player.Instance.Character.transform.position = new Vector3 (4.5f, -4f, 0f);
+					else if(CheckpointManager.Instance.GetNextRoom(rmX,rmY).roomSize == 2)
+						Player.Instance.Character.transform.position = new Vector3 (7f, -4f, 0f);
+					else 
+						Player.Instance.Character.transform.position = new Vector3 (10.5f, -4f, 0f);
                     break;
-                case 3:
+				case 3:
                     //进入右侧房间
-                    Debug.Log("进右xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                    Player.Instance.Character.transform.position = new Vector3(-10.5f, -4f, 0f);
-                    if (CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).pass == 0)
-                    {
-                        RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).type,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).doorDirection,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomX,
-                                    CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomY,
-									CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomSize);
-                    }
-                    else
-                    {
-                        pass = 1;
-                        RoomManager.Instance.LoadScene(
-                            ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY+1)], 
-                            RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1,
-                            CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).doorDirection,
-                            ProfileManager.Instance.Data.RoomElementRoomX,
-                            ProfileManager.Instance.Data.RoomElementRoomY,
-                            ProfileManager.Instance.Data.RoomElementID,
-                            ProfileManager.Instance.Data.RoomElementPosX,
-                            ProfileManager.Instance.Data.RoomElementPosY,
-                            ProfileManager.Instance.Data.RoomElementPosZ,
-							CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1).roomSize);
-
-                    }
+					Debug.Log ("进右xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
+					//Player.Instance.Character.transform.position = new Vector3 (-10.5f, -4f, 0f);
+					rmX = RoomManager.Instance.roomX;
+					rmY = RoomManager.Instance.roomY + 1;
+					map = ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY + 1);
+					SetOrLoad (rmX, rmY, map);
+					if(CheckpointManager.Instance.GetNextRoom(rmX,rmY).roomSize == 1) 
+						Player.Instance.Character.transform.position = new Vector3 (-4.5f, -4f, 0f);
+					else if(CheckpointManager.Instance.GetNextRoom(rmX,rmY).roomSize == 2)
+						Player.Instance.Character.transform.position = new Vector3 (-7f, -4f, 0f);
+					else 
+						Player.Instance.Character.transform.position = new Vector3 (-10.5f, -4f, 0f);
                     break;
             }
+				
             CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);
 
             if (pass == 1)
             {
                 //Debug.Log("进进过的房间");
-                RoomManager.Instance.Notify("EnterRoom;Know");
+                RoomManager.Instance.Notify("EnterRoom;Know"+roomDir);
              
             }
             else
             {
                 //Debug.Log("进没进过的房间");
-                RoomManager.Instance.Notify("EnterRoom;Unknow");
+                RoomManager.Instance.Notify("EnterRoom;Unknow" + roomDir);
             }
 
         }
     }
+
+	//设置或载入
+	void SetOrLoad(int x, int y, int map)
+	{
+		// x , y = RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1
+		// map = ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY+1)
+		if (CheckpointManager.Instance.GetNextRoom(x, y).pass == 0)
+		{
+			RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(x, y).type,
+				CheckpointManager.Instance.GetNextRoom(x, y).doorDirection,
+				CheckpointManager.Instance.GetNextRoom(x, y).roomX,
+				CheckpointManager.Instance.GetNextRoom(x, y).roomY,
+				CheckpointManager.Instance.GetNextRoom(x, y).roomSize);
+		}
+		else
+		{
+			pass = 1;
+			RoomManager.Instance.LoadScene(
+				ProfileManager.Instance.Data.Map[map], 
+				x, y,
+				CheckpointManager.Instance.GetNextRoom(x, y).doorDirection,
+				ProfileManager.Instance.Data.RoomElementRoomX,
+				ProfileManager.Instance.Data.RoomElementRoomY,
+				ProfileManager.Instance.Data.RoomElementID,
+				ProfileManager.Instance.Data.RoomElementPosX,
+				ProfileManager.Instance.Data.RoomElementPosY,
+				ProfileManager.Instance.Data.RoomElementPosZ,
+				CheckpointManager.Instance.GetNextRoom(x, y).roomSize);
+
+		}
+	}
+
 
 }

@@ -12,165 +12,11 @@ public class FadeIn : Action
 
 
     Text  [] texts;
-
     Renderer[] renders;
     Image[] images;
 
     float[] speeds;
-    //void Start()
-    //{
-    //    if (isReverse == false && isLoop == true)
-    //        isLoop = false;
-
-    //    if (!isOnCanvas)
-    //    {
-    //        renders = this.GetComponentsInChildren<SpriteRenderer>();
-
-    //        if (renders == null)
-    //            return;
-
-    //        if (resetToZero)
-    //            foreach (SpriteRenderer r in renders)
-    //            {
-    //                r.color = new Color(r.color.r, r.color.g, r.color.b, 0);
-    //            }
-
-    //        if(isReset)
-    //            foreach (SpriteRenderer r in renders)
-    //            {
-    //                r.color = new Color(r.color.r, r.color.g, r.color.b, resetValue.x);
-    //            }
-
-
-    //        StartCoroutine(IEumFadeIn());
-    //    }
-
-    //    else
-    //    {
-    //        images = this.GetComponentsInChildren<Image>();
-    //        texts = this.GetComponentsInChildren<Text>();
-    //        if (resetToZero)
-    //        {
-
-    //            resetValue.x = 0;
-    //            isReset = true;
-    //        }
-    //        if (isReset)
-    //        {
-    //            foreach (Image r in images)
-    //            {
-    //                r.color = new Color(r.color.r, r.color.g, r.color.b, resetValue.x);
-    //            }
-    //            foreach (Text r in texts)
-    //            {
-    //                r.color = new Color(r.color.r, r.color.g, r.color.b, resetValue.x);
-    //            }
-    //        }
-    //        StartCoroutine(IEumUIFadeIn());
-    //    }
-
-    //}
-
-    IEnumerator IEumFadeIn()
-    {
-        if (isDelay)
-            yield return new WaitForSeconds(delayTime);
-
-        float speed;
-
-        do
-        {
-
-            count = (int)(duration * 60) ;
-            if (count == 0)
-                count = 1;
-            speed = 1.0f / count;
-            while (count-- != 0)
-            {
-                foreach (SpriteRenderer r in renders)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + speed);
-
-                }
-                yield return null;
-            } 
-            if (isReverseDelay)
-                yield return new WaitForSeconds(reverseDelayTime);
-            if (isReverse)
-            {
-                count = (int)(duration * 60) ;
-                if (count == 0)
-                    count = 1;
-                speed = 1.0f / count;
-
-                while (count-- != 0)
-                {
-                    foreach (SpriteRenderer r in renders)
-                    {
-                        r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a - speed);
-
-                    }
-                    yield return null;
-                }
-            }
-        } while (isLoop && (--loopTimes > 0 || loopForever));
-        Destroy(this);
-    }
-
-
-    IEnumerator IEumUIFadeIn()
-    {
-        if (isDelay)
-            yield return new WaitForSeconds(delayTime);
-
-        float speed;
-
-
-        do
-        {
-            count = (int)(duration * 60) ;
-            if (count == 0)
-                count = 1;
-            speed = 1.0f / count;
-            while (count-- != 0)
-            {
-                foreach (Image r in images)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + speed);
-
-                }
-                foreach (Text r in texts)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + speed);
-                }
-                yield return null;
-            }
-            if (isReverseDelay)
-                yield return new WaitForSeconds(reverseDelayTime);
-            if (isReverse)
-            {
-                count = (int)(duration * 60) ;
-                if (count == 0)
-                    count = 1;
-                speed = 1.0f / count;
-
-                while (count-- != 0)
-                {
-                    foreach (Image r in images)
-                    {
-                        r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a - speed);
-
-                    }
-                    foreach (Text r in texts)
-                    {
-                        r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a - speed);
-                    }
-                    yield return null;
-                }
-            }
-        } while (isLoop && (--loopTimes > 0 || loopForever));
-        Destroy(this);
-    }
+ 
 
     public override bool GetNormalComponents()
     {
@@ -205,7 +51,7 @@ public class FadeIn : Action
     {
         if(isOnCanvas)
         {
-            Debug.Log("a:"+value.x);
+           
             foreach (Image r in images)
             {
                 r.color = new Color(r.color.r, r.color.g, r.color.b,value.x);
@@ -246,11 +92,12 @@ public class FadeIn : Action
         }
         else
         {
+           // Debug.Log("a:11") ;
             foreach (SpriteRenderer r in renders)
             {
                 r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a +dir* speeds[i]);
                 i++;
-
+               
             }
         }
     }

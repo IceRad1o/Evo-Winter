@@ -56,6 +56,11 @@ public class Character : RoomElement
     //扩展属性
     int invincible;
     int faceDirection;//面朝向
+
+    int isConfused = 0;//是否混乱
+
+
+
     private int isAlive;//<0 死透 =0 正在死 >0 活着
     private int deadTime;
 
@@ -78,12 +83,12 @@ public class Character : RoomElement
     public int FaceDirection
     {
         get { return faceDirection; }
-        set 
-        {
-          
-   
-            faceDirection = value;
-        }
+    }
+
+    public int IsConfused
+    {
+        get { return isConfused; }
+        set { isConfused = value; }
     }
     //附加属性
     private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
@@ -472,6 +477,7 @@ public class Character : RoomElement
         set
         {
             canMove = value;
+            State = 0;
             Notify("CanMoveChanged");
         }
     }
@@ -484,10 +490,12 @@ public class Character : RoomElement
         get { return state; }
         set
         {
+
+          
             if (state != value)
             {
-            
-                if (CanMove == 0)// && value == 1)
+
+                if (CanMove == 0 && value == 1)
                     return;
                 //Debug.Log("current state:" + state + " to " + value);
                 state = value;
@@ -567,10 +575,6 @@ public class Character : RoomElement
         set 
         {
             beatBackLevel = value;
-           // weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevel = 0;
-            //weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel + beatBackBuff;
-           // if (weapon == 1)
-           //     weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel+beatBackBuff;
 
             for(int i=0;i<weapons.Length;i++)
             {
@@ -637,7 +641,7 @@ public class Character : RoomElement
     public virtual void Move()
     {
         transform.position += direction * moveSpeed;
-        Notify("Move");
+        //Notify("Move");
 
     }
 
@@ -742,10 +746,16 @@ public class Character : RoomElement
     public virtual void FixedUpdate()
     {
         //Debug.Log("state:" + state);
-        if (state == 1&&controllable==1&&canMove==1)
+        if (controllable==1&&canMove==1&&actionStateMachine.CurState=="Move")
         {
             Move();
         }
+
+        else if(actionStateMachine.CurState=="Idle"&&State==1)
+        {
+            ActionStateMachine.Push(4);
+        }
+
 
     }
 

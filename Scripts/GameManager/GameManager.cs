@@ -6,17 +6,51 @@ using UnityEngine.SceneManagement;
 public class GameManager : ExUnitySingleton<GameManager>{
 
     //参数的声明
-
-
     private int loadOrNew;
     private bool doingSetup;
 
+	//左墙0，右墙1
+	public GameObject[] wall;
+	private GameObject lefWall;
+	private GameObject rigWall;
+	//墙的位置
+	private Vector3[] bigWall = new Vector3[]{new Vector3(14.11f,0,0),new Vector3(-16.12f,2.9f,0)};
+	private Vector3[] midWall = new Vector3[]{new Vector3(10.11f,0,0),new Vector3(-11.12f,2.9f,0)};
+	private Vector3[] smlWall = new Vector3[]{new Vector3(7.11f,0,0),new Vector3(-8.5f,2.9f,0)};
+
 	// Use this for initialization
 	void Start () {
+		lefWall = Instantiate(wall[0], bigWall[0], Quaternion.Euler (-45f, 0f, 0f)) as GameObject;
+		rigWall = Instantiate(wall[1], bigWall[1], Quaternion.Euler (-45f, 0f, 0f)) as GameObject;
         Player.Instance.Character.AddObserver(this);
         InitGame();
         PlayerPrefs.SetInt("canLoad", 1);
 	}
+		
+	//布局墙
+	public void LayoutWall(int x, int y)
+	{
+		int rms = CheckpointManager.Instance.GetNextRoom (x, y).roomSize;
+		Vector3[] wal = bigWall;
+		switch (rms)
+		{
+		case 1:
+			wal = smlWall;
+			break;
+		case 2:
+			wal = midWall;
+			break;
+		case 3:
+			wal = bigWall;
+			break;
+		}
+		lefWall.transform.position = wal [0];
+		rigWall.transform.position = wal [1];
+	}
+
+
+
+
 
     //游戏初始化
     void InitGame()
@@ -42,7 +76,6 @@ public class GameManager : ExUnitySingleton<GameManager>{
                     break;
                 }
             }
-
             RoomManager.Instance.SetupScene(CheckpointManager.Instance.roomList[roomNumber].type,
                                     CheckpointManager.Instance.roomList[roomNumber].doorDirection,
                                     CheckpointManager.Instance.roomList[roomNumber].roomX,

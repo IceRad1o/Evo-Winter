@@ -18,6 +18,8 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
     List<GameObject> gridList = new List<GameObject>();
     int rows;
     int columns;
+    int maxRows=6;
+    int maxColumns=6;
 	void Start () {
 
         InitLittleMap();
@@ -30,12 +32,13 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         rows = CheckpointManager.Instance.rows;
         columns = CheckpointManager.Instance.columns;
    
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j <columns; j++)
+        for (int i = 0; i < maxRows; i++)
+            for (int j = 0; j <maxColumns; j++)
             {
                 
                 GameObject obj = Instantiate(grid, this.gameObject.transform, true) as GameObject;
                 obj.GetComponent<RectTransform>().localPosition = new Vector3(40 * j - 120, 120-40*i, 0);
+                obj.SetActive(false);
                 gridList.Add(obj);
             }
     }
@@ -54,31 +57,31 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         int roomX = RoomManager.Instance.roomX;
         int roomY = RoomManager.Instance.roomY;
 
-   
+        
         //先根据通过与否分成已知的和未知的和可接近的
         for(int i=0;i<rows;i++)
             for(int j=0;j<columns;j++)
             {
                 if (map[i, j] == 0)
                 {
-                    gridList[i * rows + j].SetActive(false);
+                    gridList[i * maxRows + j].SetActive(false);
                 }
                 else
                 {
-                    gridList[i * rows + j].SetActive(true);
+                    gridList[i * maxRows + j].SetActive(true);
                     if(CheckpointManager.Instance.GetNextRoom(i, j).pass==1)
-                        gridList[i * rows + j].GetComponent<Image>().sprite = gridKnow;
+                        gridList[i * maxRows + j].GetComponent<Image>().sprite = gridKnow;
                     else if ((i <= roomX + 1 && i >= roomX - 1&&j==roomY) ||( j <= roomY + 1 && j >= roomY - 1&&i==roomX))
-                        gridList[i * rows + j].GetComponent<Image>().sprite = gridAccessible;
+                        gridList[i * maxRows + j].GetComponent<Image>().sprite = gridAccessible;
                     else
-                        gridList[i * rows + j].GetComponent<Image>().sprite = gridExist;
+                        gridList[i * maxRows + j].GetComponent<Image>().sprite = gridExist;
 
                   
                 }
 
             }
 
-        gridList[roomX * rows + roomY].GetComponent<Image>().sprite = gridStayed;
+        gridList[roomX * maxRows + roomY].GetComponent<Image>().sprite = gridStayed;
 
    
 
