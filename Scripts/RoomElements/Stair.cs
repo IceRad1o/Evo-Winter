@@ -12,7 +12,7 @@ public class Stair : RoomElement {
      //碰撞检测
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("StairOnTiger" + other.tag + "    敌人数量：" + EnemyManager.Instance.EnemyList.Count);
+        //Debug.Log("StairOnTiger" + other.tag + "    敌人数量：" + EnemyManager.Instance.EnemyList.Count);
         if (other.tag == "Player" && EnemyManager.Instance.EnemyList.Count == 0)
         {
             Debug.Log("StairOnTiger");

@@ -19,7 +19,7 @@ public class CreateChemistry : Skill {
     {
 
         Vector3 targetPos = Player.Instance.transform.position;
-        UtilManager.Instance.CreateEffcet("Skill/Aim", targetPos);  
+        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/ChemistryAim", targetPos);  
 
 
         yield return new WaitForSeconds(0.5f);

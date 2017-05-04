@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-
+/// <summary>
+/// 负责控制整个游戏的流程
+/// </summary>
 public class GameManager : ExUnitySingleton<GameManager>{
 
     //参数的声明

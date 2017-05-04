@@ -18,7 +18,7 @@ public class Scratch : MonoBehaviour {
             
             UtilManager.Instance.CreateEffcet(prefabInstanceHit, other.gameObject);
 
-            other.gameObject.GetComponent<Character>().Health--;
+            //other.gameObject.GetComponent<Character>().Health--;
             foreach (var item in EnemyManager.Instance.EnemyList.ToArray())
             {
                 if (item != null && item.tag == "Boss")

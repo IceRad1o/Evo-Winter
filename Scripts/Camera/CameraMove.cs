@@ -15,6 +15,7 @@ public class CameraMove : ExUnitySingleton<CameraMove>
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         if (str[0] == "LeaveRoom")
         {
+            Debug.Log(123321);
             dir = int.Parse(str[1]);
             StartCoroutine("MoveRoom");
           

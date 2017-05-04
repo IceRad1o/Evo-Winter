@@ -20,19 +20,15 @@ public class Blast : Skill {
     /// <returns></returns>
     private IEnumerator SkillTrigger()
     {
-        yield return new WaitForSeconds(0.0f);
-        GameObject pfb = UtilManager.Instance.CreateEffcet("Skill/Aim", this.gameObject.transform.position);  
-        pfb.AddComponent<ChangeScale>();
-        pfb.GetComponent<ChangeScale>().duration = 0.4f;
-        pfb.GetComponent<ChangeScale>().proportion = 1.0f;
-        pfb.GetComponent<ChangeScale>().intervalTime = 0.1f;
-        pfb.GetComponent<ChangeScale>().stopTime = 1.0f;
+   
+        GameObject pfb = UtilManager.Instance.CreateEffcet("Skill/Boss/Science/ExplosionCircle", this.gameObject.transform.position);  
 
 
 
 
 
-        yield return new WaitForSeconds(1.0f);
+
+        yield return new WaitForSeconds(2.0f);
 
         this.gameObject.GetComponent<Character>().Health = 0;
 

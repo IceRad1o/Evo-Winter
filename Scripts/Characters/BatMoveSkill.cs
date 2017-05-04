@@ -17,7 +17,7 @@ public class BatMoveSkill : MonoBehaviour {
         ScaleTo st=gameObject.GetComponent<CharacterSkin>().Body.AddComponent<ScaleTo>();
         st.isDelay = true;
         st.delayTime = 0.1f;
-        st.destScale = new Vector3(0,0,0);
+        st.destValue = new Vector4(0,0,0,0);
         st.duration =0.2f;
         st.isReverse = true;
         StartCoroutine(IEnumSkill());

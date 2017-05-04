@@ -29,6 +29,7 @@ public class Door : RoomElement
         //Debug.Log("DoorOnTiger" + other.tag + "    敌人数量：" + EnemyManager.Instance.EnemyList.Count);
         if (other.tag == "Player"&&EnemyManager.Instance.EnemyList.Count==0)
         {
+            GetComponent<BoxCollider>().enabled = false;
             StartCoroutine(EnterRoom());
             //等待1s
 
@@ -89,7 +90,7 @@ public class Door : RoomElement
             case 0:
                 //进入上侧房间   
                 Debug.Log("进上xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                Player.Instance.Character.transform.position = new Vector3(0f, -7.3f, 0f);
+                Player.Instance.Character.transform.position = new Vector3(0f, -6.5f, 0f);
                 rmX = RoomManager.Instance.roomX - 1;
                 rmY = RoomManager.Instance.roomY;
                 map = (ProfileManager.Instance.Data.CurMapX - 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY;
