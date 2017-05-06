@@ -54,20 +54,27 @@ public class Character : RoomElement
 
 
     //扩展属性
-    int invincible;
+    int invincible;//无敌
     int faceDirection;//面朝向
-    private int isAlive;//<0 死透 =0 正在死 >0 活着
-    private int deadTime;
+
+    int isConfused = 0;//是否混乱
+    int isSuperArmor = 0;   //霸体
+
+
+
+
+    int isAlive;//<0 死透 =0 正在死 >0 活着
+    int deadTime;//从生命为0到真正死亡的倒计时
 
 
     int beatDownBuff = 0;//击飞buff
-
+    int beatBackBuff = 0;//击退buff
     public int BeatDownBuff
     {
         get { return beatDownBuff; }
         set { beatDownBuff = value; }
     }
-    int beatBackBuff = 0;//击退buff
+  
 
     public int BeatBackBuff
     {
@@ -78,13 +85,20 @@ public class Character : RoomElement
     public int FaceDirection
     {
         get { return faceDirection; }
-        set 
-        {
-          
-   
-            faceDirection = value;
-        }
     }
+
+    public int IsConfused
+    {
+        get { return isConfused; }
+        set { isConfused = value; }
+    }
+
+    public int IsSuperArmor
+    {
+        get { return isSuperArmor; }
+        set { isSuperArmor = value; }
+    }
+
     //附加属性
     private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
     private int race;   //种族
@@ -121,13 +135,16 @@ public class Character : RoomElement
             float temp = health;
             if (value < health)
             {
-                state = 0;
-                actionStateMachine.Push(6);
+                state = 0;//不用大些
+
+                /*如果不霸体则硬直*/
+                if(IsSuperArmor==0)
+                    actionStateMachine.Push(6);
             }
             health = value;
             if (health <= 0&&IsAlive!=-1)
             {
-                //gameObject.GetComponent<HitAwary>().BeHitAwary();
+
                 IsAlive = 0;
             }
             Notify("HealthInChanged;"+temp+";"+health+";"+this.tag);
@@ -149,12 +166,7 @@ public class Character : RoomElement
 
             int temp = healthTmp;
             healthTmp = value;
-            //if (Health < 0)
-            //    HealthIn = value;
-            //else if (Health > 10)
-            //    HealthIn = 10;
-            //else
-            //    HealthIn = value;
+
             HealthIn = value;
             Notify("HealthChanged;" + temp + ";" + healthTmp + ";"+this.tag);
 
@@ -287,9 +299,6 @@ public class Character : RoomElement
             attackDamage = value;
             foreach (GameObject weapon in weapons)
                 weapon.GetComponent<HurtByContract>().damage = (int)attackDamage;
-            //GetComponent<CharacterSkin>().Weapon.GetComponent<HurtByContract>().damage =(int) attackDamage;
-            //if(weapon==1&&race==0)
-               // GetComponent<CharacterSkin>().Weapon2.GetComponent<HurtByContract>().damage = (int)attackDamage;
             Notify("AttackDamageInChanged;"+tmp+";"+attackDamage);
         }
     }
@@ -472,6 +481,7 @@ public class Character : RoomElement
         set
         {
             canMove = value;
+            State = 0;
             Notify("CanMoveChanged");
         }
     }
@@ -484,10 +494,12 @@ public class Character : RoomElement
         get { return state; }
         set
         {
+
+          
             if (state != value)
             {
-            
-                if (CanMove == 0)// && value == 1)
+
+                if (CanMove == 0 && value == 1)
                     return;
                 //Debug.Log("current state:" + state + " to " + value);
                 state = value;
@@ -567,10 +579,6 @@ public class Character : RoomElement
         set 
         {
             beatBackLevel = value;
-           // weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevel = 0;
-            //weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel + beatBackBuff;
-           // if (weapon == 1)
-           //     weaponObj2.transform.Find("Weapon").GetComponent<HurtByContract>().beatBackLevel = beatBackLevel+beatBackBuff;
 
             for(int i=0;i<weapons.Length;i++)
             {
@@ -613,15 +621,12 @@ public class Character : RoomElement
                 return;
             }
             Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
-            //Vector3 temp = gameObject.GetComponent<Transform>().localScale;
+
             if (value.x * temp.x > 0)
                 temp.x = -temp.x;
-            //gameObject.GetComponent<Transform>().localScale = temp;
+
             gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale = temp;
-            //Vector3 temp = gameObject.GetComponent<Transform>().localScale;
-            //if (value.x * temp.x > 0)
-            //    temp.x = -temp.x;
-            //gameObject.GetComponent<Transform>().localScale = temp;
+
 
             direction = value;
             DirectionAttempt = value;
@@ -636,8 +641,10 @@ public class Character : RoomElement
 
     public virtual void Move()
     {
-        transform.position += direction * moveSpeed;
-        Notify("Move");
+        if(isConfused==0)
+          transform.position += Direction * MoveSpeedIn;
+        else
+            transform.position -= Direction * MoveSpeedIn;
 
     }
 
@@ -651,11 +658,11 @@ public class Character : RoomElement
     {
         state = 0;
         actionStateMachine.Push(5);
-        //isAlive = -1;
+ 
         
         Notify("Die;"+this.tag);
         StartCoroutine(Disappear());
-       // Destroy(this.gameObject);
+
 
     }
 
@@ -669,7 +676,7 @@ public class Character : RoomElement
         if (controllable == 0)
             return;
 
-        state = 0;
+        State = 0;
         actionStateMachine.Push(1);
     }
 
@@ -677,7 +684,7 @@ public class Character : RoomElement
     {
         if (controllable == 0)
             return;
-        state = 0;
+        State = 0;
         actionStateMachine.Push(2);
     }
 
@@ -698,7 +705,7 @@ public class Character : RoomElement
     
 
     }
-   void init()
+   void Init()
    {
        //初始化
        state = 0;//静止
@@ -741,11 +748,18 @@ public class Character : RoomElement
 
     public virtual void FixedUpdate()
     {
-        //Debug.Log("state:" + state);
-        if (state == 1&&controllable==1&&canMove==1)
+        //Move
+        if (controllable==1&&canMove==1&&actionStateMachine.CurState=="Move")
         {
             Move();
         }
+        
+        //如果状态与状态机不一致
+        else if(actionStateMachine.CurState=="Idle"&&State==1)
+        {
+            ActionStateMachine.Push(4);
+        }
+
 
     }
 
@@ -757,29 +771,25 @@ public class Character : RoomElement
 
     public void Awake()
     {
-        //RoomElementID = 2001;
+
 
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;
         CharacterManager.Instance.CharacterList.Add(this);
         weapon = RoomElementID % 10;
-   
         race = RoomElementID % 100 / 10;
-        init();
-        //Transform bodyNode = gameObject.transform.FindChild("BodyNode");
-        //Transform body = gameObject.transform.FindChild("Body");
-        //body.SetParent(bodyNode);
 
-        //gameObject.AddComponent<HitAwary>();
+        Init();
+
     }
 
 
     public IEnumerator Disappear()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
+
         if (tag != "Player")
-        {
-            
+        {      
             CharacterManager.Instance.CharacterList.Remove(this);  
             Destroy(this.gameObject);
         }
@@ -820,16 +830,6 @@ public class Character : RoomElement
 
     public void ChangeWeaponRange()
     {
-        //if (weapon == 0)
-        //{
-          
-        //    this.GetComponent<CharacterSkin>().WeaponNode.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
-        //}
-        //if(weapon==1)
-        //{
-        //    weaponObj.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
-        //    //weaponObj2.transform.localScale = new Vector3(attackRange, attackRange, attackRange);
-        //}
         for(int i=0;i<weapons.Length;i++)
         {
             weapons[i].transform.parent.localScale = new Vector3(attackRange, attackRange, attackRange);

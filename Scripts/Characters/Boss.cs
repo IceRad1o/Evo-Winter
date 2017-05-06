@@ -19,6 +19,7 @@ public class Boss :Enemy{
     {
         base.Start();
         this.tag = "Boss";
+        this.IsSuperArmor = 1;
         this.AddObserver(BossHealthBar.Instance);
         Notify("BossAppear");
         //EnemyManager.Instance.EnemyList.Add(this);

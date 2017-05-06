@@ -11,151 +11,123 @@ public class FadeOut : Action
 
 
 
-
-
-
-
-    SpriteRenderer[] renders;
+    Text[] texts;
+    Renderer[] renders;
     Image[] images;
-    void Start()
+
+    float[] speeds;
+
+
+    public override bool GetNormalComponents()
     {
-        if (isReverse == false && isLoop == true)
-            isLoop = false;
+        renders = this.GetComponentsInChildren<SpriteRenderer>();
 
-        if (!isOnCanvas)
-        {
-            renders = this.GetComponentsInChildren<SpriteRenderer>();
-            if (renders == null)
-                return;
-
-            if (resetToFull)
-                foreach (SpriteRenderer r in renders)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, 1);
-                }
-            if(resetToZero)
-                foreach (SpriteRenderer r in renders)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, 0);
-                }
-            if (isReset)
-                foreach (SpriteRenderer r in renders)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, resetValue.x);
-                }
-
-            StartCoroutine(IEumFadeOut());
-        }
-
+        if (renders == null)
+            return false;
         else
         {
-            images = this.GetComponentsInChildren<Image>();
-            if (resetToFull)
-                foreach (Image r in images)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, 1);
-                }
-            if (resetToZero)
-                foreach (Image r in images)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, 0);
-                }
-            if (isReset)
-                foreach (Image r in images)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, resetValue.x);
-                }
-            StartCoroutine(IEumUIFadeOut());
+            speeds = new float[renders.Length];
+            return true;
         }
 
     }
 
-    IEnumerator IEumFadeOut()
+    public override bool GetUIComponents()
     {
+        images = this.GetComponentsInChildren<Image>();
+        texts = this.GetComponentsInChildren<Text>();
 
-        if (isDelay)
-            yield return new WaitForSeconds(delayTime);
-
-        float speed;
-
-
-        do
+        if (images == null && texts == null)
+            return false;
+        else
         {
-            count = (int)((duration * 60) ) + 1;
-            speed = 1.0f / count;
-            while (count-- != 0)
-            {
-                foreach (SpriteRenderer r in renders)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a - speed);
+            speeds = new float[images.Length + texts.Length];
+            return true;
+        }
 
-                }
-                yield return null;
-            }
-            if (isReverse)
-            {
-                count = (int)((duration * 60) ) + 1;
-                speed = 1.0f / count;
-
-                while (count-- != 0)
-                {
-                    foreach (SpriteRenderer r in renders)
-                    {
-                        r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + speed);
-
-                    }
-                    yield return null;
-                }
-            }
-        } while (isLoop && (--loopTimes > 0 || loopForever));
-        Destroy(this);
     }
 
-
-    IEnumerator IEumUIFadeOut()
+    public override void ResetValue(Vector4 value)
     {
-        if (isDelay)
-            yield return new WaitForSeconds(delayTime);
-
-        float speed;
-
-
-        do
+        if (isOnCanvas)
         {
-            count = (int)(duration * 60) ;
-            if (count == 0)
-                count = 1;
-            speed = 1.0f / count;
-            while (count-- != 0)
+            //Debug.Log("a:" + value.x);
+            foreach (Image r in images)
             {
-                foreach (Image r in images)
-                {
-                    r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a - speed);
+                r.color = new Color(r.color.r, r.color.g, r.color.b, value.x);
 
-                }
-                yield return null;
             }
-            if (isReverse)
+            foreach (Text r in texts)
             {
-                count = (int)(duration * 60) ;
-                if (count == 0)
-                    count = 1;
-                speed = 1.0f / count;
-
-                while (count-- != 0)
-                {
-                    foreach (Image r in images)
-                    {
-                        r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + speed);
-
-                    }
-                    yield return null;
-                }
+                r.color = new Color(r.color.r, r.color.g, r.color.b, value.x);
             }
-        } while (isLoop && (--loopTimes > 0 || loopForever));
-        Destroy(this);
+        }
+        else
+        {
+            foreach (SpriteRenderer r in renders)
+            {
+                r.color = new Color(r.color.r, r.color.g, r.color.b, value.x);
+
+            }
+        }
+
     }
 
+    public override void ChangeValue(bool direction)
+    {
+        int dir = direction ? 1 : -1;
+        int i = 0;
+        if (isOnCanvas)
+        {
+            foreach (Image r in images)
+            {
+                r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + dir * speeds[i]);
+                i++;
+            }
+            foreach (Text r in texts)
+            {
+                r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + dir * speeds[i]);
+                i++;
+            }
+        }
+        else
+        {
+            foreach (SpriteRenderer r in renders)
+            {
+                r.color = new Color(r.color.r, r.color.g, r.color.b, r.color.a + dir * speeds[i]);
+                i++;
 
+            }
+        }
+    }
+
+    protected override void ReCalSpeed()
+    {
+        base.ReCalSpeed();
+        int i = 0;
+        if (isOnCanvas)
+        {
+            foreach (Image r in images)
+            {
+                speeds[i] = (destValue.x - r.color.a) / count;
+                i++;
+
+            }
+            foreach (Text r in texts)
+            {
+                speeds[i] = (destValue.x - r.color.a) / count;
+                i++;
+            }
+        }
+        else
+        {
+            foreach (SpriteRenderer r in renders)
+            {
+                speeds[i] = (destValue.x - r.color.a) / count;
+                i++;
+
+            }
+        }
+    }
 
 }

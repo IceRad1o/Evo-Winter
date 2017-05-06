@@ -13,10 +13,12 @@ public class GodBar : ExUnitySingleton<GodBar>
         Button btn = gateBtn.GetComponent<Button>();
 
         btn.onClick.AddListener(OnGate);
-        
+
+        OnGate();
+
 	}
 
-    void OnGate()
+    public void OnGate()
     {
         for(int i=0;i<btns.Length;i++)
         {

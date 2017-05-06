@@ -122,6 +122,8 @@ public class HurtByContract : MonoBehaviour
                 //击倒
                 if (beatDownLevelX > 0||beatDownLevelY>0)
                 {
+                    if (isCh&&ch.IsSuperArmor == 1)
+                        break;
                     if(isCh)
                          ch.Fall();
                     BeatDown b = other.gameObject.AddComponent<BeatDown>();

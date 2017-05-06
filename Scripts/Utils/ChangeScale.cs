@@ -4,10 +4,10 @@ using System.Collections;
 public class ChangeScale : MonoBehaviour {
     
     private bool isDestroy=false;
-    public float intervalTime = 0.0f;
+    public float intervalTime = 0.1f;
     public float proportion = 0.2f;
-    public float duration = 1.0f;
-    public float stopTime = 0.5f;
+    public float duration = 0.3f;
+    public float stopTime = 1.4f;
 
     void Start()
     {
