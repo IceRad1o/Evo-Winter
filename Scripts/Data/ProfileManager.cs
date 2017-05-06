@@ -194,6 +194,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
                 tempRERoomX.Add(RoomManager.Instance.roomX);
                 tempRERoomY.Add(RoomManager.Instance.roomY);
             }
+			//Debug.Log ("房间号：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
             data.RoomElementID = tempREID.ToArray();
             data.RoomElementPosX = tempREPosX.ToArray();
             data.RoomElementPosY = tempREPosY.ToArray();

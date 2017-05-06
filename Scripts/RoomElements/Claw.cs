@@ -3,17 +3,18 @@ using System.Collections;
 
 public class Claw : RoomElement {
 
-	// Use this for initialization
-	void Start () {
-
-	}
     public override void Awake()
     {
         base.Awake();
         RoomElementID = 5;
     }
-	// Update is called once per frame
-	void Update () {
-	
+
+	//碰撞检测
+	private void OnTriggerEnter(Collider other)
+	{
+		if (EnemyManager.Instance.EnemyList.Count == 0 && other.tag == "Player") 
+		{
+			Notify ("Claw");
+		}
 	}
 }

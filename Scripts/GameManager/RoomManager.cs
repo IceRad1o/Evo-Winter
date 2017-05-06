@@ -57,6 +57,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 	public GameObject[] altar;
 	//商店
 	public GameObject[] shop;
+	//牌子
+	public GameObject[] plate;
     //小怪
     public GameObject[] enemys;
 	//Boss
@@ -189,8 +191,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 		case 1://小房间
 			settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
 			settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
-			settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
-			settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
+			settledPosition.Add(new Vector3(-2.5f, -2.5f, 0f));
+			settledPosition.Add(new Vector3(2.5f, -6.5f, 0f));
 			settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
 			settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
 			break;
@@ -198,8 +200,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 			settledPosition.Add(new Vector3(-6f, -1.5f, 0f));
 			settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
 			settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
-			settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
-			settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
+			settledPosition.Add(new Vector3(-2.5f, -2.5f, 0f));
+			settledPosition.Add(new Vector3(2.5f, -6.5f, 0f));
 			settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
 			settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
 			settledPosition.Add(new Vector3(6f, -3.5f, 0f));
@@ -211,8 +213,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 			settledPosition.Add(new Vector3(-6f, -1.5f, 0f));
 			settledPosition.Add(new Vector3(-3.5f, -0.5f, 0f));
 			settledPosition.Add(new Vector3(-3.5f, -6.0f, 0f));
-			settledPosition.Add(new Vector3(-1.5f, -2.5f, 0f));
-			settledPosition.Add(new Vector3(1.5f, -6.5f, 0f));
+			settledPosition.Add(new Vector3(-2.5f, -2.5f, 0f));
+			settledPosition.Add(new Vector3(2.5f, -6.5f, 0f));
 			settledPosition.Add(new Vector3(3.5f, -2.0f, 0f));
 			settledPosition.Add(new Vector3(4.5f, -5.5f, 0f));
 			settledPosition.Add(new Vector3(6f, -3.5f, 0f));
@@ -339,12 +341,19 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 				randomPosition = new Vector3 (0, -2f, -2f);
 				objectChoice = shop [Random.Range (0, shop.Length)];
 				//道具
-				for (int j = 0; j < 5; j++) {
-					ItemManager.Instance.ItemsTransform.position = new Vector3(
-						Random.Range(-3,3), Random.Range(-2,-6), 0f);
+				Vector3 pricePosition;
+				Vector3[] itemPosition = {
+					new Vector3(-3f,-0.5f,0f),new Vector3(-3f,-4f,0f),new Vector3(-3f,-7.5f,0f),
+					new Vector3( 3f,-0.5f,0f),new Vector3( 3f,-4f,0f),new Vector3( 3f,-7.5f,0f)};
+				ItemManager.Instance.ItemsTransform = this.transform;
+				for (int j = 0; j < 6; j++) {
+					ItemManager.Instance.ItemsTransform.position = itemPosition[j];
 					ItemManager.Instance.CreateItemDrop(false, false, true);
+					//牌子
+					pricePosition = new Vector3 (itemPosition [j].x, itemPosition [j].y + 0.5f, 0f);
+					GameObject price = Instantiate(plate[0], pricePosition, Quaternion.identity) as GameObject;
+					price.transform.SetParent(GameObject.Find("GroundElements").transform);
 				}
-
 			}
 			//祭坛
 			else if (roomType == (int)RmType.Altar) {
@@ -484,11 +493,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     {
 		Vector3 position;
 		if(roomSize == 1)
-        	position = new Vector3(5f,0f,0f);
+        	position = new Vector3(4.5f,-0.8f,0f);
 		else if(roomSize == 2)
-			position = new Vector3(8f,0f,0f);
+			position = new Vector3(7.5f,-0.8f,0f);
 		else 
-			position = new Vector3(12f,0f,0f);
+			position = new Vector3(11.5f,-0.8f,0f);
         GameObject objectChoice = stair[0];
         GameObject roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
         roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
@@ -578,7 +587,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         SetRoomXY(x, y, tp);
 		LayoutDoor();
 		GameManager.Instance.LayoutWall (x, y);
-        if (x == CheckpointManager.Instance.rows - 1 && y == CheckpointManager.Instance.columns - 1)
+		if (tp == -2)
         {
             LayoutStair();
         }
@@ -596,7 +605,14 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                     Vector3 position = new Vector3(posiX[count],posiY[count],posiZ[count]);
                     GameObject objectChoice;
                     GameObject roomElement = null;
-                  
+					if (id[count] >= 1000) 
+					{
+						//ItemManager.Instance.ItemsTransform = this.transform;
+						ItemManager.Instance.ItemsTransform.position = position;
+						ItemManager.Instance.CreateItemID(id[count]);
+					}
+						
+					else 
                     switch (id[count])
                     {
                         case 0:
@@ -758,12 +774,22 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 							break;
 						case 19:
 							//Debug.Log("选中商店");
-							//Altar1
+							//Shop
 							objectChoice =shop[0];
 							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
 							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
 							roomElement.transform.localPosition = position;
 							break;
+
+						case 20:
+							//Debug.Log("选中牌子");
+							//Plate
+							objectChoice =plate[0];
+							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							break;
+
                     }
                  
                 }
