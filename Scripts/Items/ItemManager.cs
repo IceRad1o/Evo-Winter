@@ -55,13 +55,15 @@ public class ItemManager : ExUnitySingleton<ItemManager>
      */
     public void CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false, bool trans = true)
     {
+        Vector3 s = new Vector3(itemsTransform.position.x,itemsTransform.position.y+1,itemsTransform.position.z);
+
         int itemID = RandomItemID(itemsTable.GetItemsByType(includeingImm, includeingDis, includeingIni));
         System.Random random = new System.Random();
         if (itemsTable.GetItemType(itemID)==1)
         {
             DisposableItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
+                itemInstance = Instantiate(itemsDisposable, s, itemsTransform.rotation) as DisposableItem;
             else
                 itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
@@ -72,7 +74,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         {
             ImmediatelyItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
+                itemInstance = Instantiate(itemImmediately, s, itemsTransform.rotation) as ImmediatelyItem;
             else
                 itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
             itemInstance.Create(itemID);
@@ -83,7 +85,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         {
             InitiativeItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
+                itemInstance = Instantiate(itemInitiative, s, itemsTransform.rotation) as InitiativeItem;
             else
                 itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
             itemInstance.Create(itemID);
@@ -102,6 +104,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
     public void CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false, bool trans=true)
     {
+        Vector3 s = new Vector3(itemsTransform.position.x, itemsTransform.position.y + 1, itemsTransform.position.z);
+
         int itemID = RandomItemID(itemsTable.GetItemsByDoping(roomDroping, boosDroping, boxDroping));
         System.Random random = new System.Random();
         //int itemID = RandomItemID();
@@ -109,7 +113,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         {
             DisposableItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
+                itemInstance = Instantiate(itemsDisposable, s, itemsTransform.rotation) as DisposableItem;
             else
                 itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
@@ -120,7 +124,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         {
             ImmediatelyItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
+                itemInstance = Instantiate(itemImmediately, s, itemsTransform.rotation) as ImmediatelyItem;
             else
                 itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
             itemInstance.Create(itemID);          
@@ -130,7 +134,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         {
             InitiativeItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
+                itemInstance = Instantiate(itemInitiative, s, itemsTransform.rotation) as InitiativeItem;
             else
                 itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
             itemInstance.Create(itemID);            
@@ -144,15 +148,17 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// </summary>
     /// <param name="ID">要创建道具的ID</param>
     /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
-    public void CreateItemID(int ID, bool trans = true)
+    public void CreateItemID(int ID,bool trans = true)
     {
+        Vector3 s = new Vector3(itemsTransform.position.x, itemsTransform.position.y + 1, itemsTransform.position.z);
+
         System.Random random = new System.Random();
         int itemID = ID;
         if (itemsTable.GetItemType(itemID) == 1)
         {
             DisposableItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemsDisposable, itemsTransform.position, itemsTransform.rotation) as DisposableItem;
+                itemInstance = Instantiate(itemsDisposable, s, itemsTransform.rotation) as DisposableItem;
             else
                 itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
@@ -163,7 +169,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         {
             ImmediatelyItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemImmediately, itemsTransform.position, itemsTransform.rotation) as ImmediatelyItem;
+                itemInstance = Instantiate(itemImmediately, s, itemsTransform.rotation) as ImmediatelyItem;
             else
                 itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
             itemInstance.Create(itemID);
@@ -173,7 +179,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         {
             InitiativeItem itemInstance;
             if (trans)
-                itemInstance = Instantiate(itemInitiative, itemsTransform.position, itemsTransform.rotation) as InitiativeItem;
+                itemInstance = Instantiate(itemInitiative, s, itemsTransform.rotation) as InitiativeItem;
             else
                 itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
             itemInstance.Create(itemID);
