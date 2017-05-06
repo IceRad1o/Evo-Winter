@@ -13,7 +13,7 @@ public class ScaleTo : Action
     /// <summary>
     /// 缩放目标值
     /// </summary>
-    public Vector3 destScale = new Vector3();
+   // public Vector3 destScale = new Vector3();
 
 
 
@@ -29,122 +29,44 @@ public class ScaleTo : Action
     void Init(float duration,Vector3 destScale,bool isReverse=true,bool isLoop=false,bool isOnCanvas=false)
     {
         this.duration = duration;
-        this.destScale = destScale;
+        //this.destScale = destScale;
         this.isReverse = isReverse;
         this.isLoop = isLoop;
         this.isOnCanvas = isOnCanvas;
     }
-    void Start()
+    public override bool GetNormalComponents()
     {
 
-        if (isReverse == false && isLoop == true)
-            isLoop = false;
-
-        if (!isOnCanvas)
-        {
-            if (isReset)
-                this.transform.localScale = new Vector3(resetValue.x, resetValue.y, resetValue.z);
-            if(resetToZero)
-                this.transform.localScale = new Vector3(0, 0, 0);
-            StartCoroutine(IEnumScaleTo());
-            
-        }
-        else
-        {
-            if (isReset)
-                this.GetComponent<RectTransform>().localScale = new Vector3(resetValue.x, resetValue.y, resetValue.z);
-            if (resetToZero)
-                this.GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
-            StartCoroutine(IEnumUIScaleTo());
-        }
-            
+        return true;
     }
 
-    IEnumerator IEnumScaleTo()
+    public override bool GetUIComponents()
     {
-        if (isDelay)
-            yield return new WaitForSeconds(delayTime);
+        return true;
 
-        Vector3 speed;
-       
+    }
 
-        do
-        {
-            count = (int)((duration * 60) );
-            if (count == 0)
-                count = 1;
-            speed = (destScale - this.transform.localScale) / count;
-            while (count-- != 0)
-            {
-                this.transform.localScale += speed;
-                yield return null;
-            }
-            if (isReverse)
-            {
-                count = (int)((duration * 60) );
-                if (count == 0)
-                    count = 1;
-
-                while (count-- != 0)
-                {
-                    this.transform.localScale -= speed;
-                    yield return null;
-                }
-            }
-        } while (isLoop && (--loopTimes > 0 || loopForever)) ;
-
-        Destroy(this);
-
+    public override void ResetValue(Vector4 value)
+    {
+        transform.localScale = new Vector3(value.x, value.y, value.z);
 
 
     }
 
-    /// <summary>
-    /// UI元素版本
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator IEnumUIScaleTo()
+    public override void ChangeValue(bool direction)
     {
-        if (isDelay)
-            yield return new WaitForSeconds(delayTime);
+        int dir = direction ? 1 : -1;
 
-        Vector3 speed;
-
-
-
-        do
-        {
-            count = (int)((duration * 60) );
-            if (count == 0)
-                count = 1;
-            speed = (destScale - this.GetComponent<RectTransform>().localScale) / count;
-            while (count-- != 0)
-            {
-                this.GetComponent<RectTransform>().localScale += speed;
-                yield return null;
-            }
-            if (isReverseDelay)
-                yield return new WaitForSeconds(reverseDelayTime);
-            if (isReverse)
-            {
-                count = (int)((duration * 60) );
-                if (count == 0)
-                    count = 1;
-
-                while (count-- != 0)
-                {
-                    this.GetComponent<RectTransform>().localScale -= speed;
-                    yield return null;
-                }
-            }
-        } while (isLoop && (--loopTimes > 0 || loopForever));
-
-        Destroy(this);
-
-
-
+        transform.localScale += new Vector3(dir*speed.x,dir*speed.y,dir*speed.z);
     }
 
+    protected override void ReCalSpeed()
+    {
+        Vector4 t=(destValue - new Vector4(transform.localScale.x, transform.localScale.y, transform.localScale.z,0));
+
+        speed = t / count;
+     
+    }
 
 
 

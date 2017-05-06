@@ -18,7 +18,7 @@ public class GodBar : ExUnitySingleton<GodBar>
 
 	}
 
-    void OnGate()
+    public void OnGate()
     {
         for(int i=0;i<btns.Length;i++)
         {

@@ -13,6 +13,7 @@ public class KeyBoardManager : MonoBehaviour {
     Vector3 direction;
     public GameObject DamageSrc;
     public GameObject box;
+    public GameObject monster;
     int cheatPunish;
     void Start()
     {
@@ -158,6 +159,15 @@ public class KeyBoardManager : MonoBehaviour {
         {
             AddAttackSpeed();
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GodBar.Instance.OnGate();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Instantiate(monster);
+        }
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (!PlayerInfo.Instance.gameObject.activeInHierarchy)

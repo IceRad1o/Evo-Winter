@@ -20,7 +20,7 @@ public class FadeOut : Action
 
     public override bool GetNormalComponents()
     {
-        renders = this.GetComponentsInChildren<Renderer>();
+        renders = this.GetComponentsInChildren<SpriteRenderer>();
 
         if (renders == null)
             return false;

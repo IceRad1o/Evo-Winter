@@ -53,6 +53,7 @@ public class BuffManager : ExSubject
                 new BuffAttack().CreateBuff(ID,this.gameObject);
                 break;
             case 11:
+                Debug.Log("Trigger3");
                 new BuffTiming().CreateBuff(ID, this.gameObject,spTag);
                 break;
 
@@ -76,13 +77,14 @@ public class BuffManager : ExSubject
 
     public void CreateDifferenceBuff(int ID,string spTag="")
     {
-
         if (buffManagerTag == "Player" && ID % 10 == 0)
             judgeCreate = true;
         if (buffManagerTag == "Monster" && ID % 10 == 1)
             judgeCreate = true;
         if (buffManagerTag == "Boss" && ID % 10 == 2)
             judgeCreate = true;
+
+        Debug.Log("         " + buffManagerTag);
         CreateBuff(ID / 10,spTag);
 
     }

@@ -20,13 +20,9 @@ public class Blast : Skill {
     /// <returns></returns>
     private IEnumerator SkillTrigger()
     {
-        yield return new WaitForSeconds(0.0f);
-        GameObject pfb = Resources.Load("Skill/Aim") as GameObject;
-        pfb.AddComponent<ChangeScale>();
-        pfb.GetComponent<ChangeScale>().duration = 0.4f;
-        pfb.GetComponent<ChangeScale>().proportion = 1.0f;
-        pfb.GetComponent<ChangeScale>().intervalTime = 0.1f;
-        pfb.GetComponent<ChangeScale>().stopTime = 2.0f;
+   
+        GameObject pfb = UtilManager.Instance.CreateEffcet("Skill/Boss/Science/ExplosionCircle", this.gameObject.transform.position);  
+
 
 
 
@@ -39,13 +35,13 @@ public class Blast : Skill {
         if (blast_Effect != null)
             UtilManager.Instance.CreateEffcet(blast_Effect, this.gameObject.transform.position);
 
-        //判断人物与Boss的距离
-        Vector3 pos = this.gameObject.transform.position;
-        Vector3 posJudge = Player.Instance.gameObject.transform.position;
-        var i = (pos.x - posJudge.x) * (pos.x - posJudge.x) + (pos.y - posJudge.y) * (pos.y - posJudge.y);
+        ////判断人物与Boss的距离
+        //Vector3 pos = this.gameObject.transform.position;
+        //Vector3 posJudge = Player.Instance.gameObject.transform.position;
+        //var i = (pos.x - posJudge.x) * (pos.x - posJudge.x) + (pos.y - posJudge.y) * (pos.y - posJudge.y);
 
-        if (i < 16)
-            Player.Instance.GetComponent<Character>().Health--;
+        //if (i < 16)
+        //    Player.Instance.GetComponent<Character>().Health--;
     }
 
 

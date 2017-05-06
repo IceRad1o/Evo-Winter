@@ -15,7 +15,7 @@ public class SkillTest : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
         //this.gameObject.GetComponent<SkillManager>().CreateSkill(4);
         //this.gameObject.GetComponent<SkillManager>().CreateSkill(3);
-
+        this.gameObject.GetComponent<Character>().AttackDamage = 9;
         UtilManager.Instance.CreateEffcet(pfb);
     }
 	

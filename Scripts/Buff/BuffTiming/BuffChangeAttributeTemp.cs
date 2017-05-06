@@ -14,6 +14,10 @@ public class BuffChangeAttributeTemp : BuffTiming {
         get { return dValue; }
         set { dValue = value; }
     }
+
+    
+
+
     /// <summary>
     /// 要改变的属性,0:当前生命 1:生命上限 2:移速 3:攻速 4:攻击范围 5:攻击伤害 6:硬直 7:僵直 8:视野 9:幸运
     /// </summary>
@@ -32,6 +36,8 @@ public class BuffChangeAttributeTemp : BuffTiming {
     /// <param name="ID"></param>
     public override void Create(int ID, string spTag = "")
     {
+        base.Create(ID,spTag);
+        
         SpecialTag = spTag;
 
         int[] part = { 2,2,2,2,2 };
@@ -45,10 +51,10 @@ public class BuffChangeAttributeTemp : BuffTiming {
             DValue = -idPart[4];
 
         Trigger();
-        if (buffDuration!=0)
+        if (buffDuration!=0 && timingType==0)
             StartCoroutine(delay(BuffDuration, 0));
-        else
-            StartCoroutine(delay(10000, 0));
+        //else
+        //    StartCoroutine(delay(10000, 0));
 
 
     }
@@ -183,10 +189,12 @@ public class BuffChangeAttributeTemp : BuffTiming {
         Destroy(prefabInstance);
         base.DestroyBuff();
     }
- 
-	void Start () {
-        
-	}
+
+
+    public override void OnNotify(string msg)
+    {
+        base.OnNotify(msg);
+    }
 	
 
     

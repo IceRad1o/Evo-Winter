@@ -54,7 +54,7 @@ public class ImmediatelyItem : Item{
             ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + itemSkillID);
 
         ItemManager.Instance.listImmediatelyItem.Remove(this);
-        Destroy(gameObject);
+        this.Destroy();
     }
 
 
@@ -78,6 +78,10 @@ public class ImmediatelyItem : Item{
 
     }
 
+    public override void Destroy()
+    {
+        base.Destroy();
+    }
 
     public override void Awake()
     {

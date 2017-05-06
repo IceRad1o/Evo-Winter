@@ -24,6 +24,8 @@ public class BuffStatic : BuffTiming {
 
     public override void Trigger()
     {
+        Debug.Log("Trigger4      "+SpecialTag);
+
         Player.Instance.Character.Controllable = 0;
         Debug.Log(SpecialTag);
         if (SpecialTag != "Skill_L")
