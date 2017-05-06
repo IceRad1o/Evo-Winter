@@ -25,6 +25,7 @@ public class RoomElement : ExSubject {
      * 17:祭坛一Altar1
      * 18:祭坛二Altar2
      * 19:商店Shop
+     * 1000+:道具
      * */
     public int RoomElementID
     {
