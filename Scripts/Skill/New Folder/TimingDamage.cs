@@ -9,7 +9,7 @@ public class TimingDamage : MonoBehaviour {
 
     public float interval=3;
 
-    public List<GameObject> listEnemy = new List<GameObject>();
+    List<GameObject> listEnemy = new List<GameObject>();
 
 
 

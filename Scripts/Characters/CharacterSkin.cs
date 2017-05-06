@@ -132,7 +132,8 @@ public class CharacterSkin : MonoBehaviour
     {
         Transform bodyNode1 = gameObject.transform.FindChild("BodyNode");
         Transform body1 = gameObject.transform.FindChild("Body");
-        body1.SetParent(bodyNode1);
+        if(body1!=null)
+          body1.SetParent(bodyNode1);
         bodyNode = gameObject.transform.Find("BodyNode").gameObject;
         body = bodyNode.transform.Find("Body").gameObject;
         //body.transform.position = new Vector3(0, -1.96f, 0);

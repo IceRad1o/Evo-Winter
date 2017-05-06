@@ -13,7 +13,7 @@ public class BossHealthBar : ExUnitySingleton<BossHealthBar>
 
     void SetBlood(float percent)
     {
-        Debug.Log("per:" + percent);
+        //Debug.Log("per:" + percent);
         if (percent > 0)
             bloodBar.GetComponent<Image>().fillAmount = percent;
         else
