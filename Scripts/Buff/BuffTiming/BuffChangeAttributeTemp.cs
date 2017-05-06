@@ -40,19 +40,27 @@ public class BuffChangeAttributeTemp : BuffTiming {
         
         SpecialTag = spTag;
 
-        int[] part = { 2,2,2,2,2 };
-        int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
-
-        BuffDuration = idPart[2];
-        Attribute = idPart[3];
-        if (idPart[1] == 1)
-            DValue = idPart[4];
+        if (SpecialTag == "Altar" || SpecialTag=="DevilAltar")
+        {
+            UIManager.Instance.AddObserver(this);
+        }
         else
-            DValue = -idPart[4];
+        {
+            int[] part = { 2, 2, 2, 2, 2 };
+            int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
 
-        Trigger();
-        if (buffDuration!=0 && timingType==0)
-            StartCoroutine(delay(BuffDuration, 0));
+            BuffDuration = idPart[2];
+            Attribute = idPart[3];
+            if (idPart[1] == 1)
+                DValue = idPart[4];
+            else
+                DValue = -idPart[4];
+
+            Trigger();
+            if (buffDuration != 0 && timingType == 0)
+                StartCoroutine(delay(BuffDuration, 0));
+
+        }
         //else
         //    StartCoroutine(delay(10000, 0));
 
@@ -146,6 +154,12 @@ public class BuffChangeAttributeTemp : BuffTiming {
 
     public override void DestroyBuff()
     {
+        if (SpecialTag == "Altar" || SpecialTag == "DevilAltar")
+            UIManager.Instance.RemoveObserver(this);
+
+        if (SpecialTag == "DevilAltar")
+            dValue++;
+
         dValue = -dValue;
         Destroy(prefabInstance);
         switch (attribute)

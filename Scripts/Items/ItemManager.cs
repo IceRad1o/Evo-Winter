@@ -334,11 +334,10 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             //一次性道具的拾取                
             foreach (DisposableItem t in listDisposableItem)
             {
-                if (itemsDis == t && t.playerIn)
-             
+                if (itemsDis == t && t.playerIn)             
                 {
                     AddDisposableItems(t);
-                    Notify("Get_DisposableItem;" + t.ItemID);
+                    Notify("Get_DisposableItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
                     t.Destroy();
                     break;
                 }
@@ -349,7 +348,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 if (itemIni == t && t.PlayerIn)
                 {
                     AddInitiativeItems(t);
-                    Notify("Get_InitiativeItem;" + t.ItemID);
+                    Notify("Get_InitiativeItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
                     t.Destroy();
                     break;
                 }
@@ -360,7 +359,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 if (itemImm == t && t.playerIn)
                 {
                     Debug.Log("Get_ImmediatelyItem");
-                    Notify("Get_ImmediatelyItem;" + t.ItemID);
+                    Notify("Get_ImmediatelyItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
                     t.Use();
                     break;
                 }

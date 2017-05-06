@@ -91,6 +91,8 @@ public class BuffTiming : Buff {
         if (UtilManager.Instance.GetFieldFormMsg(spTag, -1) == "Room")
         {
             RoomManager.Instance.AddObserver(this);
+            spTag = UtilManager.Instance.GetFieldFormMsg(spTag, 0);
+            timingType = 1;
 
         }
     }
