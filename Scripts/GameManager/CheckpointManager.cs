@@ -218,8 +218,8 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 {
                     int surroundRoomNumber = GetSurroundRoom(i, j);
 					//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
-                    //int type = Random.Range(1, 15);
-					int type = 2;
+                    int type = Random.Range(1, 15);
+					//int type = 2;
 					//设置房间大小
 					int rmSize;
 					if (type == 1 || type == 2)
