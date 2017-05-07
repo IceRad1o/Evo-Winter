@@ -32,9 +32,6 @@ public class Door : RoomElement
             GetComponent<BoxCollider>().enabled = false;
             StartCoroutine(EnterRoom());
             //等待1s
-
-           
-
         }
     }
 
@@ -90,7 +87,7 @@ public class Door : RoomElement
             case 0:
                 //进入上侧房间   
                 Debug.Log("进上xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                Player.Instance.Character.transform.position = new Vector3(0f, -6.5f, 0f);
+                Player.Instance.Character.transform.position = new Vector3(0f, -7f, 0f);
                 rmX = RoomManager.Instance.roomX - 1;
                 rmY = RoomManager.Instance.roomY;
                 map = (ProfileManager.Instance.Data.CurMapX - 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY;
@@ -99,7 +96,7 @@ public class Door : RoomElement
             case 1:
                 //进入下侧房间
                 Debug.Log("进下xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
-                Player.Instance.Character.transform.position = new Vector3(0f, -0.8f, 0f);
+                Player.Instance.Character.transform.position = new Vector3(0f, -1.2f, 0f);
                 rmX = RoomManager.Instance.roomX + 1;
                 rmY = RoomManager.Instance.roomY;
                 map = (ProfileManager.Instance.Data.CurMapX + 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY;

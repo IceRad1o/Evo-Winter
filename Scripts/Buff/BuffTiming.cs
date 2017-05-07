@@ -4,7 +4,7 @@ using System.Collections;
 public class BuffTiming : Buff {
 
     
-    protected int timingType;
+    protected int timingType=0;
     /// <summary>
     /// 计时方式，0时间制，1房间制，2状态类
     /// </summary>
@@ -88,8 +88,26 @@ public class BuffTiming : Buff {
 
     public virtual void Create(int ID, string spTag = "")
     {
+        if (UtilManager.Instance.GetFieldFormMsg(spTag, -1) == "Room")
+        {
+            RoomManager.Instance.AddObserver(this);
 
-        
+        }
+    }
+
+    public override void DestroyBuff()
+    {
+		if (UtilManager.Instance.GetFieldFormMsg(SpecialTag, -1) == "Room")
+		{
+			RoomManager.Instance.RemoveObserver(this); 
+		}
+
+
+
+        base.DestroyBuff();
+
+       
+          
     }
 
     public virtual void Trigger() { }
@@ -109,6 +127,21 @@ public class BuffTiming : Buff {
         {
             DestroyBuff();
         }
-    } 
+    }
+
+
+    public override void OnNotify(string msg)
+    {
+        base.OnNotify(msg);
+
+        if (msg == "LeaveRoom")
+        {
+            buffDuration--;
+            if (buffDuration == 0)
+                DestroyBuff();
+        }
+
+    }
+
 
 }

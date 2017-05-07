@@ -78,6 +78,8 @@ public class GameManager : ExUnitySingleton<GameManager>{
                     break;
                 }
             }
+
+			CheckpointManager.Instance.roomList [roomNumber].pass = 1;
             RoomManager.Instance.SetupScene(CheckpointManager.Instance.roomList[roomNumber].type,
                                     CheckpointManager.Instance.roomList[roomNumber].doorDirection,
                                     CheckpointManager.Instance.roomList[roomNumber].roomX,
