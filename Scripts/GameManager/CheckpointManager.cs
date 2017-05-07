@@ -44,6 +44,9 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         }
     }
 		
+	//测试用
+	public bool isTest = false;
+	public int testRoomType = 4;
     //关卡号1-5
     private int checkpointNumber = 0;
     public int CheckpointNumber
@@ -235,9 +238,13 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 
                 if (roomArray[i,j]>0)
                 {
+					int type;
                     int surroundRoomNumber = GetSurroundRoom(i, j);
 					//房间类型号，-3隐藏房间，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛
-                    int type = Random.Range(1, 15);
+					if (isTest == false)
+						type = Random.Range (1, 15);
+					else
+						type = testRoomType;
 					//int type = 2;
 					//设置房间大小
 					int rmSize;

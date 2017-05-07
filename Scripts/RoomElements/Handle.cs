@@ -26,13 +26,13 @@ public class Handle : RoomElement {
 		{
 			animator.SetTrigger ("switchOn");
 			isOn = true;
-			Trap (other);
-			RoomManager.Instance.hiddenDoor = true;
+			Trap1(other);
+			OpenHiddenDoor();
 		}
 
 	}
-
-	void Trap(Collider other)
+	//触发陷阱1
+	void Trap1(Collider other)
 	{
 
 		Vector3[] posi = {
@@ -47,6 +47,10 @@ public class Handle : RoomElement {
 			d.GetComponent<Missiles>().direction = dir;
 		}
 	}
-
+	//打开隐藏门
+	void OpenHiddenDoor()
+	{
+		RoomManager.Instance.hiddenDoor = true;
+	}
 
 }
