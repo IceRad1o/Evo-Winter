@@ -38,7 +38,7 @@ public class Stair : RoomElement {
                                     CheckpointManager.Instance.roomList[roomNumber].roomX,
                                     CheckpointManager.Instance.roomList[roomNumber].roomY,
 									CheckpointManager.Instance.roomList[roomNumber].roomSize);
-
+			RoomManager.Instance.hiddenDoor = false;
             RoomManager.Instance.Notify("EnterRoom;Unknow");
         }
     }

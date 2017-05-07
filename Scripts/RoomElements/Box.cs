@@ -28,6 +28,7 @@ public class Box : RoomElement
     {
         //打开宝箱的动画和声音
         animator.SetTrigger("OpenBox");
+		roomElementState = 1;
         isOpen = true;
         SoundManager.Instance.PlaySoundEffect(openBox);
         //NEED Item item=ItemManager.getInstance().GenerateItem();
@@ -52,7 +53,7 @@ public class Box : RoomElement
                 OpenBox();
             }
 
-		if (other.tag == "Player"||other.tag=="Missile")
+		if ((other.tag == "Player"||other.tag=="Missile")&&isOpen==false)
         {
             OpenBox();
         }
