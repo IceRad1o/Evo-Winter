@@ -16,7 +16,6 @@ public class Altar2 : RoomElement {
 	{
 		if(other.tag == "Player")
 		{
-			RoomManager.Instance.Notify("CloseAltar;2");
 			attribute = Random.Range (1,8);
 			increase = Random.Range (1,4);
 			RoomManager.Instance.Notify("EnterAltar;2;"+attribute+";"+increase);
