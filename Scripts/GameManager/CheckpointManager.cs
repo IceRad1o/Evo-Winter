@@ -54,6 +54,9 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     //行列
     public int rows = 6;
     public int columns = 6;
+	//隐藏房间位置
+	public int hiddenRoomX = 0;
+	public int hiddenRoomY = 0;
     //房间分布
     public int[,] roomArray;
     //周围房间0：上方，1：下方，2：左方，3：右方
@@ -129,6 +132,22 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
                 if (GetNearRoom(i, j) >= 8) roomArray[i , j] = 0;
+		//标记隐藏房间
+		for (int j = 0; rows > 3 && j < columns; j++)
+		{
+			if (j + 1 < columns)
+			{
+				int hidX = Random.Range (1, rows-1);
+				if (roomArray [hidX, j] == 0 && roomArray [hidX, j + 1] == 1)
+				{
+					hiddenRoomX = hidX;
+					hiddenRoomY = j;
+					Debug.Log ("隐藏房间："+hiddenRoomX+","+hiddenRoomY);
+					break;
+				}
+			}
+		}
+		roomArray [hiddenRoomX, hiddenRoomY] = 1;
         Notify("MapComplete");
     }
     //检索roomArray[x,y]邻近房间
@@ -145,7 +164,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     }
 
 
-    //检索roomArray[x,y]周围房间
+    //检索roomArray[x,y]周围房间,用于生成门
     int GetSurroundRoom(int x, int y)
     {
         for (int i = 0; i < 4;i++ )
@@ -217,7 +236,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 if (roomArray[i,j]>0)
                 {
                     int surroundRoomNumber = GetSurroundRoom(i, j);
-					//房间类型号，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛，4隐藏房间
+					//房间类型号，-3隐藏房间，-2BOSS，-1起始，0无，1宝箱，2商店，3祭坛
                     int type = Random.Range(1, 15);
 					//int type = 2;
 					//设置房间大小
@@ -238,6 +257,10 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 
         //设置起始位置，类型-1
         int startNum = Random.Range(4, roomList.Count - 4);
+		while (roomList [startNum].roomX == hiddenRoomX && roomList [startNum].roomY == hiddenRoomY) 
+		{
+			startNum = Random.Range(4, roomList.Count - 4);
+		}
         roomList[startNum].type = -1;
         roomArray[roomList[startNum].roomX, roomList[startNum].roomY] = -1;
         //设置BOSS位置，类型-2
@@ -248,6 +271,9 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
             bossNum = Random.Range(startNum + (roomList.Count - startNum) / 3 * 2, roomList.Count);
         roomList[bossNum].type = -2;
         roomArray[roomList[bossNum].roomX, roomList[bossNum].roomY] = -2;
+		//设置隐藏房间类型
+		GetNextRoom(hiddenRoomX,hiddenRoomY).type = -3;
+		roomArray [hiddenRoomX, hiddenRoomY] = -3;
 
         //输出房间布局
         string str = "";

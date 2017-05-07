@@ -6,6 +6,7 @@ public class Bottle1 : RoomElement
     private Animator animator;
     private bool isHit;
     public AudioClip hit;
+	public GameObject[] coin;
     public override void Awake()
     {
         base.Awake();
@@ -18,10 +19,7 @@ public class Bottle1 : RoomElement
         isHit = false;
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
-    void Update()
-    {
 
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,7 +28,12 @@ public class Bottle1 : RoomElement
             if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isHit == false && other.GetComponentInParent<Character>().Camp == 0)
             {
                 HitBottle();
-            }
+				if(Random.Range (0,10) <9)
+				{
+					//CreateCoin ();
+            	}
+			}
+
 		if(other.tag == "Missile")
 			HitBottle();
     }
@@ -41,4 +44,9 @@ public class Bottle1 : RoomElement
         animator.SetTrigger("Hit");
         isHit = true;
     }
+
+	void CreateCoin()
+	{
+		GameObject myCoin = Instantiate(coin[0], this.transform.position, Quaternion.identity) as GameObject;
+	}
 }
