@@ -94,6 +94,63 @@ public class BossSkillManager : ExSubject{
             return;
         }
 
+
+        //贪婪的技能生成，触发
+        if (ID == 571)
+        {
+
+            if (this.gameObject.GetComponent<CreateCorruptWater>() == null)
+            {
+                this.gameObject.AddComponent<CreateCorruptWater>().Create(ID);
+            }
+            else
+                this.gameObject.GetComponent<CreateCorruptWater>().Trigger();
+            return;
+        }
+
+        if (ID == 572)
+        {
+            if (this.gameObject.GetComponent<CreateGiftWater>() == null)
+            {
+                this.gameObject.AddComponent<CreateGiftWater>().Create(ID);
+            }
+            else
+                this.gameObject.GetComponent<CreateGiftWater>().Trigger();
+            return;
+        }
+
+        if (ID == 573)
+        {
+            if (this.gameObject.GetComponent<CreateWhirlpool>() == null)
+            {
+                this.gameObject.AddComponent<CreateWhirlpool>().Create(ID);
+            }
+            else
+                this.gameObject.GetComponent<CreateWhirlpool>().Trigger();
+            return;
+        }
+        if (ID == 574)
+        {
+            if (this.gameObject.GetComponent<CreateScratch>() == null)
+            {
+                this.gameObject.AddComponent<CreateScratch>().Create(ID);
+            }
+            else
+                this.gameObject.GetComponent<CreateScratch>().Trigger();
+            return;
+        }
+        if (ID == 575)
+        {
+            //Debug.Log(1230);
+            if (this.gameObject.GetComponent<CreatePhantom>() == null)
+            {
+                this.gameObject.AddComponent<CreatePhantom>().Create(ID);
+            }
+            else
+                this.gameObject.GetComponent<CreatePhantom>().Trigger();
+            return;
+        }
+
     }
 
 
@@ -111,7 +168,7 @@ public class BossSkillManager : ExSubject{
 
         bID = UtilManager.Instance.MatchFiledFormMsg("BossSkill", msg, 0);
         if (bID != "Fail" && bID != "Error")
-            CreateSkill(int.Parse(bID)+BossID*100+500);
+            CreateSkill(int.Parse(bID)+BossID*10+500);
 
     }
 
@@ -121,7 +178,7 @@ public class BossSkillManager : ExSubject{
     void Start()
     {
         this.gameObject.GetComponent<Character>().AddObserver(this);
-        BossID = this.gameObject.GetComponent<Character>().RoomElementID - 2050;
+        BossID = (this.gameObject.GetComponent<Character>().RoomElementID - 2050)%100;
 
     }
 
