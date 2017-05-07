@@ -200,7 +200,7 @@ public class Character : RoomElement
             float temp = 0;
             
             if (value <= 0)
-                temp = 0.025f;
+                temp = 0.04f;
             else if (value == 1)
                 temp = 0.05f;
             else if (value == 2)

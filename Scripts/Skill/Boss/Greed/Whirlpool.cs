@@ -23,15 +23,17 @@ public class Whirlpool : MonoBehaviour {
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         foreach(Character ch in CharacterManager.Instance.CharacterList)
         {
+            if (tag == "Boss")
+                return;
             Vector3 delta =  transform.position-ch.transform.position ;
-            float distance = delta.sqrMagnitude;
+            float distance = delta.magnitude;
             if (distance < 1)
                 continue;
-            float speed=1.0f/distance;
+            float speed=0.01f+0.05f/distance;
             ch.transform.position+=delta.normalized*speed;
 
         }
