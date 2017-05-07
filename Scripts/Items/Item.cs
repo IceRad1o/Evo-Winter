@@ -34,6 +34,14 @@ public class Item : RoomElement {
         set { itemIntro = value; }
     }
 
+    private int value = 0;
+    public int Value
+    {
+        get { return this.value; }
+        set { this.value = value; }
+    }
+
+
 
     /*@GetID
      *@Brief 获得道具的ID
@@ -72,4 +80,13 @@ public class Item : RoomElement {
         roomElementID = 1000;
     }
 
+    public override void OnNotify(string msg)
+    {
+        base.OnNotify(msg);
+
+        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "Price")
+        {
+            this.Value = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0));
+        }
+    }
 }

@@ -40,7 +40,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
         
         SpecialTag = spTag;
 
-        if (SpecialTag == "Altar" || SpecialTag=="DevilAltar")
+        if (SpecialTag == "Altar" )
         {
             UIManager.Instance.AddObserver(this);
         }
@@ -154,11 +154,9 @@ public class BuffChangeAttributeTemp : BuffTiming {
 
     public override void DestroyBuff()
     {
-        if (SpecialTag == "Altar" || SpecialTag == "DevilAltar")
+        if (SpecialTag == "Altar")
             UIManager.Instance.RemoveObserver(this);
 
-        if (SpecialTag == "DevilAltar")
-            dValue++;
 
         dValue = -dValue;
         Destroy(prefabInstance);
