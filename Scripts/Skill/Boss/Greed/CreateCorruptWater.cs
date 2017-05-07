@@ -12,7 +12,7 @@ public class CreateCorruptWater : Skill {
     public GameObject waterInGround;
     public override void Trigger()
     {
-        Cd = 10;
+        Cd = Random.Range(10,15);
         base.Trigger();
   
         StartCoroutine(SkillTrigger());

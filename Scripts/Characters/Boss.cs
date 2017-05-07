@@ -22,7 +22,7 @@ public class Boss :Enemy{
         this.tag = "Boss";
         this.IsSuperArmor = 1;
         this.AddObserver(BossHealthBar.Instance);
-        Notify("BossAppear");
+        Notify("BossAppear;"+(RoomElementID-2050));
         //EnemyManager.Instance.EnemyList.Add(this);
     }
 

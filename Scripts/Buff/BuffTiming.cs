@@ -91,16 +91,18 @@ public class BuffTiming : Buff {
         if (UtilManager.Instance.GetFieldFormMsg(spTag, -1) == "Room")
         {
             RoomManager.Instance.AddObserver(this);
+            spTag = UtilManager.Instance.GetFieldFormMsg(spTag, 0);
+            timingType = 1;
 
         }
     }
 
     public override void DestroyBuff()
     {
-		if (UtilManager.Instance.GetFieldFormMsg(SpecialTag, -1) == "Room")
-		{
-			RoomManager.Instance.RemoveObserver(this); 
-		}
+        //if (UtilManager.Instance.GetFieldFormMsg(SpecialTag, -1) == "Room")
+        //{
+        //    RoomManager.Instance.RemoveObserver(this);
+        //}
 
 
 

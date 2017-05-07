@@ -55,7 +55,7 @@ public class HurtByContract : MonoBehaviour
         {
             if(ch1.tag=="Player")
             {
-                destTags=new string[]{"Enemy","Monster","Boss","RoomElement"};
+                destTags=new string[]{"Enemy","Monster","Boss","RoomElement","FakeBoss"};
             }
             else if (ch1.tag == "Friend")
             {
@@ -95,7 +95,7 @@ public class HurtByContract : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         string destTag=other.tag;
-
+        
         for (int i = 0; i < destTags.Length;i++ )
         {
             if(destTag==destTags[i])
@@ -113,6 +113,7 @@ public class HurtByContract : MonoBehaviour
 
                     //减血
                     ch.Health -= damage;
+                    Debug.Log("Health:" + ch.Health);
                 }
                 else
                     isCh = false;

@@ -891,7 +891,7 @@ public class Character : RoomElement
     public void AttackStart(string name)
     {
         CanMove = 0;
-        IsWeaponDmg = 1;
+       // IsWeaponDmg = 1;
         Notify("AttackStart;" + name);
 
 
