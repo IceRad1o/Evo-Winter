@@ -325,7 +325,7 @@ public class SkillManager : ExSubject
             this.GetComponent<Character>().AddObserver(this);
             EsscenceManager.Instance.AddObserver(this);
         }
-        if (this.tag == "Boss")
+        if (this.tag == "Boss"||this.tag=="FakeBoss")
         {
             this.gameObject.AddComponent<BossSkillManager>();
         }
