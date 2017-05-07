@@ -15,9 +15,9 @@ public class Bullet_Blast : MonoBehaviour {
             GameObject pfb1 = Instantiate(pfb);
             pfb1.transform.position = s;
 
-            foreach (var item in CharacterManager.Instance.CharacterList)
+            foreach (var item in EnemyManager.Instance.EnemyList)
             {
-                if (item != null && item.tag == "Moster")
+                if (item != null && item.tag == "Monster")
                 {
                     var i = (item.transform.position.x - other.transform.position.x) * (item.transform.position.x - other.transform.position.x) + (item.transform.position.y - other.transform.position.y) * (item.transform.position.y - other.transform.position.y);
                     if (i <= 16)
