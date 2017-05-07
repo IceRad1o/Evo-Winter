@@ -109,6 +109,17 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "MapComplete")
             ;// littleMap.InitLittleMap();
 
+        if(str[0]=="EnterAltar;")
+        {
+            UIManager.Instance.popup.SetAltarPopup(int.Parse(str[1]), int.Parse(str[2]), int.Parse(str[3]), int.Parse(str[4]), int.Parse(str[5]));
+            UIManager.Instance.popup.itemDetailPopup.SetActive(true);
+            //str[1] 1恶魔2天使
+            //str[2] 
+        }
+        if(str[0]=="LeaveAltar")
+        {
+            UIManager.Instance.popup.itemDetailPopup.SetActive(false);
+        }
 
         //ItemManager Msg
 

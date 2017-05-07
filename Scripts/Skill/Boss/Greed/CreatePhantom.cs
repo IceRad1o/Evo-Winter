@@ -19,8 +19,15 @@ public class CreatePhantom : Skill {
     {
 
         yield return new WaitForSeconds(0.3f);
-        Instantiate(faker).GetComponent<Character>().Health=GetComponent<Character>().Health/2;
-        Instantiate(faker).GetComponent<Character>().Health = GetComponent<Character>().Health / 2;
+        GameObject a=Instantiate(faker,this.transform.position,Quaternion.identity) as GameObject;
+        a.GetComponent<Character>().Health=GetComponent<Character>().Health/2 ;
+
+        GameObject b = Instantiate(faker, this.transform.position,Quaternion.identity) as GameObject;
+        b.GetComponent<Character>().Health = GetComponent<Character>().Health / 2;
+
+        a.AddComponent<MoveBy>().deltaPosition = new Vector3(5, 2, 0);
+
+        b.AddComponent<MoveBy>().deltaPosition = new Vector3(-5, -2, 0);
     }
 	
 }

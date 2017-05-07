@@ -1,15 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GreedValue : MonoBehaviour {
+public class GreedValue : ExSubject{
 
 
     int value=0;//10个就满
 
+
+    void Start()
+    {
+        this.AddObserver(GreedBar.Instance);
+        Notify("ShowGreedBar");
+    }
+
     public int Value
     {
         get { return this.value; }
-        set { this.value = value; }
+        set {
+            this.value = value;
+            Notify("GreedValueChanged;" + (DmgBuff/10.0f));
+        }
     }
 
 
@@ -17,7 +27,9 @@ public class GreedValue : MonoBehaviour {
     {
         get
         {
-            if (value <= 1)
+            if (value == 0)
+                return 0;
+            else if (value <= 1)
                 return 1;
             else if (value <= 3)
                 return 2;

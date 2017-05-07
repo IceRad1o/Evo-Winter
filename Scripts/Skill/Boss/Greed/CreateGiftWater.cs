@@ -13,7 +13,7 @@ public class CreateGiftWater : Skill {
 
     public override void Trigger()
     {
-        Cd = 10;
+        Cd = Random.Range(8,12);
         base.Trigger();
      
         StartCoroutine(SkillTrigger());

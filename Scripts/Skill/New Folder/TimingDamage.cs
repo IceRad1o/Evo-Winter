@@ -11,7 +11,7 @@ public class TimingDamage : MonoBehaviour {
 
     List<GameObject> listEnemy = new List<GameObject>();
 
-
+    public GameObject owner;
 
 
     private void OnTriggerStay(Collider other)
@@ -27,7 +27,8 @@ public class TimingDamage : MonoBehaviour {
                 }
                 listEnemy.Add(other.gameObject);
                 other.gameObject.GetComponent<Character>().Health--;
-
+                if (owner != null)
+                    owner.GetComponent<Character>().Health++;
                 StartCoroutine(delay());
             }
         }

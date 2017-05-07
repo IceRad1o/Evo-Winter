@@ -7,7 +7,7 @@ public class CreateWhirlpool : Skill{
 
     public override void Trigger()
     {
-        Cd = 100;
+        Cd = Random.Range(25,35);
         base.Trigger();
         StartCoroutine(SkillTrigger());
     }
@@ -16,7 +16,8 @@ public class CreateWhirlpool : Skill{
     {
 
         yield return new WaitForSeconds(0.3f);
-        Instantiate(whirlpool,gameObject.transform.position,Quaternion.identity);
+        GameObject ins= Instantiate(whirlpool,gameObject.transform.position,Quaternion.identity) as GameObject;
+        ins.GetComponent<TimingDamage>().owner = gameObject;
     }
 	
 
