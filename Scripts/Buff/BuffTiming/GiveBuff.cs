@@ -5,7 +5,7 @@ public class GiveBuff : Buff {
 
 
     int giveBuffID;
-
+    int Duration;
 
     void Trigger()
     {
@@ -23,15 +23,32 @@ public class GiveBuff : Buff {
     /// </summary>
     /// <param name="buffID">要添加的buff</param>
     /// <param name="time">延迟时间*0.1f</param>
-    public void Create(int buff_ID,int time)
+    /// <param name="timeType">延迟类型</param>
+    public void Create(int buff_ID,int time,int timeType=0)
     {
         giveBuffID = buff_ID;
-        StartCoroutine(Delay(time));
+        Duration = time;
+        if(timeType==0)
+            StartCoroutine(Delay(time));
+        if (timeType == 1)
+            RoomManager.Instance.AddObserver(this);
     }
 
     IEnumerator Delay(int time)
     {
         yield return new WaitForSeconds(time * 0.1f);
         Trigger();
+    }
+
+    public override void OnNotify(string msg)
+    {
+        base.OnNotify(msg);
+        if (msg == "LeaveRoom")
+        {
+            Duration--;
+            if (Duration <= 0)
+                Trigger();
+        
+        }        
     }
 }

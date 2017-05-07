@@ -127,5 +127,9 @@ public class DisposableItem : Item{
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }
 
+    public override void OnNotify(string msg)
+    {
+        base.OnNotify(msg);
+    }
     
 }

@@ -53,7 +53,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
      *Param  includeingImm 随机生成的道具中是否含立即使用道具
      *Param  includeingIni 随机生成的道具中是否含主动道具
      */
-    public void CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false, bool trans = true)
+    public Item CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false, bool trans = true)
     {
         Vector3 s = new Vector3(itemsTransform.position.x,itemsTransform.position.y+1,itemsTransform.position.z);
 
@@ -67,7 +67,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             else
                 itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
-            itemInstance.Create(itemID);           
+            itemInstance.Create(itemID);
+            return itemInstance;
             
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -78,7 +79,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             else
                 itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
             itemInstance.Create(itemID);
-            
+            return itemInstance;
 
         }
         if (itemsTable.GetItemType(itemID) == 2)
@@ -89,10 +90,10 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             else
                 itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
             itemInstance.Create(itemID);
-            
 
+            return itemInstance;
         }
-    
+        return null;
     }
 
     /// <summary>
@@ -102,7 +103,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// <param name="boosDroping">bossDroping 随机生成的道具中是否含boss掉落</param>
     /// <param name="boxDroping">boxDroping 随机生成的道具中是否含宝箱掉落</param>
     /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
-    public void CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false, bool trans=true)
+    public Item CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false, bool trans=true)
     {
         Vector3 s = new Vector3(itemsTransform.position.x, itemsTransform.position.y + 1, itemsTransform.position.z);
 
@@ -118,6 +119,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
             itemInstance.Create(itemID);
+
+            return itemInstance;
                         
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -127,7 +130,9 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 itemInstance = Instantiate(itemImmediately, s, itemsTransform.rotation) as ImmediatelyItem;
             else
                 itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
-            itemInstance.Create(itemID);          
+            itemInstance.Create(itemID);
+
+            return itemInstance;
 
         }
         if (itemsTable.GetItemType(itemID) == 2)
@@ -137,10 +142,12 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 itemInstance = Instantiate(itemInitiative, s, itemsTransform.rotation) as InitiativeItem;
             else
                 itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
-            itemInstance.Create(itemID);            
+            itemInstance.Create(itemID);
+
+            return itemInstance;
 
         }
-
+        return null;
     }
 
     /// <summary>
@@ -148,7 +155,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// </summary>
     /// <param name="ID">要创建道具的ID</param>
     /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
-    public void CreateItemID(int ID,bool trans = true)
+    public Item CreateItemID(int ID,bool trans = true)
     {
         Vector3 s = new Vector3(itemsTransform.position.x, itemsTransform.position.y + 1, itemsTransform.position.z);
 
@@ -163,6 +170,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
                 itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
             itemInstance.Create(itemID);
+            return itemInstance;
 
         }
         if (itemsTable.GetItemType(itemID) == 0)
@@ -173,6 +181,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             else
                 itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
             itemInstance.Create(itemID);
+            return itemInstance;
 
         }
         if (itemsTable.GetItemType(itemID) == 2)
@@ -183,8 +192,9 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             else
                 itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
             itemInstance.Create(itemID);
-
+            return itemInstance;
         }
+        return null;
     }
 
 
@@ -334,7 +344,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             //一次性道具的拾取                
             foreach (DisposableItem t in listDisposableItem)
             {
-                if (itemsDis == t && t.playerIn)             
+                if (itemsDis == t && t.playerIn && CoinManager.Instance.Buy(t.Value))             
                 {
                     AddDisposableItems(t);
                     Notify("Get_DisposableItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
@@ -345,7 +355,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             //主动道具的拾取                
             foreach (InitiativeItem t in listInitiativeItem)
             {
-                if (itemIni == t && t.PlayerIn)
+                if (itemIni == t && t.PlayerIn && CoinManager.Instance.Buy(t.Value))
                 {
                     AddInitiativeItems(t);
                     Notify("Get_InitiativeItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
@@ -356,7 +366,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             //立即使用道具的拾取                
             foreach (ImmediatelyItem t in listImmediatelyItem)
             {
-                if (itemImm == t && t.playerIn)
+                if (itemImm == t && t.playerIn && CoinManager.Instance.Buy(t.Value))
                 {
                     Debug.Log("Get_ImmediatelyItem");
                     Notify("Get_ImmediatelyItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);

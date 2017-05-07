@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class Altar1 : RoomElement{
-
+	public int attribute1,attribute2;
+	public int change1,change2;
 	public override void Awake()
 	{
 		base.Awake();
@@ -14,7 +15,11 @@ public class Altar1 : RoomElement{
 	{
 		if(other.tag == "Player")
 		{
-			RoomManager.Instance.Notify("CloseAltar");
+			attribute1 = Random.Range (1,8);
+			change1 = Random.Range (1,4);
+			attribute2 = Random.Range (1,8);
+			change2 = Random.Range (-1,-4);
+			RoomManager.Instance.Notify("EnterAltar;1;"+attribute1+";"+change1+";"+attribute2+";"+change2);
 		}
 	}
 
@@ -24,4 +29,9 @@ public class Altar1 : RoomElement{
 
 	}
 
+	//离开
+	private void OnTriggerExit(Collider other)
+	{
+		RoomManager.Instance.Notify ("LeaveAltar");
+	}
 }

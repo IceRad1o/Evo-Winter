@@ -21,11 +21,16 @@ public class PTrap_Explosion : MonoBehaviour {
             GameObject pfb1 = Instantiate(pfb);
             pfb1.transform.position = s;
 
-            foreach (var item in CharacterManager.Instance.CharacterList)
+
+            Debug.Log("Enemy Number:    " + EnemyManager.Instance.EnemyList.Count);
+            foreach (var item in EnemyManager.Instance.EnemyList)
             {
-                if (item != null && item.tag == "Moster")
+                
+                if (item != null && item.tag == "Monster")
                 {
                     var i = (item.transform.position.x - other.transform.position.x) * (item.transform.position.x - other.transform.position.x) + (item.transform.position.y - other.transform.position.y) * (item.transform.position.y - other.transform.position.y);
+                    Debug.Log("dir   " + i);
+                    
                     if (i <= 16)
                         item.GetComponent<Character>().Health--;
                 }

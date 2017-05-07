@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Altar2 : RoomElement {
 
+	public int attribute;
+	public int increase;
 	public override void Awake()
 	{
 		base.Awake();
@@ -14,7 +16,9 @@ public class Altar2 : RoomElement {
 	{
 		if(other.tag == "Player")
 		{
-			RoomManager.Instance.Notify("CloseAltar");
+			attribute = Random.Range (1,8);
+			increase = Random.Range (1,4);
+			RoomManager.Instance.Notify("EnterAltar;2;"+attribute+";"+increase);
 		}
 
 	}
@@ -23,5 +27,11 @@ public class Altar2 : RoomElement {
 	public void AddBuff()
 	{
 
+	}
+
+	//离开
+	private void OnTriggerExit(Collider other)
+	{
+		RoomManager.Instance.Notify ("LeaveAltar");
 	}
 }
