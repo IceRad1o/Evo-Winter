@@ -99,19 +99,15 @@ public class BuffTiming : Buff {
 
     public override void DestroyBuff()
     {
-<<<<<<< HEAD
+
 		//if (UtilManager.Instance.GetFieldFormMsg(SpecialTag, -1) == "Room")
 		//{
 		//	RoomManager.Instance.RemoveObserver(this); 
 		//}
-=======
         //if (UtilManager.Instance.GetFieldFormMsg(SpecialTag, -1) == "Room")
         //{
         //    RoomManager.Instance.RemoveObserver(this);
         //}
->>>>>>> 5c379be541d5ccd0fc910a0a24a81fa1c1d04951
-
-
 
         base.DestroyBuff();
 
