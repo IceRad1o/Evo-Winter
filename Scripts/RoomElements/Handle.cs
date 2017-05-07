@@ -26,25 +26,27 @@ public class Handle : RoomElement {
 		{
 			animator.SetTrigger ("switchOn");
 			isOn = true;
-			SwitchOn (other);
+			Trap (other);
+			RoomManager.Instance.hiddenDoor = true;
 		}
 
 	}
 
-	void SwitchOn(Collider other)
+	void Trap(Collider other)
 	{
-		RoomManager.Instance.hiddenDoor = true;
 
-		int dir = other.GetComponent<Character>().FaceDirection;
-		Vector3 pos = other.GetComponent<Character>().transform.position;
-		GameObject d=Instantiate(dart, new Vector3(-dir*14, pos.y,pos.z ), Quaternion.identity) as GameObject;
-		d.GetComponent<Missiles>().direction = dir;
-
+		Vector3[] posi = {
+			new Vector3 (other.transform.position.x, other.transform.position.y+1f, other.transform.position.z+1f),
+			new Vector3 (other.transform.position.x, other.transform.position.y-1f, other.transform.position.z-1f),
+			new Vector3 (other.transform.position.x, other.transform.position.y, other.transform.position.z)};
+		for (int i = 0; i < 3; i++) 
+		{
+			int dir = other.GetComponent<Character>().FaceDirection;
+			Vector3 pos = posi [i];
+			GameObject d=Instantiate(dart, new Vector3(-dir*14, pos.y,pos.z ), Quaternion.identity) as GameObject;
+			d.GetComponent<Missiles>().direction = dir;
+		}
 	}
 
-	//离开
-	private void OnTriggerExit(Collider other)
-	{
-		Notify ("LeaveAltar");
-	}
+
 }
