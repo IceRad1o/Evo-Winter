@@ -891,7 +891,7 @@ public class Character : RoomElement
     public void AttackStart(string name)
     {
         CanMove = 0;
-       // IsWeaponDmg = 1;
+        IsWeaponDmg = 1;
         Notify("AttackStart;" + name);
 
 
@@ -943,7 +943,10 @@ public class Character : RoomElement
 
         Direction = new Vector3(attris[7], 0, 0);
     }
-    
 
-
+    public override void Destroy()
+    {
+        CharacterManager.Instance.CharacterList.Remove(this);
+        base.Destroy();
+    }
 }

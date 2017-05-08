@@ -27,7 +27,8 @@ public class Whirlpool : MonoBehaviour {
     {
         foreach(Character ch in CharacterManager.Instance.CharacterList)
         {
-            if (tag == "Boss")
+            //Debug.Log("tag:" + ch.tag);
+            if (ch.tag == "Boss"||ch.tag=="FakeBoss")
                 return;
             if (ch == null)
                 return;
@@ -35,7 +36,7 @@ public class Whirlpool : MonoBehaviour {
             float distance = delta.magnitude;
             if (distance < 1)
                 continue;
-            float speed=0.015f+0.02f/distance;
+            float speed=0.015f+0.02f/distance;//speed与(k/distance+b)正比
             ch.transform.position+=delta.normalized*speed;
 
         }

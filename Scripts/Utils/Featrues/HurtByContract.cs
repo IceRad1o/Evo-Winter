@@ -113,7 +113,7 @@ public class HurtByContract : MonoBehaviour
 
                     //减血
                     ch.Health -= damage;
-                    Debug.Log("Health:" + ch.Health);
+                   // Debug.Log("Health:" + ch.Health);
                 }
                 else
                     isCh = false;

@@ -26,5 +26,14 @@ public class CorruptWater : MonoBehaviour {
 
             Destroy(gameObject);
         }
+        if (other.tag == "Monster")
+        {
+            if (other.GetComponent<Character>().RoomElementID < 2010)
+            {
+                other.GetComponent<Character>().Health = 0;
+
+                Destroy(gameObject);
+            }
+        }
     }
 }
