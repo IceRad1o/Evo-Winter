@@ -27,6 +27,7 @@ public class RoomElement : ExSubject {
      * 19:商店Shop
      * 20:牌子Plate
      * 21:金币Coin
+     * 22:开关Handle
      * 1000+:道具
      * */
     public int RoomElementID
@@ -34,6 +35,13 @@ public class RoomElement : ExSubject {
         get { return roomElementID; }
         set { roomElementID = value; }
     }
+
+	public int roomElementState = 0;
+	public int RoomElementState
+	{
+		get { return roomElementState; }
+		set { roomElementState = value; }
+	}
 
 
 

@@ -85,6 +85,8 @@ public class GameManager : ExUnitySingleton<GameManager>{
                                     CheckpointManager.Instance.roomList[roomNumber].roomX,
                                     CheckpointManager.Instance.roomList[roomNumber].roomY,
 									CheckpointManager.Instance.roomList[roomNumber].roomSize);
+
+			RoomManager.Instance.hiddenDoor = false;
             RoomManager.Instance.Notify("EnterRoom;Unknow;" + CheckpointManager.Instance.roomList[roomNumber].type);
         }
 
