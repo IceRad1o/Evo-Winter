@@ -33,5 +33,11 @@ public class GiftWater : MonoBehaviour {
             //Debug.Log(Boss.GetComponent<GreedValue>().Value);
             Destroy(gameObject);
         }
+        if(other.tag=="Monster")
+        {
+            other.GetComponent<BuffManager>().CreateDifferenceBuff((100 + attributeList[type]) * 10000000 + 1001110);
+            Destroy(gameObject);
+        }
+
     }
 }

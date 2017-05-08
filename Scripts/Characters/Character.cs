@@ -200,7 +200,7 @@ public class Character : RoomElement
             float temp = 0;
             
             if (value <= 0)
-                temp = 0.025f;
+                temp = 0.04f;
             else if (value == 1)
                 temp = 0.05f;
             else if (value == 2)
@@ -943,7 +943,10 @@ public class Character : RoomElement
 
         Direction = new Vector3(attris[7], 0, 0);
     }
-    
 
-
+    public override void Destroy()
+    {
+        CharacterManager.Instance.CharacterList.Remove(this);
+        base.Destroy();
+    }
 }

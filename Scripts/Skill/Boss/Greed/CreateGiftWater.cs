@@ -13,7 +13,7 @@ public class CreateGiftWater : Skill {
 
     public override void Trigger()
     {
-        Cd = 10;
+        Cd = Random.Range(8,12);
         base.Trigger();
      
         StartCoroutine(SkillTrigger());
@@ -45,7 +45,7 @@ public class CreateGiftWater : Skill {
             GameObject ins = Instantiate(waterInFly, startPoint, Quaternion.identity) as GameObject;
             ins.GetComponent<GiftWater>().Boss = gameObject;
             Vector3[] paths = new Vector3[3];
-            paths[0] = startPoint;
+            paths[0] = this.gameObject.transform.position + new Vector3(0, 2, 0);
             paths[1] = startPoint + posList[i] / 3;
             paths[1] = new Vector3(paths[1].x, 3, paths[1].z);
             paths[2] =bossPos+ posList[i];

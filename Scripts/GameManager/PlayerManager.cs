@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// The manager that responses for the switch of character.
+/// </summary>
 public class PlayerManager : ExUnitySingleton<PlayerManager>{
-
+    /// <summary>
+    /// 
+    /// </summary>
     public GameObject[] players;
     public bool isRandomInit=false;
-    int a1= 0;
+
 	// Use this for initialization
 	void Start () {
         int a = Random.Range(0, 16);
@@ -16,7 +20,7 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
 
     public void InitPlayer(int ID)
     {
-        a1++;
+    
         if (Player.Instance == null)
             Instantiate(players[ID], Vector3.zero, Quaternion.identity);
         else
@@ -31,7 +35,7 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             var observer = Player.Instance.GetComponent<Character>().GetAllObserver();
 
             var attris = Player.Instance.Character.GetAttris();
-
+            CharacterManager.Instance.CharacterList.Remove(Player.Instance.Character);
             Destroy(Player.Instance.gameObject);
 
             //删除原来人物,生成新人物

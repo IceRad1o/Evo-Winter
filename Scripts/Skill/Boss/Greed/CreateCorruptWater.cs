@@ -12,7 +12,7 @@ public class CreateCorruptWater : Skill {
     public GameObject waterInGround;
     public override void Trigger()
     {
-        Cd = 10;
+        Cd = Random.Range(10,15);
         base.Trigger();
   
         StartCoroutine(SkillTrigger());
@@ -45,7 +45,7 @@ public class CreateCorruptWater : Skill {
             GameObject ins = Instantiate(waterInFly, startPoint, Quaternion.identity) as GameObject;
             ins.GetComponent<CorruptWater>().Boss = gameObject;
             Vector3[] paths = new Vector3[3];
-            paths[0] = startPoint;
+            paths[0] = this.gameObject.transform.position + new Vector3(0, 2, 0);
             paths[1] = startPoint + posList[i] / 3;
             paths[1] = new Vector3(paths[1].x, 3, paths[1].z);
             paths[2] = bossPos + posList[i];
