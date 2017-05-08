@@ -84,7 +84,7 @@ public class BuffManager : ExSubject
         if (buffManagerTag == "Boss" && ID % 10 == 2)
             judgeCreate = true;
 
-        Debug.Log("         " + buffManagerTag);
+        //Debug.Log("         " + buffManagerTag);
         CreateBuff(ID / 10,spTag);
 
     }
