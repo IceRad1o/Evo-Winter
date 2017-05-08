@@ -11,9 +11,10 @@ public class Boss :Enemy{
     public float HealthPercent
     {
         get { return healthPercent; }
-        set { 
+        set {
+            float tmp = healthPercent;
             healthPercent = value;
-            Notify("HealthPercent;" + healthPercent);
+            Notify("HealthPercent;" + healthPercent+";"+tmp);
         }
     }
     public override void Start()

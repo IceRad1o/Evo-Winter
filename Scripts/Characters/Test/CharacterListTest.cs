@@ -15,7 +15,7 @@ public class CharacterListTest : MonoBehaviour {
             Debug.Log("List Count:"+CharacterManager.Instance.CharacterList.Count);
             int i = 0;
             foreach (Character item in CharacterManager.Instance.CharacterList)
-                Debug.Log("List Item"+i+++" Tag:"+item.tag);
+                Debug.Log("List Item"+i+++" Tag:"+item.tag);//+",Position:"+item.transform.position);
             yield return new WaitForSeconds(1f);
         }
  

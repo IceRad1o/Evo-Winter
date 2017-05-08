@@ -26,6 +26,7 @@ public class TimingDamage : MonoBehaviour {
                         return;
                 }
                 listEnemy.Add(other.gameObject);
+               
                 other.gameObject.GetComponent<Character>().Health--;
                 if (owner != null)
                     owner.GetComponent<Character>().Health++;

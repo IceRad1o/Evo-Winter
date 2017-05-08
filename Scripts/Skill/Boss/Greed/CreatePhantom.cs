@@ -20,10 +20,10 @@ public class CreatePhantom : Skill {
 
         yield return new WaitForSeconds(0.3f);
         GameObject a=Instantiate(faker,this.transform.position,Quaternion.identity) as GameObject;
-        a.GetComponent<Character>().Health=10 ;
 
+        a.GetComponent<FakeBoss>().trueBoss = gameObject;
         GameObject b = Instantiate(faker, this.transform.position,Quaternion.identity) as GameObject;
-        b.GetComponent<Character>().Health = 10;
+        b.GetComponent<FakeBoss>().trueBoss = gameObject;
 
         a.AddComponent<MoveBy>().deltaPosition = new Vector3(5, 2, 0);
 

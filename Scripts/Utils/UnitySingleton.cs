@@ -78,10 +78,10 @@ public class ExUnitySingleton<T> : ExSubject
         {
             //Debug.LogError("111");
             Destroy(gameObject);
-            if (_instance == null)
-                Debug.Log("Test Itstance  null");
-            else
-                Debug.Log("Test Itstance  not null");
+            //if (_instance == null)
+            //    Debug.Log("Test Itstance  null");
+            //else
+            //    Debug.Log("Test Itstance  not null");
             //Destroy(_instance);
             //_instance = this as T;
         }
