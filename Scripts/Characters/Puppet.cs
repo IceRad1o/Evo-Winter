@@ -44,7 +44,7 @@ public class Puppet : ExSubject {
         if (owner == null)
         {
 
-            Destroy(gameObject);
+            GetComponent<Character>().Destroy();
             return;
         }
         if (this.GetComponent<Character>().Controllable == 0 || this.GetComponent<Character>().CanMove == 0)

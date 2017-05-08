@@ -20,6 +20,8 @@ public class Grease : ExSubject
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         if (str[0] == "HealthPercent")
         {
+            float a = float.Parse(str[1]);
+            float b = float.Parse(str[2]);
             Vector3 bossPos = this.transform.position;
             Vector3 startPoint = bossPos + new Vector3(0, 0.5f, 0);
             int num = Random.Range(0, 6);
@@ -35,7 +37,7 @@ public class Grease : ExSubject
                 GameObject ins = Instantiate(trickCoin, startPoint, Quaternion.identity) as GameObject;
                 Vector3[] paths = new Vector3[3];
                 paths[0] = startPoint;
-                paths[1] = startPoint + deltaPos / 3 + new Vector3(0, 1.0f, 0);
+                paths[1] = startPoint + deltaPos / 3 + new Vector3(0, 0.75f, 0);
                 paths[2] = bossPos + deltaPos;
                 iTween.MoveTo(ins, iTween.Hash("path", paths, "speed", 10f, "easeType", iTween.EaseType.linear));
             }

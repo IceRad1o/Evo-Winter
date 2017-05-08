@@ -38,17 +38,22 @@ public class CreateCorruptWater : Skill {
 
         yield return new WaitForSeconds(1f);
 
-        Vector3 startPoint = bossPos + new Vector3(0, 2, 0);
+        Vector3 startPoint = this.gameObject.transform.position + new Vector3(0, 2, 0);
 
         for (int i = 0; i < num; i++)
         {
             GameObject ins = Instantiate(waterInFly, startPoint, Quaternion.identity) as GameObject;
-            ins.GetComponent<CorruptWater>().Boss = gameObject;
+            if(tag=="Boss")
+                ins.GetComponent<CorruptWater>().Boss = gameObject;
+            else if(tag=="FakeBoss")
+                ins.GetComponent<CorruptWater>().Boss = GetComponent<FakeBoss>().trueBoss;
+
             Vector3[] paths = new Vector3[3];
-            paths[0] = this.gameObject.transform.position + new Vector3(0, 2, 0);
-            paths[1] = startPoint + posList[i] / 3;
-            paths[1] = new Vector3(paths[1].x, 3, paths[1].z);
+            paths[0] = startPoint;
             paths[2] = bossPos + posList[i];
+            paths[1] = paths[0] + (paths[2] - paths[0]) / 3;
+            paths[1] = new Vector3(paths[1].x, 3, paths[1].z);
+         
             iTween.MoveTo(ins, iTween.Hash("path", paths, "speed", 20f, "easeType", iTween.EaseType.easeInQuad));
         }
 
