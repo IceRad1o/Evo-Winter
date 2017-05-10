@@ -30,31 +30,31 @@ public class BuffChangeAttribute : Buff
        switch (attribute) 
        { 
            case 0:
-               this.gameObject.GetComponent<Character>().Health += dValue;
+               this.gameObject.GetComponent<Character>().Hp += dValue;
                break;
            case 2:
-               this.gameObject.GetComponent<Character>().MoveSpeed += dValue;
+               this.gameObject.GetComponent<Character>().Mov += dValue;
                break;
            case 3:
-               this.gameObject.GetComponent<Character>().AttackSpeed += dValue;
+               this.gameObject.GetComponent<Character>().Spd += dValue;
                break;
            case 4:
-               this.gameObject.GetComponent<Character>().AttackRange += dValue;
+               this.gameObject.GetComponent<Character>().Rng += dValue;
                break;
            case 5:
-               this.gameObject.GetComponent<Character>().AttackDamage += dValue;
+               this.gameObject.GetComponent<Character>().Atk += dValue;
                break;
            case 6:
-               this.gameObject.GetComponent<Character>().HitRecover += dValue;
+               this.gameObject.GetComponent<Character>().Fhr += dValue;
                break;
            case 7:
-               this.gameObject.GetComponent<Character>().Spasticity += dValue;
+               //this.gameObject.GetComponent<Character>().Spasticity += dValue;
                break;
            case 8:
                this.gameObject.GetComponent<Character>().Sight += (int)dValue;
                break;
            case 9:
-               this.gameObject.GetComponent<Character>().Luck += (int)dValue;
+               this.gameObject.GetComponent<Character>().Luk += (int)dValue;
                break;
            default:
                break;
@@ -106,7 +106,7 @@ public class BuffChangeAttribute : Buff
         if (idPart[0] == 201)
         {
             attribute = 0;
-            dValue = 10 - (int)this.gameObject.GetComponent<Character>().Health;
+            dValue = 10 - (int)this.gameObject.GetComponent<Character>().Hp;
         }
         //命运硬币
         if (idPart[0] == 301)
@@ -116,15 +116,15 @@ public class BuffChangeAttribute : Buff
             System.Random random = new System.Random();
             int result = random.Next(100);
             if (result <= 50)
-                dValue = -(int)this.gameObject.GetComponent<Character>().Health;
+                dValue = -(int)this.gameObject.GetComponent<Character>().Hp;
             else
-                DValue = 10 - (int)this.gameObject.GetComponent<Character>().Health;
+                DValue = 10 - (int)this.gameObject.GetComponent<Character>().Hp;
         }
         //时间回溯装置
         if (idPart[0] == 401)
         {
             attribute = 0;
-            dValue = this.gameObject.GetComponent<BuffManager>().PlayerHealth-this.gameObject.GetComponent<Character>().Health;
+            dValue = this.gameObject.GetComponent<BuffManager>().PlayerHealth-(int)this.gameObject.GetComponent<Character>().Hp;
 
             GameObject pfb = Resources.Load("Buffs/12") as GameObject;
             Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// 
+/// </summary>
 public class Bottle2 : RoomElement
 {
 
@@ -8,6 +10,7 @@ public class Bottle2 : RoomElement
     {
         base.Awake();
         RoomElementID = 11;
+        this.tag = "DynamicGroundElement";
     }
 
     // Update is called once per frame

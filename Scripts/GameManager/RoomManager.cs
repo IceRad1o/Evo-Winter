@@ -540,15 +540,16 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         //清除物件
         RoomElementManager.Instance.ClearAll();
         //清除敌人
-        EnemyManager.Instance.ClearAll();
+       // EnemyManager.Instance.ClearAll();
 
     }
 
     //设置场景,类型号，门位置,房间x，房间y，房间大小r
-	public void SetupScene(int tp, int[] dp, int x, int y,int r)
+	public void SetupScene(int tp, int[] dp, int x, int y,int r,bool isClear=true)
     {
 		roomSize = r;
-        ClearAll();
+        if(isClear)
+            ClearAll();
         SetDoorDierction(dp);
         InitialiseList();
         SetRoomXY(x, y, tp);
@@ -584,7 +585,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             Vector3 randomPosition = RandomPosition(3);
             GameObject objectChoice = groundElements[boxPos];
             GameObject roomElement = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
-            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
+            //roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
         }
     }
 

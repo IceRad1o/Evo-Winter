@@ -25,7 +25,7 @@ public class BuffPoison : BuffTiming
     public override void Trigger()
     {
         if ((int)Random.value % 100 < 50)
-            this.gameObject.GetComponent<Character>().Health--;
+            this.gameObject.GetComponent<Character>().Hp--;
        
     }
 

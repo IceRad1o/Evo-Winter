@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FakeBoss : Monster {
+public class FakeBoss : Monster
+{
 
     public GameObject trueBoss;
-	void Start () {
-        base.Start();
+    public override void Awake()
+    {
+        base.Awake();
         this.tag = "FakeBoss";
         this.IsSuperArmor = 1;
-	}
-	
+    }
+
+
 
 }

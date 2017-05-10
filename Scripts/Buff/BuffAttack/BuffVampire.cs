@@ -8,7 +8,7 @@ public class BuffVampire : BuffAttack
     {
         if (!JudgeTrigger())
             return;
-        this.gameObject.GetComponent<Character>().Health++;
+        this.gameObject.GetComponent<Character>().Hp++;
     }
 
 

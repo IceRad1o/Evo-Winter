@@ -1,428 +1,381 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text;
 using System.Collections.Generic;
+/// <summary>
+/// Character
+/// Brief:Succeeding class roomElement,the entity of roomElement objects alive;
+/// Author:IfYan
+/// Latest Update Time:2017.5.9
+/// </summary>
 public class Character : RoomElement
 {
-    //音频
+    #region Varibles
+ 
+    #region AudioClips 
     public AudioClip attackingSound;
     public AudioClip attackingSound2;
     public AudioClip attackingSound3;
     public AudioClip movingSound;
     public AudioClip dyingSound;
     public AudioClip damagingSound;
+    #endregion
 
+    #region Referenced GameObjects
     //发射物
     public GameObject[] missiles;
-
     //武器
     public GameObject[] weapons;
+    #endregion
 
-
-    //引用对象
+    #region Cached Components
+    //Cached Animator Component
     Animator anim;
-    GameObject weaponObj;
-    GameObject weaponObj2;
-    public Animator Anim
+    //Cached ActionStateMachine
+    ActionStateMachine actionStateMachine;
+    #endregion
+
+    #region Attributes
+    /*标识性属性*/
+    #region Iconic Attris
+    //种族
+    RaceType race;
+    //武器类型
+    CareerType career;
+
+    /// <summary>
+    /// 种族类型
+    /// </summary>
+    public enum RaceType
     {
-        get { return anim; }
-        set { anim = value; }
+        Gnome,
+        Pygmy,
+        Vampire,
+        Lycan
     }
-
-
-
-    public int CharacterID
+    /// <summary>
+    /// 职业类型
+    /// </summary>
+    public enum CareerType
     {
-        get { return characterID; }
-        set { characterID = value; }
+        Warrior,
+        Rogue,
+        Mage,
+        Archer
+
     }
-    //Player基本属性
-    private int characterID;
-    private float health;   //0.生命
-    private int healthTmp;   //0.生命
-    private float moveSpeed;    //1.移速
-    private int moveSpeedTmp;    //移速-int
-    private float attackSpeed;  //2.攻速
-    private int attackSpeedTmp; //攻速-int
-    private float attackRange;  //3.攻击范围
-    private int attackRangeTmp;//攻击范围-int
-    private float attackDamage; //4.攻击伤害
-    private int attackDamageTmp; //攻击伤害-int
-    private float hitRecover;//5.硬直,即受击回复，影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
-    private int hitRecoverTmp;//
-    private float luck;
-    private int luckTmp; //6.幸运 影响技能触发几率和道具掉落概率
+    #endregion
 
+    /*基础属性*/
+    #region Basic Attris
+    //0.生命Health,代表玩家的血量
+    //float hpValue;  
+    float hp;
+    float healthPercent = 1f;
+    //1.攻击力,影响攻击造成的伤害
+    static float[] atkValues={0.8f,1f,1.6f,2.1f,2.5f,2.8f}; 
+    int atk;
+    //2.攻速,影响攻击速度
+    static float[] spdValues = {0.4f, 0.5f, 0.8f, 1.05f, 1.25f, 1.4f };  
+    int spd;
+    //3.攻击范围,影响近战攻击范围和远程攻击距离
+    static float[] rngValues={0.8f,1.0f,1.1f,1.2f,1.3f,1.4f}; 
+    int rng;
+    //4.移速,影响移动速度
+    static float[] MovValues = { 0.04f,0.05f, 0.08f, 0.105f, 0.125f, 0.14f };  
+    int mov;
+    //5.硬直,即受击回复,影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
+    static float[] fhrValues={0.8f,1.0f,1.7f,2.4f,3f,3.5f};
+    int fhr;
+    //6.幸运 影响技能触发几率和道具掉落概率
+    static float[] lukValues={0.8f,1.0f,1.2f,1.35f,1.45f,1.5f};
+    int luk; 
+    #endregion
 
-    //扩展属性
-    int invincible;//无敌
-    int faceDirection;//面朝向
+    /*附加属性*/
+    #region Additional Attris
+    //视野 影响可见范围,若玩家处于怪物的视野外则不会遭受攻击,对玩家不起作用
+    int sight=3;
+    //死亡延迟帧数 从生命为0到真正死亡的倒计时
+    int deadTime=50;
+    #endregion
 
-    int isConfused = 0;//是否混乱
-    int isSuperArmor = 0;   //霸体
+    #endregion
 
+    #region Directions
+    //当前方向(normalized)
+    Vector3 direction=new Vector3(-1,0,0);
+    //试图的方向
+    Vector3 attemptDirection = new Vector3(-1, 0, 0);
+    //面朝的方向
+    int faceDirection=-1;
+    #endregion
 
+    #region States
+    //能否移动
+    int canMove=1;
+    //是否正在移动 0=静止 1=移动
+    int isMove=0;
+    //是否活着 -1= 死透 0= 正在死 1= 活着
+    int isAlive=1;
+    //是否无敌
+    int isInvincible=0;
+    //是否霸体
+    int isSuperArmor = 0;
+    //是否可控
+    int isControllable=1;
+    //是否混乱
+    int isConfused = 0;
+    //是否燃烧
+    int isBurning = 0;
+    //是否冰冻
+    int isFrozen = 0;
+    //是否致盲
+    int isBlind = 0;
+    #endregion
 
-
-    int isAlive;//<0 死透 =0 正在死 >0 活着
-    int deadTime;//从生命为0到真正死亡的倒计时
-
+    //TODO 重新写脚本
+    #region AboutWeapons
+    int isWeaponDmg; //0=无伤害 1=武器有伤害
 
     int beatDownBuff = 0;//击飞buff
     int beatBackBuff = 0;//击退buff
-    public int BeatDownBuff
-    {
-        get { return beatDownBuff; }
-        set { beatDownBuff = value; }
-    }
-  
 
-    public int BeatBackBuff
-    {
-        get { return beatBackBuff; }
-        set { beatBackBuff = value; }
-    }
+    private int beatBackLevel;//武器是否有击退效果
+    private int beatDownLevelX;//武器是否有击飞效果
+    private int beatDownLevelY;//武器是否有击飞效果
+    #endregion
 
-    public int FaceDirection
-    {
-        get { return faceDirection; }
-    }
-
-    public int IsConfused
-    {
-        get { return isConfused; }
-        set { isConfused = value; }
-    }
-
-    public int IsSuperArmor
-    {
-        get { return isSuperArmor; }
-        set { isSuperArmor = value; }
-    }
-
-    //附加属性
-    private float spasticity;//僵直,自身僵直度越高，那么对手收到攻击后的呆滞时间就越长
-    private int race;   //种族
-    private int weapon; //武器类型
-    private int sight;  //视野 影响可见范围,若玩家处于怪物的视野外则不会遭受攻击
-    private int camp;   //阵营 0=友方 1=敌方
+    #region Init Attris
     //init属性
-    public int initialHealth;
-    public int initialMoveSpeed;
-    public int initialAttackSpeed;
-    public int initialAttackRange;
-    public int initialAttackDamage;
-    public int initialHitRecover;
-    public int initialLuck;
+    public int maxHp=10;
+    public int oHp=3;
+    public int oMov=2;
+    public int oSpd=2;
+    public int oRng=1;
+    public int oAtk=1;
+    public int oFhr=1;
+    public int oLuk=1;
 
-    private ActionStateMachine actionStateMachine;
-    private int canMove;    //能否移动
-    private int state;// 0=静止 1=移动
-    public int Invincible
-    {
-        get { return invincible; }
-        set 
-        { 
-            invincible = value;
-            Notify("InvincibleChanged;" + invincible);
-        }
-    }
+    #endregion
+    #endregion
 
-    public float HealthIn
-    {
-        get { return health; }
-        set
-        {
-            float temp = health;
-            if (value < health)
-            {
-                state = 0;//不用大些
+    #region Methods
+    /*字段封装函数*/
+    #region Getter&Setter
 
-                /*如果不霸体则硬直*/
-                if(IsSuperArmor==0)
-                    actionStateMachine.Push(6);
-            }
-            health = value;
-            if (health <= 0&&IsAlive!=-1)
-            {
+    #region Iconic Attris Getter&Setter
 
-                IsAlive = 0;
-            }
-            Notify("HealthInChanged;"+temp+";"+health+";"+this.tag);
-
-        }
-    }
-
-    public virtual int Health 
-    {
-        get { return healthTmp; }
-        set
-        {
-            //若无敌且收到伤害
-            if (Invincible == 1 && value < Health)
-            {
-                Notify("WithStand:" + (Health - value));
-                return;
-            } 
-
-            int temp = healthTmp;
-            healthTmp = value;
-
-            HealthIn = value;
-            Notify("HealthChanged;" + temp + ";" + healthTmp + ";"+this.tag);
-
-        }
-    }
-
- 
-    public float MoveSpeedIn
-    {
-        
-        get { return moveSpeed; }
-        set
-        {
-            float temp=moveSpeed;
-            moveSpeed = value;
-            Notify("MoveSpeedInChanged;" + temp + ";" + moveSpeed);
-        }
-    }
-
-
-    public int MoveSpeed
-    {
-        get 
-        {
-            return moveSpeedTmp;
-        }
-        set 
-        {
-            int tmp=moveSpeedTmp;
-            moveSpeedTmp=value;
-            float temp = 0;
-            
-            if (value <= 0)
-                temp = 0.04f;
-            else if (value == 1)
-                temp = 0.05f;
-            else if (value == 2)
-                temp = 0.08f;
-            else if (value == 3)
-                temp = 0.1f;
-            else if (value == 4)
-                temp = 0.12f;
-            else if (value >= 5)
-                temp = 0.15f;
-            MoveSpeedIn = temp ;
-            Notify("MoveSpeedChanged;" + tmp + ";" + moveSpeedTmp);
-        }
-    }
-
-    public float AttackSpeedIn
-    {
-        get { return attackSpeed; }
-        set
-        {
-            float temp = attackSpeed;
-            attackSpeed = value;
-            Notify("AttackSpeedInChanged;"+temp+";"+attackSpeed);
-        }
-    }
-    public int AttackSpeed
-    {
-        get
-        {
-            return attackSpeedTmp;
-        }
-        set
-        {
-            float temp = 0;
-            if (value <= 0)
-                temp = 0.025f;
-            else  if (value == 1)
-                temp = 0.5f;
-            else if (value == 2)
-                temp = 0.8f;
-            else if (value == 3)
-                temp = 1f;
-            else if (value == 4)
-                temp = 1.2f;
-            else if (value >= 5)
-                temp = 1.4f;
-            attackSpeedTmp = value;
-            AttackSpeedIn = temp;
-            Notify("AttackSpeedChanged;" + temp + ";" + attackSpeed);
-        }
-    }
-
-
-    public float AttackRangeIn
-    {
-        get { return attackRange; }
-        set
-        {
-            float tmp = attackRange;
-            attackRange = value;
-            ChangeWeaponRange();
-            Notify("AttackRangeInChanged;"+tmp+";"+attackRange);
-        }
-    }
-    public int AttackRange
-    {
-        get { return attackRangeTmp; }
-        set
-        {
-            //TODO 效果
-            int tmp = attackRangeTmp;
-            attackRangeTmp = value;
-            if (value <= 0)
-                AttackRangeIn = 1f;
-            else if (value == 1)
-                AttackRangeIn = 1.05f;
-            else if (value == 2)
-                AttackRangeIn = 1.1f;
-            else if (value == 3)
-                AttackRangeIn = 1.15f;
-            else if (value == 4)
-                AttackRangeIn = 1.2f;
-            else if (value >= 5)
-                AttackRangeIn = 1.25f;
-    
-            Notify("AttackRangeChanged;" + tmp + ";" + attackRangeTmp);
-        }
-    }
-
-    public float AttackDamageIn
-    {
-        get { return attackDamage; }
-        set
-        {
-            float tmp = attackDamage;
-            attackDamage = value;
-            foreach (GameObject weapon in weapons)
-                weapon.GetComponent<HurtByContract>().damage = (int)attackDamage;
-            Notify("AttackDamageInChanged;"+tmp+";"+attackDamage);
-        }
-    }
-    public int AttackDamage
-    {
-        get { return attackDamageTmp; }
-        set
-        {
-             int tmp = attackDamageTmp;
-            attackDamageTmp = value;
-         
-            AttackDamageIn = attackDamageTmp;
-            Notify("AttackDamageChanged;" + tmp + ";" + attackDamageTmp);
-        }
-    }
-
-    public float HitRecoverIn
-    {
-        get { return hitRecover; }
-        set
-        {
-            float tmp = hitRecover;
-            hitRecover = value;
-            Notify("HitRecoverInChanged;"+tmp+";"+hitRecover);
-        }
-    }
-    public int HitRecover
-    {
-        get { return hitRecoverTmp; }
-        set
-        {
-            int tmp = hitRecoverTmp;
-            hitRecoverTmp = value;
-            
-            if (value <= 0)
-                HitRecoverIn = 0.5f;
-            else if (value == 1)
-                HitRecoverIn = 1f;
-            else if (value == 2)
-                HitRecoverIn = 1.7f;
-            else if (value == 3)
-                HitRecoverIn = 2.4f;
-            else if (value == 4)
-                HitRecoverIn = 3f;
-            else if (value >= 5)
-                HitRecoverIn = 3.5f;
-    
-            Notify("HitRecoverChanged;" + tmp + ";" + hitRecoverTmp);
-        }
-    }
-
-    public int Luck
-    {
-        get { return luckTmp; }
-        set
-        {
-            int tmp = luckTmp;
-            luckTmp = value;
-            if (value <= 0)
-                LuckIn = 0;
-            else if (value == 1)
-                LuckIn = 0.10f;
-            else if (value == 2)
-                LuckIn = 0.20f;
-            else if (value == 3)
-                LuckIn = 0.30f;
-            else if (value == 4)
-                LuckIn = 0.40f;
-            else if (value >= 5)
-                LuckIn = 0.50f;
-            Notify("LuckChanged;"+tmp+";"+luckTmp);
-        }
-    }
-
-    public float LuckIn
-    {
-        get { return luck; }
-        set 
-        {
-            float tmp = luck;
-            luck = value;
-            Notify("LuckInChanged;" + tmp + ";" + luck);
-        }
-    }
-
-
-    public float Spasticity
-    {
-        get { return spasticity; }
-        set
-        {
-            float tmp = spasticity;
-            spasticity = value;
-            Notify("SpasticityChanged"+tmp+";"+spasticity);
-        }
-    }
-
-
-
-    public int Race
+    /// <summary>
+    /// 种族
+    /// </summary>
+    public RaceType Race
     {
         get { return race; }
         set
         {
-            int tmp = race;
+            int tmp = (int)race;
             race = value;
-            Notify("RaceChanged"+tmp+";"+race);
+            Notify(new StringBuilder(30).Append("RaceChanged").Append(tmp).Append((int)race).ToString());
+            //Notify("RaceChanged" + tmp + ";" + (int)race);
         }
     }
- 
-
-    public int Weapon
+    /// <summary>
+    /// 职业
+    /// </summary>
+    public CareerType Career
     {
-        get { return weapon; }
+        get { return career; }
         set
         {
-            int tmp = weapon;
-            weapon = value;
-            Notify("WeaponChanged;"+tmp+";"+weapon);
+            int tmp = (int)career;
+            career = value;
+            Notify(new StringBuilder(30).Append("WeaponChanged").Append(tmp).Append((int)career).ToString());
+            //Notify("WeaponChanged;" + tmp + ";" + (int)career);
+        }
+    }
+    #endregion
+
+    #region Basic Attris Getter&Setter
+
+    /// <summary>
+    /// 生命值
+    /// </summary>
+    public virtual float Hp
+    {
+        get { return hp; }
+        set
+        {     
+            //若无敌且收到伤害
+            if (IsInvincible == 1 && value < Hp)
+            {
+                Notify("WithStand:" + (Hp - value));
+                return;
+            }
+            StringBuilder s = new StringBuilder(30).Append("HealthChanged;").Append((int)hp).Append(";");
+            if ( IsSuperArmor == 0&&value < Hp )
+            {
+                //此处用isMove,不用IsMove
+                isMove = 0;
+                actionStateMachine.Push(6);
+            } 
+            hp = value;
+            if (hp <= 0 && IsAlive != -1)
+            {
+                //此处用IsAlive,不用isAlive,实现鞭尸系统
+                IsAlive = 0;
+            }
+            HealthPercent = Hp / maxHp;
+            Notify(s.Append((int)hp).Append(";").Append(this.tag).ToString());
+        }
+    }
+    /// <summary>
+    /// 生命百分比
+    /// </summary>
+    public float HealthPercent
+    {
+        get { return healthPercent; }
+        set
+        {
+            float tmp = healthPercent;
+            healthPercent = value;
+            Notify("HealthPercent;" + healthPercent + ";" + tmp);
         }
     }
 
+    /// <summary>
+    /// 攻击力数值
+    /// </summary>
+    public float AtkValue
+    {
+        get { return atkValues[BoundaryAdjust(Atk)]; }
+    }
+    /// <summary>
+    /// 攻击力等级
+    /// </summary>
+    public int Atk
+    {
+        get { return atk; }
+        set
+        {
+            StringBuilder s = new StringBuilder(30).Append("AttackDamageChanged;").Append(atk).Append(";");
+            atk = value;
+            for (int i = 0; i < weapons.Length; i++)
+                weapons[i].GetComponent<HurtByContract>().damage = (int)AtkValue;  
+            Notify(s.Append(atk).ToString());
+        }
+    }
+    /// <summary>
+    /// 攻击速度值
+    /// </summary>
+    public float SpdValue
+    {
+        get { return  spdValues[BoundaryAdjust(Spd)]; }
+    }
+    /// <summary>
+    /// 攻击速度等级
+    /// </summary>
+    public int Spd
+    {
+        get
+        {
+            return spd;
+        }
+        set
+        {
+            StringBuilder s = new StringBuilder(30).Append("AttackSpeedChanged;").Append(spd).Append(";");
+            spd = value;
+            Notify(s.Append(spd).ToString());
+        }
+    }
+    /// <summary>
+    /// 攻击范围值
+    /// </summary>
+    public float RngValue
+    {
+        get { return rngValues[BoundaryAdjust(Rng)]; }
+    }
+    /// <summary>
+    /// 攻击范围等级
+    /// </summary>
+    public int Rng
+    {
+        get { return rng; }
+        set
+        {
+            StringBuilder s = new StringBuilder(30).Append("AttackRangeChanged;").Append(rng).Append(";");
+            rng = value;
+            ChangeWeaponRange();
+            Notify(s.Append(rng).ToString());
+        }
+    }
+    /// <summary>
+    /// 移速值
+    /// </summary>
+    public float MovValue
+    {
+        get { return MovValues[BoundaryAdjust(Mov)]; }
+    }
 
-
+    /// <summary>
+    /// 移速等级
+    /// </summary>
+    public int Mov
+    {
+        get
+        {
+            return mov;
+        }
+        set
+        {
+            StringBuilder s = new StringBuilder(30).Append("MoveSpeedChanged;").Append(mov).Append(";");
+            mov = value;
+            Notify(s.Append(mov).ToString());
+        }
+    }
+    /// <summary>
+    /// 硬直值
+    /// </summary>
+    public float FhrValue
+    {
+        get { return fhrValues[BoundaryAdjust(Fhr)]; }
+    }
+    /// <summary>
+    /// 硬直等级
+    /// </summary>
+    public int Fhr
+    {
+        get { return fhr; }
+        set
+        {
+            StringBuilder s = new StringBuilder(30).Append("HitRecoverChanged;").Append(fhr).Append(";");
+            fhr = value;
+            Notify(s.Append(fhr).ToString());
+        }
+    }
+    /// <summary>
+    /// 幸运值
+    /// </summary>
+    public float LukValue
+    {
+        get { return lukValues[Luk]; }
+    }
+    /// <summary>
+    /// 幸运等级
+    /// </summary>
+    public int Luk
+    {
+        get { return luk; }
+        set
+        {
+            StringBuilder s = new StringBuilder(30).Append("LuckChanged;").Append(luk).Append(";");
+            luk = value;
+            Notify(s.Append(luk).ToString());
+        }
+    }
+    /// <summary>
+    /// 视野等级
+    /// </summary>
     public int Sight
     {
         get { return sight; }
@@ -433,84 +386,172 @@ public class Character : RoomElement
         }
     }
 
+    #endregion
 
-
+    #region States Getter&Setter
+    /// <summary>
+    /// 是否可控
+    /// </summary>
+    public int IsControllable
+    {
+        get { return isControllable; }
+        set { isControllable = value; }
+    }
+    /// <summary>
+    /// 是否无敌
+    /// </summary>
+    public int IsInvincible
+    {
+        get { return isInvincible; }
+        set
+        {
+            isInvincible = value;
+            Notify("InvincibleChanged;" + isInvincible);
+        }
+    }
+    /// <summary>
+    /// 是否混乱
+    /// </summary>
+    public int IsConfused
+    {
+        get { return isConfused; }
+        set { isConfused = value; }
+    }
+    /// <summary>
+    /// 是否霸体,霸体则无击退击倒硬直效果
+    /// </summary>
+    public int IsSuperArmor
+    {
+        get { return isSuperArmor; }
+        set { isSuperArmor = value; }
+    }
+    /// <summary>
+    /// 是否活着
+    /// </summary>
     public int IsAlive
     {
         get { return isAlive; }
         set
         {
-          
             isAlive = value;
             if (isAlive == 0)
                 deadTime = 50;
-            if(isAlive<0)
+            if (isAlive < 0)
             {
                 Die();
             }
 
         }
     }
-
-
-    public int Camp
-    {
-        get { return camp; }
-        set
-        {
-            camp = value;
-            Notify("CampChanged");
-
-        }
-    }
-
-
-
-    public ActionStateMachine ActionStateMachine
-    {
-        get { return actionStateMachine; }
-        set { actionStateMachine = value; }
-    }
-
-
-
-    //PROBLEM 值不停的在改变
+    /// <summary>
+    /// 能否移动
+    /// </summary>
     public int CanMove
     {
         get { return canMove; }
         set
         {
             canMove = value;
-            State = 0;
-            Notify("CanMoveChanged");
+            if(canMove==0)
+                IsMove = 0;
         }
     }
-
-
-
-
-    public int State
+    /// <summary>
+    /// 是否在移动
+    /// </summary>
+    public int IsMove
     {
-        get { return state; }
+        get { return isMove; }
         set
         {
-
-          
-            if (state != value)
+            if (isMove != value)
             {
-
                 if (CanMove == 0 && value == 1)
                     return;
                 //Debug.Log("current state:" + state + " to " + value);
-                state = value;
-                actionStateMachine.Push(4 * state);
+                isMove = value;
+                actionStateMachine.Push(4 * isMove);
             }
-
         }
     }
+    public int IsBurning
+    {
+        get { return isBurning; }
+        set { isBurning = value; }
+    }
+    public int IsFrozen
+    {
+        get { return isFrozen; }
+        set { isFrozen = value; }
+    }
+    public int IsBlind
+    {
+        get { return isBlind; }
+        set { isBlind = value; }
+    }
+    #endregion 
 
-    private int isWeaponDmg; //0=无伤害 1=武器有伤害
+    #region Directions Getter&Setter
+    /// <summary>
+    /// Character Current Normalized Direction 
+    /// </summary>
+    public Vector3 Direction
+    {
+        get { return direction; }
+        set
+        {
+            //如果无法移动方向则将方向给予AttemptDirection
+            if (IsControllable == 0 || CanMove == 0||isFrozen==1)
+            {
+                AttemptDirection = value;
+                return;
+            }
+            //Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
+            Vector3 temp = GetComponent<CharacterSkin>().BodyNode.transform.localScale;
+            if (value.x * temp.x > 0)
+                temp.x = -temp.x;
+            GetComponent<CharacterSkin>().BodyNode.transform.localScale= temp;
+            direction = value;
+            AttemptDirection = value;
+            if (direction.x >0)
+                faceDirection = 1;
+            else if (direction.x < 0)
+                faceDirection = -1;
+            Notify("DirectionChanged");
+        }
+    }
+    /// <summary>
+    /// Direction the character is attempted to. 
+    /// </summary>
+    public Vector3 AttemptDirection
+    {
+        get { return attemptDirection; }
+        set { attemptDirection = value; }
+    }
+    /// <summary>
+    /// Character Facing Direction -1 is left,1 is right
+    /// </summary>
+    public int FaceDirection
+    {
+        get { return faceDirection; }
+    }
 
+    #endregion
+
+    #region Cache Components Getter&Setter
+    public Animator Anim
+    {
+        get { return anim; }
+        set { anim = value; }
+    }
+    public ActionStateMachine ActionStateMachine
+    {
+        get { return actionStateMachine; }
+        set { actionStateMachine = value; }
+    }
+    #endregion
+
+    #region Weapons Getter&Setter
     public int IsWeaponDmg
     {
         get { return isWeaponDmg; }
@@ -520,11 +561,11 @@ public class Character : RoomElement
             if (value == 0)
             {
                 foreach (GameObject weapon in weapons)
-                    weapon.GetComponent<BoxCollider>().enabled =false;
+                    weapon.GetComponent<BoxCollider>().enabled = false;
 
                 Notify("WeaponDontDmg");
             }
-               
+
             else
             {
                 foreach (GameObject weapon in weapons)
@@ -532,19 +573,34 @@ public class Character : RoomElement
 
                 Notify("WeaponDmg");
             }
-             
+
         }
     }
 
-    private int beatDownLevelX;//武器是否有击飞效果
+    /// <summary>
+    /// 击倒level加成,0~无限大
+    /// </summary>
+    public int BeatDownBuff
+    {
+        get { return beatDownBuff; }
+        set { beatDownBuff = value; }
+    }
+    /// <summary>
+    /// 击退level加成,0~无限大
+    /// </summary>
+    public int BeatBackBuff
+    {
+        get { return beatBackBuff; }
+        set { beatBackBuff = value; }
+    }
 
     public int BeatDownLevelX
     {
         get { return beatDownLevelX; }
-        set 
+        set
         {
             beatDownLevelX = value;
-           // weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX+beatDownBuff;
+            // weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX+beatDownBuff;
 
             for (int i = 0; i < weapons.Length; i++)
             {
@@ -552,7 +608,7 @@ public class Character : RoomElement
             }
         }
     }
-    private int beatDownLevelY;//武器是否有击飞效果
+
 
     public int BeatDownLevelY
     {
@@ -570,17 +626,14 @@ public class Character : RoomElement
     }
 
 
-
-    private int beatBackLevel;//武器是否有击退效果
-
     public int BeatBackLevel
     {
         get { return beatBackLevel; }
-        set 
+        set
         {
             beatBackLevel = value;
 
-            for(int i=0;i<weapons.Length;i++)
+            for (int i = 0; i < weapons.Length; i++)
             {
                 weapons[i].GetComponent<HurtByContract>().beatBackLevel = beatBackLevel + beatBackBuff;
             }
@@ -589,254 +642,160 @@ public class Character : RoomElement
 
 
 
-    private int controllable;//是否受控制
-
-    public int Controllable
+ #endregion
+    #endregion
+    /*Character的行为*/
+    #region Behaviors
+    /// <summary>
+    /// 初始化Character
+    /// </summary>
+    public void Init()
     {
-        get { return controllable; }
-        set { controllable = value; }
+      
+        //初始化
+        career = (CareerType)(RoomElementID % 10);
+        race = (RaceType)(RoomElementID % 100 / 10);
+        anim = this.GetComponent<Animator>();
+        actionStateMachine = new ActionStateMachine();
+        actionStateMachine.Character = this;
+
+        //初始化基本属性
+        Hp = oHp;
+        Atk = oAtk;
+        Spd = oSpd;
+        Rng = oRng;
+        Mov = oMov;
+        Fhr = oFhr;
+        Luk = oLuk;
+    
     }
-
-
-    private Vector3 direction;
-
-    private Vector3 directionAttempt;//试图的方向
-
-    public Vector3 DirectionAttempt
-    {
-        get { return directionAttempt; }
-        set { directionAttempt = value; }
-    }
-
-
-
-    public Vector3 Direction
-    {
-        get { return direction; }
-        set
-        {
-            if (controllable == 0 || canMove == 0)
-            {
-                DirectionAttempt = value;
-                return;
-            }
-            Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
-
-            if (value.x * temp.x > 0)
-                temp.x = -temp.x;
-
-            gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale = temp;
-
-
-            direction = value;
-            DirectionAttempt = value;
-            if (direction.x > 0)
-                faceDirection = 1;
-            else if (direction.x < 0)
-                faceDirection = -1;
-                
-            Notify("DirectionChanged");
-        }
-    }
-
+    /// <summary>
+    /// 移动,当处于移动状态,由update每帧调用
+    /// </summary>
     public virtual void Move()
     {
-        if(isConfused==0)
-          transform.position += Direction * MoveSpeedIn;
+        if (isConfused == 0)
+            transform.position += Direction * MovValue;
         else
-            transform.position -= Direction * MoveSpeedIn;
+            transform.position -= Direction * MovValue;
 
     }
+    /// <summary>
+    /// 普攻,J
+    /// </summary>
+    public virtual void NormalAttack()
+    {
+        if (isControllable == 0||isFrozen==1)
+            return;
 
+        isMove = 0;
+        actionStateMachine.Push(1);
+    }
+    /// <summary>
+    /// 特攻,K
+    /// </summary>
+    public virtual void SpecialAttack()
+    {
+        if (isControllable == 0)
+            return;
+        isMove = 0;
+        actionStateMachine.Push(2);
+    }
+    /// <summary>
+    /// 种族技能,L
+    /// </summary>
+    public virtual void UseRaceSkill()
+    {
+        if (isControllable == 0)
+            return;
+        isMove = 0;
+        actionStateMachine.Push(3);
+
+    }
+    /// <summary>
+    /// 摔倒
+    /// </summary>
     public virtual void Fall()
     {
-        state = 0;
+        isMove = 0;
         actionStateMachine.Push(7);
     }
-
+    /// <summary>
+    /// 死亡
+    /// </summary>
     public virtual void Die()
     {
-        state = 0;
+        isMove = 0;
         actionStateMachine.Push(5);
- 
-        
-        Notify("Die;"+this.tag);
+
+
+        Notify("Die;" + this.tag);
         StartCoroutine(Disappear());
 
 
     }
-
-    bool CheckSurvivalTime()
+    /// <summary>
+    /// 消失
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator Disappear()
     {
-        return false;
+        yield return new WaitForSeconds(4f);
+
+        if (tag != "Player")
+        {
+            Destroy();
+        }
     }
-
-    public virtual void NormalAttack()
+    #endregion
+    /*重写的方法*/
+    #region Mono Override Methods
+    public override void Awake()
     {
-        if (controllable == 0)
-            return;
-
-        State = 0;
-        actionStateMachine.Push(1);
-    }
-
-    public virtual void SpecialAttack()
-    {
-        if (controllable == 0)
-            return;
-        State = 0;
-        actionStateMachine.Push(2);
-    }
-
-    public virtual void UseRaceSkill()
-    {
-        if (controllable == 0)
-            return;
-        State = 0;
-        actionStateMachine.Push(3);
+        base.Awake();
+        CharacterManager.Instance.CharacterList.Add(this);
+        Init();
 
     }
 
-   public virtual void Start()
+    void Update()
     {
+        if (isAlive == 0)
+        {
+            deadTime--;
+        }
 
-      
-
-    
-
+        if (deadTime == 0)
+        {
+            IsAlive = -1;
+            deadTime = -1;
+        }
     }
-   void Init()
-   {
-       //初始化
-       state = 0;//静止
-       IsAlive = 1;//活着
-       canMove = 1;//可以移动
-       controllable = 1;//可以被控制
-       invincible = 0;//不无敌
-       //weapon = 0;//默认近战武器
-       deadTime = 50;//死亡延迟时间
-       faceDirection = -1;
-       direction = new Vector3(-1, 0, 0);
-
-       anim = this.GetComponent<Animator>();
-
-       //初始化基本属性
-       Health = initialHealth;
-       MoveSpeed = initialMoveSpeed;
-       AttackSpeed = initialAttackSpeed;
-       AttackDamage = initialAttackDamage;
-       Luck = initialLuck;
-       HitRecover = initialHitRecover;
-
-
-       AttackRange = initialAttackRange;
-   }
-
-   void Update()
-   {
-       if (isAlive == 0)
-       {
-           deadTime--;
-       }
-
-       if (deadTime == 0)
-       {
-           IsAlive = -1;
-           deadTime = -1;
-       } 
-   }
 
     public virtual void FixedUpdate()
     {
         //Move
-        if (controllable==1&&canMove==1&&actionStateMachine.CurState=="Move")
+        if (isControllable == 1 && canMove == 1 && actionStateMachine.CurState == "Move")
         {
             Move();
         }
-        
+
         //如果状态与状态机不一致
-        else if(actionStateMachine.CurState=="Idle"&&State==1)
+        else if (actionStateMachine.CurState == "Idle" && IsMove == 1)
         {
             ActionStateMachine.Push(4);
         }
 
 
     }
-
-
-    public void PlaySound(AudioClip clip)
+    public override void Destroy()
     {
-        SoundManager.Instance.PlaySoundEffect(clip);
+        CharacterManager.Instance.CharacterList.Remove(this);
+        base.Destroy();
     }
-
-    public void Awake()
-    {
-
-
-        actionStateMachine = new ActionStateMachine();
-        actionStateMachine.Character = this;
-        CharacterManager.Instance.CharacterList.Add(this);
-        weapon = RoomElementID % 10;
-        race = RoomElementID % 100 / 10;
-
-        Init();
-
-    }
-
-
-    public IEnumerator Disappear()
-    {
-        yield return new WaitForSeconds(4f);
-
-        if (tag != "Player")
-        {      
-            CharacterManager.Instance.CharacterList.Remove(this);  
-            Destroy(this.gameObject);
-        }
-    }
-    /// <summary>
-    /// 发送生成发射物的通知 X X XX
-    /// </summary>
-    public void NotifyMissile(int type)
-    {
-        //Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + type+";"+AttackRange);
-       // Notify("GenerateMissile;" + CharacterManager.Instance.CharacterList.IndexOf(this) + ";" + type );
-        int missileIndex = type / 1000;
-        int num = type / 100%10;
-        type = type % 100;
-        //Debug.Log(missileIndex + ":" + num);
-         GameObject missileInstance ;
-        if(weapons.Length!=0)
-                missileInstance = Instantiate(missiles[missileIndex],weapons[num].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
-        else
-                missileInstance = Instantiate(missiles[missileIndex], transform.position, Quaternion.identity) as GameObject;
-        missileInstance.GetComponent<HurtByContract>().Init(AttackDamage, beatBackLevel, beatDownLevelX, beatDownLevelY, this);
-        missileInstance.GetComponent<Missiles>().direction = faceDirection;
-        missileInstance.GetComponent<Missiles>().flyPath = type;
-        missileInstance.GetComponent<Missiles>().InitMissiles(attackRange, attackSpeed);
-  
-    }
-
-    /// <summary>
-    /// 更新动画速度
-    /// </summary>
-    public void UpdateAnimSpeed()
-    {
-     
-        actionStateMachine.UpdateAnimSpeed(Anim);
-
-    }
-
-
-    public void ChangeWeaponRange()
-    {
-        for(int i=0;i<weapons.Length;i++)
-        {
-            weapons[i].transform.parent.localScale = new Vector3(attackRange, attackRange, attackRange);
-        }
-
-    }
-
+    #endregion
+    /*运动方法*/
+    #region Move Methods
     //运动函数
     int lastFrames;
     int moveRate;
@@ -846,23 +805,26 @@ public class Character : RoomElement
         if (lastFramesAndRate < 0)
             lastFramesAndRate = -lastFramesAndRate;
         this.lastFrames = lastFramesAndRate % 1000;
-      
+
         //移速修正,因为攻速可能会导致动画变短
         StartCoroutine(MoveByCoroutine());
-       
+
     }
 
     IEnumerator MoveByCoroutine()
     {
-        while (lastFrames!=0)
-        {    
-            this.gameObject.transform.position += new Vector3(faceDirection,0,0) * moveSpeed*0.1f*moveRate;
+        while (lastFrames != 0)
+        {
+            this.gameObject.transform.position += new Vector3(faceDirection, 0, 0) * MovValue * 0.1f * moveRate;
             lastFrames--;
             yield return null;
         }
 
     }
-
+    /// <summary>
+    /// 忽略碰撞体
+    /// </summary>
+    /// <param name="lastFramesAndRate"></param>
     public void FlashBy(int lastFramesAndRate)
     {
 
@@ -870,7 +832,7 @@ public class Character : RoomElement
         if (lastFramesAndRate < 0)
             lastFramesAndRate = -lastFramesAndRate;
         this.lastFrames = lastFramesAndRate % 1000;
-      
+
         StartCoroutine(FlashByCoroutine());
 
     }
@@ -881,12 +843,67 @@ public class Character : RoomElement
         while (lastFrames != 0)
         {
 
-            this.gameObject.transform.position += new Vector3((faceDirection*2 + DirectionAttempt.x) / 3, DirectionAttempt.y, DirectionAttempt.z) * moveSpeed * 0.1f * moveRate;
+            this.gameObject.transform.position += new Vector3((faceDirection * 2 + AttemptDirection.x) / 3, AttemptDirection.y, AttemptDirection.z) * MovValue * 0.1f * moveRate;
             lastFrames--;
             yield return null;
         }
-        this.gameObject.GetComponent<BoxCollider>().enabled =true;
+        this.gameObject.GetComponent<BoxCollider>().enabled = true;
     }
+    #endregion
+    /*其他方法*/
+    #region Other Methods
+    /// <summary>
+    /// 播放音效
+    /// </summary>
+    /// <param name="clip"></param>
+    public void PlaySound(AudioClip clip)
+    {
+        SoundManager.Instance.PlaySoundEffect(clip);
+    }
+    /// <summary>
+    /// 发射发射物
+    /// </summary>
+    public void NotifyMissile(int type)
+    {
+        //Notify("GenerateMissile;" + Direction.x + ";" + Direction.y + ";"+ Direction.z + ";" + type+";"+AttackRange);
+        // Notify("GenerateMissile;" + CharacterManager.Instance.CharacterList.IndexOf(this) + ";" + type );
+        int missileIndex = type / 1000;
+        int num = type / 100 % 10;
+        type = type % 100;
+        //Debug.Log(missileIndex + ":" + num);
+        GameObject missileInstance;
+        if (weapons.Length != 0)
+            missileInstance = Instantiate(missiles[missileIndex], weapons[num].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
+        else
+            missileInstance = Instantiate(missiles[missileIndex], transform.position, Quaternion.identity) as GameObject;
+        missileInstance.GetComponent<HurtByContract>().Init(Atk, beatBackLevel, beatDownLevelX, beatDownLevelY, this);
+        missileInstance.GetComponent<Missiles>().direction = faceDirection;
+        missileInstance.GetComponent<Missiles>().flyPath = type;
+        missileInstance.GetComponent<Missiles>().InitMissiles(RngValue, SpdValue);
+
+    }
+
+    /// <summary>
+    /// 更新动画速度
+    /// </summary>
+    public void UpdateAnimSpeed()
+    {
+        actionStateMachine.UpdateAnimSpeed(Anim);
+
+    }
+
+    /// <summary>
+    /// 改变武器大小以改变攻击范围
+    /// </summary>
+    void ChangeWeaponRange()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            weapons[i].transform.parent.localScale = new Vector3(RngValue, RngValue, RngValue);
+        }
+
+    }
+
 
     public void AttackStart(string name)
     {
@@ -903,7 +920,7 @@ public class Character : RoomElement
         IsWeaponDmg = 0;
         BeatDownLevelX = 0;
         BeatDownLevelY = 0;
-        
+
         Notify("AttackEnd;" + name);
 
     }
@@ -916,37 +933,60 @@ public class Character : RoomElement
     {
         actionStateMachine.isStoped = true;
     }
-
+    /// <summary>
+    /// 存储基本属性
+    /// </summary>
+    /// <returns></returns>
     public int[] GetAttris()
     {
         List<int> attrilist = new List<int>();
-        attrilist.Add(Health);
-        attrilist.Add(AttackDamage);
-        attrilist.Add(AttackSpeed);
-        attrilist.Add(AttackRange);
-        attrilist.Add(MoveSpeed);
-        attrilist.Add(HitRecover);
-        attrilist.Add(Luck);
+        attrilist.Add((int)Hp);
+        attrilist.Add(Atk);
+        attrilist.Add(Spd);
+        attrilist.Add(Rng);
+        attrilist.Add(Mov);
+        attrilist.Add(Fhr);
+        attrilist.Add(Luk);
         attrilist.Add(FaceDirection);
         return attrilist.ToArray();
     }
-
+    /// <summary>
+    /// 加载基本属性
+    /// </summary>
+    /// <param name="attris"></param>
     public void LoadAttris(int[] attris)
     {
-        Health = attris[0];
-        AttackDamage = attris[1];
-        AttackSpeed = attris[2];
-        AttackRange = attris[3];
-        MoveSpeed = attris[4];
-        HitRecover = attris[5];
-        Luck = attris[6];
+        Hp = attris[0];
+        Atk = attris[1];
+        Spd = attris[2];
+        Rng = attris[3];
+        Mov = attris[4];
+        Fhr = attris[5];
+        Luk = attris[6];
 
         Direction = new Vector3(attris[7], 0, 0);
     }
 
-    public override void Destroy()
+
+    int BoundaryAdjust(int value)
     {
-        CharacterManager.Instance.CharacterList.Remove(this);
-        base.Destroy();
+        if (value < 0)
+            return 0;
+        else if (value > 5)
+            return 5;
+        else
+            return value;
+    }
+
+    #endregion
+
+    #endregion
+
+
+    //To Delete
+    public int Camp
+    {
+        get { return 0; }
+
     }
 }

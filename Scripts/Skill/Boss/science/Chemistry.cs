@@ -27,7 +27,7 @@ public class Chemistry : MonoBehaviour {
                 if (pfb[0]!=null)
                     UtilManager.Instance.CreateEffcet(pfb[0], other.gameObject.transform.position);                
                 if (i <= 16)
-                    Player.Instance.gameObject.GetComponent<Character>().Health--;            
+                    Player.Instance.gameObject.GetComponent<Character>().Hp--;            
             }
             //减速
             if (result==1)

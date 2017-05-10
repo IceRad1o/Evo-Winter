@@ -21,14 +21,14 @@ public class Greedy : Skill {
         {
             addLuck++;
             itemUsingNumber = 0;
-            this.GetComponent<Character>().Luck++;
+            this.GetComponent<Character>().Luk++;
         }
     }
 
     public override void skillDestory()
     {
         itemUsingNumber = 0;
-        this.GetComponent<Character>().Luck -= addLuck;
+        this.GetComponent<Character>().Luk -= addLuck;
 
         ItemManager.Instance.RemoveObserver(this);
         base.skillDestory();

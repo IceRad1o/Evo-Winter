@@ -64,7 +64,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
                     Notify("GetEsscenceSkill;" + skillID);
                     skillGet[skillID / 100 - 1, skillID % 100 - 1] = 1;
                 }
-                if (ID == Player.Instance.GetComponent<Character>().Race)
+                if (ID ==(int)Player.Instance.GetComponent<Character>().Race)
                     AddSkill(skillID);
             }
         if (doubleEsscence)
@@ -79,7 +79,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
                         Notify("GetEsscenceSkill;" + skillID);
                         skillGet[skillID / 100 - 1, skillID % 100 - 1] = 1;
                     }
-                    if (ID == Player.Instance.GetComponent<Character>().Race)
+                    if (ID == (int)Player.Instance.GetComponent<Character>().Race)
                         AddSkill(skillID);
                 }
                 
@@ -166,7 +166,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
                 s += skillArray[a, b];
             s += '\n';
         }
-        Debug.Log(s);
+        //Debug.Log(s);
     }
 
     public void SwitchEsscence(int type)
@@ -189,7 +189,7 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
             esscenceNumber.Add(0);
         }
         GetRandomArray();
-        skillEsscence = Player.Instance.GetComponent<Character>().Race;
+        skillEsscence =(int)Player.Instance.GetComponent<Character>().Race;
     }
 
     public override void OnNotify(string msg)

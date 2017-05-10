@@ -94,15 +94,15 @@ increace：增益数值（int 1~3）*/
     public void SetAltarPopup(int type, int attri1, int value1, int attri2,int value2)
     {
         string[] attris = new string[7] { "HP", "ATK", "SPD", "RNG", "MOV", "FHR","LUK" }; 
-        if (type == 1)
+        if (type == 0)
         {
             itemDetailPopupTitle.GetComponent<Text>().text = "恶魔祭坛";
-            itemDetailPopupText.GetComponent<Text>().text = "这是一座恶魔祭坛.献祭将在短时间内会获得" + attris[attri1 - 1] + "+ " + value1 + "的强力加成,但随后" + attris[attri2 - 1] + value2;
+            itemDetailPopupText.GetComponent<Text>().text = "这是一座恶魔祭坛.献祭将在短时间内会获得" + attris[attri1-1 ] + "+ " + value1 + " 的强力加成,但随后" + attris[attri2 - 1] + value2;
         }
         else
         {
             itemDetailPopupTitle.GetComponent<Text>().text = "普通祭坛";
-            itemDetailPopupText.GetComponent<Text>().text = "这是一座普通的祭坛.献祭将在短时间内会获得" + attris[attri1 - 1] + "+ " + value1 + "的加成.";
+            itemDetailPopupText.GetComponent<Text>().text = "这是一座普通的祭坛.献祭将在短时间内会获得" + attris[attri1-1 ] + "+ " + value1 + " 的加成.";
         } 
 
       

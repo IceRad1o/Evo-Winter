@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// CameraController
+/// Brief:For camera follow player.
+/// Author:IfYan
+/// LatestUpdateTime:2017.5.9
+/// </summary>
 public class CameraController : ExUnitySingleton<CameraController>{
 
     public enum CameraMoveType
@@ -8,27 +13,29 @@ public class CameraController : ExUnitySingleton<CameraController>{
         RemainOffset,
         Smooth
     }
-
+    /// <summary>
+    /// Camera Move Type
+    /// </summary>
     public CameraMoveType type;
-    float[] size = { 0f, 2.64f, 6.8f};
+    /// <summary>
+    /// Room X size
+    /// </summary>
+    float[] sizeX = { 0f, 2.64f, 6.8f};
+    /// <summary>
+    /// Room Y boundary
+    /// </summary>
+    float[] sizeY = { -1.25f, 0.206f };
+
     private Vector3 offset;
     private Vector3 delta;
     int sizeNum;
     int smoothMoveFrame=3; 
-	// Use this for initialization
+
 	void Start () {
-        //player=GameObject.FindGameObjectWithTag("Player");
+ 
         delta = new Vector3(5, 0, 0);
         offset = transform.position - Player.Instance.transform.position;
        
-	}
-
-
-  
-
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
     void LateUpdate()
@@ -41,10 +48,13 @@ public class CameraController : ExUnitySingleton<CameraController>{
             SmoothMoveWithPlayer();
       
         CheckBoundary();
-        //Debug.Log("Camera:" + transform.position.x);
+
     }
 
-
+    /// <summary>
+    /// Smooth Move Type
+    /// But it may cause some bug.
+    /// </summary>
     void SmoothMoveWithPlayer()
     {
         //计算距离
@@ -63,12 +73,14 @@ public class CameraController : ExUnitySingleton<CameraController>{
 
     void CheckBoundary()
     {
-        if (transform.position.x > size[sizeNum])
-            transform.position = new Vector3(size[sizeNum], transform.position.y, transform.position.z);
-        if (transform.position.x < -size[sizeNum])
-            transform.position = new Vector3(-size[sizeNum], transform.position.y, transform.position.z);
-        if (transform.position.y < -1.25f)
-            transform.position = new Vector3(transform.position.x, -1.25f, transform.position.z);
+        if (transform.position.x > sizeX[sizeNum])
+            transform.position = new Vector3(sizeX[sizeNum], transform.position.y, transform.position.z);
+        if (transform.position.x < -sizeX[sizeNum])
+            transform.position = new Vector3(-sizeX[sizeNum], transform.position.y, transform.position.z);
+        if (transform.position.y < sizeY[0])
+            transform.position = new Vector3(transform.position.x, sizeY[0], transform.position.z);
+        if (transform.position.y > sizeY[1])
+            transform.position = new Vector3(transform.position.x, sizeY[1], transform.position.z);
     }
 
 

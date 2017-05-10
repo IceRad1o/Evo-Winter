@@ -10,6 +10,7 @@ public class SkullLight : RoomElement {
     {
         base.Awake();
         RoomElementID = 9;
+
 	}
 
     void Start()

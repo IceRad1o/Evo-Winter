@@ -21,8 +21,8 @@ public class CorruptWater : MonoBehaviour {
             int dmg=1;
             if (Boss != null)
                 dmg=Boss.GetComponent<GreedValue>().DmgBuff;
-           // Debug.Log(Boss.GetComponent<GreedValue>().Value);
-            Player.Instance.Character.Health -= dmg;
+            Debug.Log("dmg"+dmg);
+            Player.Instance.Character.Hp -= dmg;
 
             Destroy(gameObject);
         }
@@ -30,7 +30,7 @@ public class CorruptWater : MonoBehaviour {
         {
             if (other.GetComponent<Character>().RoomElementID < 2010)
             {
-                other.GetComponent<Character>().Health = 0;
+                other.GetComponent<Character>().Hp = 0;
 
                 Destroy(gameObject);
             }

@@ -55,11 +55,11 @@ public class HurtByContract : MonoBehaviour
         {
             if(ch1.tag=="Player")
             {
-                destTags=new string[]{"Enemy","Monster","Boss","RoomElement","FakeBoss"};
+                destTags=new string[]{"Enemy","Monster","Boss","DynamicGroundElement","FakeBoss"};
             }
             else if (ch1.tag == "Friend")
             {
-                destTags = new string[] { "Enemy", "Monster", "Boss", "RoomElement" };
+                destTags = new string[] { "Enemy", "Monster", "Boss"};
             }
             else if(ch1.tag=="Enemy")
             {
@@ -105,14 +105,14 @@ public class HurtByContract : MonoBehaviour
                 if (ch != null)
                 {
                     isCh = true;
-                    if (ch.IsAlive < 0 || ch.Invincible == 1)
+                    if (ch.IsAlive < 0 || ch.IsInvincible == 1)
                         return;
                     //强制朝向受击方向
                     if (isWeapon&&ch!=null&&ch1!=null)
                         ch.Direction = -ch1.Direction;
 
                     //减血
-                    ch.Health -= damage;
+                    ch.Hp -= damage;
                    // Debug.Log("Health:" + ch.Health);
                 }
                 else

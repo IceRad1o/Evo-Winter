@@ -10,7 +10,7 @@ public class Attacklethal : BuffAttack
     {
         if (JudgeTrigger())
         {
-            CharacterManager.Instance.CharacterList[enemyID].Health = 0;
+            CharacterManager.Instance.CharacterList[enemyID].Hp = 0;
         }
 
     }

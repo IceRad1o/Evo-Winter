@@ -23,7 +23,7 @@ public class Sleep : Skill {
     public override void Trigger()
     {
         if (killMonster >= 3)
-            this.GetComponent<Character>().Health++;
+            this.GetComponent<Character>().Hp++;
         killMonster = 0;
     }
 

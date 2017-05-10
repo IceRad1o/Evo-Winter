@@ -9,7 +9,7 @@ public class AttackSpeedDown : BuffAttack {
     {
         if (JudgeTrigger())
         {
-            Debug.Log("gggg");
+            //Debug.Log("gggg");
             if (CharacterManager.Instance.CharacterList.Count <= enemyID)
                 Debug.Log("Error");
             CharacterManager.Instance.CharacterList[enemyID].GetComponent<BuffManager>().CreateDifferenceBuff(1020702111);

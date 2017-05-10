@@ -72,21 +72,21 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
         }
        
         //TODO leaveRoom存档
-        if (str[0] == "ClearRoom" || (str[0] == "EnterRoom")||str[0]== "LeaveRoom")
+        if (str[0] == "ClearRoom" || (str[0] == "EnterRoom")||str[0]== "LeaveRoom1")
         {
-            //Debug.Log("PofileManager recieved the msg : " + msg);
+            Debug.Log("PofileManager recieved the msg : " + msg);
            
             //Player
-            data.Health = Player.Instance.Character.Health;
-            data.MoveSpeed = Player.Instance.Character.MoveSpeed;
-            data.AttackRange = Player.Instance.Character.AttackRange;
-            data.AttackDamage = Player.Instance.Character.AttackDamage;
-            data.HitRecover = Player.Instance.Character.HitRecover;
-            data.Spasticity = Player.Instance.Character.Spasticity;
-            data.Race = Player.Instance.Character.Weapon;
+            data.Health = Player.Instance.Character.Hp;
+            data.MoveSpeed = Player.Instance.Character.Mov;
+            data.AttackRange = Player.Instance.Character.Rng;
+            data.AttackDamage = Player.Instance.Character.Atk;
+            data.HitRecover = Player.Instance.Character.Fhr;
+            //data.Spasticity = Player.Instance.Character.Spasticity;
+            //data.Race = Player.Instance.Character.Career;
             data.Sight = Player.Instance.Character.Sight;
-            data.Camp = Player.Instance.Character.Camp;
-            data.Luck = Player.Instance.Character.Luck;
+            //data.Camp = Player.Instance.Character.Camp;
+            data.Luck = Player.Instance.Character.Luk;
             data.ActionStateMachineID = Player.Instance.Character.ActionStateMachine.MachineID;
             data.CurPosition = Player.Instance.Character.transform.position;
 
@@ -123,7 +123,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             List<float> tempPosZ = new List<float>();
             for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)
             {
-                tempID.Add(EnemyManager.Instance.EnemyList[i].CharacterID);
+                tempID.Add(EnemyManager.Instance.EnemyList[i].RoomElementID);
                 tempPosX.Add(EnemyManager.Instance.EnemyList[i].transform.position.x);
                 tempPosY.Add(EnemyManager.Instance.EnemyList[i].transform.position.y);
                 tempPosZ.Add(EnemyManager.Instance.EnemyList[i].transform.position.z);
@@ -182,7 +182,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
                        }
                    }
            
-
+            Debug.Log("Pro:"+RoomElementManager.Instance.RoomElementList.Count);
             //加载元素
             for(int i=0;i<RoomElementManager.Instance.RoomElementList.Count;i++)
             {

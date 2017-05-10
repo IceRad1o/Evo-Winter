@@ -11,6 +11,7 @@ public class Box : RoomElement
     {
         animator = GetComponent<Animator>();
         isOpen = false;
+
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
 
@@ -18,6 +19,7 @@ public class Box : RoomElement
     {
         base.Awake();
         RoomElementID = 1;
+        this.tag = "DynamicGroundElement";
     }
     void Update()
     {

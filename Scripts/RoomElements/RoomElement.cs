@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// 房间元素,具备MonoBehavoir以及Notify/OnNotify的功能
+/// </summary>
 public class RoomElement : ExSubject {
 
     public int roomElementID;
@@ -29,6 +31,7 @@ public class RoomElement : ExSubject {
      * 21:金币Coin
      * 22:开关Handle
      * 1000+:道具
+     * 2000+ 人物
      * */
     public int RoomElementID
     {
@@ -46,15 +49,11 @@ public class RoomElement : ExSubject {
 
 
 	public virtual void Awake () {
-        //health = 1;
         this.tag = "RoomElement";
         RoomElementManager.Instance.RoomElementList.Add(this);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 
     public virtual void Destroy()
     {

@@ -9,12 +9,12 @@ public class Rage : Skill {
     public override void Trigger()
     {
         Debug.Log("Rage Trigger");
-        if (this.GetComponent<Character>().Health <= 3 && !isTrigger)
+        if (this.GetComponent<Character>().Hp <= 3 && !isTrigger)
         {
             isTrigger = !isTrigger;
             this.GetComponent<BuffManager>().CreateDifferenceBuff(1050001110, "Rage");
         }
-        if (this.GetComponent<Character>().Health >= 4 && isTrigger)
+        if (this.GetComponent<Character>().Hp >= 4 && isTrigger)
         {
             isTrigger = !isTrigger;
             foreach (var item in this.GetComponents<BuffChangeAttributeTemp>())

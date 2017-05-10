@@ -9,7 +9,7 @@ public class WindinAnger : Skill {
     {
         if (JudgeTrigger())
         {
-            CharacterManager.Instance.CharacterList[enemyID].GetComponent<Character>().Health--;
+            CharacterManager.Instance.CharacterList[enemyID].GetComponent<Character>().Hp--;
         }
 
     }

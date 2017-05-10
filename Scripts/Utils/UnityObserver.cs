@@ -38,10 +38,12 @@ public class Subject:MonoBehaviour
     /// </summary>  
     public virtual void Notify(string msg)
     {
-        foreach (Observer o in observerList)
-        {
-            o.OnNotify(msg);
-        }
+        //foreach (Observer o in observerList)
+        //{
+        //    o.OnNotify(msg);
+        //}
+        for (int i = 0; i < observerList.Count; i++)
+            observerList[i].OnNotify(msg);
     }
 } 
 
@@ -84,11 +86,13 @@ public class ExSubject:Subject
     public override  void  Notify(string msg)
     {
         base.Notify(msg);
-        var s = exObserverList.ToArray();
-        foreach (ExSubject o in s)
-        {
-            o.OnNotify(msg);
-        }
+        for (int i = 0; i < exObserverList.Count; i++)
+            exObserverList[i].OnNotify(msg);
+        //var s = exObserverList.ToArray();
+        //foreach (ExSubject o in s)
+        //{
+        //    o.OnNotify(msg);
+        //}
     }
 
     public virtual void OnNotify(string msg)

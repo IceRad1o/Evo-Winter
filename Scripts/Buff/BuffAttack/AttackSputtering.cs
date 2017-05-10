@@ -24,7 +24,7 @@ public class AttackSputtering : BuffAttack {
                 {
                     var i = (item.transform.position.x - CharacterManager.Instance.CharacterList[enemyID].gameObject.transform.position.x) * (item.transform.position.x - CharacterManager.Instance.CharacterList[enemyID].gameObject.transform.position.x) + (item.transform.position.y - CharacterManager.Instance.CharacterList[enemyID].gameObject.transform.position.y) * (item.transform.position.y - CharacterManager.Instance.CharacterList[enemyID].gameObject.transform.position.y);
                     if (i <= 16)
-                        item.GetComponent<Character>().Health-=this.GetComponent<Character>().AttackDamage;
+                        item.GetComponent<Character>().Hp-=this.GetComponent<Character>().Atk;
                     //item.GetComponent<Character>().Health -= 10;
                 }
             }

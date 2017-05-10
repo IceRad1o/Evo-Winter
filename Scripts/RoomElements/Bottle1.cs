@@ -11,6 +11,7 @@ public class Bottle1 : RoomElement
     {
         base.Awake();
         RoomElementID = 10;
+        this.tag = "DynamicGroundElement";
     }
 
     void Start()
@@ -25,7 +26,7 @@ public class Bottle1 : RoomElement
     {
         //Debug.Log("箱子碰撞物标签：" + other.tag);
         if (other.tag == "Weapon")
-            if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isHit == false && other.GetComponentInParent<Character>().Camp == 0)
+            if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isHit == false && other.GetComponentInParent<Character>().tag =="Player")
             {
                 HitBottle();
 				if(Random.Range (0,10) <9)
@@ -43,6 +44,7 @@ public class Bottle1 : RoomElement
         SoundManager.Instance.PlaySoundEffect(hit);
         animator.SetTrigger("Hit");
         isHit = true;
+        RoomElementState = 1;
     }
 
 	void CreateCoin()
