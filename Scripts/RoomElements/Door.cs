@@ -11,7 +11,7 @@ public class Door : RoomElement
     {
         base.Awake();
         RoomElementID = 3;
-        
+        this.tag = "StaticGroundElement";
 	}
 
     public void SetPosition(int posi)

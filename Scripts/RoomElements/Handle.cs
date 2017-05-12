@@ -50,7 +50,11 @@ public class Handle : RoomElement {
 	//打开隐藏门
 	void OpenHiddenDoor()
 	{
-		RoomManager.Instance.hiddenDoor = true;
+		if (RoomManager.Instance.hiddenDoor == false) 
+		{
+			RoomManager.Instance.hiddenDoor = true;
+		}
+
 	}
 
 }

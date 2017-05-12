@@ -138,9 +138,10 @@ public class BuffTiming : Buff {
     public override void OnNotify(string msg)
     {
         base.OnNotify(msg);
-
-        if (msg == "LeaveRoom")
+        //Debug.Log(msg);
+        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "EnterRoom" && UtilManager.Instance.GetFieldFormMsg(msg, 0) == "Unknow")
         {
+            //Debug.Log("this buff duration   " + buffDuration);
             buffDuration--;
             if (buffDuration == 0)
                 DestroyBuff();

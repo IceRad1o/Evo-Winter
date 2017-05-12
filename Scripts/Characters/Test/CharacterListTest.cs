@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Text;
 public class CharacterListTest : MonoBehaviour {
-
+    public enum Kd
+    {
+        normal,
+        hard
+    }
+    Kd ra=Kd.normal;
 	// Use this for initialization
 	void Start () {
+        int tmp = 1;
+        StringBuilder s = new StringBuilder(32);
+        s.Append("RaceChanged").Append(tmp).Append(ra);
+        Debug.Log(s);
         StartCoroutine(Test());
 	}
 

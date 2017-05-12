@@ -3,7 +3,7 @@ using System.Collections;
 /// <summary>
 /// 玩家类,即玩家的操控对象
 /// </summary>
-public class Player :ExSubject,IFly {
+public class Player :ExSubject {
 
     Character character;
 
@@ -16,43 +16,40 @@ public class Player :ExSubject,IFly {
         }
         set { character = value; }
     }
-
+ 
     void Start()
     {
         this.tag = "Player";
         character = GetComponent<Character>();
-        character.Camp = 0;
+       // character.Camp = 0;
         //加载存档
         if (PlayerPrefs.GetInt("isNew", 1) == 0)
             LoadPlayerMsg();
 
     }
 
-    //扩展方法示例
-    void Fly()
-    {
-        Debug.Log("此处为 C# 扩展方法示例");
-        this.fly();
-    }
+
 
 
     void LoadPlayerMsg()
     {
         //Debug.Log("load");
         ProfileData data = ProfileManager.Instance.Data;
-        character.Health = (int)data.Health;
-        character.MoveSpeed = (int)data.MoveSpeed;
-        character.AttackDamage = (int)data.AttackDamage;
-        character.AttackRange = (int)data.AttackRange;
-        character.Luck = (int)data.Luck;
-        character.HitRecover = (int)data.HitRecover;
-        character.Spasticity = data.Spasticity;
-        character.Weapon = data.Weapon;
-        character.Race = data.Race;
-        character.ActionStateMachine.MachineID=data.ActionStateMachineID;
+        character.Hp = (int)data.Health;
+        character.Atk = (int)data.AttackDamage;
+        //TODO character.Spd=(int)data.Att
+        character.Rng = (int)data.AttackRange;
+        character.Mov = (int)data.MoveSpeed;
+        character.Fhr = (int)data.HitRecover;
+        character.Luk = (int)data.Luck;
+  
+        //character.RoomElementID= data.Spasticity;
+        //character.Career = data.Weapon;
+        //character.Race = data.Race;
+       // character.ActionStateMachine.MachineID=data.ActionStateMachineID;
         character.transform.position=data.CurPosition;
         character.Sight=data.Sight;
-        character.Camp=data.Camp;
+        //character.Camp=data.Camp;
 
     }
 
@@ -90,6 +87,7 @@ public class Player :ExSubject,IFly {
             Destroy(_instance);
             _instance = this ;
         }
+        this.tag = "Player";
     }
 
 

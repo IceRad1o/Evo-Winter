@@ -114,12 +114,12 @@ public class AttriInfo : ExUnitySingleton<AttriInfo> {
 
      void Init()
     {
-        Atk = Player.Instance.Character.AttackDamage;
-        Spd = Player.Instance.Character.AttackSpeed;
-        Rng = Player.Instance.Character.AttackRange;
-        Mov = Player.Instance.Character.MoveSpeed;
-        Fhr = Player.Instance.Character.HitRecover;
-        Luk = Player.Instance.Character.Luck;
+        Atk = Player.Instance.Character.Atk;
+        Spd = Player.Instance.Character.Spd;
+        Rng = Player.Instance.Character.Rng;
+        Mov = Player.Instance.Character.Mov;
+        Fhr = Player.Instance.Character.Fhr;
+        Luk = Player.Instance.Character.Luk;
     }
 	
 

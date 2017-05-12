@@ -15,7 +15,7 @@ public class BuffAttack : Buff {
     protected bool JudgeTrigger(){
         //创建random的实例
         System.Random random = new System.Random();
-        if (random.Next(100) <= (int)(probability * 1.0f * (1.0f+Player.Instance.Character.LuckIn)))
+        if (random.Next(100) <= (int)(probability * 1.0f * (1.0f+Player.Instance.Character.LukValue)))
             return true;
         else
             return false;

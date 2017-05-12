@@ -6,11 +6,12 @@ public class Bottle1 : RoomElement
     private Animator animator;
     private bool isHit;
     public AudioClip hit;
-	public GameObject[] coin;
+	public GameObject coin;
     public override void Awake()
     {
         base.Awake();
         RoomElementID = 10;
+        this.tag = "DynamicGroundElement";
     }
 
     void Start()
@@ -25,12 +26,12 @@ public class Bottle1 : RoomElement
     {
         //Debug.Log("箱子碰撞物标签：" + other.tag);
         if (other.tag == "Weapon")
-            if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isHit == false && other.GetComponentInParent<Character>().Camp == 0)
+            if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isHit == false && other.GetComponentInParent<Character>().tag =="Player")
             {
                 HitBottle();
-				if(Random.Range (0,10) <9)
+				if(Random.Range (0,10) <2)
 				{
-					//CreateCoin ();
+					CreateCoin ();
             	}
 			}
 
@@ -43,10 +44,11 @@ public class Bottle1 : RoomElement
         SoundManager.Instance.PlaySoundEffect(hit);
         animator.SetTrigger("Hit");
         isHit = true;
+        RoomElementState = 1;
     }
 
 	void CreateCoin()
 	{
-		GameObject myCoin = Instantiate(coin[0], this.transform.position, Quaternion.identity) as GameObject;
+		//GameObject myCoin = Instantiate(coin, this.transform.position, Quaternion.identity) as GameObject;
 	}
 }

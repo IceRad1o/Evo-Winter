@@ -24,7 +24,7 @@ public class CharacterAi : MonoBehaviour
 
 
         /*ai行动的前提条件*/
-        if (Player.Instance.Character.IsAlive > 0 && character.IsAlive > 0 && character.Controllable != 0)
+        if (Player.Instance.Character.IsAlive > 0 && character.IsAlive > 0 && character.IsControllable != 0)
         {
   
 
@@ -60,11 +60,11 @@ public class CharacterAi : MonoBehaviour
 
             if (offset.sqrMagnitude > leastDistance&&getTarget==false)
             {
-                character.State = 0;
+                character.IsMove = 0;
                 return;
 
             }
-
+            GetComponent<Character>().EnableBloodBar(true);
             getTarget = true;
             if (Random.value < attackAbility)
             {
@@ -88,13 +88,13 @@ public class CharacterAi : MonoBehaviour
                 offset.Normalize();
                 character.Direction = offset;
 
-                character.State = 1;
+                character.IsMove = 1;
             }
 
         }
         else
         {
-            character.State = 0;
+            character.IsMove = 0;
         }
 
 
@@ -103,12 +103,12 @@ public class CharacterAi : MonoBehaviour
 
     public void SetIdle()
     {
-        character.State = 0;
+        character.IsMove = 0;
     }
 
     public void SetMove()
     {
-        character.State = 1;
+        character.IsMove = 1;
     }
 
 

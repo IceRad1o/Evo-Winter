@@ -8,6 +8,7 @@ public class Skull : RoomElement {
     {
         base.Awake();
         RoomElementID = 8;
+        this.tag = "DynamicGroundElement";
 	}
 	
 	// Update is called once per frame

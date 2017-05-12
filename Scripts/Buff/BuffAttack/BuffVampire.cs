@@ -8,7 +8,7 @@ public class BuffVampire : BuffAttack
     {
         if (!JudgeTrigger())
             return;
-        this.gameObject.GetComponent<Character>().Health++;
+        this.gameObject.GetComponent<Character>().Hp++;
     }
 
 
@@ -27,7 +27,7 @@ public class BuffVampire : BuffAttack
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
-        prefabInstance.transform.parent = this.gameObject.GetComponent<CharacterSkin>().Weapon.transform;
+        prefabInstance.transform.parent = this.gameObject.GetComponent<CharacterSkin>().body.transform;
         prefabInstance.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
     }

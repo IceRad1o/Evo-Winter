@@ -97,13 +97,13 @@ public class KeyBoardManager : MonoBehaviour {
         {
             if (keyDownNum == 0)
             { 
-                Player.Instance.Character.State = 0; 
+                Player.Instance.Character.IsMove = 0; 
                 // Debug.Log("keyboard:"); 
             }
             else
             {
                
-                Player.Instance.Character.State = 1;
+                Player.Instance.Character.IsMove = 1;
                 Player.Instance.Character.Direction = direction;
             }
             isChanged = false;
@@ -135,7 +135,7 @@ public class KeyBoardManager : MonoBehaviour {
             {
                // Destroy(EnemyManager.Instance.EnemyList[i].gameObject.GetComponent<CharacterAi>());
                 //EnemyManager.Instance.EnemyList[i].Health = 0;
-                EnemyManager.Instance.EnemyList[i].Controllable = 0;
+                EnemyManager.Instance.EnemyList[i].IsControllable = 0;
             }
     
         }
@@ -143,7 +143,7 @@ public class KeyBoardManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.O))
         {
             
-            Player.Instance.Character.Health = 10;
+            Player.Instance.Character.Hp = 10;
         }
         //
         if (Input.GetKeyDown(KeyCode.Y))
@@ -184,7 +184,7 @@ public class KeyBoardManager : MonoBehaviour {
         {
             // Destroy(EnemyManager.Instance.EnemyList[i].gameObject.GetComponent<CharacterAi>());
             //EnemyManager.Instance.EnemyList[i].Health = 0;
-            EnemyManager.Instance.EnemyList[i].Controllable = 0;
+            EnemyManager.Instance.EnemyList[i].IsControllable = 0;
         }
     }
 
@@ -208,14 +208,14 @@ public class KeyBoardManager : MonoBehaviour {
             }
     }
     public void FullHealth() {
-        Player.Instance.Character.Health = 10;
+        Player.Instance.Character.Hp = 10;
     }
 
     public void RandomCharacter()
     {
         int a = Random.Range(0, 16);
         int b = Random.Range(0, 2);
-        PlayerManager.Instance.InitPlayer(a );
+        PlayerManager.Instance.SwitchPlayer(a );
     }
 
 
@@ -226,8 +226,8 @@ public class KeyBoardManager : MonoBehaviour {
 
     public void AddAttackSpeed()
     {
-        Player.Instance.Character.AttackSpeed += 1;
-        Player.Instance.Character.MoveSpeed += 1;
+        Player.Instance.Character.Spd += 1;
+        Player.Instance.Character.Mov += 1;
     }
 
 

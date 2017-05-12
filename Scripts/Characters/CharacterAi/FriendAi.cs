@@ -15,7 +15,7 @@ public class FriendAi : CharacterAi
     public override void Update()
     {
 
-        if (character.Controllable != 0)
+        if (character.IsControllable != 0)
         {
             //随机选择目标
             Character tar=null;
@@ -55,7 +55,7 @@ public class FriendAi : CharacterAi
                     }
                     else
                     {
-                        character.State = 0;
+                        character.IsMove = 0;
                     }
 
 
@@ -70,13 +70,13 @@ public class FriendAi : CharacterAi
                     offset.Normalize();
                     character.Direction = offset;
 
-                    character.State = 1;
+                    character.IsMove = 1;
                 }
 
             }
             else
             {
-                character.State = 0;
+                character.IsMove = 0;
             }
 
         }

@@ -27,7 +27,7 @@ public class EnergyIncrease : Skill {
     {
         if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "LeaveRoom") 
         {
-            int x = this.gameObject.GetComponent<Character>().Luck;
+            int x = this.gameObject.GetComponent<Character>().Luk;
             float y = Random.value;
            // int x=(int)(Random.value * (100+this.gameObject.GetComponent<Character>().Luck));
            if ( (int )(x*y)< 50)

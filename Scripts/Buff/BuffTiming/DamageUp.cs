@@ -32,7 +32,7 @@ public class DamageUp : BuffTiming {
     {
         Debug.Log("Trigger");
         //MissingReferenceException: The object of type 'DamageUp' has been destroyed but you are still trying to access it.
-        this.gameObject.GetComponent<Character>().Health -= dHealth;
+        this.gameObject.GetComponent<Character>().Hp -= dHealth;
 
         GameObject pfb = Resources.Load("Buffs/AttackShield") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);

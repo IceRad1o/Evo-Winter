@@ -53,7 +53,7 @@ public class BuffManager : ExSubject
                 new BuffAttack().CreateBuff(ID,this.gameObject);
                 break;
             case 11:
-                Debug.Log("Trigger3");
+                //Debug.Log("Trigger3");
                 new BuffTiming().CreateBuff(ID, this.gameObject,spTag);
                 break;
 
@@ -208,7 +208,7 @@ public class BuffManager : ExSubject
         //Debug.Log(UtilManager.Instance.GetFieldFormMsg(msg, -1));
         if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "EnterRoom" && buffManagerTag == "Player") 
         {
-            playerHealth = this.gameObject.GetComponent<Character>().Health;
+            playerHealth = (int)this.gameObject.GetComponent<Character>().Hp;
         }
     }
 	

@@ -13,7 +13,7 @@ public class GiveShield : Skill {
 
     public override void Trigger()
     {
-        if ((int)(Random.value*(100+this.GetComponent<Character>().Luck*10))>50)
+        if ((int)(Random.value*(100+this.GetComponent<Character>().Luk*10))>50)
             this.GetComponent<BuffManager>().CreateDifferenceBuff(3300);
     }
 

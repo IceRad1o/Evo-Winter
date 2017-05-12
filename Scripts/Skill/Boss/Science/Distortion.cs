@@ -10,7 +10,7 @@ public class Distortion : Skill {
  
         Cd = 999;
         base.Trigger();
-        this.GetComponent<BuffManager>().CreateDifferenceBuff((this.GetComponent<Character>().MoveSpeed/2)*1000000000+020001112);
+        this.GetComponent<BuffManager>().CreateDifferenceBuff((this.GetComponent<Character>().Mov/2)*1000000000+020001112);
 
         this.GetComponent<CreateChemistry>().CdBuff = 0.67f;
         this.GetComponent<CreateScratch>().CdBuff = 0.67f;

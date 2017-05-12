@@ -30,7 +30,7 @@ public class Blast : Skill {
 
         yield return new WaitForSeconds(2.0f);
 
-        this.gameObject.GetComponent<Character>().Health = 0;
+        this.gameObject.GetComponent<Character>().Hp = 0;
 
         if (blast_Effect != null)
             UtilManager.Instance.CreateEffcet(blast_Effect, this.gameObject.transform.position);

@@ -10,7 +10,7 @@ public class WholeDamage : Skill {
 
         foreach (var item in CharacterManager.Instance.CharacterList.ToArray())
 	    {
-            item.GetComponent<Character>().Health -= item.GetComponent<Character>().Health / 3;
+            item.GetComponent<Character>().Hp -= item.GetComponent<Character>().Hp / 3;
 	    }
 
         Destroy(this);

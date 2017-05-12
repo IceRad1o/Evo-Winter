@@ -9,7 +9,7 @@ public class AttackSpeedDown : BuffAttack {
     {
         if (JudgeTrigger())
         {
-            Debug.Log("gggg");
+            //Debug.Log("gggg");
             if (CharacterManager.Instance.CharacterList.Count <= enemyID)
                 Debug.Log("Error");
             CharacterManager.Instance.CharacterList[enemyID].GetComponent<BuffManager>().CreateDifferenceBuff(1020702111);
@@ -27,7 +27,7 @@ public class AttackSpeedDown : BuffAttack {
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
-        prefabInstance.transform.parent = this.gameObject.GetComponent<CharacterSkin>().Weapon.transform;
+        prefabInstance.transform.parent = this.gameObject.GetComponent<CharacterSkin>().body.transform;
         prefabInstance.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
     }

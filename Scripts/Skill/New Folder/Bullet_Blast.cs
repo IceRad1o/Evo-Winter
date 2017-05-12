@@ -21,7 +21,7 @@ public class Bullet_Blast : MonoBehaviour {
                 {
                     var i = (item.transform.position.x - other.transform.position.x) * (item.transform.position.x - other.transform.position.x) + (item.transform.position.y - other.transform.position.y) * (item.transform.position.y - other.transform.position.y);
                     if (i <= 16)
-                        item.GetComponent<Character>().Health--;
+                        item.GetComponent<Character>().Hp--;
                 }
 
             }

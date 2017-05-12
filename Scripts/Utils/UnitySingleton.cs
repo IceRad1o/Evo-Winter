@@ -58,7 +58,7 @@ public class ExUnitySingleton<T> : ExSubject
                 {
                     GameObject obj = new GameObject();
                     //obj.hideFlags = HideFlags.DontSave;  
-                    obj.hideFlags = HideFlags.HideAndDontSave;
+                    //obj.hideFlags = HideFlags.HideAndDontSave;
                     _instance = (T)obj.AddComponent(typeof(T));
                 }
             }

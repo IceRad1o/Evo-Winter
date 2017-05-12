@@ -39,7 +39,7 @@ public class BuffShield : BuffTiming
     {
         Debug.Log("Trigger");
         shieldHealth--;
-        this.GetComponent<Character>().Health++;
+        this.GetComponent<Character>().Hp++;
         if (shieldHealth == 0)
             DestroyBuff();
 
