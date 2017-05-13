@@ -21,18 +21,14 @@ public class Character : RoomElement
     public AudioClip damagingSound;
     #endregion
 
-    #region Referenced GameObjects
-    //发射物
-    public GameObject[] missiles;
-    //武器
-    public GameObject[] weapons;
-    #endregion
-
     #region Cached Components
     //Cached Animator Component
     Animator anim;
     //Cached ActionStateMachine
     ActionStateMachine actionStateMachine;
+    //Cached CharacterSkin
+    CharacterSkin characterSkin;
+
     #endregion
 
     #region Attributes
@@ -68,10 +64,7 @@ public class Character : RoomElement
 
     /*基础属性*/
     #region Basic Attris
-    //0.生命Health,代表玩家的血量
-    //float hpValue;  
-    float hp;
-    float healthPercent = 1f;
+
     //1.攻击力,影响攻击造成的伤害
     static float[] atkValues={0.8f,1f,1.6f,2.1f,2.5f,2.8f}; 
     int atk;
@@ -148,7 +141,7 @@ public class Character : RoomElement
 
     #region Init Attris
     //init属性
-    public int maxHp=10;
+    //public int maxHp=10;
     public int oHp=3;
     public int oMov=2;
     public int oSpd=2;
@@ -201,9 +194,9 @@ public class Character : RoomElement
     /// <summary>
     /// 生命值
     /// </summary>
-    public virtual float Hp
+    public override float Hp
     {
-        get { return hp; }
+        get { return base.Hp; }
         set
         {     
             //若无敌且收到伤害
@@ -212,37 +205,23 @@ public class Character : RoomElement
                 Notify("WithStand:" + (Hp - value));
                 return;
             }
-            StringBuilder s = new StringBuilder(30).Append("HealthChanged;").Append((int)hp).Append(";");
+            StringBuilder s = new StringBuilder(30).Append("HealthChanged;").Append((int)Hp).Append(";");
             if ( IsSuperArmor == 0&&value < Hp )
             {
                 //此处用isMove,不用IsMove
                 isMove = 0;
                 actionStateMachine.Push(6);
             } 
-            hp = value;
-            if (hp <= 0 && IsAlive != -1)
+            base.Hp = value;
+            if (Hp <= 0 && IsAlive != -1)
             {
                 //此处用IsAlive,不用isAlive,实现鞭尸系统
                 IsAlive = 0;
             }
-            HealthPercent = Hp / maxHp;
-            Notify(s.Append((int)hp).Append(";").Append(this.tag).ToString());
+            //HealthPercent = Hp / maxHp;
+            Notify(s.Append((int)Hp).Append(";").Append(this.tag).ToString());
         }
     }
-    /// <summary>
-    /// 生命百分比
-    /// </summary>
-    public float HealthPercent
-    {
-        get { return healthPercent; }
-        set
-        {
-            float tmp = healthPercent;
-            healthPercent = value;
-            Notify("HealthPercent;" + healthPercent + ";" + tmp);
-        }
-    }
-
     /// <summary>
     /// 攻击力数值
     /// </summary>
@@ -260,8 +239,8 @@ public class Character : RoomElement
         {
             StringBuilder s = new StringBuilder(30).Append("AttackDamageChanged;").Append(atk).Append(";");
             atk = value;
-            for (int i = 0; i < weapons.Length; i++)
-                weapons[i].GetComponent<HurtByContract>().damage = (int)AtkValue;  
+            for (int i = 0; i < CharacterSkin.weapons.Length; i++)
+                CharacterSkin.weapons[i].GetComponent<HurtByContract>().damage = (int)AtkValue;  
             Notify(s.Append(atk).ToString());
         }
     }
@@ -507,10 +486,10 @@ public class Character : RoomElement
                 return;
             }
             //Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
-            Vector3 temp = GetComponent<CharacterSkin>().BodyNode.transform.localScale;
+            Vector3 temp = CharacterSkin.bodyNode.transform.localScale;
             if (value.x * temp.x > 0)
                 temp.x = -temp.x;
-            GetComponent<CharacterSkin>().BodyNode.transform.localScale= temp;
+            CharacterSkin.bodyNode.transform.localScale = temp;
             direction = value;
             AttemptDirection = value;
             if (direction.x >0)
@@ -549,6 +528,11 @@ public class Character : RoomElement
         get { return actionStateMachine; }
         set { actionStateMachine = value; }
     }
+    public CharacterSkin CharacterSkin
+    {
+        get { return characterSkin; }
+        set { characterSkin = value; }
+    }
     #endregion
 
     #region Weapons Getter&Setter
@@ -560,7 +544,7 @@ public class Character : RoomElement
             isWeaponDmg = value;
             if (value == 0)
             {
-                foreach (GameObject weapon in weapons)
+                foreach (GameObject weapon in CharacterSkin.weapons)
                     weapon.GetComponent<BoxCollider>().enabled = false;
 
                 Notify("WeaponDontDmg");
@@ -568,7 +552,7 @@ public class Character : RoomElement
 
             else
             {
-                foreach (GameObject weapon in weapons)
+                foreach (GameObject weapon in CharacterSkin.weapons)
                     weapon.GetComponent<BoxCollider>().enabled = true;
 
                 Notify("WeaponDmg");
@@ -602,9 +586,9 @@ public class Character : RoomElement
             beatDownLevelX = value;
             // weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX+beatDownBuff;
 
-            for (int i = 0; i < weapons.Length; i++)
+            for (int i = 0; i < CharacterSkin.weapons.Length; i++)
             {
-                weapons[i].GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX + beatDownBuff;
+                CharacterSkin.weapons[i].GetComponent<HurtByContract>().beatDownLevelX = beatDownLevelX + beatDownBuff;
             }
         }
     }
@@ -618,9 +602,9 @@ public class Character : RoomElement
             beatDownLevelY = value;
             //weaponObj.transform.Find("Weapon").GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY+beatDownBuff;
 
-            for (int i = 0; i < weapons.Length; i++)
+            for (int i = 0; i < CharacterSkin.weapons.Length; i++)
             {
-                weapons[i].GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY + beatDownBuff;
+                CharacterSkin.weapons[i].GetComponent<HurtByContract>().beatDownLevelY = beatDownLevelY + beatDownBuff;
             }
         }
     }
@@ -633,9 +617,9 @@ public class Character : RoomElement
         {
             beatBackLevel = value;
 
-            for (int i = 0; i < weapons.Length; i++)
+            for (int i = 0; i < CharacterSkin.weapons.Length; i++)
             {
-                weapons[i].GetComponent<HurtByContract>().beatBackLevel = beatBackLevel + beatBackBuff;
+                CharacterSkin.weapons[i].GetComponent<HurtByContract>().beatBackLevel = beatBackLevel + beatBackBuff;
             }
         }
     }
@@ -658,6 +642,7 @@ public class Character : RoomElement
         anim = this.GetComponent<Animator>();
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;
+        characterSkin = this.GetComponent<CharacterSkin>();
 
         //初始化基本属性
         Hp = oHp;
@@ -757,7 +742,6 @@ public class Character : RoomElement
         Init();
 
     }
-
     void Update()
     {
         if (isAlive == 0)
@@ -771,7 +755,6 @@ public class Character : RoomElement
             deadTime = -1;
         }
     }
-
     public virtual void FixedUpdate()
     {
         //Move
@@ -810,12 +793,11 @@ public class Character : RoomElement
         StartCoroutine(MoveByCoroutine());
 
     }
-
     IEnumerator MoveByCoroutine()
     {
         while (lastFrames != 0)
         {
-            this.gameObject.transform.position += new Vector3(faceDirection, 0, 0) * MovValue * 0.1f * moveRate;
+            this.gameObject.transform.position += new Vector3(FaceDirection, 0, 0) * MovValue * 0.1f * moveRate;
             lastFrames--;
             yield return null;
         }
@@ -836,7 +818,6 @@ public class Character : RoomElement
         StartCoroutine(FlashByCoroutine());
 
     }
-
     IEnumerator FlashByCoroutine()
     {
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
@@ -852,14 +833,7 @@ public class Character : RoomElement
     #endregion
     /*其他方法*/
     #region Other Methods
-    /// <summary>
-    /// 播放音效
-    /// </summary>
-    /// <param name="clip"></param>
-    public void PlaySound(AudioClip clip)
-    {
-        SoundManager.Instance.PlaySoundEffect(clip);
-    }
+
     /// <summary>
     /// 发射发射物
     /// </summary>
@@ -872,11 +846,11 @@ public class Character : RoomElement
         type = type % 100;
         //Debug.Log(missileIndex + ":" + num);
         GameObject missileInstance;
-        if (weapons.Length != 0)
-            missileInstance = Instantiate(missiles[missileIndex], weapons[num].transform.Find("WeaponPoint").position, Quaternion.identity) as GameObject;
+        if (characterSkin.missilePoints.Length != 0)
+            missileInstance = Instantiate(characterSkin.missiles[missileIndex],characterSkin.missilePoints[num].transform.position, Quaternion.identity) as GameObject;
         else
-            missileInstance = Instantiate(missiles[missileIndex], transform.position, Quaternion.identity) as GameObject;
-        missileInstance.GetComponent<HurtByContract>().Init(Atk, beatBackLevel, beatDownLevelX, beatDownLevelY, this);
+            missileInstance = Instantiate(characterSkin.missiles[missileIndex], transform.position, Quaternion.identity) as GameObject;
+        missileInstance.GetComponent<HurtByContract>().Init(AtkValue, beatBackLevel, beatDownLevelX, beatDownLevelY, this);
         missileInstance.GetComponent<Missiles>().direction = faceDirection;
         missileInstance.GetComponent<Missiles>().flyPath = type;
         missileInstance.GetComponent<Missiles>().InitMissiles(RngValue, SpdValue);
@@ -897,9 +871,9 @@ public class Character : RoomElement
     /// </summary>
     void ChangeWeaponRange()
     {
-        for (int i = 0; i < weapons.Length; i++)
+        for (int i = 0; i < CharacterSkin.weapons.Length; i++)
         {
-            weapons[i].transform.parent.localScale = new Vector3(RngValue, RngValue, RngValue);
+           CharacterSkin.weapons[i].transform.parent.localScale = new Vector3(RngValue, RngValue, RngValue);
         }
 
     }

@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// ActionStateMachine
+/// 动作状态机,负责读取状态机当前状态
+/// </summary>
 public class ActionStateMachine {
 
-    int machineID;
-    int race;
-    int weapon;
+    private int state;  //节点链,个位表示链的第一个元素,十位表示第二个,类推
+    private string curState;//当前状态
+
     bool isFull;
     public bool isStoped = false;
     public bool IsFull
@@ -13,14 +16,9 @@ public class ActionStateMachine {
         get { return isFull; }
         set { isFull = value; }
     }
-    public int MachineID
-    {
-        get { return machineID; }
-        set { machineID = value; }
-    }
 
-    private int state;  //节点链,个位表示链的第一个元素,十位表示第二个,类推
-    private string curState;//当前状态
+
+
 
     public string CurState
     {
@@ -49,7 +47,7 @@ public class ActionStateMachine {
         set { character = value; }
     }
 
-    public ActionStateMachine(int race=0,int weapon=0)
+    public ActionStateMachine()
     {
        
         state = 0;
@@ -58,10 +56,7 @@ public class ActionStateMachine {
         isFull = false;
 
     }
-    public void ChangeActionState(int race,int weapon){
-        this.race = race;
-        this.weapon = weapon;
-    }
+
     public void CallActionState(){
         //Debug.Log("state:"+state);
         if (state < 0)
@@ -97,37 +92,10 @@ public class ActionStateMachine {
             case 7:
                 Fall();
                 break;
-            //case 11:
-            //    JJ();
-            //    break;
-            //case 12:
-            //    JK();
-            //    break;
-            ////case 21:
-            //  //  KJ();
-            //   // break;
-            ////case 22:
-            //  //  KK();
-            // //   break;
-            //case 111:
-            //    JJJ();
-            //    break;
-            //case 112:
-            //    JJK();
-            //    break;
-            //case 221:
-            //    KKJ();
-            //    break;
-            //case 222:
-            //    KKK();
-            //    break;
-            //case 1111:
-            //    JJJJ();
-            //    break;
             default:
-                state = state % 10; //如果没有相应的状态与节点链对应,则表示进入的节点为新的节点链的首节点
+                //state = state % 10; //如果没有相应的状态与节点链对应,则表示进入的节点为新的节点链的首节点
                 //Debug.Log("1new:"+state);
-                CallActionState();
+                //CallActionState();
                 break;
         }
         
@@ -142,6 +110,11 @@ public class ActionStateMachine {
     {
         if (isStoped)
             return;
+
+        state = node;
+        CallActionState();
+        return;
+   
 
        // Debug.Log("push" + node);
         //TODO 如果链已接受到下一个状态节点,且还未进入下一个状态节点,则不再接受新的节点
@@ -177,87 +150,35 @@ public class ActionStateMachine {
 
     public virtual void J()
     {
-
-            character.GetComponent<Animator>().SetTrigger("AttackJ");
-
-       
-
-
+        if (character.IsAlive > 0)
+             character.GetComponent<Animator>().SetTrigger("AttackJ");
     }
 
     public virtual void K()
     {
-        character.GetComponent<Animator>().SetTrigger("AttackK");
+        if (character.IsAlive > 0)
+             character.GetComponent<Animator>().SetTrigger("AttackK");
     }
 
     public virtual void L()
     {
-        character.GetComponent<Animator>().SetTrigger("AttackL");
+        if (character.IsAlive > 0)
+            character.GetComponent<Animator>().SetTrigger("AttackL");
         
     }
-    public virtual void JJ()
-    {
-            character.GetComponent<Animator>().SetTrigger("AttackJJ");
-
   
-    }
-
-    public virtual void JK()
-    {
-        character.GetComponent<Animator>().SetTrigger("AttackJK");
-    }
-
-    public virtual void KJ()
-    {
-      //  character.GetComponent<Animator>().SetTrigger("AttackKJ");
-    }
-
-    public virtual void KK()
-    {
-
-       // character.GetComponent<Animator>().SetTrigger("AttackKK");
-    }
-
-    public virtual void JJJ()
-    {
-        if (race == 0 && weapon == 0)
-            character.GetComponent<Animator>().SetTrigger("AttackJJJ");
-        else
-            character.GetComponent<Animator>().SetTrigger("AttackJJJ" + race + weapon);
-        //state = 0;
-    }
-    public virtual void JJJJ()
-    {
-
-            character.GetComponent<Animator>().SetTrigger("AttackJJJJ");
-  
-    }
-    public virtual void JJK()
-    {
-        character.GetComponent<Animator>().SetTrigger("AttackJJK");
-    }
-
-    public virtual void KKJ()
-    {
-       // character.GetComponent<Animator>().SetTrigger("AttackKKJ");
-    }
-    public virtual void KKK()
-    {
-       // character.GetComponent<Animator>().SetTrigger("AttackKKK");
-    }
 
     public virtual void Idle()
     {
         if(CurState!="Idle")
-          character.GetComponent<Animator>().SetTrigger("Idle");
+           character.GetComponent<Animator>().SetTrigger("Idle");
 
     }
 
     public virtual void Move()
     {
         if (CurState != "Move")
-         character.GetComponent<Animator>().SetTrigger("Move");
-        //character.UpdateAnimSpeed("Move");
+          character.GetComponent<Animator>().SetTrigger("Move");
     }
 
     public virtual void Die()
@@ -282,6 +203,7 @@ public class ActionStateMachine {
 
     public void UpdateAnimSpeed(Animator anim)
     {
+        //重置
         IsFull = false;
 
         AnimatorStateInfo asi = anim.GetCurrentAnimatorStateInfo(0);

@@ -8,7 +8,7 @@ public class HurtByContract : MonoBehaviour
     /// <summary>
     /// 碰撞体从属角色
     /// </summary>
-    public Character ch1;
+    public Character master;
     /// <summary>
     /// 是否是武器
     /// </summary>
@@ -24,7 +24,7 @@ public class HurtByContract : MonoBehaviour
     /// <summary>
     /// 伤害:>=0
     /// </summary>
-    public int damage = 1;
+    public float damage = 1;
     /// <summary>
     /// 击退效果等级:>=0
     /// </summary>
@@ -50,40 +50,22 @@ public class HurtByContract : MonoBehaviour
     void Start()
     {
         if(isWeapon)
-            ch1 = this.GetComponentInParent<Character>();
-        if(autoTag&&ch1!=null)
+            master = this.GetComponentInParent<Character>();
+        if(autoTag&&master!=null)
         {
-            if(ch1.tag=="Player")
-            {
-                destTags=new string[]{"Enemy","Monster","Boss","DynamicGroundElement","FakeBoss"};
-            }
-            else if (ch1.tag == "Friend")
-            {
-                destTags = new string[] { "Enemy", "Monster", "Boss"};
-            }
-            else if(ch1.tag=="Enemy")
-            {
-                destTags = new string[] { "Player", "Friend"};
-            }
-            else if(ch1.tag=="Monster")
-            {
-                destTags = new string[] { "Player", "Friend" };
-            }
-            else if(ch1.tag=="Boss")
-            {
-                destTags = new string[] { "Player", "Friend" };
-            }
+            destTags = AutoTag.Instance.GetTargetTags(master.tag);
+            
         }
     }
 
 
-    public void Init(int damage,int beatBackLevel,int beatDownLevelX,int beatDownLevelY,Character ch)
+    public void Init(float damage,int beatBackLevel,int beatDownLevelX,int beatDownLevelY,Character ch)
     {
         this.damage = damage;
         this.beatBackLevel=beatBackLevel;
         this.beatDownLevelX = beatDownLevelX;
         this.beatDownLevelY = beatDownLevelY;
-        this.ch1 = ch;
+        this.master = ch;
 
     }
 
@@ -100,33 +82,33 @@ public class HurtByContract : MonoBehaviour
         {
             if(destTag==destTags[i])
             {
-                Character ch = other.GetComponent<Character>();
+                Character targetCharacter = other.GetComponent<Character>();
                 bool isCh;
-                if (ch != null)
+                if (targetCharacter != null)
                 {
                     isCh = true;
-                    if (ch.IsAlive < 0 || ch.IsInvincible == 1)
+                    if (targetCharacter.IsAlive < 0 || targetCharacter.IsInvincible == 1)
                         return;
                     //强制朝向受击方向
-                    if (isWeapon&&ch!=null&&ch1!=null)
-                        ch.Direction = -ch1.Direction;
+                    if (isWeapon&&targetCharacter!=null&&master!=null)
+                        targetCharacter.Direction = -master.Direction;
 
                     //减血
-                    ch.Hp -= damage;
+                    targetCharacter.Hp -= damage;
                    // Debug.Log("Health:" + ch.Health);
                 }
                 else
                     isCh = false;
-          
+
         
 
                 //击倒
                 if (beatDownLevelX > 0||beatDownLevelY>0)
                 {
-                    if (isCh&&ch.IsSuperArmor == 1)
+                    if (isCh&&targetCharacter.IsSuperArmor == 1)
                         break;
                     if(isCh)
-                         ch.Fall();
+                         targetCharacter.Fall();
                     BeatDown b = other.gameObject.AddComponent<BeatDown>();
                     b.levelX = beatDownLevelX;
                     b.levelY = beatDownLevelY;
@@ -136,7 +118,6 @@ public class HurtByContract : MonoBehaviour
                 //击退
                 else if (beatBackLevel > 0)
                 {
-
                     BeatBack b = other.gameObject.AddComponent<BeatBack>();
                     b.level = beatBackLevel;
                     b.direction = other.transform.position.x >= this.transform.position.x ? 1 : -1;
@@ -150,20 +131,16 @@ public class HurtByContract : MonoBehaviour
                     else
                         Instantiate(hitPrefab, this.transform.Find("WeaponPoint").position, Quaternion.identity);
                 }
-                CameraShake.Instance.shakeLevelX = 1;
-                CameraShake.Instance.shakeLevelY = 0;
-                CameraShake.Instance.time = 0.15f;
-                CameraShake.Instance.Shake();
+                CameraShake.Instance.Shake(0.15f,1,0);
         
 
                 //发送消息
-                if(ch1!=null&&isCh)
-                    ch1.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()) + ";" + ch1.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(ch1));
+                if(master!=null&&isCh)
+                    master.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()) + ";" + master.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(master));
 
                 //销毁
                 if (isDestory != 0)
                 {
-
                     Destroy(gameObject);
                 }
             }

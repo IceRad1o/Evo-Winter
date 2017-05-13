@@ -94,8 +94,8 @@ public class Altar : RoomElement
         if (altarType == Type.normal)
         {
             buffAttri = Random.Range(2, 8);
-          
-       
+
+
         }
         else
         {
@@ -127,7 +127,7 @@ public class Altar : RoomElement
     /// <param name="collision"></param>
     void OnCollisionExit(Collision collision)
     {
-   
+
         if (collision.gameObject.tag == "Player")
         {
             RoomManager.Instance.Notify("LeaveAltar");
@@ -135,18 +135,14 @@ public class Altar : RoomElement
         }
     }
 
-    public override void OnNotify(string msg)
-    {
-        string[] str = UtilManager.Instance.GetMsgFields(msg);
-       // Debug.Log("altarmsg:" + msg);
-        if (str[0] == "AttackStart" && str[1] == "J")
-        {
-            AddBuff();
-            RoomElementState = 1;
-          
-            Notify("UseAltar");
-        }
 
+
+    public override void Trriger()
+    {
+        base.Trriger();
+        AddBuff();
+        RoomElementState = 1;
+        Notify("UseAltar");
     }
 
 

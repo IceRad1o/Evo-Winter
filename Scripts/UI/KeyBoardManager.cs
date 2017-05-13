@@ -215,7 +215,7 @@ public class KeyBoardManager : MonoBehaviour {
     {
         int a = Random.Range(0, 16);
         int b = Random.Range(0, 2);
-        PlayerManager.Instance.InitPlayer(a );
+        PlayerManager.Instance.SwitchPlayer(a );
     }
 
 

@@ -631,8 +631,9 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 					if (id[count] >= 1000) 
 					{
 						//ItemManager.Instance.ItemsTransform = this.transform;
-						ItemManager.Instance.ItemsTransform.position = position;
-						ItemManager.Instance.CreateItemID(id[count]);
+                        //ItemManager.Instance.ItemsTransform.position = position;
+                        //ItemManager.Instance.CreateItemID(id[count]);
+                        ItemManager.Instance.CreateItemID(id[count], position);
 					}
 						
 					else 
@@ -852,5 +853,20 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     }
 
 
+    public void DropBox(Vector3 position, int minNum = 1, int maxNum = 2)
+    {
 
+        Vector3 startPoint = position + new Vector3(0, 1, 0);
+        int num = Random.Range(minNum, maxNum);
+        for (int i = 0; i < num; i++)
+        {
+            Vector3 deltaPos = new Vector3((Random.value - 0.5f) * 5, (Random.value - 0.5f) * 5);
+            GameObject ins = Instantiate(groundElements[boxPos], startPoint, Quaternion.identity) as GameObject;
+            Vector3[] paths = new Vector3[3];
+            paths[0] = startPoint;
+            paths[1] = startPoint + deltaPos / 3 + new Vector3(0, 1.5f, 0);
+            paths[2] = startPoint + deltaPos;
+            iTween.MoveTo(ins, iTween.Hash("path", paths, "speed", 20f, "easeType", iTween.EaseType.linear));
+        }
+    }
 }

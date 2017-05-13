@@ -87,7 +87,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>{
             data.Sight = Player.Instance.Character.Sight;
             //data.Camp = Player.Instance.Character.Camp;
             data.Luck = Player.Instance.Character.Luk;
-            data.ActionStateMachineID = Player.Instance.Character.ActionStateMachine.MachineID;
+            //data.ActionStateMachineID = Player.Instance.Character.ActionStateMachine.MachineID;
             data.CurPosition = Player.Instance.Character.transform.position;
 
 

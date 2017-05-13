@@ -196,7 +196,24 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         }
         return null;
     }
-
+    /// <summary>
+    /// 舍弃使用Transform方案的重载创建道具方式
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <param name="pos"></param>
+    /// <returns></returns>
+    public Item CreateItemID(int ID,Vector3 pos)
+    {
+        int type = itemsTable.GetItemType(ID);
+        Item ins=null;
+        if(type==0)
+            ins=Instantiate(itemImmediately, pos, Quaternion.identity)as Item;
+        else if(type==1)
+            ins = Instantiate(itemsDisposable, pos, Quaternion.identity) as Item;
+        else if(type==2)
+            ins = Instantiate(itemInitiative, pos, Quaternion.identity) as Item;
+        return ins;
+    }
 
     /****************************************************************************************/
     //一次性道具

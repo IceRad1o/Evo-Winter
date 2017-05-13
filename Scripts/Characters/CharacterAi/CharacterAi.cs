@@ -64,7 +64,7 @@ public class CharacterAi : MonoBehaviour
                 return;
 
             }
-            GetComponent<Character>().Notify("ShowBloodBar");
+            GetComponent<Character>().EnableBloodBar(true);
             getTarget = true;
             if (Random.value < attackAbility)
             {

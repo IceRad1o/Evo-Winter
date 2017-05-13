@@ -30,7 +30,7 @@ public class Box : RoomElement
     {
         //打开宝箱的动画和声音
         animator.SetTrigger("OpenBox");
-		roomElementState = 1;
+		RoomElementState = 1;
         isOpen = true;
         SoundManager.Instance.PlaySoundEffect(openBox);
         //NEED Item item=ItemManager.getInstance().GenerateItem();
@@ -40,8 +40,8 @@ public class Box : RoomElement
             EsscenceManager.Instance.CreateEsscence((int)(Random.value * 4), this.transform.position);
         else
         {
-            ItemManager.Instance.ItemsTransform = this.transform;
-
+           // ItemManager.Instance.ItemsTransform = new Transform();
+            ItemManager.Instance.ItemsTransform.position = this.transform.position+new Vector3(0,1,0);
             ItemManager.Instance.CreateItemDrop(false, false, true);
 
         }

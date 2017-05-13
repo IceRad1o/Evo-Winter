@@ -5,12 +5,12 @@ using System.Collections;
 /// </summary>
 public class AutoTag : ExUnitySingleton<AutoTag>{
 
-    string [] GetTargetTags(string tag)
+    public string [] GetTargetTags(string tag)
     {
         string[] destTags = null ;
         if (tag == "Player")
         {
-            destTags = new string[] { "Enemy", "Monster", "Boss", "RoomElement", "FakeBoss" };
+            destTags = new string[] { "Enemy", "Monster", "Boss", "DynamicGroundElement", "FakeBoss" };
         }
         else if (tag == "Friend")
         {
