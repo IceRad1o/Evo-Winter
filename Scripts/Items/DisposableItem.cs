@@ -52,17 +52,16 @@ public class DisposableItem : Item{
      *@设置该道具的一些相关属性
      *@ID 该道具的ID
      */
-    public void Create(int ID)
+
+    public override void Create(int ID)
     {
-        RoomElementID = ID;
+ 	    base.Create(ID);
         CreateScript(ID);
         spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
 
         ItemManager.Instance.listDisposableItem.Add(this);
-        this.AddObserver(ItemManager.Instance);
-        this.AddObserver(UIManager.Instance.ItemObserver);
     }
-
+ 
     public void CreateScript(int ID)
     {
         //ItemName=
@@ -77,6 +76,9 @@ public class DisposableItem : Item{
     public override void Destroy()
     {
         ItemManager.Instance.listDisposableItem.Remove(this);
+
+        this.RemoveObserver(ItemManager.Instance);
+        this.RemoveObserver(UIManager.Instance.ItemObserver);
 
         base.Destroy();
     }

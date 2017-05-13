@@ -7,7 +7,7 @@ public class ItemManagerTest : MonoBehaviour {
 	void Start () {
         //StartCoroutine(Test());
         ItemManager.Instance.CreateItemType(false,false,true);
-        ItemManager.Instance.CreateItemType(true,false,false,true);
+        ItemManager.Instance.CreateItemType(true,false,false);
 	}
 
     IEnumerator Test()

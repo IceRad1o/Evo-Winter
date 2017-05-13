@@ -42,7 +42,7 @@ public class AttributeRandom : BuffTiming {
             }
         }
         //获得当前实际的属性值
-        attribute_old[0] = Player.Instance.GetComponent<Character>().Mov-attribute_Buff[0];
+        attribute_old[0] = Player.Instance.GetComponent<Character>().Mov - attribute_Buff[0];
         attribute_old[1] = Player.Instance.GetComponent<Character>().Spd - attribute_Buff[1];
         attribute_old[2] = Player.Instance.GetComponent<Character>().Rng - attribute_Buff[2];
         attribute_old[3] = Player.Instance.GetComponent<Character>().Fhr - attribute_Buff[3];

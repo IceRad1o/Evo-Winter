@@ -351,7 +351,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 				ItemManager.Instance.ItemsTransform = this.transform;
 				for (int j = 0; j < 6; j++) {
 					ItemManager.Instance.ItemsTransform.position = itemPosition[j];
-					ItemManager.Instance.CreateItemDrop(false, false, true);
+					ItemManager.Instance.CreateItemDrop(false, false, true,itemPosition[j]);
 					//牌子
 					pricePosition = new Vector3 (itemPosition [j].x, itemPosition [j].y + 0.5f, 0f);
 					GameObject price = Instantiate(plate[0], pricePosition, Quaternion.identity) as GameObject;
