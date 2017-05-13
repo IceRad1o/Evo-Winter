@@ -11,7 +11,7 @@ public class CharacterAi : MonoBehaviour
     //  public float 
     protected Character tar;//目标
     bool getTarget=false;
-    void Start()
+    void Awake()
     {
         character = GetComponent<Character>();
 
