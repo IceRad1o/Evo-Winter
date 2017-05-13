@@ -628,12 +628,13 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                     Vector3 position = new Vector3(posiX[count],posiY[count],posiZ[count]);
                     GameObject objectChoice;
                     GameObject roomElement = null;
-					if (id[count] >= 1000) 
+					if (id[count] >= 1000 && id[count] <2000) 
 					{
 						//ItemManager.Instance.ItemsTransform = this.transform;
                         //ItemManager.Instance.ItemsTransform.position = position;
                         //ItemManager.Instance.CreateItemID(id[count]);
                         ItemManager.Instance.CreateItemID(id[count], position);
+                        Debug.Log("Create item ID:   " + id[count]);
 					}
 						
 					else 
