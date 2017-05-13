@@ -37,8 +37,7 @@ public class Box : RoomElement
         else
         {
            // ItemManager.Instance.ItemsTransform = new Transform();
-            ItemManager.Instance.ItemsTransform.position = this.transform.position+new Vector3(0,1,0);
-            ItemManager.Instance.CreateItemDrop(false, false, true);
+            ItemManager.Instance.CreateItemDrop(false, false, true, this.transform.position + new Vector3(0, 1, 0));
 
         }
     }
