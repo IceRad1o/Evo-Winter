@@ -75,7 +75,7 @@ public class Character : RoomElement
     static float[] rngValues={0.8f,1.0f,1.1f,1.2f,1.3f,1.4f}; 
     int rng;
     //4.移速,影响移动速度
-    static float[] MovValues = { 0.04f,0.05f, 0.08f, 0.105f, 0.125f, 0.14f };  
+    static float[] movValues = { 0.04f,0.05f, 0.08f, 0.105f, 0.125f, 0.14f };  
     int mov;
     //5.硬直,即受击回复,影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
     static float[] fhrValues={0.8f,1.0f,1.7f,2.4f,3f,3.5f};
@@ -88,6 +88,7 @@ public class Character : RoomElement
     /*附加属性*/
     #region Additional Attris
     //视野 影响可见范围,若玩家处于怪物的视野外则不会遭受攻击,对玩家不起作用
+    static float[] sightValues = { 0, 0.5f, 2.8f, 5f, 7.83f, 10.3f };
     int sight=3;
     //死亡延迟帧数 从生命为0到真正死亡的倒计时
     int deadTime=50;
@@ -293,7 +294,7 @@ public class Character : RoomElement
     /// </summary>
     public float MovValue
     {
-        get { return MovValues[BoundaryAdjust(Mov)]; }
+        get { return movValues[BoundaryAdjust(Mov)]; }
     }
 
     /// <summary>
@@ -355,6 +356,11 @@ public class Character : RoomElement
     /// <summary>
     /// 视野等级
     /// </summary>
+
+    public float SightValue
+    {
+        get { return sightValues[Sight]; }
+    }
     public int Sight
     {
         get { return sight; }
@@ -486,6 +492,8 @@ public class Character : RoomElement
                 return;
             }
             //Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
+            Debug.Log("1:" + CharacterSkin);
+            Debug.Log("2:" + CharacterSkin.bodyNode);
             Vector3 temp = CharacterSkin.bodyNode.transform.localScale;
             if (value.x * temp.x > 0)
                 temp.x = -temp.x;
@@ -530,7 +538,10 @@ public class Character : RoomElement
     }
     public CharacterSkin CharacterSkin
     {
-        get { return characterSkin; }
+        get {
+            if (!characterSkin)
+                characterSkin = GetComponent<CharacterSkin>();
+            return characterSkin; }
         set { characterSkin = value; }
     }
     #endregion
@@ -742,6 +753,12 @@ public class Character : RoomElement
         Init();
 
     }
+
+    public virtual void Start()
+    {
+        if(!CharacterSkin)
+          CharacterSkin = GetComponent<CharacterSkin>();
+    } 
     void Update()
     {
         if (isAlive == 0)
