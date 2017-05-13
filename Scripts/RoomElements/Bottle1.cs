@@ -41,7 +41,6 @@ public class Bottle1 : RoomElement
 		if (collision.gameObject.tag == "Player")
 		{
 			Player.Instance.Character.RemoveObserver(this);
-			Debug.Log ("LeaveBottleTag:"+collision.gameObject.tag);
 		}
 	}
 	//重载函数

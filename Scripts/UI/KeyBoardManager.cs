@@ -14,6 +14,7 @@ public class KeyBoardManager : MonoBehaviour {
     public GameObject DamageSrc;
     public GameObject box;
     public GameObject monster;
+	public GameObject handle;
     int cheatPunish;
     void Start()
     {
@@ -167,6 +168,10 @@ public class KeyBoardManager : MonoBehaviour {
         {
             Instantiate(monster);
         }
+		if (Input.GetKeyDown(KeyCode.H))
+		{
+			GetHandle();
+		}
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -223,6 +228,11 @@ public class KeyBoardManager : MonoBehaviour {
     {
         Instantiate(box, Player.Instance.transform.position, Quaternion.identity);
     }
+
+	public void GetHandle()
+	{
+		Instantiate(handle, Player.Instance.transform.position, Quaternion.identity);
+	}
 
     public void AddAttackSpeed()
     {
