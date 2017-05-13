@@ -13,7 +13,7 @@ public class BloodBar : ExSubject {
     static Vector4 deltaColor = new Vector4(208, -200, -82,0)/255;
     void Start()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         GetComponentInParent<RoomElement>().AddObserver(this);
     }
 
