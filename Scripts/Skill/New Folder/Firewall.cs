@@ -28,13 +28,13 @@ public class Firewall : ExSubject
                 return;
         }
         listEnemy.Add(ob.gameObject);
-        ob.gameObject.GetComponent<Character>().Health--;
+        ob.gameObject.GetComponent<Character>().Hp--;
         if (!recover)
         {
             foreach(var item in CharacterManager.Instance.CharacterList.ToArray())
 	        {
                 if (item != null && item.tag== "Player")
-                    item.GetComponent<Character>().Health++;
+                    item.GetComponent<Character>().Hp++;
                 recover = !recover;
 	        } 
         }

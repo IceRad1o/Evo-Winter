@@ -44,10 +44,10 @@ public class Puppet : ExSubject {
         if (owner == null)
         {
 
-            Destroy(gameObject);
+            GetComponent<Character>().Destroy();
             return;
         }
-        if (this.GetComponent<Character>().Controllable == 0 || this.GetComponent<Character>().CanMove == 0)
+        if (this.GetComponent<Character>().IsControllable == 0 || this.GetComponent<Character>().CanMove == 0)
             return;
         Vector3 destPos = owner.transform.position;
         Vector3 srcPos = transform.position;
@@ -55,7 +55,7 @@ public class Puppet : ExSubject {
         if (offset.x < 0.05 && offset.x > -0.05 && offset.y < 0.05 && offset.y > -0.05)
         {
 
-            this.GetComponent<Character>().State = 0;
+            this.GetComponent<Character>().IsMove = 0;
 
             this.GetComponent<Character>().Direction= owner.GetComponent<Character>().Direction;
 
@@ -71,7 +71,7 @@ public class Puppet : ExSubject {
             offset.Normalize();
             this.GetComponent<Character>().Direction = offset;
 
-            this.GetComponent<Character>().State = 1;
+            this.GetComponent<Character>().IsMove = 1;
         }
     }
 
@@ -79,7 +79,7 @@ public class Puppet : ExSubject {
     void RotateBeat()
     {
         Character ch=this.GetComponent<Character>();
-        this.gameObject.AddComponent<HurtByContract>().Init(ch.AttackDamage, 4, 0, 0, owner.GetComponent<Character>());
+        this.gameObject.AddComponent<HurtByContract>().Init(ch.Atk, 4, 0, 0, owner.GetComponent<Character>());
         this.gameObject.AddComponent<MoveBy>().Init(0.5f,new Vector3(6*owner.GetComponent<Character>().FaceDirection,0,0),true);
         StartCoroutine(End());
     }

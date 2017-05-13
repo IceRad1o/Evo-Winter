@@ -3,14 +3,17 @@ using System.Collections;
 
 public class GiveBuff : Buff {
 
+    string specialTag;
 
     int giveBuffID;
     int Duration;
 
     void Trigger()
     {
+        if (this == null)
+            return;
         Debug.Log("ID:   " + (giveBuffID * 10 +((this.tag == "Player") ? 0 : 1)));
-        this.GetComponent<BuffManager>().CreateDifferenceBuff(giveBuffID * 10 + ((this.tag == "Player") ? 0 : 1), "Skill_L");
+        this.GetComponent<BuffManager>().CreateDifferenceBuff(giveBuffID * 10 + ((this.tag == "Player") ? 0 : 1), specialTag);
         DestroyBuff();
     }
     
@@ -24,8 +27,10 @@ public class GiveBuff : Buff {
     /// <param name="buffID">要添加的buff</param>
     /// <param name="time">延迟时间*0.1f</param>
     /// <param name="timeType">延迟类型</param>
-    public void Create(int buff_ID,int time,int timeType=0)
+    public void Create(int buff_ID,int time,int timeType=0,string spTag="")
     {
+        Debug.Log("Buff ID  : " + buff_ID);
+        specialTag = spTag;
         giveBuffID = buff_ID;
         Duration = time;
         if(timeType==0)
@@ -43,7 +48,7 @@ public class GiveBuff : Buff {
     public override void OnNotify(string msg)
     {
         base.OnNotify(msg);
-        if (msg == "LeaveRoom")
+        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "LeaveRoom")
         {
             Duration--;
             if (Duration <= 0)

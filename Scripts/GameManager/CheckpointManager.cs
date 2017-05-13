@@ -279,8 +279,9 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         roomList[bossNum].type = -2;
         roomArray[roomList[bossNum].roomX, roomList[bossNum].roomY] = -2;
 		//设置隐藏房间类型
-		GetNextRoom(hiddenRoomX,hiddenRoomY).type = -3;
-		roomArray [hiddenRoomX, hiddenRoomY] = -3;
+        //TEMP
+		GetNextRoom(hiddenRoomX,hiddenRoomY).type = -2;
+		roomArray [hiddenRoomX, hiddenRoomY] = -2;
 
         //输出房间布局
         string str = "";

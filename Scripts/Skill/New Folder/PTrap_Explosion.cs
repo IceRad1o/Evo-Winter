@@ -32,12 +32,12 @@ public class PTrap_Explosion : MonoBehaviour {
                     Debug.Log("dir   " + i);
                     
                     if (i <= 16)
-                        item.GetComponent<Character>().Health--;
+                        item.GetComponent<Character>().Hp--;
                 }
 
             }
 
-            other.GetComponent<Character>().Health--;
+            other.GetComponent<Character>().Hp--;
 
             Destroy(this.gameObject);
         }

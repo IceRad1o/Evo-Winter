@@ -14,15 +14,15 @@ public class CharacterTest : MonoBehaviour {
     {
         yield return new WaitForSeconds(5.0f);
         Debug.Log("Start Test1：改变攻速");
-        character.AttackSpeed =1;
+        character.Spd =1;
         Debug.Log("Test1 Over");
         yield return new WaitForSeconds(5.0f);
         Debug.Log("Start Test1：改变攻速");
-        character.AttackSpeed = 2;
+        character.Spd = 2;
         Debug.Log("Test1 Over");
         yield return new WaitForSeconds(5.0f);
         Debug.Log("Start Test1：改变攻速");
-        character.AttackSpeed = 3;
+        character.Spd = 3;
         Debug.Log("Test1 Over");
 
         //yield return new WaitForSeconds(3.0f);

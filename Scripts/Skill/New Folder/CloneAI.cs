@@ -18,7 +18,7 @@ public class CloneAI : MonoBehaviour {
     void Update()
     {
 
-        if (character.Controllable != 0)
+        if (character.IsControllable != 0)
         {
             //Debug.Log("321");
 
@@ -42,7 +42,7 @@ public class CloneAI : MonoBehaviour {
                     }
                     else
                     {
-                        character.State = 0;
+                        character.IsMove = 0;
                     }
 
 
@@ -57,13 +57,13 @@ public class CloneAI : MonoBehaviour {
                     offset.Normalize();
                     character.Direction = offset;
 
-                    character.State = 1;
+                    character.IsMove = 1;
                 }
 
             }
             else
             {
-                character.State = 0;
+                character.IsMove = 0;
             }
 
         }

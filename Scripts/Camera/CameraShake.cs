@@ -10,18 +10,19 @@ public class CameraShake : ExUnitySingleton<CameraShake>
     {
         Player.Instance.Character.AddObserver(this);
     }
+    public void Shake(float duration,int xLevel,int yLevel)
+    {
+        this.time = duration;
+        this.shakeLevelX = xLevel;
+        this.shakeLevelY = yLevel;
+        Shake();
+    }
+
     public void Shake()
     {
         StartCoroutine("IEnumShakeCamera");
     }
-    void Update()
-    {
-       
-        if (Input.GetKey(KeyCode.Alpha1))                //当按下1时  
-        {
-            Shake();
-        }
-    }
+
 
     public override void OnNotify(string msg)
     {

@@ -15,24 +15,24 @@ public class CreerInfo : ExUnitySingleton<CreerInfo> {
         name = gameObject.transform.Find("Name").gameObject;
         SetRace(Player.Instance.Character.Race);
 
-        SetCreer(Player.Instance.Character.Weapon);
+        SetCareer(Player.Instance.Character.Career);
 
 	}
 
-    public void SetRace(int id)
+    public void SetRace(Character.RaceType race)
     {
-        switch (id)
+        switch (race)
         {
-            case 0:
+            case Character.RaceType.Gnome:
                 photeText.GetComponent<Text>().text = "Gnome";
                 break;
-            case 1:
+            case Character.RaceType.Pygmy:
                 photeText.GetComponent<Text>().text = "Pygmy";
                 break;
-            case 2:
+            case Character.RaceType.Vampire:
                 photeText.GetComponent<Text>().text = "Vampire";
                 break;
-            case 3:
+            case Character.RaceType.Lycan:
                 photeText.GetComponent<Text>().text = "lycan";
                 break;
             default:
@@ -40,22 +40,22 @@ public class CreerInfo : ExUnitySingleton<CreerInfo> {
         }
     }
 
-    public void SetCreer(int id)
+    public void SetCareer(Character.CareerType career)
     {
         /*缺少美术资源*/
         return;
-        switch (id)
+        switch (career)
         {
-            case 0:
+            case Character.CareerType.Warrior:
                 creer.GetComponent<Text>().text = "Warrior";
                 break;
-            case 1:
-                creer.GetComponent<Text>().text = "Rouge";
+            case Character.CareerType.Rogue:
+                creer.GetComponent<Text>().text = "Rogue";
                 break;
-            case 2:
+            case Character.CareerType.Mage:
                 creer.GetComponent<Text>().text = "Mage";
                 break;
-            case 3:
+            case Character.CareerType.Archer:
                 creer.GetComponent<Text>().text = "Archer";
                 break;
             default:

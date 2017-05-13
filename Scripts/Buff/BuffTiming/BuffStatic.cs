@@ -26,7 +26,7 @@ public class BuffStatic : BuffTiming {
     {
         Debug.Log("Trigger4      "+SpecialTag);
 
-        Player.Instance.Character.Controllable = 0;
+        Player.Instance.Character.IsControllable = 0;
         Debug.Log(SpecialTag);
         if (SpecialTag != "Skill_L")
         {
@@ -50,7 +50,7 @@ public class BuffStatic : BuffTiming {
 
     public override void DestroyBuff()
     {
-        Player.Instance.Character.Controllable = 1;
+        Player.Instance.Character.IsControllable = 1;
         Destroy(prefabInstance);
         base.DestroyBuff();
     }

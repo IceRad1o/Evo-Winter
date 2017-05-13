@@ -24,10 +24,9 @@ public class CoinManager : ExUnitySingleton<CoinManager> {
         wealth += money;
     }
 
-    public void CreateCoin(int number)
-    { 
-        
-    
+    public void CreateCoin(int number, Vector3 pos=default(Vector3))
+    {
+        UtilManager.Instance.CreateEffcet("Items/Coin", pos);    
     }
 
 

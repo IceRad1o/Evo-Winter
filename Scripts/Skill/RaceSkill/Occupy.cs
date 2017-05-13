@@ -19,7 +19,7 @@ public class Occupy : Skill {
         else
         {
             itemUsingNumber = 0;
-            this.GetComponent<Character>().Health++;
+            this.GetComponent<Character>().Hp++;
         }
     }
 

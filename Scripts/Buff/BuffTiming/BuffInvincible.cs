@@ -23,7 +23,7 @@ public class BuffInvincible : BuffTiming{
 
     public override void Trigger()
     {
-        Player.Instance.Character.Invincible = 1;
+        Player.Instance.Character.IsInvincible = 1;
 
         GameObject pfb = Resources.Load("Buffs/Invincible") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
@@ -34,7 +34,7 @@ public class BuffInvincible : BuffTiming{
 
     public override void DestroyBuff()
     {
-        Player.Instance.Character.Invincible = 0;
+        Player.Instance.Character.IsInvincible = 0;
         Destroy(prefabInstance);
         base.DestroyBuff();
     }

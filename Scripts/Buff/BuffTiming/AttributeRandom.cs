@@ -42,11 +42,11 @@ public class AttributeRandom : BuffTiming {
             }
         }
         //获得当前实际的属性值
-        attribute_old[0] = Player.Instance.GetComponent<Character>().MoveSpeed-attribute_Buff[0];
-        attribute_old[1] = Player.Instance.GetComponent<Character>().AttackSpeed - attribute_Buff[1];
-        attribute_old[2] = Player.Instance.GetComponent<Character>().AttackRange - attribute_Buff[2];
-        attribute_old[3] = Player.Instance.GetComponent<Character>().HitRecover - attribute_Buff[3];
-        attribute_old[4] = Player.Instance.GetComponent<Character>().Luck - attribute_Buff[4];
+        attribute_old[0] = Player.Instance.GetComponent<Character>().Mov-attribute_Buff[0];
+        attribute_old[1] = Player.Instance.GetComponent<Character>().Spd - attribute_Buff[1];
+        attribute_old[2] = Player.Instance.GetComponent<Character>().Rng - attribute_Buff[2];
+        attribute_old[3] = Player.Instance.GetComponent<Character>().Fhr - attribute_Buff[3];
+        attribute_old[4] = Player.Instance.GetComponent<Character>().Luk - attribute_Buff[4];
         //获得当前属性的总和
         for (int i = 0; i <= 4; i++)
             sum += attribute_old[i];
@@ -104,11 +104,11 @@ public class AttributeRandom : BuffTiming {
 
 
         //改变属性
-        Player.Instance.GetComponent<Character>().MoveSpeed = Player.Instance.GetComponent<Character>().MoveSpeed - attribute_old[0] + attribute_change[0];
-        Player.Instance.GetComponent<Character>().AttackSpeed = Player.Instance.GetComponent<Character>().AttackSpeed - attribute_old[1] + attribute_change[1];
-        Player.Instance.GetComponent<Character>().AttackRange = Player.Instance.GetComponent<Character>().AttackRange - attribute_old[2] + attribute_change[2];
-        Player.Instance.GetComponent<Character>().HitRecover = Player.Instance.GetComponent<Character>().HitRecover - attribute_old[3] + attribute_change[3];
-        Player.Instance.GetComponent<Character>().Luck = Player.Instance.GetComponent<Character>().Luck - attribute_old[4] + attribute_change[4];
+        Player.Instance.GetComponent<Character>().Mov = Player.Instance.GetComponent<Character>().Mov - attribute_old[0] + attribute_change[0];
+        Player.Instance.GetComponent<Character>().Spd = Player.Instance.GetComponent<Character>().Spd - attribute_old[1] + attribute_change[1];
+        Player.Instance.GetComponent<Character>().Rng = Player.Instance.GetComponent<Character>().Rng - attribute_old[2] + attribute_change[2];
+        Player.Instance.GetComponent<Character>().Fhr = Player.Instance.GetComponent<Character>().Fhr - attribute_old[3] + attribute_change[3];
+        Player.Instance.GetComponent<Character>().Luk = Player.Instance.GetComponent<Character>().Luk - attribute_old[4] + attribute_change[4];
     }
 
 
@@ -117,11 +117,11 @@ public class AttributeRandom : BuffTiming {
         Player.Instance.GetComponent<Character>().RemoveObserver(this);
 
 
-        Player.Instance.GetComponent<Character>().MoveSpeed = Player.Instance.GetComponent<Character>().MoveSpeed + attribute_old[0] - attribute_change[0];
-        Player.Instance.GetComponent<Character>().AttackSpeed = Player.Instance.GetComponent<Character>().AttackSpeed + attribute_old[1] - attribute_change[1];
-        Player.Instance.GetComponent<Character>().AttackRange = Player.Instance.GetComponent<Character>().AttackRange + attribute_old[2] - attribute_change[2];
-        Player.Instance.GetComponent<Character>().HitRecover = Player.Instance.GetComponent<Character>().HitRecover + attribute_old[3] - attribute_change[3];
-        Player.Instance.GetComponent<Character>().Luck = Player.Instance.GetComponent<Character>().Luck + attribute_old[4] - attribute_change[4];
+        Player.Instance.GetComponent<Character>().Mov = Player.Instance.GetComponent<Character>().Mov + attribute_old[0] - attribute_change[0];
+        Player.Instance.GetComponent<Character>().Spd = Player.Instance.GetComponent<Character>().Spd + attribute_old[1] - attribute_change[1];
+        Player.Instance.GetComponent<Character>().Rng = Player.Instance.GetComponent<Character>().Rng + attribute_old[2] - attribute_change[2];
+        Player.Instance.GetComponent<Character>().Fhr = Player.Instance.GetComponent<Character>().Fhr + attribute_old[3] - attribute_change[3];
+        Player.Instance.GetComponent<Character>().Luk = Player.Instance.GetComponent<Character>().Luk + attribute_old[4] - attribute_change[4];
 
 
 

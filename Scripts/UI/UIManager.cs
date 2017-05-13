@@ -109,8 +109,9 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "MapComplete")
             ;// littleMap.InitLittleMap();
 
-        if(str[0]=="EnterAltar;")
+        if(str[0]=="EnterAltar")
         {
+           // Debug.Log(msg);
             UIManager.Instance.popup.SetAltarPopup(int.Parse(str[1]), int.Parse(str[2]), int.Parse(str[3]), int.Parse(str[4]), int.Parse(str[5]));
             UIManager.Instance.popup.itemDetailPopup.SetActive(true);
             //str[1] 1恶魔2天使
@@ -211,7 +212,7 @@ public class UIManager : ExUnitySingleton<UIManager>
 
         if (str[0] == "HealthChanged")
         {
-            int health = Player.Instance.Character.Health;
+            int health =(int)Player.Instance.Character.Hp;
             UIManager.Instance.playerHealth.Health = health;
             if(health==1)
                  Phote.Instance.SetInDanger(true);
@@ -219,18 +220,18 @@ public class UIManager : ExUnitySingleton<UIManager>
                 Phote.Instance.SetInDanger(false);
         }
         if (str[0] == "AttackDamageChanged")
-            AttriInfo.Instance.Atk = Player.Instance.Character.AttackDamage;
+            AttriInfo.Instance.Atk = Player.Instance.Character.Atk;
         if (str[0] == "AttackSpeedChanged")
-            AttriInfo.Instance.Spd = Player.Instance.Character.AttackSpeed;
+            AttriInfo.Instance.Spd = Player.Instance.Character.Spd;
         if (str[0] == "AttackRangeChanged")
-            AttriInfo.Instance.Rng = Player.Instance.Character.AttackRange;
+            AttriInfo.Instance.Rng = Player.Instance.Character.Rng;
         if (str[0] == "HitRecoverChanged")
-            AttriInfo.Instance.Fhr = Player.Instance.Character.HitRecover;
+            AttriInfo.Instance.Fhr = Player.Instance.Character.Fhr;
         if (str[0] == "LuckChanged")
-            AttriInfo.Instance.Luk = Player.Instance.Character.Luck;
+            AttriInfo.Instance.Luk = Player.Instance.Character.Luk;
         if (str[0] == "MoveSpeedChanged")
         {
-            AttriInfo.Instance.Mov = Player.Instance.Character.MoveSpeed;
+            AttriInfo.Instance.Mov = Player.Instance.Character.Mov;
            // Debug.Log("ui:" + AttriInfo.Instance.Mov);
         }
     
@@ -238,10 +239,10 @@ public class UIManager : ExUnitySingleton<UIManager>
         if (str[0] == "RaceChanged")
         { 
             CreerInfo.Instance.SetRace(Player.Instance.Character.Race);
-            Phote.Instance.SetPhote(Player.Instance.Character.Race);
+            Phote.Instance.SetPhote((int)Player.Instance.Character.Race);
         }
         if (str[0] == "WeaponChanged")
-            CreerInfo.Instance.SetCreer(Player.Instance.Character.Weapon);
+            CreerInfo.Instance.SetCareer(Player.Instance.Character.Career);
 
         if(str[0]=="HardMode")
         {

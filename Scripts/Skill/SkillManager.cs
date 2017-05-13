@@ -353,7 +353,7 @@ public class SkillManager : ExSubject
         {
             switch (this.gameObject.GetComponent<Character>().Race)
             {
-                case 0:
+                case Character.RaceType.Gnome:
                     if (skill_L_Up)
                     {
                         //扣血
@@ -380,7 +380,7 @@ public class SkillManager : ExSubject
                     }
                     break;
 
-                case 1:
+                case Character.RaceType.Pygmy:
                     if (skill_L_Up)
                     {
                         this.GetComponent<BuffManager>().CreateDifferenceBuff(20003300);
@@ -404,7 +404,7 @@ public class SkillManager : ExSubject
                     }
                     break;
 
-                case 2:
+                case Character.RaceType.Vampire:
                     if (skill_L_Up)
                     {
                         //全体减速
@@ -413,7 +413,7 @@ public class SkillManager : ExSubject
                             if (item != null && item.tag == "Monster")
                             {
                                                                                                                                  //1021002111
-                                item.GetComponent<BuffManager>().CreateDifferenceBuff((item.GetComponent<Character>().MoveSpeed/2)*1000000000+21002111);
+                                item.GetComponent<BuffManager>().CreateDifferenceBuff((item.GetComponent<Character>().Mov/2)*1000000000+21002111);
                             }
                         }
                         //收到伤害翻倍
@@ -436,7 +436,7 @@ public class SkillManager : ExSubject
                     }
                     break;
 
-                case 3:
+                case Character.RaceType.Lycan:
                     if (skill_L_Up)
                     {
                         //晕眩
