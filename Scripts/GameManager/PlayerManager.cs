@@ -15,6 +15,7 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
     /// 是否一开始就初始化Player
     /// </summary>
     public bool isRandomInit=false;
+    public bool isChangePlayer = true;
     public bool initOnStart = true;
     public int initCharacterID = 0;
     /// <summary>
@@ -70,7 +71,9 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             foreach (var item in observers)
             {
                 Player.Instance.GetComponent<Character>().AddObserver(item);
-            }    
+            } 
+            //将是否切换角色的变量赋值为true
+            isChangePlayer = true;
             //切换精华，延迟0.1f
             StartCoroutine(SwitchEsscence(Player.Instance.GetComponent<Character>().Race));
             Player.Instance.Character.Notify("RaceChanged;0;" + Player.Instance.Character.Race);
