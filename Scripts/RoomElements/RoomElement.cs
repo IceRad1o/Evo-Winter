@@ -11,15 +11,19 @@ public class RoomElement : ExSubject
     #region Varibles
     public int roomElementID;
     public int maxHp = 10;
-	public bool isDestoryOnEnterRoom = true;
-	public bool isDieWithMaster = true;
+    private bool isDestoryOnEnterRoom = true;
+
+
+    bool isDieWithMaster = true;
+
+
     public GameObject bloodBarPrefab;
     GameObject bloodBarInstance;
 
     //主人
     GameObject master;
     //从属者
-    List<GameObject> servants;
+    List<GameObject> servants=new List<GameObject>();
 
     int roomElementState = 0;
     float hp;
@@ -68,7 +72,16 @@ public class RoomElement : ExSubject
 		get { return roomElementState; }
 		set { roomElementState = value; }
 	}
- 
+    public bool IsDieWithMaster
+    {
+        get { return isDieWithMaster; }
+        set { isDieWithMaster = value; }
+    }
+    public bool IsDestoryOnEnterRoom
+    {
+        get { return isDestoryOnEnterRoom; }
+        set { isDestoryOnEnterRoom = value; }
+    }
     //0.生命Health,代表玩家的血量
     //float hpValue;  
     public virtual float Hp
@@ -119,6 +132,19 @@ public class RoomElement : ExSubject
         RoomElementManager.Instance.RoomElementList.Remove(this);
         Destroy(this.gameObject);
     }
+    public virtual void KillServants()
+    {
+        for(int i=0;i<Servants.Count;i++)
+        {
+            RoomElement re = Servants[i].GetComponent<RoomElement>();
+            if (re.isDieWithMaster)
+                re.Die();
+        }
+    }
+    public virtual void Die() {
+        this.Destroy();
+    }
+
     public virtual void Trriger()
     { 
     }

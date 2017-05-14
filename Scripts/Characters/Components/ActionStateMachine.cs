@@ -111,9 +111,9 @@ public class ActionStateMachine {
         if (isStoped)
             return;
 
-        state = node;
-        CallActionState();
-        return;
+        //state = node;
+        //CallActionState();
+        //return;
    
 
        // Debug.Log("push" + node);
@@ -143,7 +143,7 @@ public class ActionStateMachine {
         //    state = state * 10 + node;
         state = node;
 
-        nextTime = Time.time + intervalTime;
+        //nextTime = Time.time + intervalTime;
 
         CallActionState();
     }
