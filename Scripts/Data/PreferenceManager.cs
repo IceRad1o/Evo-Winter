@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// 首选项管理
+/// </summary>
 public class PreferenceManager : ExUnitySingleton<PreferenceManager> {
 
     PreferenceData data;

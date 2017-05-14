@@ -82,33 +82,32 @@ public class HurtByContract : MonoBehaviour
         {
             if(destTag==destTags[i])
             {
-                Character targetCharacter = other.GetComponent<Character>();
-                bool isCh;
-                if (targetCharacter != null)
+                Character targetCh = other.GetComponent<Character>();
+                RoomElement target = other.GetComponent<RoomElement>();
+                bool isCh=false;
+                if (targetCh != null)
                 {
                     isCh = true;
-                    if (targetCharacter.IsAlive < 0 || targetCharacter.IsInvincible == 1)
+                    if (targetCh.IsAlive < 0 || targetCh.IsInvincible == 1)
                         return;
                     //强制朝向受击方向
-                    if (isWeapon&&targetCharacter!=null&&master!=null)
-                        targetCharacter.Direction = -master.Direction;
-
-                    //减血
-                    targetCharacter.Hp -= damage;
+                    if (isWeapon&&targetCh!=null&&master!=null)
+                        targetCh.Direction = -master.Direction;
                    // Debug.Log("Health:" + ch.Health);
                 }
                 else
                     isCh = false;
 
-        
-
+                //减血
+                target.Hp -= damage;
+                target.Trriger();
                 //击倒
                 if (beatDownLevelX > 0||beatDownLevelY>0)
                 {
-                    if (isCh&&targetCharacter.IsSuperArmor == 1)
+                    if (isCh&&targetCh.IsSuperArmor == 1)
                         break;
                     if(isCh)
-                         targetCharacter.Fall();
+                         targetCh.Fall();
                     BeatDown b = other.gameObject.AddComponent<BeatDown>();
                     b.levelX = beatDownLevelX;
                     b.levelY = beatDownLevelY;
@@ -131,12 +130,9 @@ public class HurtByContract : MonoBehaviour
                     else
                         Instantiate(hitPrefab, this.transform.Find("WeaponPoint").position, Quaternion.identity);
                 }
-                CameraShake.Instance.Shake(0.15f,1,0);
+                CameraShake.Instance.Shake(0.1f,1,0);
         
-				if (other.GetComponent<RoomElement> ()) 
-				{
-					other.GetComponent<RoomElement> ().Trriger ();
-				}
+			
                 //发送消息
                 if(master!=null&&isCh)
                     master.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()) + ";" + master.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(master));
@@ -144,7 +140,7 @@ public class HurtByContract : MonoBehaviour
                 //销毁
                 if (isDestory != 0)
                 {
-                    Destroy(gameObject);
+                    this.GetComponent<RoomElement>().Destroy();
                 }
             }
         }

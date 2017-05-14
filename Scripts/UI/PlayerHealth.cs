@@ -16,12 +16,12 @@ public class PlayerHealth : UnitySingleton<PlayerHealth>{
         { 
             if(value<0)
             {
-                Debug.Log("Health cannot < 0 !");
+                Debug.Log("UIPlayerHealth: Health cannot < 0 !");
                 value = 0;
             }
             if(value>10)
             {
-                Debug.Log("Health cannot > 10 !");
+                Debug.Log("UIPlayerHealth: Health cannot > 10 !");
                 value = 10;
             }
             health = value;

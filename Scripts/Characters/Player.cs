@@ -35,13 +35,13 @@ public class Player :ExSubject {
     {
         //Debug.Log("load");
         ProfileData data = ProfileManager.Instance.Data;
-        character.Hp = (int)data.Health;
-        character.Atk = (int)data.AttackDamage;
+        character.Hp = (int)data.Hp;
+        character.Atk = (int)data.Atk;
         //TODO character.Spd=(int)data.Att
-        character.Rng = (int)data.AttackRange;
-        character.Mov = (int)data.MoveSpeed;
-        character.Fhr = (int)data.HitRecover;
-        character.Luk = (int)data.Luck;
+        character.Rng = (int)data.Rng;
+        character.Mov = (int)data.Mov;
+        character.Fhr = (int)data.Fhr;
+        character.Luk = (int)data.Luk;
   
         //character.RoomElementID= data.Spasticity;
         //character.Career = data.Weapon;
