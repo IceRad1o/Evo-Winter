@@ -94,7 +94,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
         {
             //ProfileManager.Instance.Data.CurMapX;
 			CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsRoomPassed, ProfileManager.Instance.Data.RoomSize);
-
+			Debug.Log ("NEXTROOM:"+CheckpointManager.Instance.GetNextRoom(0,0));
             RoomManager.Instance.LoadScene(
                 ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurRoomX * (CheckpointManager.Instance.columns)+ProfileManager.Instance.Data.CurRoomY * (CheckpointManager.Instance.rows)],
                 ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY,
