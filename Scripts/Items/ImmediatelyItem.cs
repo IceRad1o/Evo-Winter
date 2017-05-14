@@ -58,25 +58,14 @@ public class ImmediatelyItem : Item{
     }
 
 
-    //need Buff,Skill
-    /*@Create
-     *@Brief 设置该道具的一些相关属性
-     *@ID 该道具的ID
-     */
-    public void Create(int ID)
+    public override void Create(int ID)
     {
-        RoomElementID = ID;
-        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
-        itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
-
+ 	    base.Create(ID);
         spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
-        ItemID = ID;
-
+        
         ItemManager.Instance.listImmediatelyItem.Add(this);
-        this.AddObserver(ItemManager.Instance);
-        this.AddObserver(UIManager.Instance.ItemObserver);
-
-    }
+        
+    } 
 
     public override void Destroy()
     {

@@ -15,26 +15,28 @@ public class InitiativeItem : Item{
     public int EnergyNow
     {
         get { return energyNow; }
-        set { energyNow = value; if (energyNow > energyMax) energyNow = energyMax; ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;"+(energyMax==0?100:energyNow*100/energyMax)); }
+        set { energyNow = value;
+            RoomElementState = energyNow;
+            if (energyNow > energyMax) energyNow = energyMax; 
+            ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;"+(energyMax==0?100:energyNow*100/energyMax)); 
+            }
     }
 
     public ItemSprite itemSp;
     private Sprite[] itemSprite;
 
+
     /*@Create
      *@设置该道具的一些相关属性
      *@ID 该道具的ID
      */
-    public void Create(int ID)
+    public override void Create(int ID)
     {
-        RoomElementID = ID;
+        base.Create(ID);
         CreateScript(ID);
         spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
 
         ItemManager.Instance.listInitiativeItem.Add(this);
-        this.AddObserver(ItemManager.Instance);
-        this.AddObserver(UIManager.Instance.ItemObserver);
-
     }
 
     public void CreateScript(int ID)

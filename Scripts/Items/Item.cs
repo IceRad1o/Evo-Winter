@@ -59,6 +59,16 @@ public class Item : RoomElement {
         itemID = ID;
     }
 
+    virtual public void Create(int ID)
+    {
+        ItemID = ID;
+        RoomElementID = ID;
+        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
+        itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
+        this.AddObserver(ItemManager.Instance);
+        this.AddObserver(UIManager.Instance.ItemObserver);
+    }
+
     virtual public void DestroyScript() {
 
         this.itemID=0;

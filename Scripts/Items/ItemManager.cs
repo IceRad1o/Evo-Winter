@@ -53,47 +53,12 @@ public class ItemManager : ExUnitySingleton<ItemManager>
      *Param  includeingImm 随机生成的道具中是否含立即使用道具
      *Param  includeingIni 随机生成的道具中是否含主动道具
      */
-    public Item CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false, bool trans = true)
+    public Item CreateItemType(bool includeingDis = false, bool includeingImm = false, bool includeingIni = false,Vector3 pos=default(Vector3), bool trans = true)
     {
         Vector3 s = new Vector3(itemsTransform.position.x,itemsTransform.position.y+1,itemsTransform.position.z);
 
         int itemID = RandomItemID(itemsTable.GetItemsByType(includeingImm, includeingDis, includeingIni));
-        System.Random random = new System.Random();
-        if (itemsTable.GetItemType(itemID)==1)
-        {
-            DisposableItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemsDisposable, s, itemsTransform.rotation) as DisposableItem;
-            else
-                itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
-
-            itemInstance.Create(itemID);
-            return itemInstance;
-            
-        }
-        if (itemsTable.GetItemType(itemID) == 0)
-        {
-            ImmediatelyItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemImmediately, s, itemsTransform.rotation) as ImmediatelyItem;
-            else
-                itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
-            itemInstance.Create(itemID);
-            return itemInstance;
-
-        }
-        if (itemsTable.GetItemType(itemID) == 2)
-        {
-            InitiativeItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemInitiative, s, itemsTransform.rotation) as InitiativeItem;
-            else
-                itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
-            itemInstance.Create(itemID);
-
-            return itemInstance;
-        }
-        return null;
+        return CreateItemID(itemID, pos);
     }
 
     /// <summary>
@@ -103,51 +68,12 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// <param name="boosDroping">bossDroping 随机生成的道具中是否含boss掉落</param>
     /// <param name="boxDroping">boxDroping 随机生成的道具中是否含宝箱掉落</param>
     /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
-    public Item CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false, bool trans=true)
+    public Item CreateItemDrop(bool roomDroping = false, bool boosDroping = false, bool boxDroping = false,Vector3 pos=default(Vector3), bool trans=true)
     {
         Vector3 s = new Vector3(itemsTransform.position.x, itemsTransform.position.y + 1, itemsTransform.position.z);
 
         int itemID = RandomItemID(itemsTable.GetItemsByDoping(roomDroping, boosDroping, boxDroping));
-        System.Random random = new System.Random();
-        //int itemID = RandomItemID();
-        if (itemsTable.GetItemType(itemID) == 1)
-        {
-            DisposableItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemsDisposable, s, itemsTransform.rotation) as DisposableItem;
-            else
-                itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
-
-            itemInstance.Create(itemID);
-
-            return itemInstance;
-                        
-        }
-        if (itemsTable.GetItemType(itemID) == 0)
-        {
-            ImmediatelyItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemImmediately, s, itemsTransform.rotation) as ImmediatelyItem;
-            else
-                itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
-            itemInstance.Create(itemID);
-
-            return itemInstance;
-
-        }
-        if (itemsTable.GetItemType(itemID) == 2)
-        {
-            InitiativeItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemInitiative, s, itemsTransform.rotation) as InitiativeItem;
-            else
-                itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
-            itemInstance.Create(itemID);
-
-            return itemInstance;
-
-        }
-        return null;
+        return CreateItemID(itemID, pos);
     }
 
     /// <summary>
@@ -155,19 +81,12 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// </summary>
     /// <param name="ID">要创建道具的ID</param>
     /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
-    public Item CreateItemID(int ID,bool trans = true)
+    public Item CreateItemID(int ID,Vector3 pos=default(Vector3),bool trans = true)
     {
-        Vector3 s = new Vector3(itemsTransform.position.x, itemsTransform.position.y + 1, itemsTransform.position.z);
-
-        System.Random random = new System.Random();
         int itemID = ID;
         if (itemsTable.GetItemType(itemID) == 1)
         {
-            DisposableItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemsDisposable, s, itemsTransform.rotation) as DisposableItem;
-            else
-                itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
+            var itemInstance = Instantiate(itemsDisposable, pos, itemsTransform.rotation) as DisposableItem;
 
             itemInstance.Create(itemID);
             return itemInstance;
@@ -175,44 +94,18 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         }
         if (itemsTable.GetItemType(itemID) == 0)
         {
-            ImmediatelyItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemImmediately, s, itemsTransform.rotation) as ImmediatelyItem;
-            else
-                itemInstance = Instantiate(itemImmediately, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as ImmediatelyItem;
+            var itemInstance = Instantiate(itemImmediately, pos, itemsTransform.rotation) as ImmediatelyItem;
             itemInstance.Create(itemID);
             return itemInstance;
 
         }
         if (itemsTable.GetItemType(itemID) == 2)
         {
-            InitiativeItem itemInstance;
-            if (trans)
-                itemInstance = Instantiate(itemInitiative, s, itemsTransform.rotation) as InitiativeItem;
-            else
-                itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
+            var itemInstance = Instantiate(itemInitiative, pos, itemsTransform.rotation) as InitiativeItem;
             itemInstance.Create(itemID);
             return itemInstance;
         }
         return null;
-    }
-    /// <summary>
-    /// 舍弃使用Transform方案的重载创建道具方式
-    /// </summary>
-    /// <param name="ID"></param>
-    /// <param name="pos"></param>
-    /// <returns></returns>
-    public Item CreateItemID(int ID,Vector3 pos)
-    {
-        int type = itemsTable.GetItemType(ID);
-        Item ins=null;
-        if(type==0)
-            ins=Instantiate(itemImmediately, pos, Quaternion.identity)as Item;
-        else if(type==1)
-            ins = Instantiate(itemsDisposable, pos, Quaternion.identity) as Item;
-        else if(type==2)
-            ins = Instantiate(itemInitiative, pos, Quaternion.identity) as Item;
-        return ins;
     }
 
     /****************************************************************************************/
@@ -400,10 +293,10 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         int _id = 0;
         //获得一次性道具的消息检测
         string m = "Player_Get_DisposableItem";
-        _id = GetIDofMSG(m, msg);
 
-        if (_id != -1)
+        if (UtilManager.Instance.GetFieldFormMsg(msg,-1)==m)
         {
+            _id =int.Parse( UtilManager.Instance.GetFieldFormMsg(msg, 0));
             DisposableItem[] disItems;
             disItems = gameObject.GetComponents<DisposableItem>();
 
@@ -418,10 +311,10 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
         //获得立即使用道具的消息检测
         m = "Player_Get_ImmediatelyItem";
-        _id = GetIDofMSG(m, msg);
-
-        if (_id != -1)
+        
+        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == m)
         {
+            _id = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0));
             foreach (ImmediatelyItem t in listImmediatelyItem)
             {
                
@@ -434,10 +327,10 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
         //获得立即使用道具的消息检测
         m = "Player_Get_InitiativeItem";
-        _id = GetIDofMSG(m, msg);
 
-        if (_id != -1)
+        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == m)
         {
+            _id = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0));
             foreach (InitiativeItem t in listInitiativeItem)
             {
 
@@ -498,99 +391,6 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         
     }
 
-    /********************************************************************/
-    //工具，暂时放在这
-    /// <summary>
-    /// 匹配消息，如果匹配返回ID
-    /// </summary>
-    /// <param name="msg">消息的格式，如"UseItem_Buff_ID="+itemBuffID</param>
-    /// <param name="_msg">消息</param>
-    /// <returns>ID,如果不是-1则消息匹配</returns>
-    public int GetIDofMSG(string msg,string _msg){
-        if (msg.Length>=_msg.Length)
-            return -1;
-        for (int i = 0; i < msg.Length; i++)
-        {
-            if (msg[i] != _msg[i])
-                return -1;        
-        }
-        int _id = 0;
-        for (int i = msg.Length+1; i < _msg.Length; i++)
-            _id = _id * 10 + _msg[i]-48;
-
-
-       return _id;
-    }
-
-    /// <summary>
-    /// 解析消息
-    /// </summary>
-    /// <param name="_msg">要解析的消息</param>
-    /// <param name="_number">需要返回的字段</param>
-    /// <returns>返回的字段，string形式，找不到对应字段返回“Error”</returns>
-    public string GetIDFormMsg(string _msg, int _number) {
-        string _string="";
-        int number=-1,i=0;
-        for (i = 0; i < _msg.Length; i++)
-        {
-            if (number == _number)
-            {
-                if (_msg[i] != ';')
-                    _string += _msg[i];
-                else
-                    return _string;
-            }
-            else {
-                if (_msg[i] == ';')
-                    number++;
-            }
-        }
-        if (number == _number)
-            return _string;
-        else
-            return "Error";
-
-    }
-    /// <summary>
-    /// 判断消息的匹配，并解析
-    /// </summary>
-    /// <param name="msg">消息匹配段</param>
-    /// <param name="_msg">要解析的消息</param>
-    /// <param name="_number">消息的字段</param>
-    /// <returns>获取的字段string，“Fail”表示不匹配，“Error”表示无该字段</returns>
-    public string GetIDFormMsg(string msg,string _msg, int _number) {
-        if (msg.Length > _msg.Length)
-            return "Fail";
-        for (int i = 0; i < msg.Length; i++)
-        {
-            if (msg[i] != _msg[i])
-                return "Fail";
-        }
-        string _string = "";
-        int number = -1;
-        for (int i = 0; i < _msg.Length; i++)
-        {
-            if (number == _number)
-            {
-                if (_msg[i] != ';')
-                    _string += _msg[i];
-                else
-                    return _string;
-            }
-            else
-            {
-                if (_msg[i] == ';')
-                    number++;
-            }
-        }
-
-        if (number == _number)
-            return _string;
-        else
-            return "Error";
-
-        
-    }
 
 }
 
