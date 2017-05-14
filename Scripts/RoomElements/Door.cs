@@ -90,7 +90,7 @@ public class Door : RoomElement
                 Player.Instance.Character.transform.position = new Vector3(0f, -7f, 0f);
                 rmX = RoomManager.Instance.roomX - 1;
                 rmY = RoomManager.Instance.roomY;
-                map = (ProfileManager.Instance.Data.CurMapX - 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY;
+                map = (ProfileManager.Instance.Data.CurRoomX - 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurRoomY;
                 SetOrLoad(rmX, rmY, map);
                 break;
             case 1:
@@ -99,7 +99,7 @@ public class Door : RoomElement
                 Player.Instance.Character.transform.position = new Vector3(0f, -1.2f, 0f);
                 rmX = RoomManager.Instance.roomX + 1;
                 rmY = RoomManager.Instance.roomY;
-                map = (ProfileManager.Instance.Data.CurMapX + 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurMapY;
+                map = (ProfileManager.Instance.Data.CurRoomX + 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurRoomY;
                 SetOrLoad(rmX, rmY, map);
                 break;
             case 2:
@@ -108,7 +108,7 @@ public class Door : RoomElement
                 //Player.Instance.Character.transform.position = new Vector3 (10.5f, -4f, 0f);
                 rmX = RoomManager.Instance.roomX;
                 rmY = RoomManager.Instance.roomY - 1;
-                map = ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY - 1);
+                map = ProfileManager.Instance.Data.CurRoomX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurRoomY - 1);
                 SetOrLoad(rmX, rmY, map);
                 if (CheckpointManager.Instance.GetNextRoom(rmX, rmY).roomSize == 1)
                     Player.Instance.Character.transform.position = new Vector3(4.5f, -4f, 0f);
@@ -123,7 +123,7 @@ public class Door : RoomElement
                 //Player.Instance.Character.transform.position = new Vector3 (-10.5f, -4f, 0f);
                 rmX = RoomManager.Instance.roomX;
                 rmY = RoomManager.Instance.roomY + 1;
-                map = ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY + 1);
+                map = ProfileManager.Instance.Data.CurRoomX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurRoomY + 1);
                 SetOrLoad(rmX, rmY, map);
                 if (CheckpointManager.Instance.GetNextRoom(rmX, rmY).roomSize == 1)
                     Player.Instance.Character.transform.position = new Vector3(-4.5f, -4f, 0f);

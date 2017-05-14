@@ -103,12 +103,12 @@ public class CharacterAi : MonoBehaviour
 
     public void SetIdle()
     {
-        character.IsMove = 0;
+       // character.IsMove = 0;
     }
 
     public void SetMove()
     {
-        character.IsMove = 1;
+        //character.IsMove = 1;
     }
 
 

@@ -23,6 +23,7 @@ public class Boss :Enemy{
         RoomManager.Instance.DropBox( this.transform.position,2,4);
         if(RoomElementID==2057)
         {
+            Destroy(GreedBar.Instance.gameObject);
             foreach(Enemy enemy in EnemyManager.Instance.EnemyList)
             {
 
