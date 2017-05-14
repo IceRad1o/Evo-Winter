@@ -15,6 +15,7 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
     /// 是否一开始就初始化Player
     /// </summary>
     public bool isRandomInit=false;
+    public bool isChangePlayer = true;
     public bool initOnStart = true;
     public int initCharacterID = 0;
     /// <summary>
@@ -25,6 +26,14 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
     /// 玩家默认出生点
     /// </summary>
     static Vector3 rebornPlace = new Vector3(-2, -2, 0);
+
+    bool isSwitch = false;
+
+    public bool IsSwitch
+    {
+        get { return isSwitch; }
+        set { isSwitch = value; }
+    }
 	void Start () {
         if (initOnStart)
         {
@@ -46,6 +55,7 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
         {
             Instantiate(players[ID], rebornPlace, Quaternion.identity);
             isInit = true;
+            isSwitch = true;
         }
         else
         {
@@ -70,7 +80,10 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
             foreach (var item in observers)
             {
                 Player.Instance.GetComponent<Character>().AddObserver(item);
-            }    
+
+            }
+            isSwitch = true;
+
             //切换精华，延迟0.1f
             StartCoroutine(SwitchEsscence(Player.Instance.GetComponent<Character>().Race));
             Player.Instance.Character.Notify("RaceChanged;0;" + Player.Instance.Character.Race);

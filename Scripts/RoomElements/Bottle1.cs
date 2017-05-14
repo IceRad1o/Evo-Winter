@@ -21,42 +21,16 @@ public class Bottle1 : RoomElement
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
 
-
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        //Debug.Log("箱子碰撞物标签：" + other.tag);
-//		if (other.CompareTag("Weapon"))
-//		if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isHit == false && other.GetComponentInParent<Character>().CompareTag("Player"))
-//            {
-//                HitBottle();
-//				if(Random.Range (0,10) <2)
-//				{
-//					CreateCoin ();
-//            	}
-//			}
-//
-//		if(other.tag == "Missile")
-//			HitBottle();
-//    }
-
 	//进入瓶子
 	private void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log ("BottleTag:"+collision.gameObject.tag);
+		//Debug.Log ("BottleTagState:"+this.RoomElementState);
 		if (RoomElementState == 1)
 			return;
 		if (collision.gameObject.CompareTag("Player"))
 		{
 			Player.Instance.Character.AddObserver(this);
 			RoomManager.Instance.Notify("EnterBottle");
-			//Debug.Log ("BottleTag:"+other.tag);
-		}
-		if ((collision.gameObject.CompareTag ("Missile"))) 
-			//&&other.GetComponent<RoomElement> ().Master.CompareTag ("Player")))
-		{
-			Player.Instance.Character.AddObserver(this);
-			//RoomManager.Instance.Notify("MissileEnterBottle");
-			Debug.Log ("BottleTag:"+collision.gameObject.tag);
 		}
 	}
 
@@ -73,6 +47,8 @@ public class Bottle1 : RoomElement
 	//重载函数
 	public override void Trriger()
 	{
+		if (RoomElementState == 1)
+			return;
 		base.Trriger();
 		RoomElementState = 1;
 		Notify("OpenBottle");

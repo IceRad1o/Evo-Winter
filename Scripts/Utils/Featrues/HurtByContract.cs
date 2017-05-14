@@ -133,7 +133,10 @@ public class HurtByContract : MonoBehaviour
                 }
                 CameraShake.Instance.Shake(0.15f,1,0);
         
-
+				if (other.GetComponent<RoomElement> ()) 
+				{
+					other.GetComponent<RoomElement> ().Trriger ();
+				}
                 //发送消息
                 if(master!=null&&isCh)
                     master.Notify("AttackHit;" + other.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(other.GetComponent<Character>()) + ";" + master.tag + ";" + CharacterManager.Instance.CharacterList.IndexOf(master));

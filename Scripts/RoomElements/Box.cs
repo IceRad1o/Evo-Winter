@@ -4,14 +4,11 @@ using System.Collections;
 public class Box : RoomElement
 {
     private Animator animator;
-    private bool isOpen;
     //NEED public AudioClip getBox;
     public AudioClip openBox;
     void Start()
     {
         animator = GetComponent<Animator>();
-        isOpen = false;
-
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
 
@@ -25,13 +22,12 @@ public class Box : RoomElement
     {
        
     }
-
+	//打开宝箱
     public void OpenBox()
     {
         //打开宝箱的动画和声音
         animator.SetTrigger("OpenBox");
 		RoomElementState = 1;
-        isOpen = true;
         SoundManager.Instance.PlaySoundEffect(openBox);
         //NEED Item item=ItemManager.getInstance().GenerateItem();
         //item.transfrom.setParent(this.transform);
@@ -46,18 +42,37 @@ public class Box : RoomElement
 
         }
     }
+
+	//宝箱碰撞检测
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("箱子碰撞物标签：" + other.tag);
-        if (other.tag == "Weapon" )
-            if (other.GetComponentInParent<Character>().IsWeaponDmg>0&&isOpen==false&& other.GetComponentInParent<Character>().Camp==0)
-            {
-                OpenBox();
-            }
-
-		if ((other.tag == "Player"||other.tag=="Missile")&&isOpen==false)
-        {
-            OpenBox();
-        }
+		//Debug.Log ("BottleTagState:"+this.RoomElementState);
+		if (RoomElementState == 1)
+			return;
+		if (other.CompareTag("Player"))
+		{
+			Player.Instance.Character.AddObserver(this);
+			RoomManager.Instance.Notify("EnterBox");
+		}
     }
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.tag == "Player")
+		{
+			RoomManager.Instance.Notify("LeaveBox");
+			Player.Instance.Character.RemoveObserver(this);
+		}
+	}
+	//函数重载
+	public override void Trriger()
+	{
+		if (RoomElementState == 1)
+			return;
+			
+		base.Trriger();
+		OpenBox ();
+		RoomElementState = 1;
+		Notify("OpenBox");
+	}
 }

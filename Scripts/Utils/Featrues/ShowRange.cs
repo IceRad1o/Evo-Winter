@@ -8,22 +8,30 @@ public class ShowRange : MonoBehaviour {
     List<GameObject> list=new List<GameObject>();
     void Start()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 30; i++)
         {
             GameObject ins = Instantiate(a) as GameObject;
             list.Add(ins);
         }
+      
     }
 
     void Update()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 30; i++)
         {
-            float x = Mathf.Cos(18 * i) * range;
-            float y = Mathf.Sin(18 * i) * range;
-            list[i].transform.position = transform.position + new Vector3(x, y/2, y/2);
+            float x = Mathf.Cos((12 * i/180.0f*Mathf.PI)) * range;
+            float y = Mathf.Sin((12 * i / 180.0f * Mathf.PI)) * range;
+            list[i].transform.position = transform.position + UtilManager.Trans(x, y);
+            
 
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 
 

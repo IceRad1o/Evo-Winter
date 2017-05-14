@@ -127,7 +127,6 @@ public class Altar : RoomElement
     /// <param name="collision"></param>
     void OnCollisionExit(Collision collision)
     {
-
         if (collision.gameObject.tag == "Player")
         {
             RoomManager.Instance.Notify("LeaveAltar");
@@ -136,9 +135,10 @@ public class Altar : RoomElement
     }
 
 
-
     public override void Trriger()
     {
+		if (RoomElementState == 1)
+			return;
         base.Trriger();
         AddBuff();
         RoomElementState = 1;
