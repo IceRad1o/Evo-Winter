@@ -4,6 +4,12 @@ using System.Collections;
 public class Item : RoomElement {
 
     protected Sprite iSprite;
+    private bool playerIn;
+    public bool PlayerIn
+    {
+        get { return playerIn; }
+        set { playerIn = value; }
+    }
     private int itemID;
     public int ItemID
     {
@@ -81,6 +87,7 @@ public class Item : RoomElement {
     }
     public override void Destroy()
     {
+        PlayerIn = false;
         base.Destroy();
     }
 
