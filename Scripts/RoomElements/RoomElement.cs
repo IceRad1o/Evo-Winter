@@ -128,6 +128,10 @@ public class RoomElement : ExSubject
         {
             Trriger();
         }
+//		if (str [0] == "MissileEnterBottle") 
+//		{
+//			Trriger();
+//		}
 
     }
     #endregion
