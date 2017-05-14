@@ -112,7 +112,12 @@ public class RoomElement : ExSubject
     public GameObject Master
     {
         get { return master; }
-        set { master = value; }
+        set { 
+            master = value;
+        
+        if (!master.GetComponent<RoomElement>().Servants.Contains(gameObject))
+              master.GetComponent<RoomElement>().Servants.Add(gameObject);
+        }
     }
 
     public List<GameObject> Servants

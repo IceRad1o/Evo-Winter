@@ -15,7 +15,8 @@ public class TrickCoin : MonoBehaviour {
         float waitTime = Random.value + 1f;
         yield return new WaitForSeconds(waitTime);
 
-        Instantiate(gnomes[Random.Range(0, 4)],transform.position,Quaternion.identity);
+        GameObject obj=Instantiate(gnomes[Random.Range(0, 4)],transform.position,Quaternion.identity) as GameObject;
+        obj.GetComponent<RoomElement>().Master = gameObject;
         Destroy(gameObject);
 
     }

@@ -38,7 +38,10 @@ public class PlayerHealth : UnitySingleton<PlayerHealth>{
 
 	void Start () {
         InitPlayerHealth();
-        Health = (int)Player.Instance.Character.Hp;
+        if (Player.Instance.Character)
+            Health = (int)Player.Instance.Character.Hp;
+        else
+            Debug.Log("PlayerHealth: Player is NULL");
 	}
 	
 	void Update () {
