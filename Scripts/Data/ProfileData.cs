@@ -3,126 +3,167 @@ using System.Collections;
 
 public class ProfileData
 {
+    #region Variables
+    /*地图关卡数据*/
+    #region Level&Map Data
+    //当前关卡号
+    int curLevel;
+    //当前关卡地图类型数组
+    int[] map;
+    int[] isRoomPassed;
+    //当前关卡房间大小数组
+    int[] roomSize;
+    int curRoomX;//当前所在房间X
+    int curRoomY;//当前所在房间Y
+    #endregion
+    
+    /*人物数据*/
+    #region Player Data
+    float hp;
+    int atk;
+    int spd;
+    int mov;//移速
+    int rng;//攻击范围
+    int fhr;
+    int luk;
+    int race;//种族
+    int career;
+    int sight;
+    Vector3 curPosition;
+    //buff数据
+    string[] buffsID;
+    #endregion
 
-    //地图关卡数据
-    int curLevel;//当前关卡
+    /*房间元素数据*/
+    #region RoomElement Data
+    int[] roomElementID;
+    int[] roomElementState;
+    float[] roomElementPosX;
+    float[] roomElementPosY;
+    float[] roomElementPosZ;
+    int[] roomElementRoomX;
+    int[] roomElementRoomY;
+    #endregion
 
+    #endregion
+
+    #region Methods
+    #region Getter&Setter
+    #region Level&Map
     public int CurLevel
     {
         get { return curLevel; }
-        set { curLevel = value;
-        PlayerPrefs.SetInt("curLevel", curLevel);
+        set
+        {
+            curLevel = value;
+            PlayerPrefs.SetInt("curLevel", curLevel);
         }
     }
-    int[] map;
-    int[] isMapPassed;
-	int[] roomSize;
-	public int[] RoomSize
-	{
-		get { return roomSize; }
-		set { roomSize = value; 
-			PlayerPrefsX.SetIntArray("roomSize", roomSize);
-			}
-	}
-    public int[] IsMapPassed
-    {
-        get { return isMapPassed; }
-        set {
-            isMapPassed = value;
-            PlayerPrefsX.SetIntArray("isMapPassed", isMapPassed);
-        }
-    }
-
-
     public int[] Map
     {
         get { return map; }
-        set 
-        { 
-            map = value;
-            PlayerPrefsX.SetIntArray("map", map);
-            
-        }
-    }
-    int curMapX;
-    int curMapY;
-    public int CurMapX
-    {
-        get { return curMapX; }
-        set 
-        { 
-            curMapX= value;
-            PlayerPrefs.SetInt("curMapX", curMapX);
-        }
-    }
-
-    public int CurMapY
-    {
-        get { return curMapY; }
         set
         {
-            curMapY = value;
-            PlayerPrefs.SetInt("curMapY", curMapY);
+            map = value;
+            PlayerPrefsX.SetIntArray("map", map);
+
         }
     }
-
-    //人物数据
-    float  health;
-
-    public float Health
+    public int[] RoomSize
     {
-        get { return health; }
-        set { health = value;
-        PlayerPrefs.SetFloat("health", health);
+        get { return roomSize; }
+        set
+        {
+            roomSize = value;
+            PlayerPrefsX.SetIntArray("roomSize", roomSize);
         }
     }
-    float moveSpeed;    //移速
-
-    public float MoveSpeed
+    public int[] IsRoomPassed
     {
-        get { return moveSpeed; }
-        set { moveSpeed = value;
-        PlayerPrefs.SetFloat("moveSpeed", moveSpeed);
+        get { return isRoomPassed; }
+        set
+        {
+            isRoomPassed = value;
+            PlayerPrefsX.SetIntArray("isRoomPassed", isRoomPassed);
         }
     }
-    float attackRange;
-
-    public float AttackRange
+    public int CurRoomX
     {
-        get { return attackRange; }
-        set { attackRange = value;
-        PlayerPrefs.SetFloat("attackRange", attackRange);
+        get { return curRoomX; }
+        set
+        {
+            curRoomX = value;
+            PlayerPrefs.SetInt("curRoomX", curRoomX);
         }
     }
-    float attackDamage;
-
-    public float AttackDamage
+    public int CurRoomY
     {
-        get { return attackDamage; }
-        set { attackDamage = value;
-        PlayerPrefs.SetFloat("attackDamage", attackDamage);
+        get { return curRoomY; }
+        set
+        {
+            curRoomY = value;
+            PlayerPrefs.SetInt("curRoomY", curRoomY);
         }
     }
-    float hitRecover;
 
-    public float HitRecover
+    #endregion
+
+    #region Player Data
+    public float Hp
     {
-        get { return hitRecover; }
-        set { hitRecover = value;
-        PlayerPrefs.SetFloat("hitRecover", hitRecover);
+        get { return hp; }
+        set { hp = value;
+        PlayerPrefs.SetFloat("hp", hp);
         }
     }
-    float spasticity;
-
-    public float Spasticity
+    public int Atk
     {
-        get { return spasticity; }
-        set { spasticity = value;
-        PlayerPrefs.SetFloat("spasticity", spasticity);
+        get { return atk; }
+        set
+        {
+            atk = value;
+            PlayerPrefs.SetFloat("atk", atk);
         }
     }
-    int race;   //种族
-
+    public int Spd
+    {
+        get { return spd; }
+        set 
+        {
+            spd = value;
+            PlayerPrefs.SetFloat("spd", spd);
+        }
+    }
+    public int Mov
+    {
+        get { return mov; }
+        set { mov = value;
+        PlayerPrefs.SetFloat("mov", mov);
+        }
+    }
+    public int Rng
+    {
+        get { return rng; }
+        set { rng = value;
+        PlayerPrefs.SetFloat("rng", rng);
+        }
+    }
+    public int Fhr
+    {
+        get { return fhr; }
+        set { fhr = value;
+        PlayerPrefs.SetFloat("fhr", fhr);
+        }
+    }
+    public int Luk
+    {
+        get { return luk; }
+        set
+        {
+            luk = value;
+            PlayerPrefs.SetFloat("luk", luk);
+        }
+    }
     public int Race
     {
         get { return race; }
@@ -130,17 +171,13 @@ public class ProfileData
         PlayerPrefs.SetInt("race", race);
         }
     }
-    int weapon;
-
-    public int Weapon
+    public int Career
     {
-        get { return weapon; }
-        set { weapon = value;
-        PlayerPrefs.SetInt("weapon", weapon);
+        get { return career; }
+        set { career = value;
+        PlayerPrefs.SetInt("career", career);
         }
     }
-    int sight;
-
     public int Sight
     {
         get { return sight; }
@@ -148,36 +185,6 @@ public class ProfileData
         PlayerPrefs.SetInt("sight", sight);
         }
     }
-    int camp;
-
-    public int Camp
-    {
-        get { return camp; }
-        set { camp = value;
-        PlayerPrefs.SetInt("camp", camp);
-        }
-    }
-    float luck;
-
-    public float Luck
-    {
-        get { return luck; }
-        set { luck = value;
-        PlayerPrefs.SetFloat("luck",luck);
-        }
-    }
-    int actionStateMachineID;
-
-    public int ActionStateMachineID
-    {
-        get { return actionStateMachineID; }
-        set { actionStateMachineID = value;
-        PlayerPrefs.SetInt("actionStateMachineID", actionStateMachineID);
-        }
-    }
-
-    Vector3 curPosition;
-
     public Vector3 CurPosition
     {
         get { return curPosition; }
@@ -185,50 +192,19 @@ public class ProfileData
         PlayerPrefsX.SetVector3("curPosition", curPosition);
         }
     }
-
-
-
-    //敌人数据
-    int[] enemyID;
-
-    public int[] EnemyID
+    public string[] BuffsID
     {
-        get { return enemyID; }
-        set { enemyID = value;
-        PlayerPrefsX.SetIntArray("enemyID", enemyID);
+        get { return buffsID; }
+        set
+        {
+            buffsID = value;
+            PlayerPrefsX.SetStringArray("buffsID", buffsID);
         }
     }
-    float[] enemyPosX;
 
-    public float[] EnemyPosX
-    {
-        get { return enemyPosX; }
-        set { enemyPosX = value;
-        PlayerPrefsX.SetFloatArray("enemyPosX", enemyPosX);
-        }
-    }
-    float[] enemyPosY;
+#endregion
 
-    public float[] EnemyPosY
-    {
-        get { return enemyPosY; }
-        set { enemyPosY = value;
-        PlayerPrefsX.SetFloatArray("enemyPosY", enemyPosY);
-        }
-    }
-    float[] enemyPosZ;
-
-    public float[] EnemyPosZ
-    {
-        get { return enemyPosZ; }
-        set { enemyPosZ = value;
-        PlayerPrefsX.SetFloatArray("enemyPosZ", enemyPosZ);
-        }
-    }
-    
-    //房间元素数据
-    int[] roomElementID;
-
+    #region RoomElements Data
     public int[] RoomElementID
     {
         get { return roomElementID; }
@@ -236,8 +212,6 @@ public class ProfileData
         PlayerPrefsX.SetIntArray("roomElementID", roomElementID);
         }
     }
-    float[] roomElementPosX;
-
     public float[] RoomElementPosX
     {
         get { return roomElementPosX; }
@@ -245,8 +219,6 @@ public class ProfileData
         PlayerPrefsX.SetFloatArray("roomElementPosX",roomElementPosX);
         }
     }
-    float[] roomElementPosY;
-
     public float[] RoomElementPosY
     {
         get { return roomElementPosY; }
@@ -254,8 +226,6 @@ public class ProfileData
         PlayerPrefsX.SetFloatArray("roomElementPosY", roomElementPosY);
         }
     }
-    float[] roomElementPosZ;
-
     public float[] RoomElementPosZ
     {
         get { return roomElementPosZ; }
@@ -263,9 +233,6 @@ public class ProfileData
         PlayerPrefsX.SetFloatArray("roomElementPosZ", roomElementPosZ);
         }
     }
-
-    private int[] roomElementRoomX;
-
     public int[] RoomElementRoomX
     {
         get { return roomElementRoomX; }
@@ -275,8 +242,6 @@ public class ProfileData
             PlayerPrefsX.SetIntArray("roomElementRoomX",roomElementRoomX);
         }
     }
-    private int[] roomElementRoomY;
-
     public int[] RoomElementRoomY
     {
         get { return roomElementRoomY; }
@@ -286,124 +251,43 @@ public class ProfileData
             PlayerPrefsX.SetIntArray("roomElementRoomY", roomElementRoomY);
         }
     }
-
-    private int[] roomElementState;
-
     public int[] RoomElementState
     {
         get { return roomElementState; }
         set {
             roomElementState = value;
-            PlayerPrefsX.SetIntArray("roomElementRoomState", roomElementState);
+            PlayerPrefsX.SetIntArray("roomElementState", roomElementState);
         }
     }
-
-
-
-    //buff数据
-    int[] buffsID;
-
-    public int[] BuffsID
-    {
-        get { return buffsID; }
-        set { buffsID = value;
-        PlayerPrefsX.SetIntArray("buffsID", buffsID);
-        }
-    }
-    //item数据
-    /// <summary>
-    /// 道具ID,第一位为玩家身上一次性道具,第二位为玩家身上主动道具,之后为地上道具
-    /// </summary>
-    int[] itemsID;
-
-    /// <summary>
-    /// 道具ID,第一位为玩家身上一次性道具,第二位为玩家身上主动道具,之后为地上道具
-    /// </summary>
-    public int[] ItemsID
-    {
-        get { return itemsID; }
-        set { itemsID = value;
-        PlayerPrefsX.SetIntArray("itemsID", itemsID);
-        }
-    }
-    int itemEnergy;
-
-    public int ItemEnergy
-    {
-        get { return itemEnergy; }
-        set { itemEnergy = value;
-        PlayerPrefs.SetInt("itemEnergy", itemEnergy);
-        }
-    }
-
-
-    int[] esscencesID;
-
-    public int[] EsscencesID
-    {
-        get { return esscencesID; }
-        set { esscencesID = value;
-        PlayerPrefsX.SetIntArray("esscencesID", esscencesID);
-        }
-    }
-    int[] esscencesNum;
-
-    public int[] EsscencesNum
-    {
-        get { return esscencesNum; }
-        set { esscencesNum = value;
-        PlayerPrefsX.SetIntArray("esscencesNum", esscencesNum);
-        }
-    }
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
+    #endregion
+    #endregion
     public void Init()
     {
         curLevel = PlayerPrefs.GetInt("curLevel");
-        curMapY = PlayerPrefs.GetInt("curMapY");
-        curMapX = PlayerPrefs.GetInt("curMapX");
-        health = PlayerPrefs.GetFloat("health");
-        moveSpeed = PlayerPrefs.GetFloat("moveSpeed");
-        attackRange = PlayerPrefs.GetFloat("attackRange");
-        attackDamage = PlayerPrefs.GetFloat("attackDamage");
-        hitRecover = PlayerPrefs.GetFloat("hitRecover");
-        spasticity = PlayerPrefs.GetFloat("spasticity");
-        race = PlayerPrefs.GetInt("race");
-        weapon = PlayerPrefs.GetInt("weapon");
-        sight = PlayerPrefs.GetInt("sight");
-        camp = PlayerPrefs.GetInt("camp");
-        luck = PlayerPrefs.GetFloat("luck");
-        actionStateMachineID = PlayerPrefs.GetInt("actionStateMachineID");
-        itemEnergy = PlayerPrefs.GetInt("itemEnergy");
         map = PlayerPrefsX.GetIntArray("map");
-        isMapPassed = PlayerPrefsX.GetIntArray("isMapPassed");
+        isRoomPassed = PlayerPrefsX.GetIntArray("isRoomPassed");
+        curRoomY = PlayerPrefs.GetInt("curRoomY");
+        curRoomX = PlayerPrefs.GetInt("curRoomX");
+
+        hp = PlayerPrefs.GetFloat("hp");
+        atk = PlayerPrefs.GetInt("atk");
+        mov = PlayerPrefs.GetInt("mov");
+        rng = PlayerPrefs.GetInt("rng");
+        fhr = PlayerPrefs.GetInt("fhr");
+        luk = PlayerPrefs.GetInt("luk");
+        race = PlayerPrefs.GetInt("race");
+        career = PlayerPrefs.GetInt("weapon");
+        sight = PlayerPrefs.GetInt("sight");
         curPosition = PlayerPrefsX.GetVector3("curPosition");
-        enemyID = PlayerPrefsX.GetIntArray("enemyID");
-        enemyPosX = PlayerPrefsX.GetFloatArray("enemyPosX");
-        enemyPosY = PlayerPrefsX.GetFloatArray("enemyPosY");
-        enemyPosZ = PlayerPrefsX.GetFloatArray("enemyPosZ");
+        buffsID = PlayerPrefsX.GetStringArray("buffsID");
+
         roomElementID = PlayerPrefsX.GetIntArray("roomElementID");
+        roomElementState = PlayerPrefsX.GetIntArray("roomElementState");
         roomElementPosX = PlayerPrefsX.GetFloatArray("roomElementPosX");
         roomElementPosY = PlayerPrefsX.GetFloatArray("roomElementPosY");
         roomElementPosZ = PlayerPrefsX.GetFloatArray("roomElementPosZ");
         roomElementRoomX = PlayerPrefsX.GetIntArray("roomElementRoomX");
         roomElementRoomY = PlayerPrefsX.GetIntArray("roomElementRoomY");
-        buffsID = PlayerPrefsX.GetIntArray("buffsID");
-        itemsID = PlayerPrefsX.GetIntArray("itemsID");
-        esscencesID = PlayerPrefsX.GetIntArray("esscencesID");
-        esscencesNum = PlayerPrefsX.GetIntArray("esscencesNum");
     }
-
+    #endregion
 }

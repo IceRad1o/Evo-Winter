@@ -11,8 +11,8 @@ public class RoomElement : ExSubject
     #region Varibles
     public int roomElementID;
     public int maxHp = 10;
-	public bool IsDestoryOnEnterRoom = true;
-	public bool IsDieWithMaster = true;
+	public bool isDestoryOnEnterRoom = true;
+	public bool isDieWithMaster = true;
     public GameObject bloodBarPrefab;
     GameObject bloodBarInstance;
 

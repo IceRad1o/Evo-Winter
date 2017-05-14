@@ -93,28 +93,28 @@ public class GameManager : ExUnitySingleton<GameManager>{
         else
         {
             //ProfileManager.Instance.Data.CurMapX;
-			CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsMapPassed, ProfileManager.Instance.Data.RoomSize);
+			CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsRoomPassed, ProfileManager.Instance.Data.RoomSize);
 
             RoomManager.Instance.LoadScene(
-                ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns)+ProfileManager.Instance.Data.CurMapY * (CheckpointManager.Instance.rows)],
-                ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
-                CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).doorDirection,
+                ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurRoomX * (CheckpointManager.Instance.columns)+ProfileManager.Instance.Data.CurRoomY * (CheckpointManager.Instance.rows)],
+                ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY,
+                CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY).doorDirection,
                 ProfileManager.Instance.Data.RoomElementRoomX,
                 ProfileManager.Instance.Data.RoomElementRoomY,
                 ProfileManager.Instance.Data.RoomElementID,
                 ProfileManager.Instance.Data.RoomElementPosX,
                 ProfileManager.Instance.Data.RoomElementPosY,
                 ProfileManager.Instance.Data.RoomElementPosZ,
-				CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY).roomSize);
+				CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY).roomSize);
 
 
             
 
-            RoomManager.Instance.LoadEnemy(ProfileManager.Instance.Data.CurMapX, ProfileManager.Instance.Data.CurMapY,
-                ProfileManager.Instance.Data.EnemyID,
-                ProfileManager.Instance.Data.EnemyPosX,
-                ProfileManager.Instance.Data.EnemyPosY,
-                ProfileManager.Instance.Data.EnemyPosZ);
+            //RoomManager.Instance.LoadEnemy(ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY,
+            //    ProfileManager.Instance.Data.EnemyID,
+            //    ProfileManager.Instance.Data.EnemyPosX,
+            //    ProfileManager.Instance.Data.EnemyPosY,
+            //    ProfileManager.Instance.Data.EnemyPosZ);
 
             RoomManager.Instance.Notify("EnterRoom;Know");
 
