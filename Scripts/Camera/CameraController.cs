@@ -37,7 +37,6 @@ public class CameraController : ExUnitySingleton<CameraController>{
         offset = transform.position - Player.Instance.transform.position;
        
 	}
-
     void LateUpdate()
     {
         
@@ -65,12 +64,16 @@ public class CameraController : ExUnitySingleton<CameraController>{
         transform.position += distance/smoothMoveFrame;
 
     }
-
+    /// <summary>
+    /// Normal Move Type
+    /// </summary>
     void MoveWithPlayer()
     {
         transform.position = Player.Instance.transform.position + offset;
     }
-
+    /// <summary>
+    /// Check the camera is out of boundary. 
+    /// </summary>
     void CheckBoundary()
     {
         if (transform.position.x > sizeX[sizeNum])

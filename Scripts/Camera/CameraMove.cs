@@ -26,10 +26,7 @@ public class CameraMove : ExUnitySingleton<CameraMove>
 
     IEnumerator MoveRoom()
     {
-        //MoveBy mb = this.gameObject.AddComponent<MoveBy>();
-        //mb.duration = 0.3f;
-        //mb.isReverse = true;
-        //mb.deltaPosition = new Vector3(0, 5, 0);
+
         GetComponent<CameraController>().enabled = false;
 
 
@@ -54,14 +51,9 @@ public class CameraMove : ExUnitySingleton<CameraMove>
         args.Add("z", 0);
 
         iTween.MoveBy(gameObject, args);
-        //float speed=5.0f/count;
-        //while(count--!=0)
-        //{
-        //    gameObject.transform.position += new Vector3(0, speed, 0);
-        //    yield return null;
-        //}
+
         yield return new WaitForSeconds(0.33f);
-        //gameObject.transform.position -= new Vector3(0, 5, 0);
+
         GetComponent<CameraController>().enabled = true;
            
 

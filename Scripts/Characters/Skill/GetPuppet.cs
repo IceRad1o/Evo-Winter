@@ -7,8 +7,9 @@ public class GetPuppet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GameObject a=Instantiate(puppet, this.transform.position, Quaternion.identity) as GameObject;
-        a.GetComponent<Puppet>().owner = this.gameObject;
+        GameObject obj=Instantiate(puppet, this.transform.position, Quaternion.identity) as GameObject;
+        obj.GetComponent<Puppet>().owner = this.gameObject;
+        obj.GetComponent<RoomElement>().Master = this.gameObject;
 	}
 
 }

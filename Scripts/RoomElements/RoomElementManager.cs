@@ -19,7 +19,7 @@ public class RoomElementManager : ExUnitySingleton<RoomElementManager>
         {
             if (!roomElementList[i].CompareTag("Player"))
             {
-                if (roomElementList[i].isDestoryOnEnterRoom)
+                if (roomElementList[i].IsDestoryOnEnterRoom)
                     roomElementList[i].Destroy();
             }
         }

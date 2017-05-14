@@ -719,13 +719,14 @@ public class Character : RoomElement
     /// <summary>
     /// 死亡
     /// </summary>
-    public virtual void Die()
+    public override void Die()
     {
         isMove = 0;
         actionStateMachine.Push(5);
 
 
         Notify("Die;" + this.tag);
+        KillServants();
         StartCoroutine(Disappear());
 
 
