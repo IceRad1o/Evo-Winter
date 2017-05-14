@@ -492,8 +492,8 @@ public class Character : RoomElement
                 return;
             }
             //Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
-            Debug.Log("1:" + CharacterSkin);
-            Debug.Log("2:" + CharacterSkin.bodyNode);
+            //Debug.Log("1:" + CharacterSkin);
+            //Debug.Log("2:" + CharacterSkin.bodyNode);
             Vector3 temp = CharacterSkin.bodyNode.transform.localScale;
             if (value.x * temp.x > 0)
                 temp.x = -temp.x;

@@ -184,4 +184,19 @@ public class UtilManager : UnitySingleton<UtilManager>
         return prefabInstance;
 
     }
+
+    /// <summary>
+    /// 将游戏中的坐标转换成校正后的坐标,尤其对非地面物体,空中飞行物体有效
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
+    public static Vector3 Trans(Vector3 pos)
+    {
+        return new Vector3(pos.x, 0.707107f * (pos.y - pos.z), 0.707107f * (pos.z + pos.y));
+    }
+    public static Vector3 Trans(float x,float y,float z=0)
+    {
+        return Trans(new Vector3(x, y, z));
+    }
+
 }

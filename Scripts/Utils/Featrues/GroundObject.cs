@@ -5,6 +5,7 @@ public class GroundObject : MonoBehaviour {
 
 
 	void FixedUpdate () {
+        
         Vector3 temp = this.transform.position;
         float a = (temp.y+temp.z)/2;
         temp.y = a;
