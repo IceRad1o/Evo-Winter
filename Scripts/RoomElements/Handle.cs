@@ -22,6 +22,8 @@ public class Handle : RoomElement {
 	private void OnTriggerEnter(Collider other)
 	{
 		//Debug.Log ("开关");
+		if (RoomElementState == 1)
+			return;
 		if (other.tag == "Player") 
 		{
 			animator.SetTrigger ("switchOn");
@@ -34,7 +36,9 @@ public class Handle : RoomElement {
 	//触发陷阱1
 	void Trap1(Collider other)
 	{
-
+		if (RoomElementState == 1)
+			return;
+		RoomElementState = 1;
 		Vector3[] posi = {
 			new Vector3 (other.transform.position.x, other.transform.position.y+1f, other.transform.position.z+1f),
 			new Vector3 (other.transform.position.x, other.transform.position.y-1f, other.transform.position.z-1f),
