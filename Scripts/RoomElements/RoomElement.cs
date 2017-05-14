@@ -11,6 +11,8 @@ public class RoomElement : ExSubject
     #region Varibles
     public int roomElementID;
     public int maxHp = 10;
+	public bool isDestoryOnEnterRoom = true;
+	public bool isDieWithMaster = true;
     public GameObject bloodBarPrefab;
     GameObject bloodBarInstance;
 
@@ -128,6 +130,10 @@ public class RoomElement : ExSubject
         {
             Trriger();
         }
+//		if (str [0] == "MissileEnterBottle") 
+//		{
+//			Trriger();
+//		}
 
     }
     #endregion

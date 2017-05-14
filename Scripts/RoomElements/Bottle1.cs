@@ -21,23 +21,43 @@ public class Bottle1 : RoomElement
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
 
+	//进入瓶子
+	private void OnCollisionEnter(Collision collision)
+	{
+		//Debug.Log ("BottleTagState:"+this.RoomElementState);
+		if (RoomElementState == 1)
+			return;
+		if (collision.gameObject.CompareTag("Player"))
+		{
+			Player.Instance.Character.AddObserver(this);
+			RoomManager.Instance.Notify("EnterBottle");
+		}
+	}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("箱子碰撞物标签：" + other.tag);
-        if (other.tag == "Weapon")
-            if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && isHit == false && other.GetComponentInParent<Character>().tag =="Player")
-            {
-                HitBottle();
-				if(Random.Range (0,10) <2)
-				{
-					CreateCoin ();
-            	}
-			}
+	//离开瓶子
+	void OnCollisionExit(Collision collision)
+	{
+		RoomManager.Instance.Notify("LeaveBottle");
+		if (collision.gameObject.tag == "Player")
+		{
+			Player.Instance.Character.RemoveObserver(this);
+		}
+	}
+	//重载函数
+	public override void Trriger()
+	{
+		if (RoomElementState == 1)
+			return;
+		base.Trriger();
+		RoomElementState = 1;
+		Notify("OpenBottle");
 
-		if(other.tag == "Missile")
-			HitBottle();
-    }
+		HitBottle();
+		if(Random.Range (0,10) <2)
+		{
+			CreateCoin ();
+		}
+	}
 
     void HitBottle()
     {

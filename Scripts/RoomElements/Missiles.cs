@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Missiles : MonoBehaviour {
+public class Missiles : RoomElement{
     //是否调用fly
     public bool isFly = true;
     //飞行距离
@@ -24,12 +24,12 @@ public class Missiles : MonoBehaviour {
     private Vector3 startPosition;
 
 
-    //public override void Awake()
-    //{
-    //    Debug.Log("Awake");
-    //    base.Awake();
-    //    RoomElementID = 0;
-    //}
+    public override void Awake()
+    {
+        Debug.Log("Awake");
+        base.Awake();
+        RoomElementID = 0;
+    }
 
     /// <summary>
     /// 初始化倍数
@@ -99,7 +99,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -114,7 +114,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -151,7 +151,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -168,7 +168,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -214,7 +214,7 @@ public class Missiles : MonoBehaviour {
             //结束
             else
             {
-                Destroy(this.gameObject);
+				this.Destroy ();
                 break;
             }    
 
@@ -258,7 +258,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -282,7 +282,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -308,7 +308,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -323,7 +323,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -352,7 +352,7 @@ public class Missiles : MonoBehaviour {
             }
             else
             {
-                Destroy(this.gameObject);
+				this.Destroy ();
                 penetrating = 0;
                 break;
             }
@@ -378,7 +378,7 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
@@ -393,49 +393,14 @@ public class Missiles : MonoBehaviour {
                 }
                 else
                 {
-                    Destroy(this.gameObject);
+					this.Destroy ();
                     break;
                 }
             }
             yield return null;
         }
     }
-
-    //碰撞检测
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    //Debug.Log("Missile碰撞标签：" + other.tag);
-    //    if (other.tag == "Enemy")
-    //    {
-    //        //other.GetComponent<Enemy>().Health-=damage;
-    //        if (penetrating==0)
-    //        {
-    //            //animator.SetTrigger("MissileBomb");
-    //            StartCoroutine(Wait(0.2f));
-    //            Destroy(this.gameObject);
-    //        }
-    //    }
-    //    if (other.tag == "Box")
-    //    {
-    //        //other.GetComponent<Box>().OpenBox();
-    //        if (penetrating==0)
-    //        {
-    //            //animator.SetTrigger("MissileBomb");
-    //            StartCoroutine(Wait(0.2f));
-    //            Destroy(this.gameObject);
-    //        }
-    //    }
-    //    if (other.tag == "Wall")
-    //    {
-    //        StartCoroutine(Wait(0.2f));
-    //        Destroy(this.gameObject);
-    //    }
-    //}
-
-
-
-
-
+		
 	void Start () {
         if (isFly) Fly();
 	}
