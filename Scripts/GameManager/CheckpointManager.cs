@@ -46,7 +46,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 		
 	//测试用
 	public bool isTest = false;
-	public int testRoomType = 4;
+	public RoomManager.RmType testRoomType = RoomManager.RmType.Box;
     //关卡号1-5
     private int checkpointNumber = 0;
     public int CheckpointNumber
@@ -244,7 +244,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 					if (isTest == false)
 						type = Random.Range (1, 15);
 					else
-						type = testRoomType;
+						type =(int) testRoomType;
 					//int type = 2;
 					//设置房间大小
 					int rmSize;

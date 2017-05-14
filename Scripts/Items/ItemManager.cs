@@ -253,7 +253,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             //一次性道具的拾取                
             foreach (DisposableItem t in listDisposableItem)
             {
-                if (itemsDis == t && t.playerIn && CoinManager.Instance.Buy(t.Value))             
+                if (t.PlayerIn && CoinManager.Instance.Buy(t.Value))   
+                //if (itemsDis == t && t.playerIn && CoinManager.Instance.Buy(t.Value))             
                 {
                     AddDisposableItems(t);
                     Notify("Get_DisposableItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
@@ -264,7 +265,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             //主动道具的拾取                
             foreach (InitiativeItem t in listInitiativeItem)
             {
-                if (itemIni == t && t.PlayerIn && CoinManager.Instance.Buy(t.Value))
+                if (t.PlayerIn && CoinManager.Instance.Buy(t.Value))
+                //if (itemIni == t && t.PlayerIn && CoinManager.Instance.Buy(t.Value))
                 {
                     AddInitiativeItems(t);
                     Notify("Get_InitiativeItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
@@ -275,7 +277,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             //立即使用道具的拾取                
             foreach (ImmediatelyItem t in listImmediatelyItem)
             {
-                if (itemImm == t && t.playerIn && CoinManager.Instance.Buy(t.Value))
+                if (t.PlayerIn && CoinManager.Instance.Buy(t.Value))
+                //if (itemImm == t && t.playerIn && CoinManager.Instance.Buy(t.Value))
                 {
                     //Debug.Log("Get_ImmediatelyItem");
                     Notify("Get_ImmediatelyItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);

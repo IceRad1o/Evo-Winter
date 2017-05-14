@@ -6,7 +6,7 @@ public class ImmediatelyItem : Item{
 
     public ItemSprite itemSp;
     private Sprite[] itemSprite;
-    public  bool playerIn;
+    
     //public AudioClip[] itemSounds;
 
 
@@ -25,7 +25,7 @@ public class ImmediatelyItem : Item{
             Notify("Player_Get_ImmediatelyItem;" + ItemID);
             ItemManager.Instance.SendMsg("Player_Get_ImmediatelyItem;" + ItemID);
 
-            playerIn = true;
+            PlayerIn = true;
         }
 
     }
@@ -37,7 +37,7 @@ public class ImmediatelyItem : Item{
             Notify("Player_Leave_ImmediatelyItem;" + ItemID);
             ItemManager.Instance.SendMsg("Player_Leave_ImmediatelyItem;" + ItemID);
 
-            playerIn = false;
+            PlayerIn = false;
         }
     }
     
@@ -75,7 +75,7 @@ public class ImmediatelyItem : Item{
     public override void Awake()
     {
         base.Awake();
-        playerIn = false;
+        PlayerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }
