@@ -226,9 +226,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     
     //随机产生道具的ID
     private int RandomItemID(int[] itemsID) {
-        //创建random的实例
-        System.Random random = new System.Random();
-        return itemsID[random.Next(itemsID.Length)];
+
+        return itemsID[Random.Range(0, itemsID.Length)];
     }
 
 
@@ -278,7 +277,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             {
                 if (itemImm == t && t.playerIn && CoinManager.Instance.Buy(t.Value))
                 {
-                    Debug.Log("Get_ImmediatelyItem");
+                    //Debug.Log("Get_ImmediatelyItem");
                     Notify("Get_ImmediatelyItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
                     t.Use();
                     break;
