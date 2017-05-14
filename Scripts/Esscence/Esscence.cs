@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Esscence : RoomElement {
-    
+public class Esscence : RoomElement
+{
+
+
+    #region Variables
     int esscenceID;
     public Sprite[] spriteArray;
     //名称描述图片类别ID
@@ -51,6 +54,7 @@ public class Esscence : RoomElement {
     static public Sprite[] esscenceSprite;
 
     bool playerIn = false;
+    #endregion
 
     public void Create(int ID) 
     {
