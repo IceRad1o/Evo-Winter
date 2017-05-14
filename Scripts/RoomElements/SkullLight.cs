@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SkullLight : RoomElement {
 
+	private Collision coll;
     public Animator animator;
     public AudioClip putOut;
     public override void Awake()
@@ -21,57 +22,45 @@ public class SkullLight : RoomElement {
 	void Update () {
 	
 	}
-
-    //碰撞检测
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        if (other.tag == "Weapon")
-//        {
-//            if (other.GetComponentInParent<Character>().IsWeaponDmg > 0 && other.GetComponentInParent<Character>().Camp == 0)
-//            {
-//              
-//                if (Player.Instance.Character.FaceDirection < 0) animator.SetTrigger("destory");
-//                else animator.SetTrigger("destory2");
-//            }
-//            else
-//            {
-//                
-//            }
-//        }
-//		if (other.tag == "Missile") 
-//		{
-//			if(other.transform.position.x - this.transform.position.x>0)
-//				animator.SetTrigger("destory");
-//			else
-//				animator.SetTrigger("destory2");
-//		}
-//
-//    }
-
+		
 	//碰撞检测
 	private void OnCollisionEnter(Collision collision)
 	{
+		//Debug.Log ("SkullEnterTag:"+collision.gameObject.tag);
 		if (RoomElementState == 1)
 			return;
 		if (collision.gameObject.CompareTag("Player"))
 		{
 			Player.Instance.Character.AddObserver(this);
-			RoomManager.Instance.Notify("HitSkull");
+			RoomManager.Instance.Notify("EnterSkull");
 		}
+		coll = collision;
 	}
 
 	void OnCollisionExit(Collision collision)
 	{
+		//Debug.Log ("SkullLeaveTag:"+collision.gameObject.tag);
 		RoomManager.Instance.Notify("LeaveSkull");
 		if (collision.gameObject.tag == "Player")
 		{
 			Player.Instance.Character.RemoveObserver(this);
 		}
 	}
+	//重载函数
+	public override void Trriger()
+	{
+		//Debug.Log ("EnterTrigger");
+		if (RoomElementState == 1)
+			return;
+		base.Trriger();
+		HitScull (coll);
+		RoomElementState = 1;
+	}
 
 	//动画
 	private void HitScull(Collision collision)
 	{
+		//Debug.Log ("HitSkull_State:"+RoomElementState+", _coll:"+collision);
 		if (RoomElementState == 1)
 			return;
 		if (collision.gameObject.CompareTag("Player"))
@@ -86,6 +75,7 @@ public class SkullLight : RoomElement {
 			else
 				animator.SetTrigger("destory2");
 		}
+
 	}
 	//声音
     void Sound()

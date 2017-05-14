@@ -43,21 +43,22 @@ public class Box : RoomElement
     }
 
 	//宝箱碰撞检测
-    private void OnTriggerEnter(Collider other)
+	private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("箱子碰撞物标签：" + other.tag);
+		//Debug.Log("箱子碰撞物标签：" + collision.gameObject.tag);
 		//Debug.Log ("BottleTagState:"+this.RoomElementState);
 		if (RoomElementState == 1)
 			return;
-		if (other.CompareTag("Player"))
+		if (collision.gameObject.CompareTag("Player"))
 		{
 			Player.Instance.Character.AddObserver(this);
 			RoomManager.Instance.Notify("EnterBox");
 		}
     }
-	private void OnTriggerExit(Collider other)
+	void OnCollisionExit(Collision collision)
 	{
-		if (other.tag == "Player")
+		//Debug.Log("箱子看离开标签：" + collision.gameObject.tag);
+		if (collision.gameObject.CompareTag("Player"))
 		{
 			RoomManager.Instance.Notify("LeaveBox");
 			Player.Instance.Character.RemoveObserver(this);

@@ -41,7 +41,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>
     {
         data = new ProfileData();
         data.Init();
-
+		//return;
         for (int i = 0; i < data.RoomElementID.Length; i++)
         {
             tempREID.Add(data.RoomElementID[i]);
