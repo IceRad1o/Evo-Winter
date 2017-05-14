@@ -5,12 +5,6 @@ public class InitiativeItem : Item{
 
 
     private int energyMax;
-    private bool playerIn;
-    public bool PlayerIn
-    {
-        get { return playerIn; }
-        set { playerIn = value; }
-    }
     private int energyNow;
     public int EnergyNow
     {
@@ -100,7 +94,7 @@ public class InitiativeItem : Item{
             Notify("Player_Get_InitiativeItem;" + ItemID);
             ItemManager.Instance.SendMsg("Player_Get_InitiativeItem;" + ItemID);
 
-            playerIn = true;
+            PlayerIn = true;
         }
 
     }
@@ -112,14 +106,14 @@ public class InitiativeItem : Item{
             Notify("Player_Leave_InitiativeItem;" + ItemID);
             ItemManager.Instance.SendMsg("Player_Leave_InitiativeItem;" + ItemID);
 
-            playerIn = false;
+            PlayerIn = false;
         }
     }
 
     public override void Awake()
     {
         base.Awake();
-        playerIn = false;
+        PlayerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }

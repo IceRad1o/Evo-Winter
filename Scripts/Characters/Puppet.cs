@@ -11,7 +11,9 @@ public class Puppet : ExSubject {
 	// Use this for initialization
 	void Start () {
         owner.GetComponent<Character>().AddObserver(this);
+        this.GetComponent<RoomElement>().IsDestoryOnEnterRoom = false;
         posOffset = this.transform.position-owner.transform.position;
+
        // this.GetComponent<Character>().Controllable = 0;
 	}
 

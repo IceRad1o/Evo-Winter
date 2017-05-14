@@ -9,7 +9,6 @@ public class DisposableItem : Item{
 
     public ItemSprite itemSp;
     private Sprite[] itemSprite;
-    public  bool playerIn;
     //public UIElement[] uiList;
 
 
@@ -103,7 +102,7 @@ public class DisposableItem : Item{
         {
             Notify("Player_Get_DisposableItem;" + ItemID);
             ItemManager.Instance.SendMsg("Player_Get_DisposableItem;" + ItemID);
-            playerIn = true;
+            PlayerIn = true;
         }
        
     }
@@ -115,14 +114,14 @@ public class DisposableItem : Item{
         {
             Notify("Player_Leave_DisposableItem;" + ItemID);
             ItemManager.Instance.SendMsg("Player_Leave_DisposableItem;" + ItemID);
-            playerIn = false;
+            PlayerIn = false;
         }
     }
     // Use this for initialization
     public override void Awake()
     {
         base.Awake();
-        playerIn = false;
+        PlayerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         //获取图片数组
         //itemSprite = itemSp.SpriteArray;
