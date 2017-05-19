@@ -112,7 +112,12 @@ public class RoomElement : ExSubject
     public GameObject Master
     {
         get { return master; }
-        set { master = value; }
+        set { 
+            master = value;
+        
+        if (!master.GetComponent<RoomElement>().Servants.Contains(gameObject))
+              master.GetComponent<RoomElement>().Servants.Add(gameObject);
+        }
     }
 
     public List<GameObject> Servants
@@ -136,6 +141,8 @@ public class RoomElement : ExSubject
     {
         for(int i=0;i<Servants.Count;i++)
         {
+            if (Servants[i] == null)
+                continue;
             RoomElement re = Servants[i].GetComponent<RoomElement>();
             if (re.isDieWithMaster)
                 re.Die();

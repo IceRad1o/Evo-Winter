@@ -254,7 +254,10 @@ public class ActionStateMachine {
         }
         else if (asi.IsName("Hurt"))
         {
-            anim.speed = character.Fhr;
+            if (character.IsFrozen == 1)
+                anim.speed = 0;
+            else
+                anim.speed = character.Fhr;
             CurState = "Hurt";
         }
     }

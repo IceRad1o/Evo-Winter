@@ -11,8 +11,15 @@ using System.Collections.Generic;
 public class Character : RoomElement
 {
     #region Varibles
- 
-    #region AudioClips 
+
+    #region Other Prefab
+    public GameObject frozenIce;
+    public GameObject burningFire;
+    GameObject frozenIceIns;
+    GameObject burningFireIns;
+    #endregion
+
+    #region AudioClips
     public AudioClip attackingSound;
     public AudioClip attackingSound2;
     public AudioClip attackingSound3;
@@ -199,20 +206,25 @@ public class Character : RoomElement
     {
         get { return base.Hp; }
         set
-        {     
-            //若无敌且收到伤害
-            if (IsInvincible == 1 && value < Hp)
+        {
+           
+            if(value<Hp)
             {
-                Notify("WithStand:" + (Hp - value));
-                return;
+                //若无敌且收到伤害
+                if (IsInvincible == 1 )
+                {
+                    Notify("WithStand:" + (Hp - value));
+                    return;
+                }
+          
+                if (IsSuperArmor == 0 )
+                {
+                    //此处用isMove,不用IsMove
+                    isMove = 0;
+                    actionStateMachine.Push(6);
+                } 
             }
-            StringBuilder s = new StringBuilder(30).Append("HealthChanged;").Append((int)Hp).Append(";");
-            if ( IsSuperArmor == 0&&value < Hp )
-            {
-                //此处用isMove,不用IsMove
-                isMove = 0;
-                actionStateMachine.Push(6);
-            } 
+
             base.Hp = value;
             if (Hp <= 0 && IsAlive != -1)
             {
@@ -220,7 +232,7 @@ public class Character : RoomElement
                 IsAlive = 0;
             }
             //HealthPercent = Hp / maxHp;
-            Notify(s.Append((int)Hp).Append(";").Append(this.tag).ToString());
+          
         }
     }
     /// <summary>
@@ -241,7 +253,11 @@ public class Character : RoomElement
             StringBuilder s = new StringBuilder(30).Append("AttackDamageChanged;").Append(atk).Append(";");
             atk = value;
             for (int i = 0; i < CharacterSkin.weapons.Length; i++)
-                CharacterSkin.weapons[i].GetComponent<HurtByContract>().damage = (int)AtkValue;  
+            {
+                var c = CharacterSkin.weapons[i].GetComponent<HurtByContract>();
+                if (c != null)
+                    c.damage = AtkValue;
+            } 
             Notify(s.Append(atk).ToString());
         }
     }
@@ -467,7 +483,28 @@ public class Character : RoomElement
     public int IsFrozen
     {
         get { return isFrozen; }
-        set { isFrozen = value; }
+        set 
+        {
+            if (isFrozen != value)
+            {
+                isFrozen = value;
+                if (isFrozen == 1)
+                {
+                    anim.speed = 0;
+                    frozenIceIns= Instantiate(frozenIce, this.transform,false) as GameObject;
+                    frozenIceIns.transform.localScale = new Vector3(1.09f, 1.98f, 1);
+                
+                   
+                }
+                else if (isFrozen == 0)
+                {
+                    //gameObject.AddComponent<BeatDown>().Init(-this.FaceDirection, 1, 2);
+
+                    Destroy(frozenIceIns);
+                }
+            }
+            
+        }
     }
     public int IsBlind
     {
@@ -507,6 +544,39 @@ public class Character : RoomElement
             Notify("DirectionChanged");
         }
     }
+
+    public Vector3 Direction2
+    {
+        get { return direction; }
+        set
+        {
+            //如果无法移动方向则将方向给予AttemptDirection
+            if (IsControllable == 0 || CanMove == 0 || isFrozen == 1)
+            {
+                AttemptDirection = value;
+                return;
+            }
+            //Vector3 temp = gameObject.transform.FindChild("BodyNode").gameObject.GetComponent<Transform>().localScale;
+            //Debug.Log("1:" + CharacterSkin);
+            //Debug.Log("2:" + CharacterSkin.bodyNode);
+            //Vector3 temp = CharacterSkin.bodyNode.transform.localScale;
+            //if (value.x * temp.x > 0)
+            //    temp.x = -temp.x;
+            //CharacterSkin.bodyNode.transform.localScale = temp;
+            SpriteRenderer [] a = GetComponentsInChildren<SpriteRenderer>();
+            for (int i = 0; i < a.Length; i++)
+                a[i].flipX = !a[i].flipX;
+
+            direction = value;
+            AttemptDirection = value;
+            if (direction.x > 0)
+                faceDirection = 1;
+            else if (direction.x < 0)
+                faceDirection = -1;
+            Notify("DirectionChanged");
+        }
+    }
+
     /// <summary>
     /// Direction the character is attempted to. 
     /// </summary>
@@ -709,6 +779,17 @@ public class Character : RoomElement
 
     }
     /// <summary>
+    /// 自然流失体力,不会触发受伤动画
+    /// </summary>
+    /// <param name="value"></param>
+    public virtual void LoseHp(float value=1f)
+    {
+        base.Hp -= value;
+        if (Hp <= 0)
+            Die();
+    }
+
+    /// <summary>
     /// 摔倒
     /// </summary>
     public virtual void Fall()
@@ -737,7 +818,7 @@ public class Character : RoomElement
     /// <returns></returns>
     public IEnumerator Disappear()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
 
         if (tag != "Player")
         {
@@ -775,9 +856,11 @@ public class Character : RoomElement
     }
     public virtual void FixedUpdate()
     {
+
         //Move
         if (isControllable == 1 && canMove == 1 && actionStateMachine.CurState == "Move")
         {
+
             Move();
         }
 
@@ -872,6 +955,7 @@ public class Character : RoomElement
         missileInstance.GetComponent<Missiles>().direction = faceDirection;
         missileInstance.GetComponent<Missiles>().flyPath = type;
         missileInstance.GetComponent<Missiles>().InitMissiles(RngValue, SpdValue);
+        missileInstance.GetComponent<RoomElement>().Master = this.gameObject;
 
     }
 
@@ -900,7 +984,7 @@ public class Character : RoomElement
     public void AttackStart(string name)
     {
         CanMove = 0;
-        IsWeaponDmg = 1;
+        //IsWeaponDmg = 1;
         Notify("AttackStart;" + name);
 
 
@@ -909,10 +993,10 @@ public class Character : RoomElement
     public void AttackEnd(string name)
     {
         CanMove = 1;
-        IsWeaponDmg = 0;
+        //IsWeaponDmg = 0;
         BeatDownLevelX = 0;
         BeatDownLevelY = 0;
-
+        BeatBackLevel =1;
         Notify("AttackEnd;" + name);
 
     }
@@ -970,15 +1054,11 @@ public class Character : RoomElement
             return value;
     }
 
-    #endregion
+
+
 
     #endregion
 
+    #endregion
 
-    //To Delete
-    public int Camp
-    {
-        get { return 0; }
-
-    }
 }
