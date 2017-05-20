@@ -394,7 +394,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         RoomManager.Instance.AddObserver(this);
 
 
-
+        advancedItem = PreferenceManager.Instance.Data.AdvancedItem;
 
         
     }

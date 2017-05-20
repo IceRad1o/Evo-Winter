@@ -15,9 +15,14 @@ public class Coin : Item {
         {
             CoinManager.Instance.GetCoin(value);
             ItemManager.Instance.SendMsg("Get_Coin" + this.gameObject.transform.position.x + ";" + this.gameObject.transform.position.y + ";" + this.gameObject.transform.position.z);
-            Destroy(this.gameObject);
+            this.Destroy();
         }
 
+    }
+
+    public override void Destroy()
+    {
+        base.Destroy();
     }
 
     public override void Awake()
