@@ -27,7 +27,8 @@ public class CoinManager : ExUnitySingleton<CoinManager> {
 
     public void CreateCoin(int number, Vector3 pos=default(Vector3))
     {
-        UtilManager.Instance.CreateEffcet("Items/Coin", pos);    
+        UtilManager.Instance.CreateEffcet("Items/Coin", pos);
+        
     }
 
 

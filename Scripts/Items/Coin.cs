@@ -4,6 +4,7 @@ using System.Collections;
 public class Coin : Item {
 
     int value=1;
+    bool canGet = false;
     /// <summary>
     /// 碰撞检测
     /// </summary>
@@ -11,13 +12,18 @@ public class Coin : Item {
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.tag == "Player")
+        if (other.tag == "Player" && canGet)
         {
             CoinManager.Instance.GetCoin(value);
             ItemManager.Instance.SendMsg("Get_Coin" + this.gameObject.transform.position.x + ";" + this.gameObject.transform.position.y + ";" + this.gameObject.transform.position.z);
             this.Destroy();
         }
 
+    }
+
+    void Start()
+    {
+        StartCoroutine(CanBeGot());
     }
 
     public override void Destroy()
@@ -35,5 +41,11 @@ public class Coin : Item {
     {
         base.OnNotify(msg);
 
+    }
+
+    IEnumerator CanBeGot()
+    {
+        yield return new WaitForSeconds(1.5f);
+        canGet = true;
     }
 }
