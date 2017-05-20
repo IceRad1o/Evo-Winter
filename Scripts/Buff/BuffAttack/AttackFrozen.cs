@@ -20,7 +20,7 @@ public class AttackFrozen : BuffAttack {
     protected override void Create(int ID)
     {
         base.Create(ID);
-        Probability = 10;
+
         //添加特效
         UtilManager.Instance.CreateEffcet("Buffs/Attack/AttackFrozen",this.gameObject.GetComponent<CharacterSkin>().weapons[0]);
 

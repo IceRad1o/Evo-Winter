@@ -20,7 +20,9 @@ public class ItemsTable {
      /// </summary>
      public int droping;
      public int buffID;
+     public int buffID_advanced;
      public int skillID;
+     public int skillID_advanced;
      public int energy;
      public string itemName;
      public string itemIntro;
@@ -304,6 +306,7 @@ public class ItemsTable {
         item.type = 0;
         item.droping = 2;
         item.buffID = 2100;
+        item.buffID_advanced = 152100;
         item.skillID = 0;
         item.quality = "A";
         item.itemName = "凛之刃";
@@ -314,7 +317,8 @@ public class ItemsTable {
         item.spriteArrayID = 19;
         item.type = 0;
         item.droping = 2;
-        item.buffID = 410;
+        item.buffID = 4100;
+        item.buffID_advanced = 154100;
         item.skillID = 0;
         item.quality = "A";
         item.itemName = "石之刃";
@@ -326,6 +330,7 @@ public class ItemsTable {
         item.type = 0;
         item.droping = 2;
         item.buffID = 5100;
+        item.buffID_advanced = 155100;
         item.skillID = 0;
         item.quality = "A";
         item.itemName = "霜之刃";
@@ -337,6 +342,7 @@ public class ItemsTable {
         item.type = 0;
         item.droping = 2;
         item.buffID = 6100;
+        item.buffID_advanced = 156100;
         item.skillID = 0;
         item.quality = "A";
         item.itemName = "止之刃";
@@ -348,6 +354,7 @@ public class ItemsTable {
         item.type = 0;
         item.droping = 2;
         item.buffID = 3100;
+        item.buffID_advanced = 153100;
         item.skillID = 0;
         item.quality = "A";
         item.itemName = "幽之刃";

@@ -123,7 +123,11 @@ public class BuffAttack : Buff {
         BuffID = ID;
         int[] part = { 2, 2, 3, 1, 2 };
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
+        
         this.probability = idPart[2];
+        if (probability == 0)
+            Probability = 10;
+        
         this.effectDuration = idPart[4];        
         if (idPart[3] == 0)
             this.buffDuration = idPart[4];

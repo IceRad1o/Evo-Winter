@@ -43,6 +43,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     [HideInInspector]
     public List<InitiativeItem> listInitiativeItem = new List<InitiativeItem>();
 
+    //
+    public int[] advancedItem = new int[50];
 
     //创建ItemsTable的实例
     public ItemsTable itemsTable = new ItemsTable();
