@@ -4,6 +4,7 @@ using System.Collections;
 public class CreateLaser : Skill {
 
     public float CdBuff = 1;
+    public GameObject point;
     public override void Trigger()
     {
       
@@ -25,7 +26,7 @@ public class CreateLaser : Skill {
 
         yield return new WaitForSeconds(1.5f);
 
-        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Laser", this.gameObject.transform.position + new Vector3(0, 1.2f, 0));
+        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Laser", point.transform.position);
    
 
 
