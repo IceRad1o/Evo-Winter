@@ -62,6 +62,73 @@ public class RoomElement : ExSubject
      * 1000+:道具
      * 2000+ 人物
      * */
+	public enum REID
+	{
+		//房间物品
+		Missile = 0,
+		Box = 1,
+		Mirror = 2,
+		Door = 3,
+		Statue = 4,
+		Claw = 5,
+		Picture1 = 6,
+		Picture2 = 7,
+		Skull = 8,
+		SkullLight = 9,
+		Bottle1 = 10,
+		Bottle2 = 11,
+		Gone = 12,
+		Rod = 13,
+		Stone = 14,
+		Trap = 15,
+		Stair = 16,
+		Altar1 = 17,
+		Altar2 = 18,
+		Shop = 19,
+		Plate = 20,
+		Coin = 21,
+		Handle = 22,
+
+		//小怪
+		GnomeBlaster = 2100,
+		GnomeWarrior = 2101,
+		GnomeAlchemist = 2102,
+		GnomeArcher = 2103,
+		GnomePatrol = 2104,
+		GnomeAdvancedArcher = 2105,
+		GnomeScootWarrior = 2106,
+		GnomeCheerer = 2107,
+		GnomePharmacist = 2108,
+		GnomeKing = 2109,
+
+		PygmyPuppet1 = 2200,
+		PygmyPuppet2 = 2201,
+		PygmyPuppet3 = 2202,
+		PygmyTrainGunner = 2203,
+		PygmyRobber = 2204,
+		PygmySummoner = 2205,
+		PygmyIceGunner = 2206,
+		PygmyFireGunner = 2207,
+		PygmySiegePuppet = 2208,
+		PygmyKing = 2209,
+
+		VampireBat = 2300,
+		VampireWarrior = 2301,
+		VampireCrossbower = 2302,
+		VampireMage = 2303,
+		VampireAssassin = 2304,
+		VampireBlaster = 2305,
+		VampireCrackWarrior = 2306,
+		VampireHuntter = 2307,
+		VampireSummoner = 2308,
+		VampireSpiritCaller = 2309,
+		VampireKing = 2310
+
+	};
+
+
+
+
     public int RoomElementID
     {
         get { return roomElementID; }

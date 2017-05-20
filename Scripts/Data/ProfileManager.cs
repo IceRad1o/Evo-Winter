@@ -80,9 +80,10 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>
         for (int i = 0; i < CheckpointManager.Instance.rows; i++)
             for (int j = 0; j < CheckpointManager.Instance.columns; j++)
             {
-                if (CheckpointManager.Instance.roomArray[i, j] == 1)
+				int roomType = CheckpointManager.Instance.roomArray [i, j];
+                if (roomType != 0)
                 {
-                    tempRoomID.Add(1);
+					tempRoomID.Add(roomType);
                     tempRoomPass.Add(CheckpointManager.Instance.GetNextRoom(i, j).pass);
                     tempRoomSize.Add(CheckpointManager.Instance.GetNextRoom(i, j).RoomSize);
                 }

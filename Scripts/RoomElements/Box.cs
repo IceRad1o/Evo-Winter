@@ -10,6 +10,7 @@ public class Box : RoomElement
     {
         animator = GetComponent<Animator>();
         //NEED SoundManager.instance.PlaySingle(getBox);
+		if (RoomElementState == 1) animator.SetTrigger("OpenBox");
     }
 
     public override void Awake()
@@ -17,6 +18,7 @@ public class Box : RoomElement
         base.Awake();
         RoomElementID = 1;
         this.tag = "DynamicGroundElement";
+
     }
     void Update()
     {

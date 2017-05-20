@@ -628,212 +628,203 @@ public class RoomManager : ExUnitySingleton<RoomManager>
                     Vector3 position = new Vector3(posiX[count],posiY[count],posiZ[count]);
                     GameObject objectChoice;
                     GameObject roomElement = null;
-					if (id[count] >= 1000 && id[count] <2000) 
+
+					int roomElementState = ProfileManager.Instance.Data.RoomElementState[count];
+					//if(roomElementState>0)Debug.Log ("状态位:"+roomElementState);
+
+					if (id [count] >= 1000 && id [count] < 2000) 
 					{
 						//ItemManager.Instance.ItemsTransform = this.transform;
-                        //ItemManager.Instance.ItemsTransform.position = position;
-                        //ItemManager.Instance.CreateItemID(id[count]);
-                        ItemManager.Instance.CreateItemID(id[count], position);
-                        Debug.Log("Create item ID:   " + id[count]);
+						//ItemManager.Instance.ItemsTransform.position = position;
+						//ItemManager.Instance.CreateItemID(id[count]);
+						ItemManager.Instance.CreateItemID (id [count], position);
+						//Debug.Log ("Create item ID:   " + id [count]);
+					} 
+					else if (id [count] >= 2100 && id [count] < 3000) 
+					{
+						Debug.Log ("生成小怪:" + count);
+						objectChoice = enemys[Random.Range(0,enemys.Length)];
+						roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
+						roomElement.transform.SetParent(GameObject.Find("GroundElements").transform); 
 					}
-						
 					else 
                     switch (id[count])
                     {
                         case 0:
                             //Missile
                             break;
-                        case 1:
+						case (int)RoomElement.REID.Box:
                             //Debug.Log("选中箱子");
-                            //Box Ground
-                            objectChoice = groundElements[0];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
-                           // RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());                            
+							objectChoice = groundElements [0];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("GroundElements").transform);
+							roomElement.GetComponent<Box> ().RoomElementState = roomElementState;
                             break;
-                        case 2:
+						case (int)RoomElement.REID.Mirror:
                             //Debug.Log("选中镜子");
-                            //Mirror Wall
                             objectChoice = wallElements[0];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                           // RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+							roomElement.GetComponent<Mirror> ().RoomElementState = roomElementState;
                             break;
-                        case 3:
-                            //Door WALL
+						case (int)RoomElement.REID.Door:
                             //objectChoice = doors[1];
                             //roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             //roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
-
                             break;
-                        case 4:
+						case (int)RoomElement.REID.Statue:
                             //Debug.Log("选中雕塑");
-                            //Statue Wall
-                            objectChoice = wallElements[1];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                           // RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+							objectChoice = wallElements [1];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("WallElements").transform);
+							roomElement.GetComponent<Statue> ().RoomElementState = roomElementState;
                             break;
-                        case 5:
+						case (int)RoomElement.REID.Claw:
                             //Debug.Log("选中爪子");
-                            //Claw Wall
-                            objectChoice = wallElements[2];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+							objectChoice = wallElements [2];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("WallElements").transform);
+							roomElement.GetComponent<Claw> ().RoomElementState = roomElementState;
                             break;
-                        case 6:
+						case (int)RoomElement.REID.Picture1:
                             //Debug.Log("选中图一");
-                            //Picture1 Wall
-                            objectChoice = wallElements[3];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                            roomElement.transform.localPosition = position;
-                           // RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+							objectChoice = wallElements [3];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("WallElements").transform);
+							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Picture1> ().RoomElementState = roomElementState;
                             break;
-                        case 7:
+						case (int)RoomElement.REID.Picture2:
                             //Debug.Log("选中图二");
-                            //Picture2 Wall
-                            objectChoice = wallElements[4];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("WallElements").transform);
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>());
+							objectChoice = wallElements [4];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("WallElements").transform);
+							roomElement.GetComponent<Picture2> ().RoomElementState = roomElementState;
                             break;
-                        case 8:
+						case (int)RoomElement.REID.Skull:
                             //Debug.Log("选中骷髅");
-                            //Skull Ground
-                            objectChoice = groundElements[1];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
-                            roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							objectChoice = groundElements [1];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Skull> ().RoomElementState = roomElementState;
                             break;
-                        case 9:
+						case (int)RoomElement.REID.SkullLight:
                             //Debug.Log("选中骷髅灯");
-                            //SkullLight Ground
-                            objectChoice = groundElements[2];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
-                            roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							objectChoice = groundElements [2];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<SkullLight> ().RoomElementState = roomElementState;
                             break;
-                        case 10:
+						case (int)RoomElement.REID.Bottle1:
                             //Debug.Log("选中瓶子一");
-                            //Bottle1 Ground
-                            objectChoice = groundElements[5];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
-                            roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							objectChoice = groundElements [5];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Bottle1> ().RoomElementState = roomElementState;
                             break;
-                        case 11:
+						case (int)RoomElement.REID.Bottle2:
                             //Debug.Log("选中瓶子二");
-                            //Bottle2 Ground
-                            objectChoice = groundElements[6];
-                            roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
-                            roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
-                            roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							objectChoice = groundElements [6];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("GroundElements").transform);
+							//roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Bottle2> ().RoomElementState = roomElementState;
                             break;
-                        case 12:
+						case (int)RoomElement.REID.Gone:
                             //Debug.Log("骨头");
-                            //Gone Ground
                             objectChoice = groundElements[4];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
                             roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							roomElement.GetComponent<Bone> ().RoomElementState = roomElementState;
                             break;
-                        case 13:
+						case (int)RoomElement.REID.Rod:
                             //Debug.Log("选中杆子");
-                            //Rod Ground
                             objectChoice = groundElements[7];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
                             roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							roomElement.GetComponent<Rod> ().RoomElementState = roomElementState;
                             break;
-                        case 14:
+						case (int)RoomElement.REID.Stone:
                             //Debug.Log("选中石头");
-                            //Stone Ground
                             objectChoice = groundElements[8];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
                             roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							roomElement.GetComponent<Stone> ().RoomElementState = roomElementState;
                             break;
-                        case 15:
+						case (int)RoomElement.REID.Trap:
                             //Debug.Log("选中陷阱");
-                            //Trap Ground
                             objectChoice = groundElements[9];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
                             roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							roomElement.GetComponent<Trap> ().RoomElementState = roomElementState;
                             break;
-                        case 16:
+						case (int)RoomElement.REID.Stair:
                             //Debug.Log("选中楼梯");
-                            //Stair Ground
                             objectChoice =stair[0];
                             roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
                             roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
                             roomElement.transform.localPosition = position;
-                            //RoomElementManager.Instance.RoomElementList.Add(roomElement.GetComponent<RoomElement>()); 
+							roomElement.GetComponent<Stair> ().RoomElementState = roomElementState;
                             break;
-						case 17:
+						case (int)RoomElement.REID.Altar1:
 							//Debug.Log("选中祭坛1");
-							//Altar1
 							objectChoice =altar[0];
 							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
 							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
 							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Altar1> ().RoomElementState = roomElementState;
 							break;
-						case 18:
-							//Debug.Log("选中祭坛1");
-							//Altar1
+						case (int)RoomElement.REID.Altar2:
+							//Debug.Log("选中祭坛2");
 							objectChoice =altar[1];
 							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
 							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
 							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Altar2> ().RoomElementState = roomElementState;
 							break;
-						case 19:
+						case (int)RoomElement.REID.Shop:
 							//Debug.Log("选中商店");
-							//Shop
 							objectChoice =shop[0];
 							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
 							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
 							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Shop> ().RoomElementState = roomElementState;
 							break;
-
-						case 20:
+						case (int)RoomElement.REID.Plate:
 							//Debug.Log("选中牌子");
-							//Plate
 							objectChoice =plate[0];
 							roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
 							roomElement.transform.SetParent(GameObject.Find("GroundElements").transform);
 							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Plate> ().RoomElementState = roomElementState;
 							break;
-
-						case 21:
-							//金币
+						case (int)RoomElement.REID.Coin:
+							//Debug.Log("选中金币");
 							break;
-
-						case 22:
-							//机关开关
+						case (int)RoomElement.REID.Handle:
+							//Debug.Log("选中机关开关");
 							objectChoice = handle [0];
 							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
 							roomElement.transform.SetParent (GameObject.Find ("GroundElements").transform);
 							roomElement.transform.localPosition = position;
+							roomElement.GetComponent<Handle> ().RoomElementState = roomElementState;
 							break;
 
-                    }
-                 
+                    } 
+
                 }
             }
         }
         //Notify("EnterRoom;Know");
     }
+
 
     //加载小怪 房间号 int数组roomX[],roomY[],id[],posiX[],posiY[],posiZ[]
     public void LoadEnemy(int x, int y, int[] id, float[] posiX, float[] posiY, float[] posiZ)
