@@ -25,10 +25,10 @@ public class PTrap_Frozen : MonoBehaviour {
             //Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
             //GameObject pfb1 = Instantiate(pfb);
             //pfb1.transform.position = s;
-          
 
 
-            Destroy(this.gameObject);
+
+            GetComponent<RoomElement>().Destroy();
         }
 
     }

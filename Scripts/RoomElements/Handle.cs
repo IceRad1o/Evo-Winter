@@ -11,6 +11,7 @@ public class Handle : RoomElement {
 	{
 		animator = this.GetComponent<Animator> ();
 		isOn = false;
+		if (RoomElementState == 1) animator.SetTrigger("switchOn");
 	}
 	public override void Awake()
 	{

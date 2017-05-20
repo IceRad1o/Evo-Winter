@@ -27,6 +27,7 @@ public class MyHook : MonoBehaviour {
             {
                 isWork = true;
                 tar = other.gameObject;
+                other.GetComponent<RoomElement>().Hp--;
                 offset = tar.transform.position - this.transform.position;
             }
         }

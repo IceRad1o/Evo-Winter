@@ -13,7 +13,7 @@ public class Scratch : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Enter    :" + other.tag);
-        if (other.tag == attackTag)
+       // if (AutoTag.IsEnemyTag("Boss",other.tag))
         {
             
             UtilManager.Instance.CreateEffcet(prefabInstanceHit, other.gameObject);

@@ -37,6 +37,7 @@ public class Player :ExSubject {
         ProfileData data = ProfileManager.Instance.Data;
         character.Hp = (int)data.Hp;
         character.Atk = (int)data.Atk;
+		character.Spd = data.Spd;
         //TODO character.Spd=(int)data.Att
         character.Rng = (int)data.Rng;
         character.Mov = (int)data.Mov;

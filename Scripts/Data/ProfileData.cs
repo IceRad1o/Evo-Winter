@@ -122,7 +122,7 @@ public class ProfileData
         set
         {
             atk = value;
-            PlayerPrefs.SetFloat("atk", atk);
+			PlayerPrefs.SetInt("atk", atk);
         }
     }
     public int Spd
@@ -138,21 +138,21 @@ public class ProfileData
     {
         get { return mov; }
         set { mov = value;
-        PlayerPrefs.SetFloat("mov", mov);
+        PlayerPrefs.SetInt("mov", mov);
         }
     }
     public int Rng
     {
         get { return rng; }
         set { rng = value;
-        PlayerPrefs.SetFloat("rng", rng);
+			PlayerPrefs.SetInt("rng", rng);
         }
     }
     public int Fhr
     {
         get { return fhr; }
         set { fhr = value;
-        PlayerPrefs.SetFloat("fhr", fhr);
+			PlayerPrefs.SetInt("fhr", fhr);
         }
     }
     public int Luk
@@ -161,7 +161,7 @@ public class ProfileData
         set
         {
             luk = value;
-            PlayerPrefs.SetFloat("luk", luk);
+			PlayerPrefs.SetInt("luk", luk);
         }
     }
     public int Race
@@ -280,6 +280,9 @@ public class ProfileData
         sight = PlayerPrefs.GetInt("sight");
         curPosition = PlayerPrefsX.GetVector3("curPosition");
         buffsID = PlayerPrefsX.GetStringArray("buffsID");
+
+
+		roomSize = PlayerPrefsX.GetIntArray ("roomSize");
 
         roomElementID = PlayerPrefsX.GetIntArray("roomElementID");
         roomElementState = PlayerPrefsX.GetIntArray("roomElementState");

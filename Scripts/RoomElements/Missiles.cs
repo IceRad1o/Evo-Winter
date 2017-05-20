@@ -79,6 +79,9 @@ public class Missiles : RoomElement{
                 case 7://Z轴下斜线
                     StartCoroutine(FlyPath7());
                     break;
+				case 8://追踪箭
+					//StartCoroutine(FlyPath8());
+					break;
             }
         }
     }
@@ -401,6 +404,11 @@ public class Missiles : RoomElement{
         }
     }
 		
+
+
+
+
+
 	void Start () {
         if (isFly) Fly();
 	}

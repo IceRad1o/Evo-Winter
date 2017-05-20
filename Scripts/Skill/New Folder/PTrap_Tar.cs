@@ -10,6 +10,7 @@ public class PTrap_Tar : MonoBehaviour {
         {
             var pfb= UtilManager.Instance.CreateEffcet("Skill/Skill4",this.transform.position);
             pfb.GetComponent<FogChangeAttribute>().triggerTag = "Monster";
+            GetComponent<RoomElement>().Destroy();
             
         }
 

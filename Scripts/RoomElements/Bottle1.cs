@@ -18,6 +18,7 @@ public class Bottle1 : RoomElement
     {
         animator = GetComponent<Animator>();
         isHit = false;
+		if(RoomElementState==1) animator.SetTrigger("Hit");
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
 
@@ -53,7 +54,7 @@ public class Bottle1 : RoomElement
 		Notify("OpenBottle");
 
 		HitBottle();
-		if(Random.Range (0,10) <2)
+		if(Random.Range (0,10) < 5)
 		{
 			CreateCoin ();
 		}
@@ -69,6 +70,6 @@ public class Bottle1 : RoomElement
 
 	void CreateCoin()
 	{
-		//GameObject myCoin = Instantiate(coin, this.transform.position, Quaternion.identity) as GameObject;
+		CoinManager.Instance.CreateCoin (1, this.transform.position);
 	}
 }
