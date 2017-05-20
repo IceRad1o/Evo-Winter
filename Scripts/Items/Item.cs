@@ -47,6 +47,20 @@ public class Item : RoomElement {
         set { this.value = value; }
     }
 
+    private int itemBuffID_Advance = 0;
+    public int ItemBuffID_Advance
+    {
+        get { return itemBuffID_Advance; }
+        set { itemBuffID_Advance = value; }
+    }
+
+
+    private int itemSkillID_Advance = 0;
+    public int ItemSkillID_Advance
+    {
+        get { return itemSkillID_Advance; }
+        set { itemSkillID_Advance = value; }
+    }
 
 
     /*@GetID
@@ -71,6 +85,8 @@ public class Item : RoomElement {
         RoomElementID = ID;
         ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
+        ItemBuffID_Advance = ItemManager.Instance.itemsTable.GetItemBuffID_Advance(ID);
+        itemSkillID_Advance = ItemManager.Instance.itemsTable.GetItemSkillID_Advanced(ID);
         this.AddObserver(ItemManager.Instance);
         this.AddObserver(UIManager.Instance.ItemObserver);
     }

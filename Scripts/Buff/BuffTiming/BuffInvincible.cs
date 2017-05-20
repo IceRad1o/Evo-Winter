@@ -15,6 +15,7 @@ public class BuffInvincible : BuffTiming{
     {
         int[] part = { 2, 2, 3};
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
+        SpecialTag = spTag;
 
         BuffDuration = idPart[2];
 
@@ -24,18 +25,21 @@ public class BuffInvincible : BuffTiming{
     public override void Trigger()
     {
         Player.Instance.Character.IsInvincible = 1;
-
-        GameObject pfb = Resources.Load("Buffs/Invincible") as GameObject;
-        Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
-        prefabInstance = Instantiate(pfb);
-        prefabInstance.transform.position = s;
-        prefabInstance.transform.parent = this.gameObject.transform;
+        if (SpecialTag!="NoEffect")
+            prefabInstance = UtilManager.Instance.CreateEffcet("Buffs/Invincible", this.gameObject);
+        //GameObject pfb = Resources.Load("Buffs/Invincible") as GameObject;
+        //Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+        //prefabInstance = Instantiate(pfb);
+        
+        //prefabInstance.transform.position = s;
+        //prefabInstance.transform.parent = this.gameObject.transform;
     }
 
     public override void DestroyBuff()
     {
         Player.Instance.Character.IsInvincible = 0;
-        Destroy(prefabInstance);
+        if (SpecialTag!="NoEffect")
+            Destroy(prefabInstance);
         base.DestroyBuff();
     }
 
