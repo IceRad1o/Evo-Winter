@@ -13,6 +13,7 @@ public class CoinManager : ExUnitySingleton<CoinManager> {
         if (wealth >= price)
         {
             wealth -= price;
+            ItemManager.Instance.SendMsg("Coin_Changed;" + wealth);
             return true;
         }
 
