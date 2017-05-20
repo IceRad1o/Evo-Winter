@@ -4,15 +4,20 @@ using System.Collections;
 public class BeatDown : MonoBehaviour {
 
 
-    public int levelX;
+    public int levelX=2;
     public int levelY=4;
     public float flySpeedX = 0.15f;
     public float flySpeedY = 2f;
     public float g = 1.2f;
  
-    public int direction;
+    public int direction=1;
 
-
+    public void Init(int direction=1,int levelX=2,int levelY=4)
+    {
+        this.direction = direction;
+        this.levelX = levelX;
+        this.levelY = levelY;
+    }
 
     void Start()
     {
@@ -33,26 +38,32 @@ public class BeatDown : MonoBehaviour {
     }
     IEnumerator Fly()
     {
-   
 
+        GroundObject go = GetComponent<GroundObject>();
+        if (go)
+            go.enabled = false;
         //时间
         float t = 0;
         float posY = this.transform.position.y;
+        float posZ = this.transform.position.z;
         //Debug.Log("enter");
         while (true)
         {
             if (flySpeedY > 0.5f * g * t || t == 0)
             {
-          
+
                 this.transform.position = new Vector3(this.transform.position.x + direction * flySpeedX,
                   posY + flySpeedY * t - 0.5f * g * t * t,
-                   this.transform.position.z);
+                   posZ);
+                //this.transform.position = new Vector3(this.transform.position.x, posY, transform.position.z) + new Vector3(direction * flySpeedX, flySpeedY * t - 0.5f * g * t * t);
                 t += 0.1f;
           
             }
             else
             {
                 Destroy(this);
+                if (go)
+                    go.enabled = true;
                 break;
             }
             yield return null;

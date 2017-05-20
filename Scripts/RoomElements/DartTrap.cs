@@ -18,6 +18,7 @@ public class DartTrap : MonoBehaviour {
             Vector3 pos = other.GetComponent<Character>().transform.position;
             GameObject d=Instantiate(dart, new Vector3(-dir*14, pos.y,pos.z ), Quaternion.identity) as GameObject;
             d.GetComponent<Missiles>().direction = dir;
+            d.GetComponent<RoomElement>().Master = this.GetComponent<RoomElement>().Master;
             Destroy(this.gameObject);
         }
 

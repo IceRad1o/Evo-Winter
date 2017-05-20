@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BuffFrozen : BuffTiming
 {
-    GameObject prefabInstance;
+     GameObject prefabInstance;
 
     /// <summary>
     /// ××（F）××(E)×××(B)01(02)11

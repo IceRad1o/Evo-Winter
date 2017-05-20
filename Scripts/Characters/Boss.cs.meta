@@ -1,10 +1,21 @@
 fileFormatVersion: 2
 guid: 2e24b3a8a533b3f44b162ec31672725c
-timeCreated: 1489130668
+timeCreated: 1495009047
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bloodBarPrefab: {fileID: 1000014287109690, guid: 7ee459eb06fc9b3458e3accec24b06e1,
+      type: 2}
+  - frozenIce: {fileID: 1000010797432668, guid: 649d034836eea864a9c135c983e37f00,
+      type: 2}
+  - burningFire: {instanceID: 0}
+  - attackingSound: {instanceID: 0}
+  - attackingSound2: {instanceID: 0}
+  - attackingSound3: {instanceID: 0}
+  - movingSound: {instanceID: 0}
+  - dyingSound: {instanceID: 0}
+  - damagingSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -141,6 +141,8 @@ public class RoomElement : ExSubject
     {
         for(int i=0;i<Servants.Count;i++)
         {
+            if (Servants[i] == null)
+                continue;
             RoomElement re = Servants[i].GetComponent<RoomElement>();
             if (re.isDieWithMaster)
                 re.Die();

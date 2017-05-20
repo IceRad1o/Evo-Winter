@@ -51,15 +51,21 @@ public class HurtByContract : MonoBehaviour
     {
         if(isWeapon)
             master = this.GetComponentInParent<Character>();
+        if (master == null)
+        {
+            if (GetComponent<RoomElement>()!=null)
+                if (GetComponent<RoomElement>().Master!=null)
+                   master = GetComponent<RoomElement>().Master.GetComponent<Character>();
+        } 
         if(autoTag&&master!=null)
         {
-            destTags = AutoTag.Instance.GetTargetTags(master.tag);
+            destTags = AutoTag.GetTargetTags(master.tag);
             
         }
     }
 
 
-    public void Init(float damage,int beatBackLevel,int beatDownLevelX,int beatDownLevelY,Character ch)
+    public void Init(float damage,int beatBackLevel=0,int beatDownLevelX=0,int beatDownLevelY=0,Character ch=null)
     {
         this.damage = damage;
         this.beatBackLevel=beatBackLevel;
@@ -90,9 +96,21 @@ public class HurtByContract : MonoBehaviour
                     isCh = true;
                     if (targetCh.IsAlive < 0 || targetCh.IsInvincible == 1)
                         return;
+                    if (targetCh.IsFrozen == 1)
+                    {
+                        beatDownLevelX = 1;
+                        beatDownLevelY = 2;
+                        targetCh.IsFrozen = 0;
+                        //Debug.Log("bX:" + beatDownLevelX);
+                    }
                     //强制朝向受击方向
-                    if (isWeapon&&targetCh!=null&&master!=null)
+                    //Debug.Log(master.Direction);
+                    if (isWeapon && targetCh != null && master != null)
+                    {
                         targetCh.Direction = -master.Direction;
+                       // Debug.Log(targetCh.Direction);
+                    }
+                    //Debug.Log(targetCh.Direction);
                    // Debug.Log("Health:" + ch.Health);
                 }
                 else
@@ -101,6 +119,9 @@ public class HurtByContract : MonoBehaviour
                 //减血
                 target.Hp -= damage;
                 target.Trriger();
+
+        
+
                 //击倒
                 if (beatDownLevelX > 0||beatDownLevelY>0)
                 {
@@ -108,18 +129,20 @@ public class HurtByContract : MonoBehaviour
                         break;
                     if(isCh)
                          targetCh.Fall();
-                    BeatDown b = other.gameObject.AddComponent<BeatDown>();
-                    b.levelX = beatDownLevelX;
-                    b.levelY = beatDownLevelY;
-                    b.direction = other.transform.position.x >= this.transform.position.x ? 1 : -1;
+                    int direction = other.transform.position.x >= this.transform.position.x ? 1 : -1;
+                    if (isWeapon)
+                        direction = master.FaceDirection;
+                    other.gameObject.AddComponent<BeatDown>().Init(direction,beatDownLevelX,beatDownLevelY);
+
                     //ch2.ActionStateMachine.Push(7);
                 }
                 //击退
                 else if (beatBackLevel > 0)
                 {
-                    BeatBack b = other.gameObject.AddComponent<BeatBack>();
-                    b.level = beatBackLevel;
-                    b.direction = other.transform.position.x >= this.transform.position.x ? 1 : -1;
+                    int direction = other.transform.position.x >= this.transform.position.x ? 1 : -1;
+                    if (isWeapon)
+                        direction = master.FaceDirection;
+                    other.gameObject.AddComponent<BeatBack>().Init(direction, beatBackLevel);
                 }
     
                 //产生受击特效
@@ -130,6 +153,8 @@ public class HurtByContract : MonoBehaviour
                     else
                         Instantiate(hitPrefab, this.transform.Find("WeaponPoint").position, Quaternion.identity);
                 }
+
+                //镜头抖动
                 CameraShake.Instance.Shake(0.1f,1,0);
         
 			
@@ -140,7 +165,14 @@ public class HurtByContract : MonoBehaviour
                 //销毁
                 if (isDestory != 0)
                 {
-                    this.GetComponent<RoomElement>().Destroy();
+                    if(this.GetComponent<RoomElement>())
+                         this.GetComponent<RoomElement>().Destroy();
+                    else
+                    {
+                        Debug.LogWarning(this.tag + " is not roomElement!");
+                        Destroy(gameObject);
+                    }
+                      
                 }
             }
         }

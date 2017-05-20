@@ -36,6 +36,7 @@ public class Puppet : ExSubject {
             if (str[1] == "L")
                 this.GetComponent<Character>().UseRaceSkill();
         }
+        //if(str[0]=="AttackDamageChanged")
 
 
     }

@@ -5,7 +5,7 @@ using System.Collections;
 /// </summary>
 public class AutoTag : ExUnitySingleton<AutoTag>{
 
-    public string [] GetTargetTags(string tag)
+    static public string [] GetTargetTags(string tag)
     {
         string[] destTags = null ;
         if (tag == "Player")

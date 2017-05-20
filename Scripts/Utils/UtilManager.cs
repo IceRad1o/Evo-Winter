@@ -185,6 +185,12 @@ public class UtilManager : UnitySingleton<UtilManager>
 
     }
 
+    static public GameObject Instantiate(GameObject prefab,Vector3 position)
+    {
+        return Instantiate(prefab, position, Quaternion.identity) as GameObject;
+    }
+
+
     /// <summary>
     /// 将游戏中的坐标转换成校正后的坐标,尤其对非地面物体,空中飞行物体有效
     /// </summary>
