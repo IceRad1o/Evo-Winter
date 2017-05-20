@@ -133,5 +133,10 @@ public class BuffAttack : Buff {
         Player.Instance.Character.AddObserver(this);
     }
 
-    protected virtual void Trigger() { }
+    public override void DestroyBuff()
+    {
+        Player.Instance.Character.RemoveObserver(this);
+        base.DestroyBuff();
+    }
+    protected virtual void Trigger() {    }
 }
