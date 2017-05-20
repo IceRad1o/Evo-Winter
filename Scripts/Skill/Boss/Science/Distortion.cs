@@ -5,6 +5,8 @@ using System.Collections;
 /// </summary>
 public class Distortion : Skill {
 
+    public GameObject[] particles;
+
     public override void Trigger()
     {
  
@@ -15,6 +17,11 @@ public class Distortion : Skill {
         this.GetComponent<CreateChemistry>().CdBuff = 0.67f;
         this.GetComponent<CreateScratch>().CdBuff = 0.67f;
         this.GetComponent<CreateLaser>().CdBuff = 0.67f;
+        for (int i = 0; i < particles.Length; i++)
+        {
+            particles[i].SetActive(true);
+        }
+
     }
 
 

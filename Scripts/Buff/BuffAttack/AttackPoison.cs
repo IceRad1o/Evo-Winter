@@ -17,7 +17,6 @@ public class AttackPoison : BuffAttack
     protected override void Create(int ID)
     {
         base.Create(ID);
-        Probability = 10;
         GameObject []weapons=this.gameObject.GetComponent<CharacterSkin>().weapons;
         for (int i = 0; i < weapons.Length; i++)
         {

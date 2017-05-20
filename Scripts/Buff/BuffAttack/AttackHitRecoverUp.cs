@@ -16,7 +16,6 @@ public class AttackHitRecoverUp : BuffAttack
     protected override void Create(int ID)
     {
         base.Create(ID);
-        Probability = 10;
     }
 
     // Use this for initialization

@@ -5,8 +5,13 @@ using System.Collections;
 /// </summary>
 public class Buff : ExSubject
 {
+    public GameObject attackPfb;
+    public GameObject statePfb;
+
     protected GameObject prefabInstance;
     public GameObject effectPrefeb;
+
+    public string[] attackTag={"Monsters"};
 
     protected System.DateTime oldTime=System.DateTime.Now;
 
@@ -78,4 +83,14 @@ public class Buff : ExSubject
     }
 
 	
+    virtual public bool judgeTag(string tag)
+    {
+        for (int i = 0; i < attackTag.Length; i++)
+            if (tag == attackTag[i])
+                return true;
+
+        return false;
+    }
+
+
 }
