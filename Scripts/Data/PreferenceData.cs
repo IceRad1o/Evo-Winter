@@ -36,9 +36,22 @@ public class PreferenceData  {
         }
     }
 
+    private int[] advancedItem;
+
+    public int[] AdvancedItem
+    {
+        get { return advancedItem; }
+        set {
+            advancedItem = value;
+            PlayerPrefsX.SetIntArray("advancedItem", advancedItem);
+            }
+    }
+   
+
     public void Init(){
         backGroundMusicVolume = PlayerPrefs.GetFloat("backGroundMusicVolume",1.0f);
         soundEffectVolume=PlayerPrefs.GetFloat("soundEffectVolume",1.0f);
         isVolumeOn = PlayerPrefs.GetInt("isVolumeOn", 1);
+        advancedItem = PlayerPrefsX.GetIntArray("advancedItem", 0, 100);
     }
 }

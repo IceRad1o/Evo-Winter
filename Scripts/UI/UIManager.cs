@@ -253,6 +253,19 @@ public class UIManager : ExUnitySingleton<UIManager>
             Phote.Instance.SetHardGameMode(false);
         }
 
+        if(str[0]=="Get_Coin")
+        {
+            //播放动画x,y,z
+        }
+
+        if (str[0] == "Coin_Changed")
+        {
+            GoldDisplayer.Instance.SetGlod(int.Parse(str[1]));
+        }
+
+
+
+
     }
 
 
