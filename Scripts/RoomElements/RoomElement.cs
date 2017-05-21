@@ -250,6 +250,8 @@ public class RoomElement : ExSubject
 
     public void EnableBloodBar(bool isEnable)
     {
+        if (!bloodBarPrefab)
+            return;
         if(isEnable)
         {
             if (bloodBarInstance)

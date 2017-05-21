@@ -13,6 +13,7 @@ public class Boss :Enemy{
         base.Awake();
         this.tag = "Boss";
         this.IsSuperArmor = 1;
+        this.Sight = 5;
         this.AddObserver(BossHealthBar.Instance);
         Notify("BossAppear;"+(RoomElementID-2050));
         //EnemyManager.Instance.EnemyList.Add(this);

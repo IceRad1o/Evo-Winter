@@ -62,6 +62,8 @@ public class Bottle1 : RoomElement
 
     void HitBottle()
     {
+        if (animator == null)
+            return;
         SoundManager.Instance.PlaySoundEffect(hit);
         animator.SetTrigger("Hit");
         isHit = true;

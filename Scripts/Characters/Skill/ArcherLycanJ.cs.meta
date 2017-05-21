@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cbafbe7c2d76f014fb740f860f057e7d
+timeCreated: 1495340037
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ArcherLycanParticle: {fileID: 1000010529153960, guid: 6bf3f8983bde2b1448d0a75e54ae72a6,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
