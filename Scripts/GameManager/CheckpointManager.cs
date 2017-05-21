@@ -299,30 +299,38 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 
 
     //载入关卡
-	public void LoadCheckpoint(int[] r, int[] isPass, int []rms)
+	public void LoadCheckpoint(int[] r, int[] isPass, int[] rms)
     {
         roomList.Clear();
         //CheckpointNumber++;
+		if (rows < 6 && columns < 6) 
+		{
+			rows++;
+			columns++;
+		}
         roomArray = new int[rows, columns];
- 
         //载入房间布局
+
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
                 roomArray[i,j]=r[i*columns+j];
+
             }
         }
+
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {            
-                if (roomArray[i,j]>0)
+                if (roomArray[i,j]!=0)
                 {
                     int surroundRoomNumber = GetSurroundRoom(i, j);
                     //int type = Random.Range(1, 6);
 					roomList.Add(new Room
 						(r[i * columns + j], i, j, surroundRoom, isPass[i * columns + j],rms[i * columns + j]));
+					
                 }
 
             }

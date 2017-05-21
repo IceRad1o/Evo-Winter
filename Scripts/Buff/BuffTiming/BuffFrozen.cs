@@ -23,19 +23,11 @@ public class BuffFrozen : BuffTiming
 
     public override void Trigger()
     {
-        Player.Instance.Character.CanMove = 0;
-
-        GameObject pfb = Resources.Load("Buffs/Frozen") as GameObject;
-        Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
-        prefabInstance = Instantiate(pfb);
-        prefabInstance.transform.position = s;
-        prefabInstance.transform.parent = this.gameObject.transform;
+        Player.Instance.Character.IsFrozen = 1;
     }
 
     public override void DestroyBuff()
     {
-        Player.Instance.Character.CanMove = 1;
-        Destroy(prefabInstance);
         base.DestroyBuff();
     }
 

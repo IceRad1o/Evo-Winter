@@ -20,7 +20,6 @@ public class AttackSpeedDown : BuffAttack {
     protected override void Create(int ID)
     {
         base.Create(ID);
-        Probability = 10;
         
         //添加特效
         GameObject pfb = Resources.Load("Buffs/Attack/AttackSpeedDown") as GameObject;

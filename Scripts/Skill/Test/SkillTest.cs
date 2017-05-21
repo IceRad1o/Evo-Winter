@@ -13,10 +13,10 @@ public class SkillTest : MonoBehaviour {
     IEnumerator Test()
     {
         yield return new WaitForSeconds(1.0f);
-        //this.gameObject.GetComponent<SkillManager>().CreateSkill(4);
-        //this.gameObject.GetComponent<SkillManager>().CreateSkill(3);
-        this.gameObject.GetComponent<Character>().Atk = 9;
-        UtilManager.Instance.CreateEffcet(pfb);
+        //this.gameObject.GetComponent<Character>().Atk = 9;
+        //UtilManager.Instance.CreateEffcet(pfb);
+        this.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(704100);
+        CoinManager.Instance.CreateCoin(1);
     }
 	
 }

@@ -16,6 +16,8 @@ public class SkullLight : RoomElement {
     void Start()
     {
         animator = GetComponent<Animator>();
+		if (RoomElementState == 1) animator.SetTrigger("destory");
+		if (RoomElementState == 2) animator.SetTrigger("destory2");
     }
 
 
@@ -54,26 +56,38 @@ public class SkullLight : RoomElement {
 			return;
 		base.Trriger();
 		HitScull (coll);
-		RoomElementState = 1;
+		//RoomElementState = 1;
 	}
 
 	//动画
 	private void HitScull(Collision collision)
 	{
 		//Debug.Log ("HitSkull_State:"+RoomElementState+", _coll:"+collision);
-		if (RoomElementState == 1)
+		if (RoomElementState > 0)
 			return;
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			if (Player.Instance.Character.FaceDirection < 0) animator.SetTrigger("destory");
-			else animator.SetTrigger("destory2");
+			if (Player.Instance.Character.FaceDirection < 0) {
+				animator.SetTrigger ("destory");
+				RoomElementState = 1;
+			} 
+			else 
+			{
+				animator.SetTrigger ("destory2");
+				RoomElementState = 2;
+			}
 		}
 		if (collision.gameObject.CompareTag("Missile")) 
 		{
-			if(collision.gameObject.transform.position.x - this.transform.position.x>0)
-				animator.SetTrigger("destory");
-			else
-				animator.SetTrigger("destory2");
+			if (collision.gameObject.transform.position.x - this.transform.position.x > 0) {
+				animator.SetTrigger ("destory");
+				RoomElementState = 1;
+			} 
+			else 
+			{
+				animator.SetTrigger ("destory2");
+				RoomElementState = 2;
+			}
 		}
 
 	}
