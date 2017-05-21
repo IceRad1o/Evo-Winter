@@ -43,7 +43,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     [HideInInspector]
     public List<InitiativeItem> listInitiativeItem = new List<InitiativeItem>();
 
-    //
+    //用于储存道具是否进阶
     public int[] advancedItem = new int[50];
 
     //创建ItemsTable的实例
@@ -392,6 +392,10 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         Player.Instance.Character.AddObserver(this);
         this.AddObserver(UIManager.Instance.ItemObserver);
         RoomManager.Instance.AddObserver(this);
+
+
+        advancedItem = PreferenceManager.Instance.Data.AdvancedItem;
+
         
     }
 

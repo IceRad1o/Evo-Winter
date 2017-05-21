@@ -13,6 +13,7 @@ public class CoinManager : ExUnitySingleton<CoinManager> {
         if (wealth >= price)
         {
             wealth -= price;
+            ItemManager.Instance.SendMsg("Coin_Changed;" + wealth);
             return true;
         }
 
@@ -26,7 +27,8 @@ public class CoinManager : ExUnitySingleton<CoinManager> {
 
     public void CreateCoin(int number, Vector3 pos=default(Vector3))
     {
-        UtilManager.Instance.CreateEffcet("Items/Coin", pos);    
+        UtilManager.Instance.CreateEffcet("Items/Coin", pos);
+        
     }
 
 

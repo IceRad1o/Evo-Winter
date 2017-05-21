@@ -40,5 +40,9 @@ public class PreferenceManager : ExUnitySingleton<PreferenceManager> {
             data.SoundEffectVolume = float.Parse(str[1]);
         if (str[0] == "IsVolumeOnChanged")
             data.IsVolumeOn = int.Parse(str[1]);
+        if (str[0] == "ItemAdvance")
+            data.AdvancedItem[int.Parse(str[1])] = 1;
+
+
     }
 }
