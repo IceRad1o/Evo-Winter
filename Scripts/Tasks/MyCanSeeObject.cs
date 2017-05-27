@@ -46,6 +46,7 @@ public class MyCanSeeObject : Conditional
                     storeTarget.Value = list[i].gameObject;
                     storeDistance.Value = distance;
                     storeDistanceV3.Value = distanceV3;
+                    GetComponent<RoomElement>().EnableBloodBar(true);
                     return TaskStatus.Success;
                 }
             }

@@ -39,6 +39,7 @@ public class FindPlayer : Conditional
             storeTarget.Value = Player.Instance.gameObject;
             storeDistance.Value = distance;
             storeDistanceV3.Value = distanceV3;
+            GetComponent<RoomElement>().EnableBloodBar(true);
             return TaskStatus.Success;
         }
 

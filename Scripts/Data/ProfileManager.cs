@@ -128,6 +128,11 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>
         for (int i = 0; i < RoomElementManager.Instance.RoomElementList.Count; i++)
         {
             //Debug.Log("加载:"+RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+            if (RoomElementManager.Instance.RoomElementList[i].transform==null)
+            {
+                Debug.Log("MissingReferenceException: The object has been destroyed but you are still trying to access it.");
+                continue;
+            }
             tempREID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
             tempREState.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementState);
             tempREPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
