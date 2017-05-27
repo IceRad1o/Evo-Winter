@@ -55,12 +55,6 @@ public class ImmediatelyItem : Item{
         }
         else
         {
-            //发送消息，使用道具，并产生Buff
-            if (ItemBuffID != 0)
-                ItemManager.Instance.SendMsg("UseItem_Buff_ID;" + ItemBuffID);
-            if (itemSkillID != 0)
-                ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + itemSkillID);
-
             //判断是否已经进阶
             if (ItemManager.Instance.advancedItem[(ItemID - 1000)] == 1)
             {
@@ -69,7 +63,18 @@ public class ImmediatelyItem : Item{
                     ItemManager.Instance.SendMsg("UseItem_Buff_ID;" + ItemBuffID_Advance);
                 if (ItemSkillID_Advance != 0)
                     ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + ItemSkillID_Advance);
+
+                Debug.Log("advance trigger");
+
             }
+
+            //发送消息，使用道具，并产生Buff
+            if (ItemBuffID != 0)
+                ItemManager.Instance.SendMsg("UseItem_Buff_ID;" + ItemBuffID);
+            if (itemSkillID != 0)
+                ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + itemSkillID);
+
+            
 
         }
         ItemManager.Instance.listImmediatelyItem.Remove(this);
