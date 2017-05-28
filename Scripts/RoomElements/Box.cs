@@ -51,11 +51,22 @@ public class Box : RoomElement
 		//Debug.Log ("BottleTagState:"+this.RoomElementState);
 		if (RoomElementState == 1)
 			return;
-		if (collision.gameObject.CompareTag("Player"))
+		else if (collision.gameObject.CompareTag ("Player")) 
 		{
-			Player.Instance.Character.AddObserver(this);
-			RoomManager.Instance.Notify("EnterBox");
-		}
+			Debug.Log ("!!!!!!!PLAYER missile");
+			Player.Instance.Character.AddObserver (this);
+			RoomManager.Instance.Notify ("EnterBox");
+		} 
+		/*else if (collision.gameObject.CompareTag ("Missile"))
+		{
+			Debug.Log ("!!!!!!!missile");
+			if (collision.gameObject.GetComponent<Missiles> ().Master.CompareTag("Player")) 
+			{
+				Debug.Log ("!!!!!!!master open box");
+				Trriger ();
+			}
+		} */
+		else return;
     }
 	void OnCollisionExit(Collision collision)
 	{
