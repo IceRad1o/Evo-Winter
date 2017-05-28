@@ -4,11 +4,15 @@ using System.Collections.Generic;
 
 public class ArcherLycanJ : MonoBehaviour {
 
+	public Animator animator;
 	public float fearRangeX = 2.5f;
 	public float fearRangeY = 1f;
 	public GameObject ArcherLycanParticle;
 
-
+	void Start()
+	{
+		animator = GetComponent<Animator>();
+	}
 	void ArcherLycanJJ()
 	{
 		//生成粒子
@@ -33,8 +37,6 @@ public class ArcherLycanJ : MonoBehaviour {
 					Fear (i);
 				}
 			}
-
-
 		}
 	}
 
@@ -59,5 +61,16 @@ public class ArcherLycanJ : MonoBehaviour {
 		}
 
 		EnemyManager.Instance.EnemyList [i].CanMove = 1;
+	}
+
+	//疾跑
+	void Run()
+	{
+		animator.SetTrigger ("Run");
+	}
+
+	void RunEnd()
+	{
+		animator.SetTrigger ("RunEnd");
 	}
 }

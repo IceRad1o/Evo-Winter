@@ -52,7 +52,10 @@ public class RougeLycanJ : MonoBehaviour {
 			}
 
 			Vector3 enemyPos = EnemyManager.Instance.EnemyList [near].transform.position;
-			GameObject particle = Instantiate (RougeLaycanParticle [1], enemyPos, Quaternion.identity) as GameObject;
+			if (Mathf.Abs (enemyPos.x - this.transform.position.x) < Player.Instance.Character.RngValue * 3) 
+			{
+				GameObject particle = Instantiate (RougeLaycanParticle [1], enemyPos, Quaternion.identity) as GameObject;
+			}
 		}
 	}
 

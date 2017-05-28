@@ -242,6 +242,11 @@ public class ActionStateMachine {
             anim.speed = character.MovValue * 10;
             CurState = "Move";
         }
+		else if (asi.IsName("FastMove"))
+		{
+			anim.speed = character.MovValue * 10;
+			CurState = "Move";
+		}
         else if (asi.IsName("Idle") )
         {
             anim.speed = 1;
