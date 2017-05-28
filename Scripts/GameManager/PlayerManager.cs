@@ -15,7 +15,7 @@ public class PlayerManager : ExUnitySingleton<PlayerManager>{
     /// 是否一开始就初始化Player
     /// </summary>
     public bool isRandomInit=false;
-    public bool isChangePlayer = true;
+
     public bool initOnStart = true;
     public int initCharacterID = 0;
     /// <summary>

@@ -67,6 +67,8 @@ public class DisposableItem : Item{
         iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
         ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
         itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
+        ItemBuffID_Advance = ItemManager.Instance.itemsTable.GetItemBuffID_Advance(ID);
+        ItemSkillID_Advance = ItemManager.Instance.itemsTable.GetItemSkillID_Advanced(ID);
         ItemID = ID;
     }
     /// <summary>
