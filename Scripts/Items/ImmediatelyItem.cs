@@ -52,9 +52,13 @@ public class ImmediatelyItem : Item{
         {
             ItemManager.Instance.SendMsg("Item_Advance;" + (ItemID - 1500));
             ItemManager.Instance.advancedItem[(ItemID - 1500)] = 1;
+
+            Debug.Log("the Item is advanced  :" + (ItemID - 1500));
         }
         else
         {
+            //Debug.Log("Judge item if advanced " + (ItemID - 1000));
+
             //判断是否已经进阶
             if (ItemManager.Instance.advancedItem[(ItemID - 1000)] == 1)
             {
@@ -64,7 +68,7 @@ public class ImmediatelyItem : Item{
                 if (ItemSkillID_Advance != 0)
                     ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + ItemSkillID_Advance);
 
-                Debug.Log("advance trigger");
+                //Debug.Log("advance trigger");
 
             }
 

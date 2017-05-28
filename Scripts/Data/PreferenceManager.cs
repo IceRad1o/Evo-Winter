@@ -6,7 +6,7 @@ using System.Collections;
 public class PreferenceManager : ExUnitySingleton<PreferenceManager> {
 
     PreferenceData data;
-
+    int[] AdItem;
     public PreferenceData Data
     {
         get { return data; }
@@ -19,12 +19,12 @@ public class PreferenceManager : ExUnitySingleton<PreferenceManager> {
         data.Init();
     }
 
-
-    void Awake()
+    public override void Awake()
     {
+ 	     base.Awake();
         InitData();
-        
-    }
+        AdItem = data.AdvancedItem;
+    } 
 
     public override void OnNotify(string msg)
     {
@@ -41,8 +41,10 @@ public class PreferenceManager : ExUnitySingleton<PreferenceManager> {
         if (str[0] == "IsVolumeOnChanged")
             data.IsVolumeOn = int.Parse(str[1]);
         if (str[0] == "Item_Advance")
-            data.AdvancedItem[int.Parse(str[1])] = 1;
-
+        {
+            AdItem[int.Parse(str[1])] = 1;
+            data.AdvancedItem = AdItem;
+        }
 
     }
 }
