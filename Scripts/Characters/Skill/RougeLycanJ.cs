@@ -3,6 +3,12 @@ using System.Collections;
 
 public class RougeLycanJ : MonoBehaviour {
 	public GameObject[] RougeLaycanParticle;
+	public Animator animator;
+
+	void Start()
+	{
+		animator = GetComponent<Animator> ();
+	}
 	//狼人刺客攻击J
 	void RougeAttack(){
 		
@@ -19,15 +25,20 @@ public class RougeLycanJ : MonoBehaviour {
 					near = i;
 			}
 			//判断方向
-			if (EnemyManager.Instance.EnemyList [near].transform.position.x - this.transform.position.x > 0) direction = 1;
-			float space = direction * 0.4f;
-			this.transform.position = new Vector3 (EnemyManager.Instance.EnemyList [near].transform.position.x + space,
-				EnemyManager.Instance.EnemyList [near].transform.position.y,
-				EnemyManager.Instance.EnemyList [near].transform.position.z);
-			//设置人物朝向
-			Player.Instance.Character.CanMove = 1;
-			Player.Instance.Character.Direction = new Vector3 (direction * -1f, 0, 0);
-			Player.Instance.Character.CanMove = 0;
+			Vector3 enemyPos = EnemyManager.Instance.EnemyList [near].transform.position;
+			if (enemyPos.x - this.transform.position.x > 0) direction = 1;
+			//瞬移
+			if (Mathf.Abs (enemyPos.x - this.transform.position.x) < Player.Instance.Character.RngValue * 3.5f)
+			{
+				float space = direction * 0.4f;
+				this.transform.position = new Vector3 (EnemyManager.Instance.EnemyList [near].transform.position.x + space,
+					EnemyManager.Instance.EnemyList [near].transform.position.y,
+					EnemyManager.Instance.EnemyList [near].transform.position.z);
+				//设置人物朝向
+				Player.Instance.Character.CanMove = 1;
+				Player.Instance.Character.Direction = new Vector3 (direction * -1f, 0, 0);
+				Player.Instance.Character.CanMove = 0;
+			}
 
 		}
 	}
@@ -93,4 +104,9 @@ public class RougeLycanJ : MonoBehaviour {
         Player.Instance.Character.Direction = new Vector3(Player.Instance.Character.FaceDirection * -1f, 0, 0);
         Player.Instance.Character.CanMove = 0;
     }
+
+	void Run()
+	{
+		animator.SetTrigger ("FastMove");
+	}
 }
