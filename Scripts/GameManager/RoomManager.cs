@@ -64,6 +64,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
     public GameObject[] enemys;
 	//Boss
 	public GameObject[] boss;
+	//金币
+	public GameObject[] coin;
 
     //房间坐标位置
     public int roomX;
@@ -403,6 +405,8 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             //groundPosition.RemoveAt(randomIndex);
 			if(roomType >= (int)RmType.Normal||roomType == (int)RmType.Boss){
                 objectChoice = objectArray[Random.Range(0, objectArray.Length)];
+				//遗传算法
+				Genetic(objectChoice);
 
                 GameObject enemy = Instantiate(objectChoice, randomPosition, Quaternion.identity) as GameObject;
                 enemy.transform.SetParent(GameObject.Find("GroundElements").transform);
@@ -589,7 +593,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
         }
     }
 
+	//遗传算法
+	void Genetic(GameObject objectChoice)
+	{
 
+	}
 
 
 
@@ -642,7 +650,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 					} 
 					else if (id [count] >= 2100 && id [count] < 3000) 
 					{
-						Debug.Log ("生成小怪:" + count);
+						//Debug.Log ("生成小怪:" + count);
 						objectChoice = enemys[Random.Range(0,enemys.Length)];
 						roomElement = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
 						roomElement.transform.SetParent(GameObject.Find("GroundElements").transform); 
@@ -807,6 +815,11 @@ public class RoomManager : ExUnitySingleton<RoomManager>
 							break;
 						case (int)RoomElement.REID.Coin:
 							//Debug.Log("选中金币");
+							objectChoice = coin [0];
+							roomElement = Instantiate (objectChoice, position, Quaternion.identity) as GameObject;
+							roomElement.transform.SetParent (GameObject.Find ("GroundElements").transform);
+							roomElement.transform.localPosition = position;
+							///roomElement.GetComponent<Coin> ().RoomElementState = roomElementState;
 							break;
 						case (int)RoomElement.REID.Handle:
 							//Debug.Log("选中机关开关");
@@ -836,7 +849,7 @@ public class RoomManager : ExUnitySingleton<RoomManager>
             GameObject objectChoice;
             GameObject enemy;
 
-            objectChoice = enemys[0];
+			objectChoice = enemys[Random.Range(0,enemys.Length)];
             enemy = Instantiate(objectChoice, position, Quaternion.identity) as GameObject;
             enemy.transform.SetParent(GameObject.Find("GroundElements").transform);
         }

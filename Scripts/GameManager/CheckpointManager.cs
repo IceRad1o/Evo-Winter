@@ -47,6 +47,9 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 	//测试用
 	public bool isTest = false;
 	public RoomManager.RmType testRoomType = RoomManager.RmType.Box;
+	//是否用预设的房间分布
+	public bool preset = false;
+
     //关卡号1-5
     private int checkpointNumber = 0;
     public int CheckpointNumber
@@ -54,6 +57,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         get { return checkpointNumber; }
         set { checkpointNumber = value; }
     }
+
     //行列
     public int rows = 6;
     public int columns = 6;
@@ -132,6 +136,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
                 }
             }
         }
+		//消除拥挤的房间
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
                 if (GetNearRoom(i, j) >= 8) roomArray[i , j] = 0;
@@ -153,6 +158,53 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 		roomArray [hiddenRoomX, hiddenRoomY] = 1;
         Notify("MapComplete");
     }
+
+	//初始化预设房间3×3
+	void InitalPresetRoom(int i)
+	{
+		Debug.Log ("预设房间分布"+i);
+		if (i == 1) 
+		{
+			roomArray = new int[,] {
+				{1, 1, 0},
+				{1, 1, 0},
+				{1, 1, 1}
+			};
+			hiddenRoomX = 1;
+			hiddenRoomY = 0;
+		} 
+		else if (i == 2)
+		{
+			roomArray = new int[,] {
+				{1, 1, 0},
+				{1, 1, 0},
+				{0, 1, 1}
+			};
+			hiddenRoomX = 0;
+			hiddenRoomY = 1;
+		} 
+		else if (i == 3) 
+		{
+			roomArray = new int[,] {
+				{1, 1, 1},
+				{1, 1, 0},
+				{1, 1, 1}
+			};
+			hiddenRoomX = 1;
+			hiddenRoomY = 0;
+		} 
+		else 
+		{
+			roomArray = new int[,] {
+				{1, 1, 0},
+				{0, 1, 0},
+				{1, 1, 1}
+			};
+			hiddenRoomX = 2;
+			hiddenRoomY = 0;
+		}
+	}
+
     //检索roomArray[x,y]邻近房间
     int GetNearRoom(int x, int y)
     {
@@ -230,7 +282,11 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 			columns++;
 		}
         roomArray = new int[rows, columns];
-        InitalRoomLayout();
+		//初始化房间布局
+		if(preset==false||CheckpointNumber>1) InitalRoomLayout();
+		//使用预设的房间布局
+		else InitalPresetRoom(Random.Range(0,5));
+
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)

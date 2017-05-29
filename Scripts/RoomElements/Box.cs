@@ -53,7 +53,7 @@ public class Box : RoomElement
 			return;
 		else if (collision.gameObject.CompareTag ("Player")) 
 		{
-			Debug.Log ("!!!!!!!PLAYER missile");
+			//Debug.Log ("!!!!!!!TAG:"+collision.gameObject.tag);
 			Player.Instance.Character.AddObserver (this);
 			RoomManager.Instance.Notify ("EnterBox");
 		} 
