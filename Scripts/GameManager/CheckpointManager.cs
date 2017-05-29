@@ -85,61 +85,161 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
     }
 
     //初始化房间分布列表
-    void InitalRoomLayout()
-    {
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < columns; j++)
-            {
-                if (i == 0 && j == 0 || i == rows - 1 && j == columns - 1)
-                {
-                    roomArray[i, j] = 1;
-                }
-                if (roomArray[i, j] == 1)
-                {
+//    void InitalRoomLayout()
+//    {
+//        for (int i = 0; i < rows; i++)
+//        {
+//            for (int j = 0; j < columns; j++)
+//            {
+//                if (i == 0 && j == 0 || i == rows - 1 && j == columns - 1)
+//                {
+//                    roomArray[i, j] = 1;
+//                }
+//                if (roomArray[i, j] == 1)
+//                {
+//
+//                    int randomDerection = Random.Range(0, 10);
+//                    //0,1,2向右走,走到最右向下走
+//                    if (randomDerection <= 2)
+//                    {
+//                        if (i + 1 < rows)
+//                            roomArray[i + 1, j] = 1;
+//                        else if (j + 1 < columns)
+//                            roomArray[i, j + 1] = 1;
+//                    }
+//                    //3,4,5向下走，走到最下向右走
+//                    else if (randomDerection <= 5 && randomDerection >= 3)
+//                    {
+//                        if (j + 1 < columns)
+//                            roomArray[i, j + 1] = 1;
+//                        else if (i + 1 < rows)
+//                            roomArray[i + 1, j] = 1;
+//                    }
+//                    //6,7,8向下和向右走
+//                    else if (randomDerection <= 8 && randomDerection >= 6)
+//                    {
+//                        if (i + 1 < rows)
+//                            roomArray[i + 1, j] = 1;
+//                        if (j + 1 < columns)
+//                            roomArray[i, j + 1] = 1;
+//                    }
+//                    //9向下、向右和向左走
+//                    else
+//                    {
+//                        if (i + 1 < rows)
+//                            roomArray[i + 1, j] = 1;
+//                        if (j + 1 < columns)
+//                            roomArray[i, j + 1] = 1;
+//                        if (i > 0)
+//                            roomArray[i - 1, j] = 1;
+//                    }
+//                }
+//            }
+//        }
+//		//消除拥挤的房间
+//        for (int i = 0; i < rows; i++)
+//            for (int j = 0; j < columns; j++)
+//                if (GetNearRoom(i, j) >= 8) roomArray[i , j] = 0;
+//		//标记隐藏房间
+//		for (int j = 0; rows > 3 && j < columns; j++)
+//		{
+//			if (j + 1 < columns)
+//			{
+//				int hidX = Random.Range (1, rows-1);
+//				if (roomArray [hidX, j] == 0 && roomArray [hidX, j + 1] == 1)
+//				{
+//					hiddenRoomX = hidX;
+//					hiddenRoomY = j;
+//					Debug.Log ("隐藏房间："+hiddenRoomX+","+hiddenRoomY);
+//					break;
+//				}
+//			}
+//		}
+//		roomArray [hiddenRoomX, hiddenRoomY] = 1;
+//        Notify("MapComplete");
+//    }
+	void InitalRoomLayout()
+	{
+		for (int i = 1; i < rows-1; i++)
+		{
+			for (int j = 1; j < columns-1; j++)
+			{
+				if (i == 1 && j == 1 || i == rows - 2 && j == columns - 2)
+				{
+					roomArray[i, j] = 1;
+				}
+				if (roomArray[i, j] == 1)
+				{
 
-                    int randomDerection = Random.Range(0, 10);
-                    //0,1,2向右走,走到最右向下走
-                    if (randomDerection <= 2)
-                    {
-                        if (i + 1 < rows)
-                            roomArray[i + 1, j] = 1;
-                        else if (j + 1 < columns)
-                            roomArray[i, j + 1] = 1;
-                    }
-                    //3,4,5向下走，走到最下向右走
-                    else if (randomDerection <= 5 && randomDerection >= 3)
-                    {
-                        if (j + 1 < columns)
-                            roomArray[i, j + 1] = 1;
-                        else if (i + 1 < rows)
-                            roomArray[i + 1, j] = 1;
-                    }
-                    //6,7,8向下和向右走
-                    else if (randomDerection <= 8 && randomDerection >= 6)
-                    {
-                        if (i + 1 < rows)
-                            roomArray[i + 1, j] = 1;
-                        if (j + 1 < columns)
-                            roomArray[i, j + 1] = 1;
-                    }
-                    //9向下、向右和向左走
-                    else
-                    {
-                        if (i + 1 < rows)
-                            roomArray[i + 1, j] = 1;
-                        if (j + 1 < columns)
-                            roomArray[i, j + 1] = 1;
-                        if (i > 0)
-                            roomArray[i - 1, j] = 1;
-                    }
-                }
-            }
-        }
+					int randomDerection = Random.Range(0, 10);
+					//0,1,2向右走,走到最右向下走
+					if (randomDerection <= 2)
+					{
+						if (i + 1 < rows-1)
+							roomArray[i + 1, j] = 1;
+						else if (j + 1 < columns-1)
+							roomArray[i, j + 1] = 1;
+					}
+					//3,4,5向下走，走到最下向右走
+					else if (randomDerection <= 5 && randomDerection >= 3)
+					{
+						if (j + 1 < columns-1)
+							roomArray[i, j + 1] = 1;
+						else if (i + 1 < rows-1)
+							roomArray[i + 1, j] = 1;
+					}
+					//6,7,8向下和向右走
+					else if (randomDerection <= 8 && randomDerection >= 6)
+					{
+						if (i + 1 < rows-1)
+							roomArray[i + 1, j] = 1;
+						if (j + 1 < columns-1)
+							roomArray[i, j + 1] = 1;
+					}
+					//9向下、向右和向左走
+					else
+					{
+						if (i + 1 < rows-1)
+							roomArray[i + 1, j] = 1;
+						if (j + 1 < columns-1)
+							roomArray[i, j + 1] = 1;
+						if (i > 0)
+							roomArray[i - 1, j] = 1;
+					}
+				}
+			}
+		}
+
+		//扩充矩阵行
+		for (int i = 0; i < columns; i++) 
+		{
+			if(roomArray[1,i]>0&&Random.Range(0,2)>0)
+			{
+				roomArray [0, i] = 1;
+			}
+			if(roomArray[rows-2,i]>0&&Random.Range(0,2)>0)
+			{
+				roomArray [rows-1, i] = 1;
+			}
+		}
+		//扩充矩阵列
+		for (int i = 0; i < rows; i++) 
+		{
+			if(roomArray[i,1]>0&&Random.Range(0,3)>1)
+			{
+				roomArray [i, 0] = 1;
+			}
+			if(roomArray[i,columns-2]>0&&Random.Range(0,2)>0)
+			{
+				roomArray [i, columns-1] = 1;
+			}
+		}
+
+
 		//消除拥挤的房间
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
-                if (GetNearRoom(i, j) >= 8) roomArray[i , j] = 0;
+		for (int i = 0; i < rows; i++)
+			for (int j = 0; j < columns; j++)
+				if (GetNearRoom(i, j) >= 8) roomArray[i , j] = 0;
 		//标记隐藏房间
 		for (int j = 0; rows > 3 && j < columns; j++)
 		{
@@ -156,8 +256,9 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 			}
 		}
 		roomArray [hiddenRoomX, hiddenRoomY] = 1;
-        Notify("MapComplete");
-    }
+
+		Notify("MapComplete");
+	}
 
 	//初始化预设房间3×3
 	void InitalPresetRoom(int i)
@@ -281,11 +382,14 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
 			rows++;
 			columns++;
 		}
-        roomArray = new int[rows, columns];
+		roomArray = new int[rows, columns];
+		//Debug.Log ("roomarray[0,0]:"+roomArray[0,0]+",,,"+roomArray[1,1]);
 		//初始化房间布局
 		if(preset==false||CheckpointNumber>1) InitalRoomLayout();
 		//使用预设的房间布局
 		else InitalPresetRoom(Random.Range(0,5));
+			//InitalPresetRoom(1);
+			//InitalPresetRoom(Random.Range(0,5));
 
         for (int i = 0; i < rows; i++)
         {
@@ -347,7 +451,7 @@ public class CheckpointManager : ExUnitySingleton<CheckpointManager>
         roomArray[roomList[bossNum].roomX, roomList[bossNum].roomY] = -2;
 		//设置隐藏房间类型
         //TEMP
-		if (hiddenRoomX > 0)
+		if (hiddenRoomX > 0||(CheckpointNumber==1&&preset))
 		{
 			GetNextRoom (hiddenRoomX, hiddenRoomY).type = -3;
 			roomArray [hiddenRoomX, hiddenRoomY] = -3;
