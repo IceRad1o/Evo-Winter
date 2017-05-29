@@ -24,18 +24,20 @@ public class BuffStatic : BuffTiming {
 
     public override void Trigger()
     {
-        Debug.Log("Trigger4      "+SpecialTag);
+        //Debug.Log("Trigger4      "+SpecialTag);
 
-        Player.Instance.Character.IsControllable = 0;
-        Debug.Log(SpecialTag);
+        this.GetComponent<Character>().IsControllable = 0;
+        //Debug.Log(SpecialTag);
         if (SpecialTag != "Skill_L")
         {
-            GameObject pfb = Resources.Load("Buffs/Static") as GameObject;
-            Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
-            prefabInstance = Instantiate(pfb);
-            prefabInstance.transform.position = s;
-            prefabInstance.transform.parent = this.gameObject.transform;
-            prefabInstance.transform.localScale = new Vector3(1, 1, 1);
+           prefabInstance= UtilManager.Instance.CreateEffcet("Buffs/Static", this.gameObject);
+
+            //GameObject pfb = Resources.Load("Buffs/Static") as GameObject;
+            //Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
+            //prefabInstance = Instantiate(pfb);
+            //prefabInstance.transform.position = s;
+            //prefabInstance.transform.parent = this.gameObject.transform;
+            //prefabInstance.transform.localScale = new Vector3(1, 1, 1);
         }
         else 
         {

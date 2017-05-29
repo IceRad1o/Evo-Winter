@@ -172,7 +172,13 @@ public class KeyBoardManager : MonoBehaviour {
 		{
 			GetHandle();
 		}
-
+        //产生道具
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //ItemManager.Instance.CreateItemID(1008, new Vector3(-2, -1, -1));
+            //ItemManager.Instance.CreateItemID(1008, new Vector3(-1, -1, -1));
+            SkillTest.test1();
+        }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (!PlayerInfo.Instance.gameObject.activeInHierarchy)
@@ -239,6 +245,8 @@ public class KeyBoardManager : MonoBehaviour {
         Player.Instance.Character.Spd += 1;
         Player.Instance.Character.Mov += 1;
     }
+
+   
 
 
 }
