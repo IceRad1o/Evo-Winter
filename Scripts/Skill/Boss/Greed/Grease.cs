@@ -9,7 +9,7 @@ public class Grease : ExSubject
 
     void Start()
     {
-        GetComponent<Boss>().AddObserver(this);
+        GetComponent<RoomElement>().AddObserver(this);
     }
 
     /**/

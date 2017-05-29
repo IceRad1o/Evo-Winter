@@ -79,7 +79,7 @@ public class Character : RoomElement
     static float[] spdValues = {0.4f, 0.5f, 0.8f, 1.05f, 1.25f, 1.4f };  
     int spd;
     //3.攻击范围,影响近战攻击范围和远程攻击距离
-    static float[] rngValues={0.8f,1.0f,1.1f,1.2f,1.3f,1.4f}; 
+    static float[] rngValues={0.5f,0.8f,1.2f,1.6f,1.9f,2.2f}; 
     int rng;
     //4.移速,影响移动速度
     static float[] movValues = { 0.04f,0.05f, 0.08f, 0.105f, 0.125f, 0.14f };  
@@ -733,6 +733,10 @@ public class Character : RoomElement
         Mov = oMov;
         Fhr = oFhr;
         Luk = oLuk;
+
+        if (gameObject.CompareTag("Boss"))
+            GetBossEquips();
+
     
     }
     /// <summary>
@@ -831,7 +835,7 @@ public class Character : RoomElement
     public override void Awake()
     {
         base.Awake();
-        CharacterManager.Instance.CharacterList.Add(this);
+        CharacterManager.Instance.Add(this);
         Init();
 
     }
@@ -874,7 +878,7 @@ public class Character : RoomElement
     }
     public override void Destroy()
     {
-        CharacterManager.Instance.CharacterList.Remove(this);
+        CharacterManager.Instance.Remove(this);
         base.Destroy();
     }
     #endregion
@@ -955,9 +959,18 @@ public class Character : RoomElement
         missileInstance.GetComponent<Missiles>().direction = faceDirection;
         missileInstance.GetComponent<Missiles>().flyPath = type;
         missileInstance.GetComponent<Missiles>().InitMissiles(RngValue, SpdValue);
-        missileInstance.GetComponent<RoomElement>().Master = this.gameObject;
+        missileInstance.GetComponent<RoomElement>().Master = this;
 
     }
+
+    public void GetBossEquips()
+    {
+        this.IsSuperArmor = 1;
+        this.Sight = 5;
+        this.AddObserver(BossHealthBar.Instance);
+        Notify("BossAppear;" + (RoomElementID - 2050));
+    }
+
 
     /// <summary>
     /// 更新动画速度

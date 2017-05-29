@@ -13,7 +13,7 @@ public class PygmyTrapTrigger : MonoBehaviour {
     {
 
             GameObject ins=Instantiate(traps[type], this.transform.position, Quaternion.identity) as GameObject;
-            ins.GetComponent<RoomElement>().Master = gameObject;
+            ins.GetComponent<RoomElement>().Master = GetComponent<RoomElement>();
  
     }
 }

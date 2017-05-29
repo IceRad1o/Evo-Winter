@@ -6,7 +6,7 @@ public class Chemistry : MonoBehaviour {
     public int[] effect;
     public string attackTag;
     GameObject[] pfb = new GameObject[6];
-    public Enemy pfb_enemy;
+    public GameObject pfb_enemy;
     public Vector3 targetPos;
     private void OnTriggerEnter(Collider other)
     {
@@ -65,7 +65,7 @@ public class Chemistry : MonoBehaviour {
             {
                 if (pfb[5] != null)
                     UtilManager.Instance.CreateEffcet(pfb[5], other.gameObject.transform.position);
-                Enemy em = Instantiate(pfb_enemy,transform.position,Quaternion.identity) as Enemy;
+                Instantiate(pfb_enemy,transform.position,Quaternion.identity);
             
             }
 

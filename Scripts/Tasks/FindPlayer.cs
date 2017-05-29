@@ -31,7 +31,7 @@ public class FindPlayer : Conditional
     public override TaskStatus OnUpdate()
     {
 
-
+        
         Vector3 distanceV3 = (Player.Instance.transform.position - gameObject.transform.position);
         float distance = distanceV3.magnitude;
         if (distance <= sharedSight.Value )

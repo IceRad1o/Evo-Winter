@@ -46,7 +46,7 @@ public class CreateCorruptWater : Skill {
             if(tag=="Boss")
                 ins.GetComponent<CorruptWater>().Boss = gameObject;
             else if(tag=="FakeBoss")
-                ins.GetComponent<CorruptWater>().Boss = GetComponent<FakeBoss>().trueBoss;
+                ins.GetComponent<CorruptWater>().Boss = GetComponent<RoomElement>().Master.gameObject;
 
             Vector3[] paths = new Vector3[3];
             paths[0] = startPoint;

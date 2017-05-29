@@ -8,9 +8,9 @@ using System.Collections.Generic;
 /// Latest Update Time: 2017.5.11
 public class EnemyManager : ExUnitySingleton<EnemyManager>{
 
-    List<Enemy> enemyList = new List<Enemy>();
+    List<Character> enemyList = new List<Character>();
 
-    public List<Enemy> EnemyList
+    public List<Character> EnemyList
     {
         get { return enemyList; }
         set { enemyList = value; }

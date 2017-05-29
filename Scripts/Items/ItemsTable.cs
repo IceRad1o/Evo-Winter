@@ -628,6 +628,63 @@ public class ItemsTable {
         item.itemName = "进阶！\n禁：冰雪女神的叹息";
         item.itemIntro = "将\"禁：冰雪女神的叹息\"进阶";
         itemsData.Add(item);
+
+        item.ID = 1502;
+        item.spriteArrayID = 1;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "ss";
+        item.itemName = "进阶！赌博骰子";
+        item.itemIntro = "赌博骰子进阶：拥有连续回血（扣血）的概率";
+        itemsData.Add(item);
+
+        item.ID = 1562;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！幽之刃";
+        item.itemIntro = "提高幽之刃的触发概率";
+        itemsData.Add(item);
+
+
+        item.ID = 1561;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！石之刃";
+        item.itemIntro = "提高石之刃的触发概率";
+        itemsData.Add(item);
+
+
+        item.ID = 1560;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！霜之刃";
+        item.itemIntro = "提高霜之刃的触发概率";
+        itemsData.Add(item);
+
+
+        item.ID = 1559;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！凛之刃";
+        item.itemIntro = "提高凛之刃的触发概率";
+        itemsData.Add(item);
+
+        item.ID = 1564;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！止之刃";
+        item.itemIntro = "提高止之刃的触发概率";
+        itemsData.Add(item);
     }
 	
 

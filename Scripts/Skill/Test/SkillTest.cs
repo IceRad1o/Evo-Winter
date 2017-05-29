@@ -17,9 +17,14 @@ public class SkillTest : MonoBehaviour {
         //UtilManager.Instance.CreateEffcet(pfb);
         //this.gameObject.GetComponent<BuffManager>().CreateDifferenceBuff(704100);
         //CoinManager.Instance.CreateCoin(1);
-        ItemManager.Instance.CreateItemID(1010, new Vector3(-2, -1, -1));
-        ItemManager.Instance.CreateItemID(1010, new Vector3(-1, -1, -1));
-        ItemManager.Instance.CreateItemID(1510, new Vector3(1, -1, -1));
+        Debug.Log("hhhhhhhhhhhhhhhhh");
+        ItemManager.Instance.CreateItemID(1002, new Vector3(3, -1, -1));
+        ItemManager.Instance.CreateItemID(1002, new Vector3(2, -1, -1));
+        ItemManager.Instance.CreateItemID(1002, new Vector3(-4, -1, -1));
+        ItemManager.Instance.CreateItemID(1002, new Vector3(-3, -1, -1));
+        ItemManager.Instance.CreateItemID(1002, new Vector3(-2, -1, -1));
+        ItemManager.Instance.CreateItemID(1002, new Vector3(-1, -1, -1));
+        ItemManager.Instance.CreateItemID(1502, new Vector3(1, -1, -1));
 
     }
 	

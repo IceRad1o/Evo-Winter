@@ -28,23 +28,37 @@ public class DisposableItem : Item{
      *@Brief 一次性道具的使用
      *@发送消息，使用道具，并将Skill或Buff的ID发出
      */
-    public string Use()
+    public void Use()
     {
         usingNumber--;
 
-        Debug.Log("UseItem_Buff_ID" + ItemBuffID);
-
-        if (usingNumber <= 0)
-            DestroyScript();
-
-        if (ItemBuffID != 0)
-            return "UseItem_Buff_ID;" + ItemBuffID;
-        if (itemSkillID != 0)
-            return "UseItem_Skill_ID;" + itemSkillID;
+        //Debug.Log("UseItem_Buff_ID" + ItemBuffID);
 
         
 
-        return "Error";
+        //Debug.Log("Judge item if advanced " + (ItemID - 1000));
+        //判断是否已经进阶
+        if (ItemManager.Instance.advancedItem[(ItemID - 1000)] == 1)
+        {
+            //发送消息，使用道具，并产生Buff
+            if (ItemBuffID_Advance != 0)
+                ItemManager.Instance.SendMsg("UseItem_Buff_ID;" + ItemBuffID_Advance);
+            if (ItemSkillID_Advance != 0)
+                ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + ItemSkillID_Advance);
+
+            Debug.Log("advance trigger");
+
+        }
+
+        //发送消息，使用道具，并产生Buff
+        if (ItemBuffID != 0)
+            ItemManager.Instance.SendMsg("UseItem_Buff_ID;" + ItemBuffID);
+        if (itemSkillID != 0)
+            ItemManager.Instance.SendMsg("UseItem_Skill_ID;" + itemSkillID);
+
+
+        if (usingNumber <= 0)
+            DestroyScript();
     }
 
     /*@Create

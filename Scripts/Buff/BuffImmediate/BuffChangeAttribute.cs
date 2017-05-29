@@ -27,6 +27,7 @@ public class BuffChangeAttribute : Buff
 
     public void Trigger() {
         //Debug.Log(tag + " Trigger" + dValue + " attribute " + attribute);
+       this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
        switch (attribute) 
        { 
            case 0:
@@ -102,6 +103,16 @@ public class BuffChangeAttribute : Buff
                 dValue = 1;
             if (result <= 100 && result > 80)
                 dValue = -1;
+
+            int dValue_old = dValue;
+            if (ItemManager.Instance.advancedItem[2] == 1)
+            {
+                StartCoroutine(delayTrigger(dValue));  
+                //StartCoroutine(Test());
+                return;
+            }
+
+
         }
         if (idPart[0] == 201)
         {
@@ -133,7 +144,7 @@ public class BuffChangeAttribute : Buff
             pf1.transform.parent = this.gameObject.transform;
             
         }
-        this.gameObject.GetComponent<BuffManager>().BuffList.Add(this);
+        
 
         Trigger();
     }
@@ -142,10 +153,36 @@ public class BuffChangeAttribute : Buff
 	void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>();
 	}
-    //延迟触发防止enemy死亡，循环出错
-    IEnumerator delay()
+
+    IEnumerator delayTrigger(int dValue_old)
     {
-        yield return new WaitForSeconds(1f);
         
-    } 
+       
+
+        while (true)
+        {
+            yield return new WaitForSeconds(1.0f);
+            int result;
+            Trigger();
+            result = Random.Range(0, 100);
+            Debug.Log("test random result: " + result + "DValue: " + DValue);
+            if (dValue_old == 2 && result <= 10)
+                continue;
+
+            if (dValue_old == 1 && result <= 80 && result > 30)
+                continue;
+
+            if (dValue_old == -1 && result > 80)
+                continue;
+
+            break;
+       }
+    }
+
+    //IEnumerator Test()
+    //{
+    //    yield return new WaitForSeconds(1.0f);
+    //    Debug.Log("ddsdsdd");
+    //}
+
 }
