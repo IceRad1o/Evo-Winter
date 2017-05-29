@@ -144,7 +144,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
         if (disposableItem.ItemID != 0)
         { 
-            Notify( disposableItem.Use());
+            disposableItem.Use();
         }
                 
     }  
@@ -396,6 +396,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
         advancedItem = PreferenceManager.Instance.Data.AdvancedItem;
 
+
+        this.AddObserver(PreferenceManager.Instance);
         
     }
 

@@ -30,9 +30,9 @@ public class ItemsTable {
     
     }
     
-    //private ItemsData[] itemsData;
     private List<ItemsData> itemsData=new List<ItemsData>();
 
+    #region Function_Varible
     /// <summary>
     /// 获得对应item的图片ID
     /// </summary>
@@ -75,6 +75,26 @@ public class ItemsTable {
     {
 
         return FindItemsByID(ID).buffID;
+    }
+    /// <summary>
+    /// 获得对应item的buffID_advanced
+    /// </summary>
+    /// <param name="ID">道具ID</param>
+    /// <returns>item的buffID_advanced</returns>
+    public int GetItemBuffID_Advance(int ID)
+    {
+
+        return FindItemsByID(ID).buffID_advanced;
+    }
+    /// <summary>
+    /// 获得对应item的skillID_advanced
+    /// </summary>
+    /// <param name="ID">道具ID</param>
+    /// <returns>item的skillID_advanced</returns>
+    public int GetItemSkillID_Advanced(int ID)
+    {
+
+        return FindItemsByID(ID).skillID_advanced;
     }
     /// <summary>
     /// 获得对应item的SkillID
@@ -125,6 +145,10 @@ public class ItemsTable {
     {
         return FindItemsByID(ID).energy;
     }
+    #endregion
+
+
+    #region Random_ID_List
     /*CreateItem
      *@Brief 创建一个道具
      *Param  roomDroping 随机生成的道具中是否含房间掉落
@@ -173,7 +197,7 @@ public class ItemsTable {
 
         return itemsIDs.ToArray();
     }
-
+    #endregion
 
 
     /// <summary>
@@ -483,6 +507,7 @@ public class ItemsTable {
         item.type = 1;
         item.droping = 6;
         item.buffID = 0;
+        item.buffID_advanced = 100110;
         item.skillID = 9;
         item.quality = "A";
         item.itemName = "禁：冰雪女神的叹息";
@@ -593,6 +618,73 @@ public class ItemsTable {
         item.itemIntro = "精华一个相当于两个";
         itemsData.Add(item);
 
+
+        //进阶道具
+        item.ID = 1510;
+        item.spriteArrayID = 9;
+        item.type = 0;
+        item.droping = 6;
+        item.quality = "SS";
+        item.itemName = "进阶！\n禁：冰雪女神的叹息";
+        item.itemIntro = "将\"禁：冰雪女神的叹息\"进阶";
+        itemsData.Add(item);
+
+        item.ID = 1502;
+        item.spriteArrayID = 1;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "ss";
+        item.itemName = "进阶！赌博骰子";
+        item.itemIntro = "赌博骰子进阶：拥有连续回血（扣血）的概率";
+        itemsData.Add(item);
+
+        item.ID = 1562;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！幽之刃";
+        item.itemIntro = "提高幽之刃的触发概率";
+        itemsData.Add(item);
+
+
+        item.ID = 1561;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！石之刃";
+        item.itemIntro = "提高石之刃的触发概率";
+        itemsData.Add(item);
+
+
+        item.ID = 1560;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！霜之刃";
+        item.itemIntro = "提高霜之刃的触发概率";
+        itemsData.Add(item);
+
+
+        item.ID = 1559;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！凛之刃";
+        item.itemIntro = "提高凛之刃的触发概率";
+        itemsData.Add(item);
+
+        item.ID = 1564;
+        item.spriteArrayID = 18;
+        item.type = 0;
+        item.droping = 2;
+        item.quality = "SS";
+        item.itemName = "进阶！止之刃";
+        item.itemIntro = "提高止之刃的触发概率";
+        itemsData.Add(item);
     }
 	
 
