@@ -5,6 +5,12 @@ public class CoinManager : ExUnitySingleton<CoinManager> {
 
     int wealth;
 
+    public int Wealth
+    {
+        get { return wealth; }
+        set { wealth = value; }
+    }
+
 
 
 

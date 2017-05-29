@@ -88,7 +88,7 @@ public class UIManager : ExUnitySingleton<UIManager>
 
     public override void OnNotify(string msg)
     {
-        Debug.Log("UIManager recieved :"+msg);
+        //Debug.Log("UIManager recieved :"+msg);
 
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         if (str[0] == "EnterRoom")
@@ -259,7 +259,7 @@ public class UIManager : ExUnitySingleton<UIManager>
             //GoldDisplayer.Instance.SetGlod(int.Parse(str[1]));
             GoldDisplayer.Instance.TransGoldToBar(new Vector3(float.Parse(str[1]), float.Parse(str[2]), float.Parse(str[3])));
 
-            GoldDisplayer.Instance.SetGlod(int.Parse(str[4]));
+            GoldDisplayer.Instance.SetGlod(int.Parse(str[4]),GoldDisplayer.SetType.AfterAnimation);
         }
 
         if (str[0] == "Coin_Changed")
