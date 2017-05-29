@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 /// <summary>
-/// 负重 生命越少,速度越快
+/// 贿赂 扣血掉金币
 /// </summary>
 public class Grease : ExSubject
 {
@@ -22,6 +22,8 @@ public class Grease : ExSubject
         {
             float a = float.Parse(str[1]);
             float b = float.Parse(str[2]);
+            if (a >= b)
+                return;
             Vector3 bossPos = this.transform.position;
             Vector3 startPoint = bossPos + new Vector3(0, 0.5f, 0);
             int num = Random.Range(0, 6);
@@ -35,6 +37,7 @@ public class Grease : ExSubject
             {
                 Vector3 deltaPos = new Vector3((Random.value - 0.5f) * 5, (Random.value - 0.5f) * 5);
                 GameObject ins = Instantiate(trickCoin, startPoint, Quaternion.identity) as GameObject;
+                ins.GetComponent<RoomElement>().Master = this.GetComponent<RoomElement>();
                 Vector3[] paths = new Vector3[3];
                 paths[0] = startPoint;
                 paths[1] = startPoint + deltaPos / 3 + new Vector3(0, 0.75f, 0);

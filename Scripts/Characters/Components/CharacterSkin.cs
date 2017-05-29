@@ -12,6 +12,11 @@ public class CharacterSkin : MonoBehaviour
 {
     #region  Variables
 
+    public enum Type{
+        HeadNode,
+        TailNode
+    }
+
     #region Control Variables
     public bool isRandomSkin;
     public bool isRandomColor;
@@ -319,6 +324,12 @@ public class CharacterSkin : MonoBehaviour
 
 
     }
+
+    public void Add(GameObject obj,CharacterSkin.Type type,string tag=null)
+    {
+
+    }
+
     #endregion
 
     #region Mono Methods

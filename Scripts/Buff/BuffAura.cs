@@ -15,13 +15,34 @@ public class BuffAura : BuffTiming {
 
 
 
-    public void CreateBuff(int ID, GameObject ob)
+    public void CreateBuff(int ID, GameObject ob,string spTag="")
     {
-        int[] part = { 2, 2 };
+        int[] part = { 2, 2,8};
         int[] idPart = UtilManager.Instance.DecomposeID(ID, part);
-        switch (idPart[0])
+        if (spTag != "")
+            SpecialTag = spTag;
+        else
+            SpecialTag = "Monster";
+
+        int tagNumber=BuffManager.TagBuffNumber(SpecialTag);
+        
+
+
+        //普遍的光环buff
+        if (idPart[0] == 9)
         {
-            case 20:
+            var listTemp = CharacterManager.Instance.CharacterList.ToArray();
+            for (int item=0;item<listTemp.Length;item++)
+            {
+                if (listTemp[item] != null && listTemp[item].tag == SpecialTag)
+                    this.GetComponent<BuffManager>().CreateDifferenceBuff(idPart[2] * 10 + tagNumber);                
+            }
+        }
+
+
+        switch (idPart[1])
+        {
+            case 1:
                 BuffAllDamage newBuff3 = ob.gameObject.AddComponent<BuffAllDamage>();                
                 newBuff3.Create(ID);
                 ob.gameObject.GetComponent<BuffManager>().BuffList.Add(newBuff3);

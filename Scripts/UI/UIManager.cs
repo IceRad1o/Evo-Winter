@@ -256,6 +256,10 @@ public class UIManager : ExUnitySingleton<UIManager>
         if(str[0]=="Get_Coin")
         {
             //播放动画x,y,z
+            //GoldDisplayer.Instance.SetGlod(int.Parse(str[1]));
+            GoldDisplayer.Instance.TransGoldToBar(new Vector3(float.Parse(str[1]), float.Parse(str[2]), float.Parse(str[3])));
+
+            GoldDisplayer.Instance.SetGlod(int.Parse(str[4]),GoldDisplayer.SetType.AfterAnimation);
         }
 
         if (str[0] == "Coin_Changed")

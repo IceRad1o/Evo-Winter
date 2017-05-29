@@ -184,14 +184,15 @@ public class ActionStateMachine {
     public virtual void Die()
     {
         character.GetComponent<Animator>().SetTrigger("Die");
-        SoundManager.Instance.PlaySoundEffect(character.dyingSound);
+        //SoundManager.Instance.PlaySoundEffect(Character.CharacterSound.Die);
+        character.PlayCharacterSound(Character.CharacterSound.Die);
     }
 
     public virtual void Hurt()
     {
         if(character.IsAlive>=0)
             character.GetComponent<Animator>().SetTrigger("Hurt");
-        SoundManager.Instance.PlaySoundEffect(character.damagingSound);
+        character.PlayCharacterSound(Character.CharacterSound.Hurt);
     }
 
     public virtual void Fall()

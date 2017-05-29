@@ -39,7 +39,10 @@ public class GreedBar : ExUnitySingleton<GreedBar>
         {
             SetGreed(float.Parse(str[1]));
         }
-
+        else if(str[0]=="Die")
+        {
+            Destroy(gameObject);
+        }
 
 
     }

@@ -13,7 +13,23 @@ public class BuffManager : ExSubject
         get { return playerHealth; }
         set { playerHealth = value; }
     }
-    
+
+    static public int TagBuffNumber(string spTag)
+    {
+        switch (spTag)
+        {
+            case "Monster":
+                return 1;
+            case "Player":
+                return 0;
+            case "Boss":
+                return 2;
+
+
+            default:
+                return -1;
+        }
+    }
 
 
     ArrayList buffList = new ArrayList();
@@ -28,7 +44,7 @@ public class BuffManager : ExSubject
 
     public void CreateBuff(int ID,string spTag="")
     {
-
+        
 
         if (!judgeCreate)
             return;
@@ -44,10 +60,12 @@ public class BuffManager : ExSubject
                 buffList.Add(newBuff);
                 break;
             case 2:
-
                 BuffCreateItem newBuff1 = this.gameObject.AddComponent<BuffCreateItem>();
                 newBuff1.Create(ID);
                 buffList.Add(newBuff1);
+                break;
+            case 9:
+                new BuffAura().CreateBuff(ID, this.gameObject,spTag);
                 break;
             case 10:
                 new BuffAttack().CreateBuff(ID,this.gameObject);

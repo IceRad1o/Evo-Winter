@@ -20,12 +20,23 @@ public class Character : RoomElement
     #endregion
 
     #region AudioClips
-    public AudioClip attackingSound;
-    public AudioClip attackingSound2;
-    public AudioClip attackingSound3;
-    public AudioClip movingSound;
-    public AudioClip dyingSound;
-    public AudioClip damagingSound;
+    [Header("Sounds")]
+    public AudioClip[] sounds;
+    public enum CharacterSound
+    {
+        Hurt,
+        Die,
+        Attack1,
+        Attack2,
+        Attack3
+        
+    }
+    //public AudioClip attackingSound;
+    //public AudioClip attackingSound2;
+    //public AudioClip attackingSound3;
+    //public AudioClip movingSound;
+    //public AudioClip dyingSound;
+    //public AudioClip damagingSound;
     #endregion
 
     #region Cached Components
@@ -1054,6 +1065,12 @@ public class Character : RoomElement
         Luk = attris[6];
 
         Direction = new Vector3(attris[7], 0, 0);
+    }
+
+    public void PlayCharacterSound(Character.CharacterSound sound)
+    {
+        if(sounds.Length>(int)sound)
+            SoundManager.Instance.PlaySoundEffect(sounds[(int)sound]);
     }
 
 
