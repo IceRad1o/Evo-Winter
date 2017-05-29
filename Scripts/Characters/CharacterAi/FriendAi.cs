@@ -23,7 +23,7 @@ public class FriendAi : CharacterAi
             //TODO 根据sight决定视野范围
             float leastDistance=500;
             /*根据*/
-            foreach (Enemy en in EnemyManager.Instance.EnemyList)
+            foreach (var en in EnemyManager.Instance.EnemyList)
             {
                 Vector3 destPos = en.transform.position;
                 Vector3 srcPos = transform.position;

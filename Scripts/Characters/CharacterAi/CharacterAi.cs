@@ -32,7 +32,7 @@ public class CharacterAi : MonoBehaviour
             float leastDistance = 25;
             if (tag == "Friend"||tag=="Player")
             {
-                foreach (Enemy en in EnemyManager.Instance.EnemyList)
+                foreach (var en in EnemyManager.Instance.EnemyList)
                 {
                     Vector3 destPos0 = en.transform.position;
                     Vector3 srcPos0 = transform.position;

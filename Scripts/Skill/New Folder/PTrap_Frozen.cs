@@ -15,7 +15,7 @@ public class PTrap_Frozen : MonoBehaviour {
 
         if (other.tag == "Monster")
         {
-            other.GetComponent<Monster>().IsFrozen = 1;
+            other.GetComponent<Character>().IsFrozen = 1;
 
 
             //303111

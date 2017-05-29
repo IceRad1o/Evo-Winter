@@ -13,9 +13,6 @@ public class Missiles : RoomElement{
     public int speedLevel = 1;
     public float speedBuff = 1;
 
-    [HideInInspector]
-    //穿透性，0无，1有
-    public int penetrating = 0;
     //方向，-1左，1右
     public int direction;
     //飞行路径,0-N
@@ -50,11 +47,12 @@ public class Missiles : RoomElement{
         {
             if (direction > 0)
             {
-                this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                //this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else
             {
-                this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                if (this.transform.GetComponent<SpriteRenderer>())
+                this.transform.GetComponent<SpriteRenderer>().flipX = true;
             }
             switch (flyPath)
             {
@@ -297,7 +295,7 @@ public class Missiles : RoomElement{
     IEnumerator FlyPath5()
     {
         float speed = flySpeed * speedBuff + speedLevel * 0.01f;
-        float zSpeed = speed / 3;
+        float zSpeed = 0.02f;
         float distance = flyDistance * distanceBuff + distanceLevel * 0.2f;
         while (true)
         {
@@ -341,7 +339,7 @@ public class Missiles : RoomElement{
         float t = flySpeed * speedBuff + speedLevel * 0.01f;
         float r = (flyDistance * distanceBuff + distanceLevel * 0.2f) / 10;
         Vector3 startPosition;
-        penetrating = 1;
+      
         while (true)
         {
             if (theta<2*3.14*loop)
@@ -356,7 +354,7 @@ public class Missiles : RoomElement{
             else
             {
 				this.Destroy ();
-                penetrating = 0;
+         
                 break;
             }
             yield return null;
@@ -367,7 +365,7 @@ public class Missiles : RoomElement{
     IEnumerator FlyPath7()
     {
         float speed = flySpeed * speedBuff + speedLevel * 0.01f;
-        float zSpeed = speed / 3;
+        float zSpeed = 0.02f;// speed / 3;
         float distance = flyDistance * distanceBuff + distanceLevel * 0.2f;
         while (true)
         {

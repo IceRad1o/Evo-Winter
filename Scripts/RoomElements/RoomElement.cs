@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 /// <summary>
-/// 房间元素,具备MonoBehavoir以及Notify/OnNotify的功能
+/// RoomElement
+/// Brief:房间元素,具备MonoBehavoir以及Notify/OnNotify的功能
+/// Latest Update At 17.5.28
 /// </summary>
 public class RoomElement : ExSubject
 {
@@ -11,19 +13,26 @@ public class RoomElement : ExSubject
     #region Varibles
     public int roomElementID;
     public int maxHp = 10;
-    private bool isDestoryOnEnterRoom = true;
+    public GameObject bloodBarPrefab;
 
 
+    /// <summary>
+    /// 是否在进入房间的时候销毁,默认为true
+    /// </summary>
+    bool isDestoryOnEnterRoom = true;
+
+    /// <summary>
+    /// 是否随Master死亡而死亡
+    /// </summary>
     bool isDieWithMaster = true;
 
 
-    public GameObject bloodBarPrefab;
     GameObject bloodBarInstance;
 
     //主人
-    GameObject master;
+    RoomElement master;
     //从属者
-    List<GameObject> servants=new List<GameObject>();
+    List<RoomElement> servants = new List<RoomElement>();
 
     int roomElementState = 0;
     float hp;
@@ -176,18 +185,18 @@ public class RoomElement : ExSubject
         }
     }
 
-    public GameObject Master
+    public RoomElement Master
     {
         get { return master; }
         set { 
             master = value;
         
-        if (!master.GetComponent<RoomElement>().Servants.Contains(gameObject))
-              master.GetComponent<RoomElement>().Servants.Add(gameObject);
+        if (!master.Servants.Contains(this))
+              master.Servants.Add(this);
         }
     }
 
-    public List<GameObject> Servants
+    public List<RoomElement> Servants
     {
         get { return servants; }
         set { servants = value; }
@@ -196,17 +205,20 @@ public class RoomElement : ExSubject
 
     #region Virtual Methods
     public virtual void Awake () {
-        this.tag = "RoomElement";
+        //this.tag = "RoomElement";
         RoomElementManager.Instance.RoomElementList.Add(this);
 	}
     public virtual void Destroy()
     {
+        if (Master != null)
+            Master.Servants.Remove(this);
+
         RoomElementManager.Instance.RoomElementList.Remove(this);
         Destroy(this.gameObject);
     }
     public virtual void KillServants()
     {
-        for(int i=0;i<Servants.Count;i++)
+        for (int i = Servants.Count-1; i >= 0; i--)
         {
             if (Servants[i] == null)
                 continue;

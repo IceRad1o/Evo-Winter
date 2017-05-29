@@ -14,8 +14,10 @@ public class iTweenTest : MonoBehaviour {
         //args.Add("x", -20);
         //args.Add("y", 0);
         //args.Add("z", 0);
-        Vector3 []paths= this.GetComponent<iTweenPath>().nodes.ToArray();
-       // iTween.MoveTo(gameObject, args);//第一个参数操作的对象 第二个 设置动画系列hashtable
+    
+        //iTween.MoveTo(gameObject, args);//第一个参数操作的对象 第二个 设置动画系列hashtable
+        //iTween.MoveTo(gameObject, Vector3.zero, 2f);
+        Vector3[] paths = this.GetComponent<iTweenPath>().nodes.ToArray();
         iTween.MoveTo(gameObject, iTween.Hash("path", paths, "speed", 10f, "easeType", iTween.EaseType.linear)); 
 	}
 	
