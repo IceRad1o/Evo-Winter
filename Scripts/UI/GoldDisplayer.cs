@@ -11,4 +11,10 @@ public class GoldDisplayer : ExUnitySingleton<GoldDisplayer> {
         valueObj.GetComponent<Text>().text = value.ToString();
     }
 
+
+    public void TransGoldToBar(Vector3 position)
+    {
+
+    }
+
 }
