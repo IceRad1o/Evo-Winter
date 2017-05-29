@@ -10,9 +10,9 @@ public class BuffAllDamage : BuffAura
         var list = EnemyManager.Instance.EnemyList.ToArray();
         if (list.Length == 0) return;
         foreach (Character t in list)
-        {
-           //表示这些buff只有enemy有效
-           t.GetComponent<BuffManager>().CreateDifferenceBuff(AddBuffID*10+1);
+        {   //表示这些buff只有enemy有效
+            if (t != null)
+                t.GetComponent<Character>().Hp -= 10;
         }
     }
 
@@ -27,14 +27,17 @@ public class BuffAllDamage : BuffAura
         Trigger();
     }
 
-    // Use this for initialization
-	void Start () {
-	
-	}
+
+    public override void DestroyBuff()
+    {
+        RoomManager.Instance.RemoveObserver(this);
+        base.DestroyBuff();
+    }
 
     public override void OnNotify(string msg)
     {
-        if (UtilManager.Instance.GetFieldFormMsg(msg, 0) == "EnterRoom")
+        Debug.Log("allDamage receive:   "+msg);
+        if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "EnterRoom")
         {
             Trigger();        
         }
