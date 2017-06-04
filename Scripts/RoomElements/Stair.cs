@@ -21,7 +21,7 @@ public class Stair : RoomElement {
 	{
 		if (other.tag == "Player" && EnemyManager.Instance.EnemyList.Count == 0)
 		{
-			Debug.Log("StairOnTiger");
+			//Debug.Log("StairOnTiger");
 			//设置关卡
 			if (CheckpointManager.Instance.CheckpointNumber < 5)
 			{

@@ -95,8 +95,9 @@ public class Character : RoomElement
     //4.移速,影响移动速度
     static float[] movValues = { 0.04f,0.05f, 0.08f, 0.105f, 0.125f, 0.14f };  
     int mov;
-    //5.硬直,即受击回复,影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短
-    static float[] fhrValues={0.8f,1.0f,1.7f,2.4f,3f,3.5f};
+    //OLD 5.硬直,即受击回复,影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短;
+    //NEW 5.精神,影响精力恢复速度
+    static float[] fhrValues = { 0.04f, 0.05f, 0.08f, 0.105f, 0.125f, 0.14f };  
     int fhr;
     //6.幸运 影响技能触发几率和道具掉落概率
     static float[] lukValues={0.8f,1.0f,1.2f,1.35f,1.45f,1.5f};
@@ -110,6 +111,10 @@ public class Character : RoomElement
     int sight=3;
     //死亡延迟帧数 从生命为0到真正死亡的倒计时
     int deadTime=50;
+
+    float energy = 100f;
+
+
     #endregion
 
     #endregion
@@ -397,7 +402,11 @@ public class Character : RoomElement
             Notify("SightChanged");
         }
     }
-
+    public float Energy
+    {
+        get { return energy; }
+        set { energy = value; }
+    }
     #endregion
 
     #region States Getter&Setter
@@ -868,6 +877,9 @@ public class Character : RoomElement
             IsAlive = -1;
             deadTime = -1;
         }
+        if (energy < 100f)
+             energy += fhrValues[Fhr];
+
     }
     public virtual void FixedUpdate()
     {

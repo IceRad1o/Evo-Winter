@@ -198,7 +198,10 @@ public class KeyBoardManager : MonoBehaviour {
             EnemyManager.Instance.EnemyList[i].IsControllable = 0;
         }
     }
-
+    public void GetMonster()
+    {
+        Instantiate(monster);
+    }
     public void KillAll()
     {
          for (int i = 0; i < EnemyManager.Instance.EnemyList.Count; i++)

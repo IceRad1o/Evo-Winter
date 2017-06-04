@@ -75,7 +75,8 @@ public class ActionStateMachine {
                 J();
                 break;
             case 2:
-                K();
+                if(character.Energy>30f)
+                    K();
                 break;
             case 3:
                 L();
@@ -230,6 +231,7 @@ public class ActionStateMachine {
         }
         else if (asi.IsName("AttackK"))
         {
+            character.Energy -= 30f;
             anim.speed = character.SpdValue;
             CurState = "AttackK";
         }
