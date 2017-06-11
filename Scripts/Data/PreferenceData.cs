@@ -63,12 +63,5 @@ public class PreferenceData  {
         soundEffectVolume=PlayerPrefs.GetFloat("soundEffectVolume",1.0f);
         isVolumeOn = PlayerPrefs.GetInt("isVolumeOn", 1);
         advancedItem = PlayerPrefsX.GetIntArray("adItem",0,100);
-        //y = PlayerPrefs.GetInt("y", 0);
-        //Debug.Log("safasasdasdas  " + Y);
-        //for (int i = 0; i < 100; i++)
-        //{
-        //    Debug.Log("the advance : " + i + "    " + advancedItem[i]);
-        //}
-        Debug.Log("the advance : "  + "    " + advancedItem[2]);
     }
 }

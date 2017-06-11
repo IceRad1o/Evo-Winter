@@ -49,12 +49,12 @@ public class SkullLight : RoomElement {
 		}
 	}
 	//重载函数
-	public override void Trriger()
+	public override void CloseAttackEvent()
 	{
 		//Debug.Log ("EnterTrigger");
 		if (RoomElementState == 1)
 			return;
-		base.Trriger();
+		base.CloseAttackEvent();
 		HitScull (coll);
 		//RoomElementState = 1;
 	}

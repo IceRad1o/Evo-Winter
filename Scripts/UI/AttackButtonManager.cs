@@ -17,7 +17,8 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
     public void OnNormalAttack()
     {
         //Debug.Log("You have clicked the  JButton!");
-        Player.Instance.Character.NormalAttack();
+        if (Player.Instance.Character)
+              Player.Instance.Character.NormalAttack();
         //TODO 若有冷却倒计时,则显示
     }
 
@@ -30,7 +31,8 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
     public void OnSpecialAttack()
     {
         //Debug.Log("You have clicked the  KButton!");
-        Player.Instance.Character.SpecialAttack();
+        if (Player.Instance.Character)
+             Player.Instance.Character.SpecialAttack();
         //TODO 若有冷却倒计时,则显示
     }
 
@@ -43,7 +45,8 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
     public void OnRaceSkill()
     {
         //Debug.Log("You have clicked the  LButton!");
-        Player.Instance.Character.UseRaceSkill();
+        if (Player.Instance.Character)
+              Player.Instance.Character.UseRaceSkill();
         //TODO 若有冷却倒计时,则显示
     }
 
@@ -55,17 +58,14 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
 
     void Start()
     {
-        initControlButton();
+        InitControlButton();
+        Display();
     }
 
 
-    void Update()
-    {
-
-    }
 
     //初始化控制按钮
-    void initControlButton()
+    void InitControlButton()
     {
         //TODO 根据首选项初始化位置大小等
 
@@ -81,5 +81,18 @@ public class AttackButtonManager : UnitySingleton<AttackButtonManager>
 
     }
 
+    void Display()
+    {
+        StartCoroutine(IEumDisplay());
+    }
 
+    IEnumerator IEumDisplay()
+    {
+        ActionManager.DisplayUIObject(lButton.gameObject);
+        yield return new WaitForSeconds(0.2f);
+        ActionManager.DisplayUIObject(kButton.gameObject);
+        yield return new WaitForSeconds(0.2f);
+        ActionManager.DisplayUIObject(jButton.gameObject);
+        yield return new WaitForSeconds(0.2f);
+    }
 }

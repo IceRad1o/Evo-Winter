@@ -29,11 +29,11 @@ public class Claw : RoomElement {
 		}
 	}
 	//函数重载
-	public override void Trriger()
+	public override void CloseAttackEvent()
 	{
 		if (RoomElementState == 1)
 			return;
-		base.Trriger();
+		base.CloseAttackEvent();
 		RoomElementState = 1;
 		Notify("UseClaw");
 	}

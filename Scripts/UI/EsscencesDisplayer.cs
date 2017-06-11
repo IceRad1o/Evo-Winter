@@ -26,6 +26,22 @@ public class EsscencesDisplayer : UnitySingleton<EsscencesDisplayer> {
         esscencesTexts[type].text = "X " + value;
     }
 
+    public void TransEsscenceToDisplayer(int type,Vector3 position)
+    {
+        Vector3 pos = CameraController.Instance.GetComponent<Camera>().WorldToScreenPoint(position);
+        GameObject ins=UtilManager.Instantiate(esscences[type], pos);
+        ins.transform.SetParent(UIManager.Instance.transform);
+        var dest = esscences[type].transform.position;
+        iTween.MoveTo(ins, iTween.Hash("x", dest.x,"y",dest.y,"z",dest.z, "time", 0.5f, "easeType", iTween.EaseType.easeInQuad));
+        ins.AddComponent<AutoDestoryedObject>().destroyTime = 0.5f;
+        StartCoroutine(DelaySet(type));
+    }
+
+    IEnumerator DelaySet(int type)
+    {
+        yield return new WaitForSeconds(0.5f);
+        esscences[type].AddComponent<ScaleTo>().Init(0.2f, new Vector4(0.6f, 0.6f, 0, 0), true, false, true);
+    }
     void Start()
     {
         initEsscences();

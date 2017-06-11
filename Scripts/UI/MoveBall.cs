@@ -16,6 +16,7 @@ using System.Collections;
 public class MoveBall :UnitySingleton<MoveBall> {
 
     public GameObject moveBallBg; //移动球
+    public GameObject area;
     private GameObject idleImg;     //移动球静止图片
     private GameObject moveImg;     //移动球移动图片
     private Vector3 centerPosition; //移动球正中心坐标
@@ -29,8 +30,9 @@ public class MoveBall :UnitySingleton<MoveBall> {
 
 	void Start () {
         initMoveBall();
-        isPressed = false;  
-	}
+        isPressed = false;
+        ActionManager.UndisplayUIObject(gameObject);
+    }
 	
 
 	void Update () {
@@ -49,7 +51,7 @@ public class MoveBall :UnitySingleton<MoveBall> {
         moveImg = moveBallBg.transform.FindChild("Move").gameObject;
 
         EventTriggerListener.Get(moveBallBg).onEnter = OnMoveEnter;
-        EventTriggerListener.Get(moveBallBg).onClick = OnMoveClick;
+        EventTriggerListener.Get(area).onClick = OnMoveClick;
         EventTriggerListener.Get(moveBallBg).onExit = OnMoveExit;
 
         centerPosition = new Vector3(110, 115, 0);
@@ -65,15 +67,21 @@ public class MoveBall :UnitySingleton<MoveBall> {
         touchPoint = Input.mousePosition;
         //Debug.Log("OnMoveEnter" + touchPoint);
         isPressed = true;
-
-        idleImg.SetActive(false);
-        moveImg.SetActive(true);
+       
     }
+
+
+
 
     //当鼠标点击
     private void OnMoveClick(GameObject obj)
     {
-        Debug.Log("OnMoveClick" + Input.mousePosition);
+        //Debug.Log("OnMoveClick" + Input.mousePosition);
+        gameObject.transform.position = Input.mousePosition;
+        ActionManager.DisplayUIObject(gameObject);
+        centerPosition = Input.mousePosition;
+        idleImg.SetActive(true);
+        moveImg.SetActive(false);
     }
 
 
@@ -87,18 +95,36 @@ public class MoveBall :UnitySingleton<MoveBall> {
         idleImg.SetActive(true);
         moveImg.SetActive(false);
 
-        Player.Instance.Character.IsMove = 0;
+        ActionManager.UndisplayUIObject(gameObject);
+
+        if (Player.Instance.Character)
+            Player.Instance.Character.IsMove = 0;
     }
 
 
     //当触摸移动时
     private void OnMoveMoved(GameObject obj)
     {
-
+        idleImg.SetActive(false);
+        moveImg.SetActive(true);
         touchPoint = Input.mousePosition;
 
         //判断触摸是否在球上
         RectTransform rtf = moveBallBg.GetComponent<RectTransform>();
+
+        RectTransform rtfInternal = idleImg.GetComponent<RectTransform>();
+  
+        if (touchPoint.x > rtfInternal.position.x + rtfInternal.sizeDelta.x*0.5f || touchPoint.y > rtfInternal.position.y + rtfInternal.sizeDelta.y*0.5f || touchPoint.x < rtfInternal.position.x - rtfInternal.sizeDelta.x*0.5f || touchPoint.y < rtfInternal.position.y - rtfInternal.sizeDelta.y*0.5f)
+        {
+            idleImg.SetActive(false);
+            moveImg.SetActive(true);
+        }
+        else
+        {
+            idleImg.SetActive(true);
+            moveImg.SetActive(false);
+            return;
+        }
         //Debug.Log("rtfps:"+rtf.position);
         //Debug.Log(rtf.sizeDelta);
         if (touchPoint.x > rtf.position.x + rtf.sizeDelta.x || touchPoint.y > rtf.position.y + rtf.sizeDelta.y || touchPoint.x < rtf.position.x - rtf.sizeDelta.x || touchPoint.y < rtf.position.y - rtf.sizeDelta.y)
@@ -116,7 +142,11 @@ public class MoveBall :UnitySingleton<MoveBall> {
             angle = -360 + Vector3.Angle(offset, oVector);
         moveImg.GetComponent<Transform>().rotation = Quaternion.Euler(0, 0, angle);
 
-        Player.Instance.Character.Direction = offset;
-        Player.Instance.Character.IsMove = 1;
+        if (Player.Instance.Character)
+        {
+            Player.Instance.Character.Direction = offset;
+            Player.Instance.Character.IsMove = 1;
+        }
+   
     }
 }

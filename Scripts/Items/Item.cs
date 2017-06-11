@@ -1,15 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
+
 public class Item : RoomElement {
 
-    protected Sprite iSprite;
-    private bool playerIn;
+    private ItemsTable.ItemData data;
+    public ItemsTable.ItemData Data
+    {
+        get { return data; }
+        set { data = value; }
+    }
+
+    private bool playerIn=false;
+    protected bool canGet = false;
+    bool needBuy = false;
     public bool PlayerIn
     {
         get { return playerIn; }
         set { playerIn = value; }
     }
+
+    protected Sprite iSprite;
+  
+  
     private int itemID;
     public int ItemID
     {
@@ -23,8 +38,9 @@ public class Item : RoomElement {
         set { itemBuffID = value; }
     }
     protected int itemSkillID;
+
     protected SpriteRenderer spriteRenderer;
-    public AudioClip usingSounds;
+   
 
     private string itemName;
     public string ItemName
@@ -40,11 +56,11 @@ public class Item : RoomElement {
         set { itemIntro = value; }
     }
 
-    private int value = 0;
-    public int Value
+    private int price=0;
+    public int Price
     {
-        get { return this.value; }
-        set { this.value = value; }
+        get { return price; }
+        set { price = value; }
     }
 
     private int itemBuffID_Advance = 0;
@@ -60,6 +76,19 @@ public class Item : RoomElement {
     {
         get { return itemSkillID_Advance; }
         set { itemSkillID_Advance = value; }
+    }
+
+    public bool NeedBuy
+    {
+        get
+        {
+            return needBuy;
+        }
+
+        set
+        {
+            needBuy = value;
+        }
     }
 
 
@@ -81,25 +110,33 @@ public class Item : RoomElement {
 
     virtual public void Create(int ID)
     {
-        ItemID = ID;
-        RoomElementID = ID;
-        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
-        itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
-        ItemBuffID_Advance = ItemManager.Instance.itemsTable.GetItemBuffID_Advance(ID);
-        itemSkillID_Advance = ItemManager.Instance.itemsTable.GetItemSkillID_Advanced(ID);
+        CreateScript(ID); ;
         this.AddObserver(ItemManager.Instance);
         this.AddObserver(UIManager.Instance.ItemObserver);
     }
-
+    public virtual void CreateScript(int ID)
+    {
+        ItemID = ID;
+        RoomElementID = ID;
+        Data = ItemsTable.Instance.FindItemsByID(ID);
+        ItemBuffID = Data.buffID;
+        itemSkillID = Data.skillID;
+        ItemBuffID_Advance = Data.buffID_advanced;
+        itemSkillID_Advance = Data.skillID_advanced;
+        Price = Data.price;
+        if(spriteRenderer)
+             spriteRenderer.sprite = Data.sprite;
+    }
     virtual public void DestroyScript() {
 
         this.itemID=0;
     }
 
     public Sprite GetSprite() {
-        if (iSprite == null)
-            Debug.Log("No Sprite");
-        return iSprite;
+        return Data.sprite;
+        //if (iSprite == null)
+        //    Debug.Log("No Sprite");
+        //return iSprite;
     }
     public override void Destroy()
     {
@@ -110,16 +147,48 @@ public class Item : RoomElement {
     public override void Awake()
     {
         base.Awake();
+        PlayerIn = false;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         roomElementID = 1000;
+
     }
 
+    void Start()
+    {
+        StartCoroutine(CanBeGot());
+    }
+
+    IEnumerator CanBeGot()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canGet = true;
+    }
     public override void OnNotify(string msg)
     {
         base.OnNotify(msg);
 
         if (UtilManager.Instance.GetFieldFormMsg(msg, -1) == "Price")
         {
-            this.Value = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0));
+            this.Price = int.Parse(UtilManager.Instance.GetFieldFormMsg(msg, 0));
         }
     }
+
+    public virtual void Use()
+    {
+        for (int i = 0; i < data.trims.Length; i++)
+        {
+            Player.Instance.GetComponent<CharacterSkin>().AddDecoration(data.trims[i].decoration, data.trims[i].parentNode);
+        }
+
+    }
+
+    public virtual void PickUp()
+    {
+        if(!NeedBuy)
+            SoundManager.Instance.PlaySoundEffect(ItemsTable.Instance.pickUpSounds[(int)Data.pickUpSound]);
+        else
+            SoundManager.Instance.PlaySoundEffect(ItemsTable.Instance.pickUpSounds[(int)ItemPickUpSound.Trade]);
+        Destroy();
+    }
+
 }

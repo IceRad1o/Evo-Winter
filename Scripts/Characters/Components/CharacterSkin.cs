@@ -13,8 +13,19 @@ public class CharacterSkin : MonoBehaviour
     #region  Variables
 
     public enum Type{
+        BodyNode,
         HeadNode,
-        TailNode
+        LeftArmNode,
+        RightArmNode,
+        LeftHandNode,
+        RightHandNode,
+        LeftLegNode,
+        RightLegNode,
+        LeftEarNode,
+        RightEarNode,
+        LeftWingNode,
+        RightWingNode,
+        TailNode,
     }
 
     #region Control Variables
@@ -28,6 +39,12 @@ public class CharacterSkin : MonoBehaviour
     List<GameObject> skinList = new List<GameObject>(10);
 
     List<GameObject> decorationList = new List<GameObject>(10);
+
+    //字典,以便快速查找指定骨骼或皮肤
+    Dictionary<Type, GameObject> map=new Dictionary<Type,GameObject>(10);
+
+
+
     #endregion
 
     #region Bone Nodes
@@ -261,6 +278,8 @@ public class CharacterSkin : MonoBehaviour
         if (rightWingNode)
             BoneNodeList.Add(rightWingNode);
 
+        InitMap();
+
         SkinList.Clear();
         if (body)
             SkinList.Add(body);
@@ -325,9 +344,28 @@ public class CharacterSkin : MonoBehaviour
 
     }
 
-    public void Add(GameObject obj,CharacterSkin.Type type,string tag=null)
-    {
 
+    public void InitMap()
+    {
+        
+        Map.Add(Type.BodyNode, bodyNode);
+        Map.Add(Type.HeadNode, headNode);
+        Map.Add(Type.LeftArmNode, leftArmNode);
+        Map.Add(Type.RightArmNode, rightArmNode);
+        Map.Add(Type.LeftHandNode, leftHandNode);
+        Map.Add(Type.RightHandNode, rightHandNode);
+        Map.Add(Type.LeftLegNode, leftHandNode);
+        Map.Add(Type.RightLegNode, rightLegNode);
+        Map.Add(Type.LeftWingNode, leftWingNode);
+        Map.Add(Type.RightWingNode, rightWingNode);
+        Map.Add(Type.TailNode, tailNode);
+        Map.Add(Type.LeftEarNode, leftEarNode);
+        Map.Add(Type.RightEarNode, rightEarNode);
+    }
+
+    public void AddDecoration(GameObject decoration, CharacterSkin.Type type, string tag = null)
+    {
+        Instantiate(decoration, Map[type].transform,false); 
     }
 
     #endregion
@@ -364,6 +402,12 @@ public class CharacterSkin : MonoBehaviour
     {
         get { return decorationList; }
         set { decorationList = value; }
+    }
+
+    public Dictionary<Type, GameObject> Map
+    {
+        get { return map; }
+        set { map = value; }
     }
 
     #endregion

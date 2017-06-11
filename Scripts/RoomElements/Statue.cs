@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// 雕像
+/// </summary>
 public class Statue : RoomElement {
 
 	// Use this for initialization

@@ -4,7 +4,7 @@ using System.Collections;
 public class Coin : Item {
 
     int value=1;
-    bool canGet = false;
+
     /// <summary>
     /// 碰撞检测
     /// </summary>
@@ -14,22 +14,21 @@ public class Coin : Item {
 
         if (other.tag == "Player" && canGet)
         {
-            CoinManager.Instance.GetCoin(value);
-            ItemManager.Instance.SendMsg("Get_Coin;" + this.gameObject.transform.position.x + ";" + this.gameObject.transform.position.y + ";" + this.gameObject.transform.position.z+";"+CoinManager.Instance.Wealth);
-            this.Destroy();
+            PickUp();
         }
 
     }
 
-    void Start()
+
+    public override void  PickUp()
     {
-        StartCoroutine(CanBeGot());
+        CoinManager.Instance.GetCoin(value);
+        SoundManager.Instance.PlaySoundEffect(ItemsTable.Instance.pickUpSounds[(int)ItemPickUpSound.Coin]);
+        ItemManager.Instance.SendMsg("Get_Coin;" + this.gameObject.transform.position.x + ";" + this.gameObject.transform.position.y + ";" + this.gameObject.transform.position.z + ";" + CoinManager.Instance.Wealth);
+        this.Destroy();
     }
 
-    public override void Destroy()
-    {
-        base.Destroy();
-    }
+
 
     public override void Awake()
     {
@@ -37,15 +36,6 @@ public class Coin : Item {
         roomElementID = 21;
     }
 
-    public override void OnNotify(string msg)
-    {
-        base.OnNotify(msg);
 
-    }
 
-    IEnumerator CanBeGot()
-    {
-        yield return new WaitForSeconds(1.5f);
-        canGet = true;
-    }
 }

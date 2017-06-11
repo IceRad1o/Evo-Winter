@@ -135,11 +135,11 @@ public class Altar : RoomElement
     }
 
 
-    public override void Trriger()
+    public override void CloseAttackEvent()
     {
 		if (RoomElementState == 1)
 			return;
-        base.Trriger();
+        base.CloseAttackEvent();
         AddBuff();
         RoomElementState = 1;
         Notify("UseAltar");

@@ -45,11 +45,11 @@ public class Bottle1 : RoomElement
 		}
 	}
 	//重载函数
-	public override void Trriger()
+	public override void CloseAttackEvent()
 	{
 		if (RoomElementState == 1)
 			return;
-		base.Trriger();
+		base.CloseAttackEvent();
 		RoomElementState = 1;
 		Notify("OpenBottle");
 

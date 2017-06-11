@@ -97,8 +97,8 @@ public class Character : RoomElement
     int mov;
     //OLD 5.硬直,即受击回复,影响受到攻击后的无法移动无法攻击时间，硬直越高时此时间越短;
     //NEW 5.精神,影响精力恢复速度
-    static float[] fhrValues = { 0.04f, 0.05f, 0.08f, 0.105f, 0.125f, 0.14f };  
-    int fhr;
+    static float[] sprValues = { 0.05f, 0.1f, 0.16f, 0.21f, 0.25f, 0.28f };  
+    int spr;
     //6.幸运 影响技能触发几率和道具掉落概率
     static float[] lukValues={0.8f,1.0f,1.2f,1.35f,1.45f,1.5f};
     int luk; 
@@ -113,6 +113,8 @@ public class Character : RoomElement
     int deadTime=50;
 
     float energy = 100f;
+    float maxEnergy = 100f;
+
 
 
     #endregion
@@ -350,19 +352,19 @@ public class Character : RoomElement
     /// </summary>
     public float FhrValue
     {
-        get { return fhrValues[BoundaryAdjust(Fhr)]; }
+        get { return sprValues[BoundaryAdjust(Fhr)]; }
     }
     /// <summary>
     /// 硬直等级
     /// </summary>
     public int Fhr
     {
-        get { return fhr; }
+        get { return spr; }
         set
         {
-            StringBuilder s = new StringBuilder(30).Append("HitRecoverChanged;").Append(fhr).Append(";");
-            fhr = value;
-            Notify(s.Append(fhr).ToString());
+            StringBuilder s = new StringBuilder(30).Append("HitRecoverChanged;").Append(spr).Append(";");
+            spr = value;
+            Notify(s.Append(spr).ToString());
         }
     }
     /// <summary>
@@ -405,7 +407,17 @@ public class Character : RoomElement
     public float Energy
     {
         get { return energy; }
-        set { energy = value; }
+        set 
+        { 
+            energy = value;
+            Notify("EnergyChanged");
+        }
+    }
+
+    public float MaxEnergy
+    {
+        get { return maxEnergy; }
+        set { maxEnergy = value; }
     }
     #endregion
 
@@ -877,8 +889,8 @@ public class Character : RoomElement
             IsAlive = -1;
             deadTime = -1;
         }
-        if (energy < 100f)
-             energy += fhrValues[Fhr];
+        if (Energy < 100f)
+             Energy += FhrValue;
 
     }
     public virtual void FixedUpdate()
@@ -1009,9 +1021,10 @@ public class Character : RoomElement
     /// </summary>
     void ChangeWeaponRange()
     {
+        var correctRng = (RngValue - 1) / 2+1;
         for (int i = 0; i < CharacterSkin.weapons.Length; i++)
         {
-           CharacterSkin.weapons[i].transform.parent.localScale = new Vector3(RngValue, RngValue, RngValue);
+            CharacterSkin.weapons[i].transform.parent.localScale = new Vector3(correctRng, correctRng, correctRng);
         }
 
     }
@@ -1037,6 +1050,11 @@ public class Character : RoomElement
 
     }
 
+
+    public void ConsumeEnergy(float consumedValue)
+    {
+        Energy -= consumedValue;
+    }
 
     /// <summary>
     /// 当执行死亡动画开始时调用,以防诈尸

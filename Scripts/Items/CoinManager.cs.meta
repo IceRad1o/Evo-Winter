@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 8a1283a6ec0f2d44daf18025c01f5fee
-timeCreated: 1494047400
+timeCreated: 1497109122
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - coinPrefab: {fileID: 1000014186677206, guid: 5f5a10265397cf7419e18bd2555f10cc,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

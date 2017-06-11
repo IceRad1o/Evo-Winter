@@ -11,6 +11,13 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         get { return itemsTransform; }
         set { itemsTransform = value; }
     }
+
+    public ItemsTable ItemsTable
+    {
+        get { return ItemsTable.Instance; }
+
+    }
+
     public DisposableItem itemsDisposable;
     public ImmediatelyItem itemImmediately;
     public InitiativeItem itemInitiative;
@@ -47,7 +54,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     public int[] advancedItem = new int[50];
 
     //创建ItemsTable的实例
-    public ItemsTable itemsTable = new ItemsTable();
+    private ItemsTable itemsTable = new ItemsTable();
 
     /*CreateItem
      *@Brief 创建一个道具
@@ -59,7 +66,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     {
         Vector3 s = new Vector3(itemsTransform.position.x,itemsTransform.position.y+1,itemsTransform.position.z);
 
-        int itemID = RandomItemID(itemsTable.GetItemsByType(includeingImm, includeingDis, includeingIni));
+        int itemID = RandomItemID(ItemsTable.GetItemsByType(includeingImm, includeingDis, includeingIni));
         return CreateItemID(itemID, pos);
     }
 
@@ -74,7 +81,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     {
         Vector3 s = new Vector3(itemsTransform.position.x, itemsTransform.position.y + 1, itemsTransform.position.z);
 
-        int itemID = RandomItemID(itemsTable.GetItemsByDoping(roomDroping, boosDroping, boxDroping));
+        int itemID = RandomItemID(ItemsTable.GetItemsByDoping(roomDroping, boosDroping, boxDroping));
         return CreateItemID(itemID, pos);
     }
 
@@ -86,7 +93,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     public Item CreateItemID(int ID,Vector3 pos=default(Vector3),bool trans = true)
     {
         int itemID = ID;
-        if (itemsTable.GetItemType(itemID) == 1)
+        if (ItemsTable.GetItemType(itemID) == 1)
         {
             var itemInstance = Instantiate(itemsDisposable, pos, itemsTransform.rotation) as DisposableItem;
 
@@ -94,14 +101,14 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             return itemInstance;
 
         }
-        if (itemsTable.GetItemType(itemID) == 0)
+        if (ItemsTable.GetItemType(itemID) == 0)
         {
             var itemInstance = Instantiate(itemImmediately, pos, itemsTransform.rotation) as ImmediatelyItem;
             itemInstance.Create(itemID);
             return itemInstance;
 
         }
-        if (itemsTable.GetItemType(itemID) == 2)
+        if (ItemsTable.GetItemType(itemID) == 2)
         {
             var itemInstance = Instantiate(itemInitiative, pos, itemsTransform.rotation) as InitiativeItem;
             itemInstance.Create(itemID);
@@ -120,7 +127,7 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         if (disposableItem.ItemID != 0)
         {
             System.Random random = new System.Random();
-            DisposableItem itemInstance = Instantiate(itemsDisposable, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
+            DisposableItem itemInstance = Instantiate(itemsDisposable, Player.Instance.transform.position, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as DisposableItem;
 
             itemInstance.Create(disposableItem.ItemID);
             itemInstance.UsingNumber = disposableItem.UsingNumber;
@@ -171,8 +178,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     {
         if (initiativeItem.ItemID != 0)
         {
-            System.Random random = new System.Random();
-            InitiativeItem itemInstance = Instantiate(itemInitiative, new Vector3(random.Next(12) - 6, -1, 0), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as InitiativeItem;
+           
+            InitiativeItem itemInstance = Instantiate(itemInitiative, Player.Instance.transform.position, Quaternion.identity) as InitiativeItem;
 
             itemInstance.Create(initiativeItem.ItemID);
             itemInstance.EnergyNow = initiativeItem.EnergyNow;
@@ -255,36 +262,42 @@ public class ItemManager : ExUnitySingleton<ItemManager>
             //一次性道具的拾取                
             foreach (DisposableItem t in listDisposableItem)
             {
-                if (t.PlayerIn && CoinManager.Instance.Buy(t.Value))   
+                if (t.PlayerIn &&(!t.NeedBuy|| CoinManager.Instance.Buy(t.Price)))   
                 //if (itemsDis == t && t.playerIn && CoinManager.Instance.Buy(t.Value))             
                 {
-                    AddDisposableItems(t);
-                    Notify("Get_DisposableItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
-                    t.Destroy();
+                    t.PickUp();
+                    //AddDisposableItems(t);
+                    //SoundManager.Instance.PlaySoundEffect(ItemsTable.Instance.pickUpSounds[(int)t.Data.pickUpSound]);
+                    //Notify("Get_DisposableItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
+                    //t.Destroy();
                     break;
                 }
             }
             //主动道具的拾取                
             foreach (InitiativeItem t in listInitiativeItem)
             {
-                if (t.PlayerIn && CoinManager.Instance.Buy(t.Value))
+                if (t.PlayerIn && (!t.NeedBuy || CoinManager.Instance.Buy(t.Price)))
                 //if (itemIni == t && t.PlayerIn && CoinManager.Instance.Buy(t.Value))
                 {
-                    AddInitiativeItems(t);
-                    Notify("Get_InitiativeItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
-                    t.Destroy();
+                    t.PickUp();
+                    //AddInitiativeItems(t);
+                    //SoundManager.Instance.PlaySoundEffect(ItemsTable.Instance.pickUpSounds[(int)t.Data.pickUpSound]);
+                    //Notify("Get_InitiativeItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
+                    //t.Destroy();
                     break;
                 }
             }
             //立即使用道具的拾取                
             foreach (ImmediatelyItem t in listImmediatelyItem)
             {
-                if (t.PlayerIn && CoinManager.Instance.Buy(t.Value))
+                if (t.PlayerIn && (!t.NeedBuy || CoinManager.Instance.Buy(t.Price)))
                 //if (itemImm == t && t.playerIn && CoinManager.Instance.Buy(t.Value))
                 {
                     //Debug.Log("Get_ImmediatelyItem");
-                    Notify("Get_ImmediatelyItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
-                    t.Use();
+                    t.PickUp();
+                    //SoundManager.Instance.PlaySoundEffect(ItemsTable.Instance.pickUpSounds[(int)t.Data.pickUpSound]);
+                    //Notify("Get_ImmediatelyItem;" + t.ItemID + ";" + t.gameObject.transform.position.x + ";" + t.gameObject.transform.position.y + ";" + t.gameObject.transform.position.z);
+                    //t.Use();
                     break;
                 }
             }
@@ -389,7 +402,8 @@ public class ItemManager : ExUnitySingleton<ItemManager>
 
     void Start()
     {
-        Player.Instance.Character.AddObserver(this);
+        if( Player.Instance.Character)
+             Player.Instance.Character.AddObserver(this);
         this.AddObserver(UIManager.Instance.ItemObserver);
         RoomManager.Instance.AddObserver(this);
 

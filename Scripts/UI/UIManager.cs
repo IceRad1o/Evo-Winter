@@ -78,8 +78,8 @@ public class UIManager : ExUnitySingleton<UIManager>
         moveBall = MoveBall.Instance;
         attackButtonManager = AttackButtonManager.Instance;
         itemButtonManager = ItemButtonManager.Instance;
-
-        Player.Instance.Character.AddObserver(this);
+        if (Player.Instance.Character)
+             Player.Instance.Character.AddObserver(this);
         RoomManager.Instance.AddObserver(this);
         ItemManager.Instance.AddObserver(this);
         EsscenceManager.Instance.AddObserver(this);
@@ -99,11 +99,11 @@ public class UIManager : ExUnitySingleton<UIManager>
         }
         if (str[0] == "LeaveRoom")
         {
-            Instantiate(dark, this.transform.parent, false);
+            Instantiate(dark, this.transform, false);
         }
         if (str[0] == "SetupCheckpoint")
         {
-            Instantiate(dark, this.transform.parent);
+            Instantiate(dark, this.transform);
         }
 
         if (str[0] == "MapComplete")
@@ -130,11 +130,14 @@ public class UIManager : ExUnitySingleton<UIManager>
             UIManager.Instance.ItemButtonManager.DestroyInitiativeItem();
         if (str[0] == "Player_Get_DisposableItem" || str[0] == "Player_Get_InitiativeItem" || str[0] == "Player_Get_ImmediatelyItem")
         {
+            //Debug.Log("Enter ");
+          
             //TODO 显示道具信息
-
-            UIManager.Instance.popup.SetItemDetailPopup(
-                    ItemManager.Instance.itemsTable.GetItemName(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemIntro(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemType(int.Parse(str[1])), ItemManager.Instance.itemsTable.GetItemQuality(int.Parse(str[1])));
+            var info = ItemManager.Instance.ItemsTable.FindItemsByID(int.Parse(str[1]));
             UIManager.Instance.popup.itemDetailPopup.SetActive(true);
+       
+            UIManager.Instance.popup.SetItemDetailPopup(info.itemName, info.itemIntro,(int)(info.type),(int)(info.quality));
+            
         }
         if (str[0] == "Player_Leave_DisposableItem" || str[0] == "Player_Leave_InitiativeItem" || str[0] == "Player_Leave_ImmediatelyItem")
         {
@@ -147,16 +150,16 @@ public class UIManager : ExUnitySingleton<UIManager>
         {
             UIManager.Instance.popup.itemDetailPopup.SetActive(false);
             Sprite sp = ItemManager.Instance.GetDisposableItemsSprite();
-            UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
+            UIManager.Instance.ItemButtonManager.AddDisposableItem(sp, new Vector3(float.Parse(str[2]), float.Parse(str[3]), float.Parse(str[4])));
         }
         if (str[0] == "Get_InitiativeItem")//玩家拾取主动道具
         {
             UIManager.Instance.popup.itemDetailPopup.SetActive(false);
             Sprite sp = ItemManager.Instance.GetInitiativeItemSprite();
-            UIManager.Instance.ItemButtonManager.AddInitiativeItem(sp);
+            UIManager.Instance.ItemButtonManager.AddInitiativeItem(sp, new Vector3(float.Parse(str[2]), float.Parse(str[3]), float.Parse(str[4])));
           
         }
-        if (str[0] == "Get_ImmediatelyItem")//玩家拾取主动道具
+        if (str[0] == "Get_ImmediatelyItem")//玩家拾取被动道具
         {
             UIManager.Instance.popup.itemDetailPopup.SetActive(false);
         }
@@ -172,7 +175,7 @@ public class UIManager : ExUnitySingleton<UIManager>
             //TODO 显示道具信息
             int id = int.Parse(str[1]);
             UIManager.Instance.popup.SetItemDetailPopup(
-                    Esscence.esscenceName[id],Esscence.esscenceDescrible[id],3, "S+");
+                    Esscence.esscenceName[id],Esscence.esscenceDescrible[id],3, 5);
             UIManager.Instance.popup.itemDetailPopup.SetActive(true);
         }
         if (str[0] == "Player_Leave_Esscence")
@@ -183,10 +186,14 @@ public class UIManager : ExUnitySingleton<UIManager>
 
         }
 
-        if (str[0] == "Get_Esscence")//玩家拾取一次性道具
+        if (str[0] == "Get_Esscence")//玩家拾取精华
         {
             UIManager.Instance.popup.itemDetailPopup.SetActive(false);
-           
+            int type= int.Parse(str[1]);
+            //Debug.Log("Skill_ID   :" + id +"        "+msg);
+          
+
+            EsscencesDisplayer.Instance.TransEsscenceToDisplayer(type, new Vector3(float.Parse(str[2]), float.Parse(str[3]), float.Parse(str[4])));
             //UIManager.Instance.ItemButtonManager.AddDisposableItem(sp);
         }
 
@@ -234,7 +241,10 @@ public class UIManager : ExUnitySingleton<UIManager>
             AttriInfo.Instance.Mov = Player.Instance.Character.Mov;
            // Debug.Log("ui:" + AttriInfo.Instance.Mov);
         }
-    
+        if (str[0] == "EnergyChanged")
+        {
+            EnergyBar.Instance.SetEnergy(Player.Instance.Character.Energy / Player.Instance.Character.MaxEnergy);
+        }
 
         if (str[0] == "RaceChanged")
         { 

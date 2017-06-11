@@ -39,9 +39,16 @@ public class BatMoveSkill : MonoBehaviour {
     void UseBatSkill()
     {
         if (instance != null)
-            MeComeToBat();
+        {
+            character.Energy -= 20f;
+            MeComeToBat(); 
+        }
         else
+        {
+            character.Energy -= 50f;
             BatComeToMe();
+        }
+        
 
     }
 

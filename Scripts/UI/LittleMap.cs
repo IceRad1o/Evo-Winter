@@ -57,7 +57,11 @@ public class LittleMap : ExUnitySingleton<LittleMap>{
         int roomX = RoomManager.Instance.roomX;
         int roomY = RoomManager.Instance.roomY;
 
-        
+        if (map==null)
+        {
+            Debug.Log("Map is null");
+            return;
+        }
         //先根据通过与否分成已知的和未知的和可接近的
         for(int i=0;i<rows;i++)
             for(int j=0;j<columns;j++)

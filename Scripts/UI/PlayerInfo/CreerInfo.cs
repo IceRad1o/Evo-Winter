@@ -13,6 +13,13 @@ public class CreerInfo : ExUnitySingleton<CreerInfo> {
         phote = gameObject.transform.Find("Phote").gameObject;
         creer = gameObject.transform.Find("Creer").gameObject;
         name = gameObject.transform.Find("Name").gameObject;
+
+        if (!Player.Instance.Character)
+        {
+            Debug.Log("Player is null");
+            return;
+        }
+
         SetRace(Player.Instance.Character.Race);
 
         SetCareer(Player.Instance.Character.Career);

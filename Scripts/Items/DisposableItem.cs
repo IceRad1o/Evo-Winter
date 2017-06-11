@@ -69,22 +69,22 @@ public class DisposableItem : Item{
     public override void Create(int ID)
     {
  	    base.Create(ID);
-        CreateScript(ID);
-        spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
+        //CreateScript(ID);
+       // spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.ItemsTable.GetSpriteID(ID)];
 
         ItemManager.Instance.listDisposableItem.Add(this);
     }
  
-    public void CreateScript(int ID)
-    {
-        //ItemName=
-        iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
-        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
-        itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
-        ItemBuffID_Advance = ItemManager.Instance.itemsTable.GetItemBuffID_Advance(ID);
-        ItemSkillID_Advance = ItemManager.Instance.itemsTable.GetItemSkillID_Advanced(ID);
-        ItemID = ID;
-    }
+    //public void CreateScript(int ID)
+    //{
+    //    //ItemName=
+    //    iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.ItemsTable.GetSpriteID(ID)];
+    //    ItemBuffID = ItemManager.Instance.ItemsTable.GetItemBuffID(ID);
+    //    itemSkillID = ItemManager.Instance.ItemsTable.GetItemSkillID(ID);
+    //    ItemBuffID_Advance = ItemManager.Instance.ItemsTable.GetItemBuffID_Advance(ID);
+    //    ItemSkillID_Advance = ItemManager.Instance.ItemsTable.GetItemSkillID_Advanced(ID);
+    //    ItemID = ID;
+    //}
     /// <summary>
     /// 销毁实例
     /// </summary>
@@ -148,5 +148,13 @@ public class DisposableItem : Item{
     {
         base.OnNotify(msg);
     }
-    
+
+    public override void PickUp()
+    {
+        
+        ItemManager.Instance.AddDisposableItems(this);
+       
+        ItemManager.Instance.Notify("Get_DisposableItem;" + ItemID + ";" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z);
+        base.PickUp();
+    }
 }

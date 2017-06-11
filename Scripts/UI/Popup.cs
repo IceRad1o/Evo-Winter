@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Text;
 /// <summary>
 /// 负责UI弹幕的显示
 /// </summary>
 public class Popup : UnitySingleton<Popup> {
 
 
+    //D级 灰色 C级绿色 B级蓝色 A级紫色 S级 橙色 S+级 红色 6级
+    static readonly string[] colorStr ={ "<color=grey>", "<color=lime>", "<color=cyan>", "<color=#FF00FFFF>", "<color=orange>", "<color=red>" };
+    static readonly string[] typeStr = { "被动道具", "消耗品", "主动道具", "欲望精华","书籍","????"};
+    static readonly string[] qualityStr = { "D", "C", "B", "A", "S", "S+" };
     public GameObject itemDetailPopup;
     GameObject itemDetailPopupTitle;
     GameObject itemDetailPopupText;
@@ -35,30 +40,16 @@ public class Popup : UnitySingleton<Popup> {
 
 
 
-    public void SetItemDetailPopup(string itemName,string itemIntro,int itemType,string itemQuality)
+    public void SetItemDetailPopup(string itemName,string itemIntro,int itemType,int itemQuality)
     {
-       
-        //D级 灰色 C级绿色 B级蓝色 A级紫色 S级 橙色 S+级 红色 6级
-        string[] colorStr = new string[6] { "color=grey", "color=lime", "color=cyan", "color=#FF00FFFF", "color=orange", "color=red" };
-        string []typeStr=new string[4]{"被动道具","消耗品","主动道具","欲望精华"};
-        int quality=0;
-        if (itemQuality == "D")
-            quality = 0;
-        else if (itemQuality == "C")
-            quality = 1;
-        else if (itemQuality == "B")
-            quality = 2;
-        else if (itemQuality == "A")
-            quality = 3;
-        else if (itemQuality == "S")
-            quality = 4;
-        else if (itemQuality == "S+")
-            quality = 5;
-        itemDetailPopupTitle.GetComponent<Text>().text ="<"+colorStr[quality]+">"+ itemName+"</color>";
+        
+        StringBuilder s=new StringBuilder();
+        s.Append(colorStr[itemQuality]).Append(itemName).Append("</color>");
 
+        itemDetailPopupTitle.GetComponent<Text>().text = s.ToString();
         itemDetailPopupText.GetComponent<Text>().text = itemIntro;
-        itemDetailPopupType.GetComponent<Text>().text = ""+typeStr[itemType];
-        itemDetailPopupQuality.GetComponent<Text>().text = "" + itemQuality;
+        itemDetailPopupType.GetComponent<Text>().text = typeStr[itemType];
+        itemDetailPopupQuality.GetComponent<Text>().text = qualityStr[itemQuality];
     }
 
     public void ShowEsscencePopup(Sprite sp,string name,string desc)

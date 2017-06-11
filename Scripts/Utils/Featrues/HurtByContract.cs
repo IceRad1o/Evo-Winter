@@ -118,7 +118,7 @@ public class HurtByContract : MonoBehaviour
 
                 //减血
                 target.Hp -= damage;
-                target.Trriger();
+                target.CloseAttackEvent();
 
         
 

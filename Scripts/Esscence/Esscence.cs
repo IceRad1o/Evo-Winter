@@ -64,7 +64,7 @@ public class Esscence : RoomElement
 
     void PlayerGet() 
     {
-        Notify("Get_Esscence;" + esscenceID);
+        Notify("Get_Esscence;" + esscenceID + ";" + transform.position.x + ";" + transform.position.y + ";" + transform.position.z);
         UIManager.Instance.RemoveObserver(this);
         Player.Instance.Character.RemoveObserver(this);
 
@@ -74,7 +74,7 @@ public class Esscence : RoomElement
         GameObject prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
         prefabInstance.transform.parent = this.gameObject.transform;
-
+        SoundManager.Instance.PlaySoundEffect(ItemsTable.Instance.pickUpSounds[(int)ItemPickUpSound.Esscence]);
 
         base.Destroy();
     }

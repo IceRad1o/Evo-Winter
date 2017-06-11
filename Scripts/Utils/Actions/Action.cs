@@ -284,4 +284,24 @@ public class Action : MonoBehaviour
     }
 
 
+
+
+    /// <summary>
+    /// 初始化Action的参数
+    /// </summary>
+    /// <param name="duration">持续时间</param>
+    /// <param name="destScale">目标值</param>
+    /// <param name="isReverse">是否反转,即缩放至目标值后是否回到原来值</param>
+    /// <param name="isLoop"> 是否循环</param>
+    /// <param name="isOnCanvas">对象是否为UI元素</param>
+    public virtual void Init(float duration, Vector4 dest, bool isReverse = true, bool isLoop = false, bool isOnCanvas = false)
+    {
+        this.duration = duration;
+    
+        this.destValue = dest;
+        this.isReverse = isReverse;
+        this.isLoop = isLoop;
+        this.isOnCanvas = isOnCanvas;
+    }
+
 }

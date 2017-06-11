@@ -45,9 +45,9 @@ public class ImmediatelyItem : Item{
      *@Brief 一次性道具的使用
      *@Return ：Buff 道具增加的buff，如果道具是使用skill，则返回null
      */
-    public void Use()
+    public override void Use()
     {
-
+        base.Use();
         if (ItemID >= 1500)
         {
             ItemManager.Instance.SendMsg("Item_Advance;" + (ItemID - 1500));
@@ -81,15 +81,15 @@ public class ImmediatelyItem : Item{
             
 
         }
-        ItemManager.Instance.listImmediatelyItem.Remove(this);
-        this.Destroy();
+   
+       
     }
 
 
     public override void Create(int ID)
     {
  	    base.Create(ID);
-        spriteRenderer.sprite = itemSprite[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
+        //spriteRenderer.sprite = itemSprite[ItemManager.Instance.ItemsTable.GetSpriteID(ID)];
         
         ItemManager.Instance.listImmediatelyItem.Add(this);
         
@@ -97,16 +97,23 @@ public class ImmediatelyItem : Item{
 
     public override void Destroy()
     {
+        ItemManager.Instance.listImmediatelyItem.Remove(this);
         base.Destroy();
     }
 
     public override void Awake()
     {
         base.Awake();
-        PlayerIn = false;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+    
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
     }
-
+    public override void PickUp()
+    {
+      
+        ItemManager.Instance.Notify("Get_ImmediatelyItem;" + ItemID + ";" + gameObject.transform.position.x + ";" + gameObject.transform.position.y + ";" + gameObject.transform.position.z);
+        Use();
+        base.PickUp();
+       
+    }
     
 }

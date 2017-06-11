@@ -81,7 +81,14 @@ public class Phote : UnitySingleton<Phote>
 
         Button photeBtn = photeButton.GetComponent<Button>();
         photeBtn.onClick.AddListener(OnDisplayPlayerAttributes);
-        int type = (int)Player.Instance.Character.Race;
+        int type;
+        if (!Player.Instance.Character)
+        {
+            Debug.Log("Player is null");
+            type = 0;
+        }
+        else
+            type = (int)Player.Instance.Character.Race;
         grid.GetComponent<Image>().sprite = gridSprite[type];
         phote.GetComponent<Image>().sprite = photeSprite[type];
     }

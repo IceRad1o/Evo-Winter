@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CoinManager : ExUnitySingleton<CoinManager> {
 
+    public GameObject coinPrefab;
+
     int wealth;
 
     public int Wealth
@@ -33,7 +35,7 @@ public class CoinManager : ExUnitySingleton<CoinManager> {
 
     public void CreateCoin(int number, Vector3 pos=default(Vector3))
     {
-        UtilManager.Instance.CreateEffcet("Items/Coin", pos);
+        Instantiate(coinPrefab, pos,Quaternion.identity);
         
     }
 

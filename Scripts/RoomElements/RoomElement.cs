@@ -231,16 +231,36 @@ public class RoomElement : ExSubject
         this.Destroy();
     }
 
-    public virtual void Trriger()
+
+    /// <summary>
+    /// 当被观察者靠近并按下攻击键时触发该事件
+    /// </summary>
+    public virtual void CloseAttackEvent()
     { 
     }
+    /// <summary>
+    /// 当该gameobject被击中触发该事件
+    /// </summary>
+    public virtual void HitEvent()
+    {
+
+    }
+    /// <summary>
+    /// 当该gameobject被进入时触发
+    /// </summary>
+    public virtual void EnterEvent()
+    {
+
+    }
+
+
     public override void OnNotify(string msg)
     {
         string[] str = UtilManager.Instance.GetMsgFields(msg);
         // Debug.Log("altarmsg:" + msg);
         if (str[0] == "AttackStart" && str[1] == "J")
         {
-            Trriger();
+            CloseAttackEvent();
         }
 //		if (str [0] == "MissileEnterBottle") 
 //		{

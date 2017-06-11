@@ -231,7 +231,7 @@ public class ActionStateMachine {
         }
         else if (asi.IsName("AttackK"))
         {
-            character.Energy -= 30f;
+   
             anim.speed = character.SpdValue;
             CurState = "AttackK";
         }

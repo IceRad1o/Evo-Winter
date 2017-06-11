@@ -189,7 +189,10 @@ public class EsscenceManager : ExUnitySingleton<EsscenceManager>
             esscenceNumber.Add(0);
         }
         GetRandomArray();
-        skillEsscence =(int)Player.Instance.GetComponent<Character>().Race;
+        if (Player.Instance.Character)
+            skillEsscence = (int)Player.Instance.GetComponent<Character>().Race;
+        else
+            skillEsscence = 0;
     }
 
     public override void OnNotify(string msg)

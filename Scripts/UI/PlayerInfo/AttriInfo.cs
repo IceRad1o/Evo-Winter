@@ -114,6 +114,11 @@ public class AttriInfo : ExUnitySingleton<AttriInfo> {
 
      void Init()
     {
+        if(!Player.Instance.Character)
+        {
+            Debug.Log("Player is null");
+            return;
+        }
         Atk = Player.Instance.Character.Atk;
         Spd = Player.Instance.Character.Spd;
         Rng = Player.Instance.Character.Rng;

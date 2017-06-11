@@ -32,19 +32,36 @@ public class ItemButtonManager : UnitySingleton<ItemButtonManager>{
      *@Param Sprite item 道具图片
      */
 
-    public void AddInitiativeItem(Sprite item)
+    public void AddInitiativeItem(Sprite item, Vector3 position, bool isDelay = true)
     {
-        Debug.Log("AddInitiativeItem");
-        initiativeItemImg.GetComponent<Image>().sprite = item;
+       
+              initiativeItemImg.GetComponent<Image>().sprite = item;
+        if (isDelay)
+        {
+            Vector3 pos = CameraController.Instance.GetComponent<Camera>().WorldToScreenPoint(position);
+            var dest = initiativeItemImg.transform.position;
+            initiativeItemImg.transform.position = pos;
+            iTween.MoveTo(initiativeItemImg, iTween.Hash("x", dest.x, "y", dest.y, "z", dest.z, "time", 0.5f, "easeType", iTween.EaseType.easeInQuad));
+
+        }
     }
 
     /*AddDisposableItem
      *@Brief 增加一次性道具到UI
      *@Param Sprite item 道具图片
      */
-    public void AddDisposableItem(Sprite item)
+    public void AddDisposableItem(Sprite item,Vector3 position,bool isDelay=true )
     {
-        disposableItemImg.GetComponent<Image>().sprite = item;
+        
+             disposableItemImg.GetComponent<Image>().sprite = item;
+         if (isDelay)
+        {
+            Vector3 pos = CameraController.Instance.GetComponent<Camera>().WorldToScreenPoint(position);
+            var dest=disposableItemImg.transform.position;
+            disposableItemImg.transform.position = pos;
+            iTween.MoveTo(disposableItemImg, iTween.Hash("x", dest.x, "y", dest.y, "z", dest.z, "time", 0.5f, "easeType", iTween.EaseType.easeInQuad));
+
+        }
     }
 
     /*OnInitiativeItem

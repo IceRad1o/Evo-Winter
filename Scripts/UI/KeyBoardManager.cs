@@ -172,12 +172,39 @@ public class KeyBoardManager : MonoBehaviour {
 		{
 			GetHandle();
 		}
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Player.Instance.Character.Atk++;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Player.Instance.Character.Spd++;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Player.Instance.Character.Rng++;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Player.Instance.Character.Mov++;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Player.Instance.Character.Fhr++;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            Player.Instance.Character.Luk++;
+        }
+
+
         //产生道具
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //ItemManager.Instance.CreateItemID(1008, new Vector3(-2, -1, -1));
             //ItemManager.Instance.CreateItemID(1008, new Vector3(-1, -1, -1));
             SkillTest.test1();
+            CoinManager.Instance.GetCoin(100);
         }
         if(Input.GetKeyDown(KeyCode.Escape))
         {

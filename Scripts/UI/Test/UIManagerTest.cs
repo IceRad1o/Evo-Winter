@@ -41,12 +41,12 @@ public class UIManagerTest : MonoBehaviour {
 
         yield return new WaitForSeconds(3.0f);
         Debug.Log("Start Test5：增加主动道具");
-        UIManager.Instance.ItemButtonManager.AddInitiativeItem(testSprite);
+        //UIManager.Instance.ItemButtonManager.AddInitiativeItem(testSprite);
         Debug.Log("Test4 Over");
 
         yield return new WaitForSeconds(3.0f);
         Debug.Log("Start Test6：增加一次性道具");
-        UIManager.Instance.ItemButtonManager.AddDisposableItem(testSprite);
+        //UIManager.Instance.ItemButtonManager.AddDisposableItem(testSprite);
         Debug.Log("Test6 Over");
     }
 }

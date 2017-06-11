@@ -12,7 +12,7 @@ public class InitiativeItem : Item{
         set { energyNow = value;
             RoomElementState = energyNow;
             if (energyNow > energyMax) energyNow = energyMax; 
-            ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;"+(energyMax==0?100:energyNow*100/energyMax)); 
+            ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;"+(energyMax==0?100:(energyNow*100.0f/energyMax))); 
             }
     }
 
@@ -27,22 +27,18 @@ public class InitiativeItem : Item{
     public override void Create(int ID)
     {
         base.Create(ID);
-        CreateScript(ID);
-        spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
+       // CreateScript(ID);
+       // spriteRenderer.sprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.ItemsTable.GetSpriteID(ID)];
 
         ItemManager.Instance.listInitiativeItem.Add(this);
     }
 
-    public void CreateScript(int ID)
+    public override void CreateScript(int ID)
     {
-        iSprite = ItemManager.Instance.itemSprite.SpriteArray[ItemManager.Instance.itemsTable.GetSpriteID(ID)];
-        ItemBuffID = ItemManager.Instance.itemsTable.GetItemBuffID(ID);
-        itemSkillID = ItemManager.Instance.itemsTable.GetItemSkillID(ID);
-        ItemBuffID_Advance = ItemManager.Instance.itemsTable.GetItemBuffID_Advance(ID);
-        ItemSkillID_Advance = ItemManager.Instance.itemsTable.GetItemSkillID_Advanced(ID);
-        energyMax = ItemManager.Instance.itemsTable.GetItemEnergy(ID);
+        base.CreateScript(ID);
+        energyMax = Data.energy;
         energyNow = energyMax;
-        ItemID = ID;
+     
     }
     /// <summary>
     /// 销毁实例
@@ -132,5 +128,14 @@ public class InitiativeItem : Item{
         PlayerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         itemSprite = ItemManager.Instance.itemSprite.SpriteArray;
+    }
+
+    public override void PickUp()
+    {
+      
+        ItemManager.Instance.AddInitiativeItems(this);
+   
+        ItemManager.Instance.Notify("Get_InitiativeItem;" + ItemID + ";" + transform.position.x + ";" +transform.position.y + ";" + transform.position.z);
+        base.PickUp();
     }
 }
