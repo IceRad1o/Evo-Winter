@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// 
 /// </summary>
-public class KeyBoardManager : MonoBehaviour {
+public class KeyBoardManager : ExUnitySingleton<KeyBoardManager> {
 
     int keyDownNum;
 

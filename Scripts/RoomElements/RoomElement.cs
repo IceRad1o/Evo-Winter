@@ -2,18 +2,146 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+
+public enum RoomDomain
+{
+    RoomGround,
+    RoomWall,
+    RoomBlocks,
+    UnLimited
+}
+/*
+ * 0:发射物Missile
+ * 1:箱子Box
+ * 2:镜子Mirror
+ * 3:门Door
+ * 4:雕像Statue
+ * 5:爪子Claw
+ * 6:图一Picture1
+ * 7:图二Picture2
+ * 8:骷髅Skull
+ * 9:骷髅灯SkullLight
+ * 10:瓶子一Bottle1
+ * 11:瓶子二Bottle2
+ * 12:骨头Gone
+ * 13:杆Rod
+ * 14:石头Stone
+ * 15:陷阱Trap
+ * 16:楼梯Stair
+ * 17:祭坛一Altar1
+ * 18:祭坛二Altar2
+ * 19:商店Shop
+ * 20:牌子Plate
+ * 21:金币Coin
+ * 22:开关Handle
+ * 1000+:道具
+ * 2000+ 人物
+ * */
+public enum REID
+{
+    XXX=-1,
+    Unknown = 0,
+    //房间物品
+    Box = 1,
+    Mirror,
+
+    Statue ,
+    Claw ,
+    Picture1 ,
+    Picture2 ,
+    Skull,
+    SkullLight,
+    Bottle1 ,
+    Bottle2,
+    Bone ,
+    Rod ,
+    Stone ,
+    Trap ,
+    Stair ,
+    Altar1 ,
+    Altar2 ,
+    Shop ,
+    Plate,
+    Coin ,
+    Handle,
+    FrontDoorDecoration,
+    DoorFront,
+    DoorBack,
+    DoorLeft,
+    DoorRight,
+
+
+
+    Missle=50,
+    //道具
+    Item=1000,
+    ItemEnd=1999,
+    Character= 2000,
+    //小怪
+    GnomeBlaster = 2100,
+    GnomeWarrior = 2101,
+    GnomeAlchemist = 2102,
+    GnomeArcher = 2103,
+    GnomePatrol = 2104,
+    GnomeAdvancedArcher = 2105,
+    GnomeScootWarrior = 2106,
+    GnomeCheerer = 2107,
+    GnomePharmacist = 2108,
+    GnomeKing = 2109,
+
+    PygmyPuppet1 = 2200,
+    PygmyPuppet2 = 2201,
+    PygmyPuppet3 = 2202,
+    PygmyTrainGunner = 2203,
+    PygmyRobber = 2204,
+    PygmySummoner = 2205,
+    PygmyIceGunner = 2206,
+    PygmyFireGunner = 2207,
+    PygmySiegePuppet = 2208,
+    PygmyKing = 2209,
+
+    VampireBat = 2300,
+    VampireWarrior = 2301,
+    VampireCrossbower = 2302,
+    VampireMage = 2303,
+    VampireAssassin = 2304,
+    VampireBlaster = 2305,
+    VampireCrackWarrior = 2306,
+    VampireHuntter = 2307,
+    VampireSummoner = 2308,
+    VampireSpiritCaller = 2309,
+    VampireKing = 2310,
+    CharacterEnd = 2999,
+};
 /// <summary>
 /// RoomElement
 /// Brief:房间元素,具备MonoBehavoir以及Notify/OnNotify的功能
 /// Latest Update At 17.5.28
 /// </summary>
+[System.Serializable]
+//单个房间元素信息
+public struct RoomElementInfo
+{
+    public REID ID;
+    public Vector3 Position;
+    public int State;
+
+    public RoomElementInfo(REID id = 0, Vector3 position = new Vector3(), int state = 0)
+    {
+        ID = id;
+        Position = position;
+        State = state;
+    }
+}
+
 public class RoomElement : ExSubject
 {
 
     #region Varibles
-    public int roomElementID;
-    public int maxHp = 10;
-    public GameObject bloodBarPrefab;
+    public REID roomElementID=0;
+    public int roomElementState = 0;
+    public AudioClip roomElementSound;
+    public RoomDomain belongDomain=RoomDomain.RoomGround;
 
 
     /// <summary>
@@ -34,7 +162,7 @@ public class RoomElement : ExSubject
     //从属者
     List<RoomElement> servants = new List<RoomElement>();
 
-    int roomElementState = 0;
+    int maxHp = 10;
     float hp;
     float healthPercent = 1f;
 
@@ -44,105 +172,16 @@ public class RoomElement : ExSubject
     #region Methods
 
     #region Getter&Setter
-    /*
-     * 0:发射物Missile
-     * 1:箱子Box
-     * 2:镜子Mirror
-     * 3:门Door
-     * 4:雕像Statue
-     * 5:爪子Claw
-     * 6:图一Picture1
-     * 7:图二Picture2
-     * 8:骷髅Skull
-     * 9:骷髅灯SkullLight
-     * 10:瓶子一Bottle1
-     * 11:瓶子二Bottle2
-     * 12:骨头Gone
-     * 13:杆Rod
-     * 14:石头Stone
-     * 15:陷阱Trap
-     * 16:楼梯Stair
-     * 17:祭坛一Altar1
-     * 18:祭坛二Altar2
-     * 19:商店Shop
-     * 20:牌子Plate
-     * 21:金币Coin
-     * 22:开关Handle
-     * 1000+:道具
-     * 2000+ 人物
-     * */
-	public enum REID
-	{
-		//房间物品
-		Missile = 0,
-		Box = 1,
-		Mirror = 2,
-		Door = 3,
-		Statue = 4,
-		Claw = 5,
-		Picture1 = 6,
-		Picture2 = 7,
-		Skull = 8,
-		SkullLight = 9,
-		Bottle1 = 10,
-		Bottle2 = 11,
-		Gone = 12,
-		Rod = 13,
-		Stone = 14,
-		Trap = 15,
-		Stair = 16,
-		Altar1 = 17,
-		Altar2 = 18,
-		Shop = 19,
-		Plate = 20,
-		Coin = 21,
-		Handle = 22,
-
-		//小怪
-		GnomeBlaster = 2100,
-		GnomeWarrior = 2101,
-		GnomeAlchemist = 2102,
-		GnomeArcher = 2103,
-		GnomePatrol = 2104,
-		GnomeAdvancedArcher = 2105,
-		GnomeScootWarrior = 2106,
-		GnomeCheerer = 2107,
-		GnomePharmacist = 2108,
-		GnomeKing = 2109,
-
-		PygmyPuppet1 = 2200,
-		PygmyPuppet2 = 2201,
-		PygmyPuppet3 = 2202,
-		PygmyTrainGunner = 2203,
-		PygmyRobber = 2204,
-		PygmySummoner = 2205,
-		PygmyIceGunner = 2206,
-		PygmyFireGunner = 2207,
-		PygmySiegePuppet = 2208,
-		PygmyKing = 2209,
-
-		VampireBat = 2300,
-		VampireWarrior = 2301,
-		VampireCrossbower = 2302,
-		VampireMage = 2303,
-		VampireAssassin = 2304,
-		VampireBlaster = 2305,
-		VampireCrackWarrior = 2306,
-		VampireHuntter = 2307,
-		VampireSummoner = 2308,
-		VampireSpiritCaller = 2309,
-		VampireKing = 2310
-
-	};
 
 
-
-
-    public int RoomElementID
+    public REID RoomElementID
     {
         get { return roomElementID; }
         set { roomElementID = value; }
     }
+
+
+
 	public int RoomElementState
 	{
 		get { return roomElementState; }
@@ -282,20 +321,26 @@ public class RoomElement : ExSubject
 
     public void EnableBloodBar(bool isEnable)
     {
-        if (!bloodBarPrefab)
-            return;
+
         if(isEnable)
         {
             if (bloodBarInstance)
                 bloodBarInstance.SetActive(true);
             else
-                bloodBarInstance = Instantiate(bloodBarPrefab, transform,false) as GameObject;
+                bloodBarInstance = Instantiate(RETable.Instance.bloodBarPrefab, transform,false) as GameObject;
         }
         else
         {
             if (bloodBarInstance)
                 bloodBarInstance.SetActive(false);
         }
+    }
+
+
+    public virtual RoomElementInfo GetInfo()
+    {
+        return new RoomElementInfo(RoomElementID, transform.position, RoomElementState);
+
     }
 
     #endregion

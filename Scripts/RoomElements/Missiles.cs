@@ -25,7 +25,7 @@ public class Missiles : RoomElement{
     {
         Debug.Log("Awake");
         base.Awake();
-        RoomElementID = 0;
+       // RoomElementID = 0;
     }
 
     /// <summary>

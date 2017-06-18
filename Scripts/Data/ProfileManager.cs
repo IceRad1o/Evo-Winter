@@ -84,8 +84,8 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>
                 if (roomType != 0)
                 {
 					tempRoomID.Add(roomType);
-                    tempRoomPass.Add(CheckpointManager.Instance.GetNextRoom(i, j).pass);
-                    tempRoomSize.Add(CheckpointManager.Instance.GetNextRoom(i, j).RoomSize);
+                    tempRoomPass.Add(CheckpointManager.Instance.GetRoomInfo(i, j).pass);
+                    tempRoomSize.Add(CheckpointManager.Instance.GetRoomInfo(i, j).roomSize);
                 }
                 else
                 {
@@ -100,8 +100,8 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>
         data.IsRoomPassed = tempRoomPass.ToArray();
         data.RoomSize = tempRoomSize.ToArray();
         data.CurLevel = CheckpointManager.Instance.CheckpointNumber;
-        data.CurRoomX = RoomManager.Instance.roomX;
-        data.CurRoomY = RoomManager.Instance.roomY;
+        data.CurRoomX = RoomManager.Instance.RoomX;
+        data.CurRoomY = RoomManager.Instance.RoomY;
 
         //RoomElements Data
 
@@ -109,7 +109,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>
         //注意要从后往前删,否则序号会出问题
         for (int i = tempRERoomX.Count - 1; i >= 0; i--)
         {
-            if (RoomManager.Instance.roomX == tempRERoomX[i] && RoomManager.Instance.roomY == tempRERoomY[i])
+            if (RoomManager.Instance.RoomX == tempRERoomX[i] && RoomManager.Instance.RoomY == tempRERoomY[i])
             {
                 //Debug.Log("删除:" + tempREID[i]);
                 tempREID.RemoveAt(i);
@@ -133,13 +133,13 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>
                 Debug.Log("MissingReferenceException: The object has been destroyed but you are still trying to access it.");
                 continue;
             }
-            tempREID.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementID);
-            tempREState.Add(RoomElementManager.Instance.RoomElementList[i].RoomElementState);
+            tempREID.Add((int)RoomElementManager.Instance.RoomElementList[i].RoomElementID);
+            tempREState.Add((int)RoomElementManager.Instance.RoomElementList[i].RoomElementState);
             tempREPosX.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.x);
             tempREPosY.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.y);
             tempREPosZ.Add(RoomElementManager.Instance.RoomElementList[i].transform.position.z);
-            tempRERoomX.Add(RoomManager.Instance.roomX);
-            tempRERoomY.Add(RoomManager.Instance.roomY);
+            tempRERoomX.Add(RoomManager.Instance.RoomX);
+            tempRERoomY.Add(RoomManager.Instance.RoomY);
         }
         //Debug.Log ("房间号：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
         data.RoomElementID = tempREID.ToArray();
@@ -154,7 +154,7 @@ public class ProfileManager : ExUnitySingleton<ProfileManager>
     #endregion
 
     #region Other Methods
-    void Awake()
+    public override void Awake()
     {
         InitData();
 

@@ -31,7 +31,7 @@ public class Missile : RoomElement {
 
 	public override void Awake () {
         base.Awake();
-        RoomElementID = 0;
+        //RoomElementID = 0;
         //NEED SoundManager.instance.PlaySingle(fly);
 	}
     void Start()

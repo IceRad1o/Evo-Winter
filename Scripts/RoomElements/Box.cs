@@ -16,7 +16,7 @@ public class Box : RoomElement
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 1;
+       // RoomElementID = 1;
         this.tag = "DynamicGroundElement";
 
     }

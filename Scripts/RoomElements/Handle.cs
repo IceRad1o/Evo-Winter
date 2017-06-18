@@ -16,7 +16,7 @@ public class Handle : RoomElement {
 	public override void Awake()
 	{
 		base.Awake ();
-		roomElementID = 22;
+		//roomElementID = 22;
 	}
 
 	//碰撞检测

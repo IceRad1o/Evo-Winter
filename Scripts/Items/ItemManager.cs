@@ -90,12 +90,12 @@ public class ItemManager : ExUnitySingleton<ItemManager>
     /// </summary>
     /// <param name="ID">要创建道具的ID</param>
     /// <param name="trans">设定道具是否随机掉落，true用transform生成，false随机生成</param>
-    public Item CreateItemID(int ID,Vector3 pos=default(Vector3),bool trans = true)
+    public Item CreateItemID(int ID,Vector3 pos=default(Vector3),int state=0,bool trans = true)
     {
         int itemID = ID;
         if (ItemsTable.GetItemType(itemID) == 1)
         {
-            var itemInstance = Instantiate(itemsDisposable, pos, itemsTransform.rotation) as DisposableItem;
+            var itemInstance = Instantiate(itemsDisposable, pos,Quaternion.identity) as DisposableItem;
 
             itemInstance.Create(itemID);
             return itemInstance;
@@ -103,14 +103,14 @@ public class ItemManager : ExUnitySingleton<ItemManager>
         }
         if (ItemsTable.GetItemType(itemID) == 0)
         {
-            var itemInstance = Instantiate(itemImmediately, pos, itemsTransform.rotation) as ImmediatelyItem;
+            var itemInstance = Instantiate(itemImmediately, pos, Quaternion.identity) as ImmediatelyItem;
             itemInstance.Create(itemID);
             return itemInstance;
 
         }
         if (ItemsTable.GetItemType(itemID) == 2)
         {
-            var itemInstance = Instantiate(itemInitiative, pos, itemsTransform.rotation) as InitiativeItem;
+            var itemInstance = Instantiate(itemInitiative, pos, Quaternion.identity) as InitiativeItem;
             itemInstance.Create(itemID);
             return itemInstance;
         }

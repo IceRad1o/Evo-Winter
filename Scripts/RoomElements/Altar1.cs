@@ -7,7 +7,7 @@ public class Altar1 : RoomElement{
 	public override void Awake()
 	{
 		base.Awake();
-		RoomElementID = 17;
+		//RoomElementID = 17;
 	}
 
 

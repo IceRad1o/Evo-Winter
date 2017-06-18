@@ -4,125 +4,40 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 /// <summary>
 /// 负责控制整个游戏的流程
+/// 上帝
 /// </summary>
-public class GameManager : ExUnitySingleton<GameManager>{
+public class GameManager : ExUnitySingleton<GameManager>{	
 
-    //参数的声明
-    private int loadOrNew;
-    private bool doingSetup;
-
-	//左墙0，右墙1
-	public GameObject[] wall;
-	private GameObject lefWall;
-	private GameObject rigWall;
-	//墙的位置
-	private Vector3[] bigWall = new Vector3[]{new Vector3(14.11f,0,0),new Vector3(-16.12f,2.9f,0)};
-	private Vector3[] midWall = new Vector3[]{new Vector3(10.11f,0,0),new Vector3(-11.12f,2.9f,0)};
-	private Vector3[] smlWall = new Vector3[]{new Vector3(7.11f,0,0),new Vector3(-8.5f,2.9f,0)};
-
-	// Use this for initialization
 	void Start () {
-		lefWall = Instantiate(wall[0], bigWall[0], Quaternion.Euler (-45f, 0f, 0f)) as GameObject;
-		rigWall = Instantiate(wall[1], bigWall[1], Quaternion.Euler (-45f, 0f, 0f)) as GameObject;
+	
         Player.Instance.Character.AddObserver(this);
         InitGame();
         PlayerPrefs.SetInt("canLoad", 1);
 	}
 		
-	//布局墙
-	public void LayoutWall(int x, int y)
-	{
-		int rms = CheckpointManager.Instance.GetNextRoom (x, y).roomSize;
-		Vector3[] wal = bigWall;
-		switch (rms)
-		{
-		case 1:
-			wal = smlWall;
-			break;
-		case 2:
-			wal = midWall;
-			break;
-		case 3:
-			wal = bigWall;
-			break;
-		}
-		lefWall.transform.position = wal [0];
-		rigWall.transform.position = wal [1];
-	}
-
-
-
-
-
     //游戏初始化
     void InitGame()
     {
-        doingSetup = true;
-
-        loadOrNew = PlayerPrefs.GetInt("isNew", 1);
-        //loadOrNew = 0;
-
-        if (loadOrNew == 1)
+        int isNewGame = PlayerPrefs.GetInt("isNew", 1);
+        RETable.Instance.InitREDict();
+        if (isNewGame == 1)
         {
             //设置关卡
-            //CheckpointManager.Instance.SetRowColumn(4,4);
             CheckpointManager.Instance.SetupCheckpoint();
-            Notify("SetupCheckpoint;" + CheckpointManager.Instance.CheckpointNumber);
-            //设置房间
-            int roomNumber = 0;
-            for (int i = 0; i < CheckpointManager.Instance.roomList.Count; i++)
-            {
-                if (CheckpointManager.Instance.roomList[i].type == -1)
-                {
-                    roomNumber = i;
-                    break;
-                }
-            }
-
-			CheckpointManager.Instance.roomList [roomNumber].pass = 1;
-            RoomManager.Instance.SetupScene(CheckpointManager.Instance.roomList[roomNumber].type,
-                                    CheckpointManager.Instance.roomList[roomNumber].doorDirection,
-                                    CheckpointManager.Instance.roomList[roomNumber].roomX,
-                                    CheckpointManager.Instance.roomList[roomNumber].roomY,
-									CheckpointManager.Instance.roomList[roomNumber].roomSize);
-
-			RoomManager.Instance.hiddenDoor = false;
-            RoomManager.Instance.Notify("EnterRoom;Unknow;" + CheckpointManager.Instance.roomList[roomNumber].type);
         }
-
         else
         {
-            //ProfileManager.Instance.Data.CurMapX;
-			CheckpointManager.Instance.LoadCheckpoint(ProfileManager.Instance.Data.Map, ProfileManager.Instance.Data.IsRoomPassed, ProfileManager.Instance.Data.RoomSize);
-			//测试
-			Debug.Log ("NEXTROOM:"+CheckpointManager.Instance.GetNextRoom(0,0).GetType());
-            RoomManager.Instance.LoadScene(
-                ProfileManager.Instance.Data.Map[ProfileManager.Instance.Data.CurRoomX * (CheckpointManager.Instance.columns)+ProfileManager.Instance.Data.CurRoomY * (CheckpointManager.Instance.rows)],
-                ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY,
-                CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY).doorDirection,
-                ProfileManager.Instance.Data.RoomElementRoomX,
-                ProfileManager.Instance.Data.RoomElementRoomY,
-                ProfileManager.Instance.Data.RoomElementID,
-                ProfileManager.Instance.Data.RoomElementPosX,
-                ProfileManager.Instance.Data.RoomElementPosY,
-                ProfileManager.Instance.Data.RoomElementPosZ,
-				CheckpointManager.Instance.GetNextRoom(ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY).roomSize);
-
-
-            
-
-            //RoomManager.Instance.LoadEnemy(ProfileManager.Instance.Data.CurRoomX, ProfileManager.Instance.Data.CurRoomY,
-            //    ProfileManager.Instance.Data.EnemyID,
-            //    ProfileManager.Instance.Data.EnemyPosX,
-            //    ProfileManager.Instance.Data.EnemyPosY,
-            //    ProfileManager.Instance.Data.EnemyPosZ);
-
-            RoomManager.Instance.Notify("EnterRoom;Know");
-
-
+			CheckpointManager.Instance.LoadCheckpoint();
         }
 
     }
+
+    //切换到主场景
+    void SwitchToMainScene()
+    {
+        SceneManager.LoadScene("Scenes/Formal/MainScene");
+    }
+
     public override void OnNotify(string msg)
     {
         string[] str = UtilManager.Instance.GetMsgFields(msg);
@@ -131,7 +46,7 @@ public class GameManager : ExUnitySingleton<GameManager>{
             if (str[1] == "Player")
             {
                 PlayerPrefs.SetInt("canLoad", 0);
-                SceneManager.LoadScene("Scenes/Formal/MainScene");
+                SwitchToMainScene();
             }
         }
         

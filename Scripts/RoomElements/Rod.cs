@@ -5,7 +5,7 @@ public class Rod : RoomElement {
 
 	public override void Awake() {
         base.Awake();
-        RoomElementID = 13;
+       // RoomElementID = 13;
  
 	}
 	

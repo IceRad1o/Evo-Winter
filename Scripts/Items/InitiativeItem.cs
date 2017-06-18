@@ -10,7 +10,7 @@ public class InitiativeItem : Item{
     {
         get { return energyNow; }
         set { energyNow = value;
-            RoomElementState = energyNow;
+            RoomElementState =(int) energyNow;
             if (energyNow > energyMax) energyNow = energyMax; 
             ItemManager.Instance.SendMsg("InitiativeItem_Energy_Number;"+(energyMax==0?100:(energyNow*100.0f/energyMax))); 
             }
@@ -61,7 +61,9 @@ public class InitiativeItem : Item{
         base.DestroyScript();
     }
 
-    public void Use() {
+    public override void Use()
+    {
+        base.Use();
         if (energyNow < energyMax)
         {
             ItemManager.Instance.SendMsg("InitiativeItem_Energy_NotFull");

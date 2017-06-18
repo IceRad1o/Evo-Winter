@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Door : RoomElement
 {
+    public Direction doorType;
     //门的位置，0上，1下，2左，3右
     private int position;
 	//判断是否进入过房间
@@ -10,7 +11,7 @@ public class Door : RoomElement
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 3;
+        //RoomElementID = 3;
         this.tag = "StaticGroundElement";
 	}
 
@@ -34,34 +35,46 @@ public class Door : RoomElement
             //等待1s
         }
     }
+    Vector2 GetNearRoomXY()
+    {
+        int x = RoomManager.Instance.roomInfo.roomX;
+        int y = RoomManager.Instance.roomInfo.roomY;
+        switch (RoomElementID)
+        {
 
+            case REID.DoorFront:
+                return new Vector2(x-1, y );
+               
+            case REID.DoorBack:
+                return new Vector2(x+1,y );
+           
+            case REID.DoorLeft:
+                return new Vector2(x, y-1);
+           ;
+            case REID.DoorRight:
+                return new Vector2(x, y+1 );
+
+            default:
+                break;
+        }
+        return new Vector2();
+    }
 	//设置或载入
 	void SetOrLoad(int x, int y, int map)
 	{
-		// x , y = RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1
-		// map = ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY+1)
-		if (CheckpointManager.Instance.GetNextRoom(x, y).pass == 0)
+
+        RoomManager.Instance.LoadRoom(GetNearRoomXY());
+        return;
+        // x , y = RoomManager.Instance.roomX, RoomManager.Instance.roomY + 1
+        // map = ProfileManager.Instance.Data.CurMapX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurMapY+1)
+        if (CheckpointManager.Instance.GetRoomInfo(x, y).pass == 0)
 		{
-			RoomManager.Instance.SetupScene(CheckpointManager.Instance.GetNextRoom(x, y).type,
-				CheckpointManager.Instance.GetNextRoom(x, y).doorDirection,
-				CheckpointManager.Instance.GetNextRoom(x, y).roomX,
-				CheckpointManager.Instance.GetNextRoom(x, y).roomY,
-				CheckpointManager.Instance.GetNextRoom(x, y).roomSize);
+			RoomManager.Instance.LoadRoom(CheckpointManager.Instance.GetRoomInfo(x, y));
 		}
 		else
 		{
 			pass = 1;
-			RoomManager.Instance.LoadScene(
-				ProfileManager.Instance.Data.Map[map], 
-				x, y,
-				CheckpointManager.Instance.GetNextRoom(x, y).doorDirection,
-				ProfileManager.Instance.Data.RoomElementRoomX,
-				ProfileManager.Instance.Data.RoomElementRoomY,
-				ProfileManager.Instance.Data.RoomElementID,
-				ProfileManager.Instance.Data.RoomElementPosX,
-				ProfileManager.Instance.Data.RoomElementPosY,
-				ProfileManager.Instance.Data.RoomElementPosZ,
-				CheckpointManager.Instance.GetNextRoom(x, y).roomSize);
+			RoomManager.Instance.LoadRoom(x, y);
 
 		}
 	}
@@ -69,8 +82,8 @@ public class Door : RoomElement
 
     IEnumerator EnterRoom()
     {
-        RoomManager.Instance.Notify("LeaveRoom;"+position);
-
+        //RoomManager.Instance.Notify("LeaveRoom;"+ (RoomElementID-REID.DoorFront));
+        RoomManager.Instance.LeaveRoom((RoomElementID - REID.DoorFront));
 
         yield return new WaitForSeconds(0.5f);
 
@@ -81,60 +94,60 @@ public class Door : RoomElement
         int map;
         //yield return(WaitForSeconds (1f));
 
-        switch (roomDir)
+        switch (RoomElementID)
         {
 
-            case 0:
+            case REID.DoorFront:
                 //进入上侧房间   
-                Debug.Log("进上xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
+                Debug.Log("进上xy：" + RoomManager.Instance.RoomX + "," + RoomManager.Instance.RoomY);
                 Player.Instance.Character.transform.position = new Vector3(0f, -6.5f, 0f);
-                rmX = RoomManager.Instance.roomX - 1;
-                rmY = RoomManager.Instance.roomY;
+                rmX = RoomManager.Instance.RoomX - 1;
+                rmY = RoomManager.Instance.RoomY;
                 map = (ProfileManager.Instance.Data.CurRoomX - 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurRoomY;
                 SetOrLoad(rmX, rmY, map);
                 break;
-            case 1:
+            case REID.DoorBack:
                 //进入下侧房间
-                Debug.Log("进下xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
+                Debug.Log("进下xy：" + RoomManager.Instance.RoomX + "," + RoomManager.Instance.RoomY);
                 Player.Instance.Character.transform.position = new Vector3(0f, -1.2f, 0f);
-                rmX = RoomManager.Instance.roomX + 1;
-                rmY = RoomManager.Instance.roomY;
+                rmX = RoomManager.Instance.RoomX + 1;
+                rmY = RoomManager.Instance.RoomY;
                 map = (ProfileManager.Instance.Data.CurRoomX + 1) * (CheckpointManager.Instance.columns) + ProfileManager.Instance.Data.CurRoomY;
                 SetOrLoad(rmX, rmY, map);
                 break;
-            case 2:
+                case REID.DoorLeft:
                 //进入左侧房间
-                Debug.Log("进左xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
+                Debug.Log("进左xy：" + RoomManager.Instance.RoomX + "," + RoomManager.Instance.RoomY);
                 //Player.Instance.Character.transform.position = new Vector3 (10.5f, -4f, 0f);
-                rmX = RoomManager.Instance.roomX;
-                rmY = RoomManager.Instance.roomY - 1;
+                rmX = RoomManager.Instance.RoomX;
+                rmY = RoomManager.Instance.RoomY - 1;
                 map = ProfileManager.Instance.Data.CurRoomX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurRoomY - 1);
                 SetOrLoad(rmX, rmY, map);
-                if (CheckpointManager.Instance.GetNextRoom(rmX, rmY).roomSize == 1)
+                if (CheckpointManager.Instance.GetRoomInfo(rmX, rmY).roomSize == 1)
                     Player.Instance.Character.transform.position = new Vector3(4.5f, -4f, 0f);
-                else if (CheckpointManager.Instance.GetNextRoom(rmX, rmY).roomSize == 2)
+                else if (CheckpointManager.Instance.GetRoomInfo(rmX, rmY).roomSize == 2)
                     Player.Instance.Character.transform.position = new Vector3(7f, -4f, 0f);
                 else
                     Player.Instance.Character.transform.position = new Vector3(10.5f, -4f, 0f);
                 break;
-            case 3:
+            case REID.DoorRight:
                 //进入右侧房间
-                Debug.Log("进右xy：" + RoomManager.Instance.roomX + "," + RoomManager.Instance.roomY);
+                Debug.Log("进右xy：" + RoomManager.Instance.RoomX + "," + RoomManager.Instance.RoomY);
                 //Player.Instance.Character.transform.position = new Vector3 (-10.5f, -4f, 0f);
-                rmX = RoomManager.Instance.roomX;
-                rmY = RoomManager.Instance.roomY + 1;
+                rmX = RoomManager.Instance.RoomX;
+                rmY = RoomManager.Instance.RoomY + 1;
                 map = ProfileManager.Instance.Data.CurRoomX * (CheckpointManager.Instance.columns) + (ProfileManager.Instance.Data.CurRoomY + 1);
                 SetOrLoad(rmX, rmY, map);
-                if (CheckpointManager.Instance.GetNextRoom(rmX, rmY).roomSize == 1)
+                if (CheckpointManager.Instance.GetRoomInfo(rmX, rmY).roomSize == 1)
                     Player.Instance.Character.transform.position = new Vector3(-4.5f, -4f, 0f);
-                else if (CheckpointManager.Instance.GetNextRoom(rmX, rmY).roomSize == 2)
+                else if (CheckpointManager.Instance.GetRoomInfo(rmX, rmY).roomSize == 2)
                     Player.Instance.Character.transform.position = new Vector3(-7f, -4f, 0f);
                 else
                     Player.Instance.Character.transform.position = new Vector3(-10.5f, -4f, 0f);
                 break;
         }
 
-        CheckpointManager.Instance.GetNextRoom(RoomManager.Instance.roomX, RoomManager.Instance.roomY).SetPass(1);
+        CheckpointManager.Instance.GetRoomInfo(RoomManager.Instance.RoomX, RoomManager.Instance.RoomY).pass=1;
 
         if (pass == 1)
         {

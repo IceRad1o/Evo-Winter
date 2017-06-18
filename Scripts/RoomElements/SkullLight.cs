@@ -9,7 +9,7 @@ public class SkullLight : RoomElement {
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 9;
+      //  RoomElementID = 9;
 
 	}
 

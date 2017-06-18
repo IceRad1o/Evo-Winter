@@ -14,11 +14,16 @@ public class Coin : Item {
 
         if (other.tag == "Player" && canGet)
         {
-            PickUp();
+            EnterEvent();
+            
         }
 
     }
-
+    public override void EnterEvent()
+    {
+        base.EnterEvent();
+        PickUp();
+    }
 
     public override void  PickUp()
     {
@@ -33,7 +38,7 @@ public class Coin : Item {
     public override void Awake()
     {
         base.Awake();
-        roomElementID = 21;
+
     }
 
 

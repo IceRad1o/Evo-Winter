@@ -9,7 +9,7 @@ public class Bottle2 : RoomElement
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 11;
+       // RoomElementID = 11;
         this.tag = "DynamicGroundElement";
     }
 

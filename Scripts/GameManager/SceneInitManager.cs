@@ -12,7 +12,8 @@ public class SceneInitManager : MonoBehaviour {
         {
             foreach (GameObject obj in objs)
             {
-                Instantiate(obj);
+                if (obj)
+                    Instantiate(obj);
             }
             Destroy(gameObject);
         }
@@ -25,6 +26,7 @@ public class SceneInitManager : MonoBehaviour {
     {
         foreach (GameObject obj in objs)
         {
+            if(obj)
             Instantiate(obj);
             yield return new WaitForSeconds(2f);
         }

@@ -7,7 +7,7 @@ public class Skull : RoomElement {
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 8;
+     //   RoomElementID = 8;
         this.tag = "DynamicGroundElement";
 	}
 	

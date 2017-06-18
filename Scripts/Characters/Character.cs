@@ -599,6 +599,7 @@ public class Character : RoomElement
             for (int i = 0; i < a.Length; i++)
                 a[i].flipX = !a[i].flipX;
 
+
             direction = value;
             AttemptDirection = value;
             if (direction.x > 0)
@@ -750,8 +751,8 @@ public class Character : RoomElement
     {
       
         //初始化
-        career = (CareerType)(RoomElementID % 10);
-        race = (RaceType)(RoomElementID % 100 / 10);
+        career = (CareerType)((int)RoomElementID % 10);
+        race = (RaceType)((int)RoomElementID % 100 / 10);
         anim = this.GetComponent<Animator>();
         actionStateMachine = new ActionStateMachine();
         actionStateMachine.Character = this;

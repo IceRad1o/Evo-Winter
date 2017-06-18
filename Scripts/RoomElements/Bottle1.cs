@@ -10,7 +10,7 @@ public class Bottle1 : RoomElement
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 10;
+       // RoomElementID = 10;
         this.tag = "DynamicGroundElement";
     }
 
@@ -18,7 +18,7 @@ public class Bottle1 : RoomElement
     {
         animator = GetComponent<Animator>();
         isHit = false;
-		if(RoomElementState==1) animator.SetTrigger("Hit");
+		if(RoomElementState== 1) animator.SetTrigger("Hit");
         //NEED SoundManager.instance.PlaySingle(getBox);
     }
 

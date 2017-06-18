@@ -7,7 +7,7 @@ public class Picture1 : RoomElement {
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 6;
+       // RoomElementID = 6;
 	}
 	
 	// Update is called once per frame

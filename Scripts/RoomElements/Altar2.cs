@@ -8,7 +8,7 @@ public class Altar2 : RoomElement {
 	public override void Awake()
 	{
 		base.Awake();
-		RoomElementID = 18;
+		//RoomElementID = 18;
 	}
 	
 	//碰撞检测

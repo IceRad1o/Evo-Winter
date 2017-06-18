@@ -11,19 +11,19 @@ public class Plate : RoomElement {
 	public override void Awake()
 	{
 		base.Awake();
-		RoomElementID = 20;
+		//RoomElementID = 20;
         //SetPrice(RoomElementState);
 	}
 
     private void Start()
     {
-        SetPrice(RoomElementState);
+        SetPrice((int)RoomElementState);
     }
 
 
     public void SetPrice(int price)
 	{
-        RoomElementState = price;
+        RoomElementState = (int)price;
 
         int priceHigh = price / 100;
         int priceMiddle = price%100 / 10;

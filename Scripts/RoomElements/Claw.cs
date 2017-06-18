@@ -6,7 +6,7 @@ public class Claw : RoomElement {
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 5;
+        //RoomElementID = 5;
     }
 
 	//碰撞检测

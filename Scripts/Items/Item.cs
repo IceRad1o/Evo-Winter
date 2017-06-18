@@ -117,7 +117,7 @@ public class Item : RoomElement {
     public virtual void CreateScript(int ID)
     {
         ItemID = ID;
-        RoomElementID = ID;
+        RoomElementID =(REID)ID;
         Data = ItemsTable.Instance.FindItemsByID(ID);
         ItemBuffID = Data.buffID;
         itemSkillID = Data.skillID;
@@ -149,7 +149,7 @@ public class Item : RoomElement {
         base.Awake();
         PlayerIn = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        roomElementID = 1000;
+        roomElementID = REID.Item;
 
     }
 

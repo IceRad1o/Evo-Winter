@@ -9,7 +9,7 @@ public class Mirror : RoomElement {
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 2;
+       // RoomElementID = 2;
     }
 	void Update () {
 	

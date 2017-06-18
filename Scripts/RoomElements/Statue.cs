@@ -9,7 +9,7 @@ public class Statue : RoomElement {
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 4;
+        //RoomElementID = 4;
 	}
 	
 	// Update is called once per frame

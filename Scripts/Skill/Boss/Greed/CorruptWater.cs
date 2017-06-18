@@ -28,7 +28,7 @@ public class CorruptWater : MonoBehaviour {
         }
         if (other.tag == "Monster")
         {
-            if (other.GetComponent<Character>().RoomElementID < 2010)
+            if ((int)other.GetComponent<Character>().RoomElementID < 2010)
             {
                 other.GetComponent<Character>().Hp = 0;
 

@@ -178,7 +178,7 @@ public class BossSkillManager : ExSubject{
     void Start()
     {
         this.gameObject.GetComponent<Character>().AddObserver(this);
-        BossID = (this.gameObject.GetComponent<Character>().RoomElementID - 2050)%100;
+        BossID = ((int)this.gameObject.GetComponent<Character>().RoomElementID - 2050)%100;
 
     }
 

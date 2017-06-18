@@ -28,8 +28,9 @@ public class DisposableItem : Item{
      *@Brief 一次性道具的使用
      *@发送消息，使用道具，并将Skill或Buff的ID发出
      */
-    public void Use()
+    public override void Use()
     {
+        base.Use();
         usingNumber--;
 
         //Debug.Log("UseItem_Buff_ID" + ItemBuffID);

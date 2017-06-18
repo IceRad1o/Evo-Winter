@@ -12,7 +12,7 @@ public class Trap : RoomElement
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = 15;
+        //RoomElementID = 15;
         damage = 1;
         //NEED SoundManager.instance.PlaySingle(appearTrap);
     }

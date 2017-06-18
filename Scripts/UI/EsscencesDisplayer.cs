@@ -69,20 +69,20 @@ public class EsscencesDisplayer : UnitySingleton<EsscencesDisplayer> {
 
     public void OnEsscences0()
     {
-        PlayerManager.Instance.SwitchPlayer(0 + Player.Instance.Character.RoomElementID % 10);
+        PlayerManager.Instance.SwitchPlayer(0 + (int)Player.Instance.Character.RoomElementID % 10);
     }
 
     public void OnEsscences1()
     {
-        PlayerManager.Instance.SwitchPlayer(4 + Player.Instance.Character.RoomElementID % 10);
+        PlayerManager.Instance.SwitchPlayer(4 + (int)Player.Instance.Character.RoomElementID % 10);
     }
 
     public void OnEsscences2()
     {
-        PlayerManager.Instance.SwitchPlayer(8 + Player.Instance.Character.RoomElementID % 10);
+        PlayerManager.Instance.SwitchPlayer(8 + (int)Player.Instance.Character.RoomElementID % 10);
     }
     public void OnEsscences3()
     {
-        PlayerManager.Instance.SwitchPlayer(12 + Player.Instance.Character.RoomElementID % 10);
+        PlayerManager.Instance.SwitchPlayer(12 + (int)Player.Instance.Character.RoomElementID % 10);
     }
 }

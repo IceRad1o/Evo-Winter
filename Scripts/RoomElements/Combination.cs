@@ -6,7 +6,7 @@ public class Combination : RoomElement
     public override void Awake()
     {
         base.Awake();
-        RoomElementID = -1;
+       // RoomElementID = -1;
 
     }
 
