@@ -9,7 +9,7 @@ public class Twinkle : Skill {
     public override void Trigger()
     {
 
-        GameObject pfb = Resources.Load("Skill/Twinkle") as GameObject;
+        GameObject pfb = Resources.Load("Prefabs/Skill/Twinkle") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;

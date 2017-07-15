@@ -19,7 +19,7 @@ public class GroundMelody : Skill {
             }
         }
 
-        GameObject pfb = Resources.Load("Skill/GroundMelody") as GameObject;
+        GameObject pfb = Resources.Load("Prefabs/Skill/GroundMelody") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.y);
         GameObject prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;

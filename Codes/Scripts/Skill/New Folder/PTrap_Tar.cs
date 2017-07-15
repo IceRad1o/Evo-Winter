@@ -8,7 +8,7 @@ public class PTrap_Tar : MonoBehaviour {
 
         if (other.tag == "Monster")
         {
-            var pfb= UtilManager.Instance.CreateEffcet("Skill/Skill4",this.transform.position);
+            var pfb= UtilManager.Instance.CreateEffcet("Prefabs/Skill/Skill4", this.transform.position);
             pfb.GetComponent<FogChangeAttribute>().triggerTag = "Monster";
             GetComponent<RoomElement>().Destroy();
             

@@ -10,7 +10,7 @@ public class NamikazeMinato : Skill {
     {
         if (!isSecond)
         {
-            GameObject pfb = Resources.Load("Skill/Kunai") as GameObject;
+            GameObject pfb = Resources.Load("Prefabs/Skill/Kunai") as GameObject;
             Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
             prefabInstance = Instantiate(pfb);
             prefabInstance.transform.position = s;

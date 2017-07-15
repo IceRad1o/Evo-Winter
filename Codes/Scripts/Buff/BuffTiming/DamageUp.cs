@@ -20,7 +20,7 @@ public class DamageUp : BuffTiming {
         BuffDuration = idPart[2];
 
         //Debug.Log("shield");
-        GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
+        GameObject pfb = Resources.Load("Prefabs/Buffs/SpeedDown") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
@@ -34,7 +34,7 @@ public class DamageUp : BuffTiming {
         //MissingReferenceException: The object of type 'DamageUp' has been destroyed but you are still trying to access it.
         this.gameObject.GetComponent<Character>().Hp -= dHealth;
 
-        GameObject pfb = Resources.Load("Buffs/AttackShield") as GameObject;
+        GameObject pfb = Resources.Load("Prefabs/Buffs/AttackShield") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
         prefabInstance1 = Instantiate(pfb);
         prefabInstance1.transform.position = s;

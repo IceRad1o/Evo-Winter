@@ -20,7 +20,7 @@ public class WindinAnger : Skill {
 
         Debug.Log("WindinAnger Create");
         //添加特效
-        GameObject pfb = Resources.Load("Buffs/Attack/AttackStatic") as GameObject;
+        GameObject pfb = Resources.Load("Prefabs/Buffs/Attack/AttackStatic") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;

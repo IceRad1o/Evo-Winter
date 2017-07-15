@@ -11,7 +11,7 @@ public class AttackSputtering : BuffAttack {
     {
         if (JudgeTrigger())
         {
-            GameObject pfb = Resources.Load("Buffs/Sputtering") as GameObject;
+            GameObject pfb = Resources.Load("Prefabs/Buffs/Sputtering") as GameObject;
             Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
             pfb1 = Instantiate(pfb);
             pfb1.transform.position = s;

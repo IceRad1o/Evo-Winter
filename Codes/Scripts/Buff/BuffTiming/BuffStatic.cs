@@ -30,7 +30,7 @@ public class BuffStatic : BuffTiming {
         //Debug.Log(SpecialTag);
         if (SpecialTag != "Skill_L")
         {
-           prefabInstance= UtilManager.Instance.CreateEffcet("Buffs/Static", this.gameObject);
+           prefabInstance= UtilManager.Instance.CreateEffcet("Prefabs/Buffs/Static", this.gameObject);
 
             //GameObject pfb = Resources.Load("Buffs/Static") as GameObject;
             //Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
@@ -41,7 +41,7 @@ public class BuffStatic : BuffTiming {
         }
         else 
         {
-            GameObject pfb = Resources.Load("Buffs/dizzy") as GameObject;
+            GameObject pfb = Resources.Load("Prefabs/Buffs/dizzy") as GameObject;
             Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y+2, -1);
             prefabInstance = Instantiate(pfb);
             prefabInstance.transform.position = s;

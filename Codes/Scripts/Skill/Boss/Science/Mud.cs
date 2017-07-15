@@ -8,7 +8,7 @@ public class Mud : Skill {
         base.Trigger();
         Cd = 5;
 
-        UtilManager.Instance.CreateEffcet("Skill/Skill4", this.gameObject.transform.position);
+        UtilManager.Instance.CreateEffcet("Prefabs/Skill/Skill4", this.gameObject.transform.position);
 
     }
 

@@ -20,13 +20,13 @@ public class CreateLaser : Skill {
     {
 
         //Vector3 targetPos = Player.Instance.transform.position;
-       GameObject a= UtilManager.Instance.CreateEffcet("Skill/Boss/Science/LaserRect", transform.position);
+       GameObject a= UtilManager.Instance.CreateEffcet("Prefabs/Skill/Boss/Science/LaserRect", transform.position);
        if (GetComponent<Character>().FaceDirection == 1)
            a.GetComponent<ScaleTo>().destValue *= -1;
 
         yield return new WaitForSeconds(1.5f);
 
-        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Laser", point.transform.position);
+        UtilManager.Instance.CreateEffcet("Prefabs/Skill/Boss/Science/Laser", point.transform.position);
    
 
 

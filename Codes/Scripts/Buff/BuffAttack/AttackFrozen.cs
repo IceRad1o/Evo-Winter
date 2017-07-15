@@ -22,7 +22,7 @@ public class AttackFrozen : BuffAttack {
         base.Create(ID);
 
         //添加特效
-        UtilManager.Instance.CreateEffcet("Buffs/Attack/AttackFrozen",this.gameObject.GetComponent<CharacterSkin>().weapons[0]);
+        UtilManager.Instance.CreateEffcet("Prefabs/Buffs/Attack/AttackFrozen", this.gameObject.GetComponent<CharacterSkin>().weapons[0]);
 
     }
 

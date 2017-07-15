@@ -26,7 +26,7 @@ public class BuffInvincible : BuffTiming{
     {
         Player.Instance.Character.IsInvincible = 1;
         if (SpecialTag!="NoEffect")
-            prefabInstance = UtilManager.Instance.CreateEffcet("Buffs/Invincible", this.gameObject);
+            prefabInstance = UtilManager.Instance.CreateEffcet("Prefabs/Buffs/Invincible", this.gameObject);
         //GameObject pfb = Resources.Load("Buffs/Invincible") as GameObject;
         //Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
         //prefabInstance = Instantiate(pfb);

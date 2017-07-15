@@ -62,7 +62,7 @@ public class BuffChangeAttribute : Buff
         
        }
 
-       GameObject pfb = Resources.Load("Buffs/12") as GameObject;
+       GameObject pfb = Resources.Load("Prefabs/Buffs/12") as GameObject;
        Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
        GameObject prefabInstance = Instantiate(pfb);
        prefabInstance.transform.position = s;
@@ -137,7 +137,7 @@ public class BuffChangeAttribute : Buff
             attribute = 0;
             dValue = this.gameObject.GetComponent<BuffManager>().PlayerHealth-(int)this.gameObject.GetComponent<Character>().Hp;
 
-            GameObject pfb = Resources.Load("Buffs/12") as GameObject;
+            GameObject pfb = Resources.Load("Prefabs/Buffs/12") as GameObject;
             Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
             GameObject pf1 = Instantiate(pfb);
             pf1.transform.position = s;

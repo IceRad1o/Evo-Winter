@@ -95,7 +95,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 if (dValue >= 0)
                 {
                     //Debug.Log("Speed UP:" + this.gameObject.GetComponent<Character>().MoveSpeed);
-                    GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
+                    GameObject pfb = Resources.Load("Prefabs/Buffs/SpeedDown") as GameObject;
                     Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
                     prefabInstance = Instantiate(pfb);
                     prefabInstance.transform.position = s;
@@ -104,7 +104,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 }
                 if (dValue <= 0)
                 {
-                    GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
+                    GameObject pfb = Resources.Load("Prefabs/Buffs/SpeedDown") as GameObject;
                     Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
                     prefabInstance = Instantiate(pfb);
                     prefabInstance.transform.position = s;
@@ -116,7 +116,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 this.gameObject.GetComponent<Character>().Spd += dValue;
                 if (dValue >= 0)
                 {
-                    GameObject pfb = Resources.Load("Buffs/SpeedDown") as GameObject;
+                    GameObject pfb = Resources.Load("Prefabs/Buffs/SpeedDown") as GameObject;
                     Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
                     prefabInstance = Instantiate(pfb);
                     prefabInstance.transform.position = s;
@@ -131,7 +131,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 this.gameObject.GetComponent<Character>().Atk += dValue;
                 if (dValue >= 0)
                 {
-                    GameObject pfb = Resources.Load("Buffs/AttackDamageUp") as GameObject;
+                    GameObject pfb = Resources.Load("Prefabs/Buffs/AttackDamageUp") as GameObject;
                     Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
                     prefabInstance = Instantiate(pfb);
                     prefabInstance.transform.position = s;
@@ -143,7 +143,7 @@ public class BuffChangeAttributeTemp : BuffTiming {
                 this.gameObject.GetComponent<Character>().Fhr += dValue;
                 if (dValue >= 0)
                 {
-                    GameObject pfb = Resources.Load("Buffs/HitRecoverUp") as GameObject;
+                    GameObject pfb = Resources.Load("Prefabs/Buffs/HitRecoverUp") as GameObject;
                     Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
                     prefabInstance = Instantiate(pfb);
                     prefabInstance.transform.position = s;

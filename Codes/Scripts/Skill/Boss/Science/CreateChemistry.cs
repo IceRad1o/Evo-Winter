@@ -19,12 +19,12 @@ public class CreateChemistry : Skill {
     {
 
         Vector3 targetPos = Player.Instance.transform.position;
-        UtilManager.Instance.CreateEffcet("Skill/Boss/Science/ChemistryAim", targetPos);  
+        UtilManager.Instance.CreateEffcet("Prefabs/Skill/Boss/Science/ChemistryAim", targetPos);  
 
 
         yield return new WaitForSeconds(0.5f);
 
-        GameObject a=UtilManager.Instance.CreateEffcet("Skill/Boss/Science/Chemistry2", this.gameObject.transform.position);
+        GameObject a=UtilManager.Instance.CreateEffcet("Prefabs/Skill/Boss/Science/Chemistry2", this.gameObject.transform.position);
         a.GetComponent<Chemistry>().targetPos = targetPos;
 
 

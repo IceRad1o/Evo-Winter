@@ -13,7 +13,7 @@ public class BuffCreateItem : Buff {
         {
             EsscenceManager.Instance.CreateEsscence();
 
-            GameObject pfb = Resources.Load("Buffs/devil") as GameObject;
+            GameObject pfb = Resources.Load("Prefabs/Buffs/devil") as GameObject;
             Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
             GameObject prefabInstance = Instantiate(pfb);
             prefabInstance.transform.position = s;
@@ -24,7 +24,7 @@ public class BuffCreateItem : Buff {
             EsscenceManager.Instance.ChangeTwoEsscence();
             
 
-            GameObject pfb = Resources.Load("Buffs/devil") as GameObject;
+            GameObject pfb = Resources.Load("Prefabs/Buffs/devil") as GameObject;
             Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, -1);
             GameObject prefabInstance = Instantiate(pfb);
             prefabInstance.transform.position = s;

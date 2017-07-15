@@ -21,7 +21,7 @@ public class Blast : Skill {
     private IEnumerator SkillTrigger()
     {
    
-        GameObject pfb = UtilManager.Instance.CreateEffcet("Skill/Boss/Science/ExplosionCircle", this.gameObject.transform.position);  
+        GameObject pfb = UtilManager.Instance.CreateEffcet("Prefabs/Skill/Boss/Science/ExplosionCircle", this.gameObject.transform.position);  
 
 
 

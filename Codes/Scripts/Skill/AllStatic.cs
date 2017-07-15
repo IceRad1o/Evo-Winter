@@ -16,7 +16,7 @@ public class AllStatic : Skill {
             }
         }
         this.GetComponent<Character>().Hp--;
-        UtilManager.Instance.CreateEffcet("Skill/AllStatic", this.gameObject);
+        UtilManager.Instance.CreateEffcet("Prefabs/Skill/AllStatic", this.gameObject);
         //GameObject pfb = Resources.Load("Skill/AllStatic") as GameObject;
         //Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.y);
         //GameObject prefabInstance = Instantiate(pfb);

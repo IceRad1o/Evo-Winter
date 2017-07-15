@@ -33,7 +33,7 @@ public class CreateGiftWater : Skill {
             float y = (Random.value - 0.5f) * skillRangeY / 2;
             //TODO 边界判断
             posList[i] = new Vector3(x,y,y);
-            UtilManager.Instance.CreateEffcet("Skill/HintCircle",this.transform.position+posList[i]); 
+            UtilManager.Instance.CreateEffcet("Prefabs/Skill/HintCircle", this.transform.position+posList[i]); 
         }
    
         yield return new WaitForSeconds(1f);

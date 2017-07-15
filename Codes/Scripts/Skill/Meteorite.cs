@@ -35,7 +35,7 @@ public class Meteorite : Skill {
         Vector3 s = new Vector3(Random.value * 12 - 6, 30, (float)(Random.value*(-40))*0.1f);
 
         yield return new WaitForSeconds(time - 1.0f);
-        GameObject pfb = Resources.Load("Skill/Aim") as GameObject;
+        GameObject pfb = Resources.Load("Prefabs/Skill/Aim") as GameObject;
         pfb.AddComponent<ChangeScale>();
         GameObject prefabInstance = Instantiate(pfb, new Vector3(s.x, s.z, s.z), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as GameObject;
 
@@ -43,7 +43,7 @@ public class Meteorite : Skill {
         yield return new WaitForSeconds(0.0f);
 
 
-        pfb = Resources.Load("Skill/Stone") as GameObject;
+        pfb = Resources.Load("Prefabs/Skill/Stone") as GameObject;
         prefabInstance = Instantiate(pfb, s, new Quaternion(0.0f, 0.0f, 0.0f, 0.0f)) as GameObject;
         
     

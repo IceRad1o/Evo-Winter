@@ -43,7 +43,7 @@ public class BuffPoison : BuffTiming
         StartCoroutine(delay(BuffDuration, 0, 0.5f));
         this.gameObject.GetComponent<Character>().AddObserver(this);
 
-        GameObject pfb = Resources.Load("Buffs/Poison") as GameObject;
+        GameObject pfb = Resources.Load("Prefabs/Buffs/Poison") as GameObject;
         Vector3 s = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         prefabInstance = Instantiate(pfb);
         prefabInstance.transform.position = s;
